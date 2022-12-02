@@ -1,0 +1,155 @@
+###############################################################
+# Copyright (c) 2021,2022 Contributors to the Eclipse Foundation
+#
+# See the NOTICE file(s) distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Apache License, Version 2.0 which is available at
+# https://www.apache.org/licenses/LICENSE-2.0.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+###############################################################
+
+name: "portal"
+portContainer: 8080
+portService: 8080
+replicaCount: 1
+securityContext:
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+  capabilities:
+    drop: ["ALL"]
+
+frontend:
+  ingress:
+    enabled: false
+  portal:
+    name: "portal"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-frontend"
+      tag: "0.6.0"
+  registration:
+    name: "registration"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-frontend-registration"
+      tag: "0.6.0"
+
+backend:
+  ingress:
+    enabled: false
+    name: "portal-backend"
+  registration:
+    name: "registration-service"
+    image:
+      name: "ghcr.io/catenax-ng/product-portal-backend_registration-service"
+      tag: "int-v0.6.0"
+    secret:
+      name: "secret-registration"
+      appsettings: ""
+  administration:
+    name: "administration-service"
+    image:
+      name: "ghcr.io/catenax-ng/product-portal-backend_administration-service"
+      tag: "int-v0.6.0"
+    secret:
+      name: "secret-administration"
+      appsettings: ""
+  provisioning:
+    name: "provisioning-service"
+    image:
+      name: "ghcr.io/catenax-ng/product-portal-backend_provisioning-service"
+      tag: "int-v0.6.0"
+    secret:
+      name: "secret-provisioning"
+      appsettings: ""
+  appmarketplace:
+    name: "marketplace-app-service"
+    image:
+      name: "ghcr.io/catenax-ng/product-portal-backend_marketplace-app-service"
+      tag: "int-v0.6.0"
+    secret:
+      name: "secret-appmarketplace"
+      appsettings: ""
+  portalmigrations:
+    name: "portal-migrations"
+    image:
+      name: "ghcr.io/catenax-ng/product-portal-backend_portal-migrations"
+      tag: "int-v0.6.0"
+    secret:
+      name: "secret-portal-migrations"
+      appsettings: ""
+  portalmaintenance:
+    name: "portal-maintenance"
+    image:
+      name: "ghcr.io/catenax-ng/product-portal-backend_maintenance-service"
+      tag: "int-v0.6.0"
+    secret:
+      name: "secret-portal-maintenance"
+      appsettings: ""
+  notification:
+    name: "notification-service"
+    image:
+      name: "ghcr.io/catenax-ng/product-portal-backend_notification-service"
+      tag: "int-v0.6.0"
+    secret:
+      name: "secret-notification"
+      appsettings: ""
+  services:
+    name: "services-service"
+    image:
+      name: "ghcr.io/catenax-ng/product-portal-backend_services-service"
+      tag: "int-v0.6.0"
+    secret:
+      name: "secret-services"
+      appsettings: ""
+
+postgresql:
+  enabled: true
+  fullnameOverride: "portal-backend-postgresql"
+  auth:
+    existingSecret: "secret-postgres-init"
+  architecture: "replication"
+  audit:
+    pgAuditLog: "write, ddl"
+    logLinePrefix: "%m %u %d "
+  primary:
+    extraVolumeMounts:
+      - name: "initdb"
+        mountPath: "/docker-entrypoint-initdb.d"
+      - name: "initdb-secrets"
+        mountPath: "/secrets"
+    extraVolumes:
+      - name: "initdb"
+        emptyDir: {}
+      - name: "initdb-secrets"
+        secret:
+          secretName: "secret-postgres-init-db-user"
+    initContainers:
+      - name: "initdb"
+        image: "ghcr.io/catenax-ng/product-portal-cd_initdb:v0.6.0"
+        imagePullPolicy: "Always"
+        command:
+          - sh
+        args:
+          - -c
+          - |
+            echo "Copying initdb secret sqls..."
+            cp /secrets/* /docker-entrypoint-initdb.d
+            echo "Copying initdb sqls..."
+            cp -R /import/* /docker-entrypoint-initdb.d
+        volumeMounts:
+        - name: "initdb"
+          mountPath: "/docker-entrypoint-initdb.d"
+        - name: "initdb-secrets"
+          mountPath: "/secrets"
+  secret:
+    password: ""
+    replicationPassword: ""
+    initUserDbSql: ""

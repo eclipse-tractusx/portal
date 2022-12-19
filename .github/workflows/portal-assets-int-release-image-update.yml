@@ -1,0 +1,35 @@
+name: Portal Assets INT Release Auto-image-update
+
+on:
+  workflow_dispatch:
+    inputs:
+      new-image:
+        description: 'new available image'
+        required: true
+        default: 'no content'
+
+env:
+  IMAGE_BEGINN: 'assetstag: '
+  IMAGE_FULL_NEW: 'assetstag: ${{ inputs.new-image }}'
+
+jobs:
+  update-image-tag:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Modify image tag in values-int.yaml
+        run: |
+          sed -i 's/${{ env.IMAGE_BEGINN }}.*/${{ env.IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+
+      - name: Commit and push updated values-int.yaml
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add charts/portal/values-int.yaml
+          git commit -m "Add new images for portal assets int"
+          bash ./scripts/push.sh

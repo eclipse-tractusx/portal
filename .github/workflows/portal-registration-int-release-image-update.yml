@@ -24,12 +24,12 @@ jobs:
 
       - name: Modify image tag in values-int.yaml
         run: |
-          sed -i 's/${{ env.IMAGE_BEGINN }}.*/${{ env.IMAGE_FULL_NEW }}/' charts/portal-frontend/values-int.yaml
+          sed -i 's/${{ env.IMAGE_BEGINN }}.*/${{ env.IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
 
       - name: Commit and push updated values-int.yaml
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add charts/portal-frontend/values-int.yaml
+          git add charts/portal/values-int.yaml
           git commit -m "Add new images for portal registration int"
           bash ./scripts/push.sh

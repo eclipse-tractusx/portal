@@ -1,0 +1,81 @@
+###############################################################
+# Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation
+#
+# See the NOTICE file(s) distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Apache License, Version 2.0 which is available at
+# https://www.apache.org/licenses/LICENSE-2.0.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+###############################################################
+
+name: Portal Backend INT Release Auto-image-update
+
+on:
+  workflow_dispatch:
+    inputs:
+      new-image:
+        description: 'new available image'
+        required: true
+        default: 'no content'
+
+env:
+  ADMINISTRATION_IMAGE_BEGINN: 'administrationservicetag: '
+  ADMINISTRATION_IMAGE_FULL_NEW: 'administrationservicetag: ${{ inputs.new-image }}'
+  PORTALMAINTENANCE_IMAGE_BEGINN: 'portalmaintenancetag: '
+  PORTALMAINTENANCE_IMAGE_FULL_NEW: 'portalmaintenancetag: ${{ inputs.new-image }}'
+  APPMARKETPLACE_IMAGE_BEGINN: 'appmarketplaceservicetag: '
+  APPMARKETPLACE_IMAGE_FULL_NEW: 'appmarketplaceservicetag: ${{ inputs.new-image }}'
+  NOTIFICATION_IMAGE_BEGINN: 'notificationservicetag: '
+  NOTIFICATION_IMAGE_FULL_NEW: 'notificationservicetag: ${{ inputs.new-image }}'
+  PORTALMIGRATIONS_IMAGE_BEGINN: 'portalmigrationstag: '
+  PORTALMIGRATIONS_IMAGE_FULL_NEW: 'portalmigrationstag: ${{ inputs.new-image }}'
+  CHECKLIST_IMAGE_BEGINN: 'checklistworkertag: '
+  CHECKLIST_IMAGE_FULL_NEW: 'checklistworkertag: ${{ inputs.new-image }}'
+  PROVISIONING_IMAGE_BEGINN: 'provisioningservicetag: '
+  PROVISIONING_IMAGE_FULL_NEW: 'provisioningservicetag: ${{ inputs.new-image }}'
+  REGISTRATION_IMAGE_BEGINN: 'registrationservicetag: '
+  REGISTRATION_IMAGE_FULL_NEW: 'registrationservicetag: ${{ inputs.new-image }}'
+  SERVICES_IMAGE_BEGINN: 'servicesservicetag: '
+  SERVICES_IMAGE_FULL_NEW: 'servicesservicetag: ${{ inputs.new-image }}'
+  PROVISIONINGMIGRATIONS_IMAGE_BEGINN: 'provisioningmigrationstag: '
+  PROVISIONINGMIGRATIONS_IMAGE_FULL_NEW: 'provisioningmigrationstag: ${{ inputs.new-image }}'
+
+jobs:
+  update-image-tag:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Modify image tag in values-int.yaml
+        run: |
+          sed -i 's/${{ env.ADMINISTRATION_IMAGE_BEGINN }}.*/${{ env.ADMINISTRATION_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+          sed -i 's/${{ env.CHECKLIST_IMAGE_BEGINN }}.*/${{ env.CHECKLIST_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+          sed -i 's/${{ env.PORTALMAINTENANCE_IMAGE_BEGINN }}.*/${{ env.PORTALMAINTENANCE_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+          sed -i 's/${{ env.APPMARKETPLACE_IMAGE_BEGINN }}.*/${{ env.APPMARKETPLACE_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+          sed -i 's/${{ env.NOTIFICATION_IMAGE_BEGINN }}.*/${{ env.NOTIFICATION_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+          sed -i 's/${{ env.PORTALMIGRATIONS_IMAGE_BEGINN }}.*/${{ env.PORTALMIGRATIONS_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+          sed -i 's/${{ env.PROVISIONING_IMAGE_BEGINN }}.*/${{ env.PROVISIONING_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+          sed -i 's/${{ env.REGISTRATION_IMAGE_BEGINN }}.*/${{ env.REGISTRATION_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+          sed -i 's/${{ env.SERVICES_IMAGE_BEGINN }}.*/${{ env.SERVICES_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+          sed -i 's/${{ env.PROVISIONINGMIGRATIONS_IMAGE_BEGINN }}.*/${{ env.PROVISIONINGMIGRATIONS_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+
+      - name: Commit and push updated values-int.yaml
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add charts/portal/values-int.yaml
+          git commit -m "Add new images for int"
+          bash ./scripts/push.sh

@@ -1,0 +1,244 @@
+###############################################################
+# Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation
+#
+# See the NOTICE file(s) distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Apache License, Version 2.0 which is available at
+# https://www.apache.org/licenses/LICENSE-2.0.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+###############################################################
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.backend.checklistworker.name }}
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: {{ .Values.backend.checklistworker.name }}
+            securityContext:
+              {{- toYaml .Values.securityContext | nindent 16 }}
+            image: "{{ .Values.backend.checklistworker.image.name }}:{{ .Values.backend.checklistworker.image.checklistworkertag | default .Chart.AppVersion }}"
+            imagePullPolicy: "Always"
+            env:
+            {{- if .Values.postgresql.enabled }}
+            - name: "PORTAL_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.postgresql.auth.existingSecret }}"
+                  key: "portal-password"
+            - name: "PROVISIONING_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.postgresql.auth.existingSecret }}"
+                  key: "provisioning-password"
+            - name: "CONNECTIONSTRINGS__PORTALDB"
+              value: "Server={{ .Values.postgresql.fullnameOverride }}-primary;Database={{ .Values.postgresql.auth.database }};Port={{ .Values.postgresql.auth.port }};User Id={{ .Values.postgresql.auth.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
+            - name: "CONNECTIONSTRINGS__PROVISIONINGDB"
+              value: "Server={{ .Values.postgresql.fullnameOverride }}-primary;Database={{ .Values.postgresql.auth.database }};Port={{ .Values.postgresql.auth.port }};User Id={{ .Values.postgresql.auth.provisioningUser }};Password=$(PROVISIONING_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
+            {{- end }}
+            {{- if not .Values.postgresql.enabled }}
+            - name: "PORTAL_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.externalDatabase.secret }}"
+                  key: "portal-password"
+            - name: "PROVISIONING_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.externalDatabase.secret }}"
+                  key: "provisioning-password"
+            - name: "CONNECTIONSTRINGS__PORTALDB"
+              value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
+            - name: "CONNECTIONSTRINGS__PROVISIONINGDB"
+              value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.provisioningUser }};Password=$(PROVISIONING_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
+            {{- end }}
+            - name: "APPLICATIONACTIVATION__APPLICATIONAPPROVALINITIALROLES__Cl2-CX-Portal__0"
+              value: "{{ .Values.backend.checklistworker.applicationActivation.applicationApprovalInitialRoles.portal.role0 }}"
+            - name: "APPLICATIONACTIVATION__CLIENTTOREMOVEROLESONACTIVATION__0"
+              value: "{{ .Values.backend.checklistworker.applicationActivation.clientToRemoveRolesOnActivation.client0 }}"
+            - name: "APPLICATIONACTIVATION__BASEPORTALADDRESS"
+              value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
+            - name: "APPLICATIONACTIVATION__COMPANYADMINROLES__Cl1-CX-Registration__0"
+              value: "{{ .Values.backend.checklistworker.applicationActivation.applicationApprovalInitialRoles.registration.role0 }}"
+            - name: "APPLICATIONACTIVATION__WELCOMENOTIFICATIONTYPEIDS__0"
+              value: "{{ .Values.backend.checklistworker.applicationActivation.welcomeNotificationTypeIds.type0 }}"
+            - name: "APPLICATIONACTIVATION__WELCOMENOTIFICATIONTYPEIDS__1"
+              value: "{{ .Values.backend.checklistworker.applicationActivation.welcomeNotificationTypeIds.type1 }}"
+            - name: "APPLICATIONACTIVATION__WELCOMENOTIFICATIONTYPEIDS__2"
+              value: "{{ .Values.backend.checklistworker.applicationActivation.welcomeNotificationTypeIds.type2 }}"
+            - name: "APPLICATIONACTIVATION__WELCOMENOTIFICATIONTYPEIDS__3"
+              value: "{{ .Values.backend.checklistworker.applicationActivation.welcomeNotificationTypeIds.type3 }}"
+            - name: "APPLICATIONACTIVATION__WELCOMENOTIFICATIONTYPEIDS__4"
+              value: "{{ .Values.backend.checklistworker.applicationActivation.welcomeNotificationTypeIds.type4 }}"
+            - name: "CHECKLIST__BPDM__BASEADDRESS"
+              value: "{{ .Values.bpdmPortalGateAddress }}"
+            - name: "CHECKLIST__BPDM__CLIENTID"
+              value: "{{ .Values.backend.checklistworker.bpdm.clientId }}"
+            - name: "CHECKLIST__BPDM__CLIENTSECRET"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.interfaces.secret }}"
+                  key: "bpdm-client-secret"
+            - name: "CHECKLIST__BPDM__GRANTTYPE"
+              value: "{{ .Values.backend.checklistworker.bpdm.grantType }}"
+            - name: "CHECKLIST__BPDM__KEYCLOAKTOKENADDRESS"
+              value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.tokenPath }}"
+            - name: "CHECKLIST__BPDM__PASSWORD"
+              value: "{{ .Values.backend.placeholder }}"
+            - name: "CHECKLIST__BPDM__SCOPE"
+              value: "{{ .Values.backend.checklistworker.bpdm.scope }}"
+            - name: "CHECKLIST__BPDM__USERNAME"
+              value: "{{ .Values.backend.placeholder }}"
+            - name: "CHECKLIST__CLEARINGHOUSE__BASEADDRESS"
+              value: "{{ .Values.clearinghouseAddress }}"
+            - name: "CHECKLIST__CLEARINGHOUSE__CLIENTID"
+              value: "{{ .Values.backend.checklistworker.clearinghouse.clientId }}"
+            - name: "CHECKLIST__CLEARINGHOUSE__CLIENTSECRET"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.interfaces.secret }}"
+                  key: "clearinghouse-client-secret"
+            - name: "CHECKLIST__CLEARINGHOUSE__GRANTTYPE"
+              value: "{{ .Values.backend.checklistworker.clearinghouse.grantType }}"
+            - name: "CHECKLIST__CLEARINGHOUSE__KEYCLOAKTOKENADDRESS"
+              value: "{{ .Values.clearinghouseTokenAddress }}"
+            - name: "CHECKLIST__CLEARINGHOUSE__PASSWORD"
+              value: "{{ .Values.backend.placeholder }}"
+            - name: "CHECKLIST__CLEARINGHOUSE__SCOPE"
+              value: "{{ .Values.backend.checklistworker.clearinghouse.scope }}"
+            - name: "CHECKLIST__CLEARINGHOUSE__USERNAME"
+              value: "{{ .Values.backend.placeholder }}"
+            - name: "CHECKLIST__CLEARINGHOUSE__CALLBACKURL"
+              value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.checklistworker.clearinghouse.callbackPath }}"
+            - name: "CHECKLIST__CUSTODIAN__BASEADDRESS"
+              value: "{{ .Values.custodianAddress }}"
+            - name: "CHECKLIST__CUSTODIAN__CLIENTID"
+              value: "{{ .Values.backend.checklistworker.custodian.clientId }}"
+            - name: "CHECKLIST__CUSTODIAN__CLIENTSECRET"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.interfaces.secret }}"
+                  key: "custodian-client-secret"
+            - name: "CHECKLIST__CUSTODIAN__GRANTTYPE"
+              value: "{{ .Values.backend.checklistworker.custodian.grantType }}"
+            - name: "CHECKLIST__CUSTODIAN__KEYCLOAKTOKENADDRESS"
+              value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.tokenPath }}"
+            - name: "CHECKLIST__CUSTODIAN__PASSWORD"
+              value: "{{ .Values.backend.placeholder }}"
+            - name: "CHECKLIST__CUSTODIAN__SCOPE"
+              value: "{{ .Values.backend.checklistworker.custodian.scope }}"
+            - name: "CHECKLIST__CUSTODIAN__USERNAME"
+              value: "{{ .Values.backend.placeholder }}"
+            - name: "CHECKLIST__SDFACTORY__CLIENTID"
+              value: "{{ .Values.backend.checklistworker.sdfactory.clientId }}"
+            - name: "CHECKLIST__SDFACTORY__CLIENTSECRET"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.interfaces.secret }}"
+                  key: "sdfactory-client-secret"
+            - name: "CHECKLIST__SDFACTORY__GRANTTYPE"
+              value: "{{ .Values.backend.checklistworker.sdfactory.grantType }}"
+            - name: "CHECKLIST__SDFACTORY__KEYCLOAKTOKENADDRESS"
+              value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.tokenPath }}"
+            - name: "CHECKLIST__SDFACTORY__PASSWORD"
+              value: "{{ .Values.backend.placeholder }}"
+            - name: "CHECKLIST__SDFACTORY__SCOPE"
+              value: "{{ .Values.backend.checklistworker.sdfactory.scope }}"
+            - name: "CHECKLIST__SDFACTORY__SDFACTORYISSUERBPN"
+              value: "{{ .Values.backend.checklistworker.sdfactory.issuerBpn }}"
+            - name: "CHECKLIST__SDFACTORY__SDFACTORYURL"
+              value: "{{ .Values.sdfactoryAddress }}{{ .Values.backend.checklistworker.sdfactory.selfdescriptionPath }}"
+            - name: "CHECKLIST__SDFACTORY__USERNAME"
+              value: "{{ .Values.backend.placeholder }}"
+            - name: "KEYCLOAK__CENTRAL__AUTHREALM"
+              value: "{{ .Values.backend.keycloak.central.authRealm }}"
+            - name: "KEYCLOAK__CENTRAL__CLIENTID"
+              value: "{{ .Values.backend.keycloak.central.clientId }}"
+            - name: "KEYCLOAK__CENTRAL__CLIENTSECRET"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.keycloak.secret }}"
+                  key: "central-client-secret"
+            - name: "KEYCLOAK__CENTRAL__CONNECTIONSTRING"
+              value: "{{ .Values.centralidpAddress }}"
+            - name: "KEYCLOAK__SHARED__AUTHREALM"
+              value: "{{ .Values.backend.keycloak.shared.authRealm }}"
+            - name: "KEYCLOAK__SHARED__CLIENTID"
+              value: "{{ .Values.backend.keycloak.shared.clientId }}"
+            - name: "KEYCLOAK__SHARED__CLIENTSECRET"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.keycloak.secret }}"
+                  key: "shared-client-secret"
+            - name: "KEYCLOAK__SHARED__CONNECTIONSTRING"
+              value: "{{ .Values.sharedidpAddress }}"
+            - name: "LOGGING__LOGLEVEL__ORG.ECLIPSE.TRACTUSX.PORTAL.BACKEND.CHECKLIST.LIBRARY"
+              value: "{{ .Values.backend.checklistworker.logging.checklistLibrary }}"
+            - name: "LOGGING__LOGLEVEL__ORG.ECLIPSE.TRACTUSX.PORTAL.BACKEND.BPDM.LIBRARY"
+              value: "{{ .Values.backend.checklistworker.logging.bpdmLibrary }}"
+            - name: "LOGGING__LOGLEVEL__ORG.ECLIPSE.TRACTUSX.PORTAL.BACKEND.CLEARINGHOUSE.LIBRARY"
+              value: "{{ .Values.backend.checklistworker.logging.clearinghouseLibrary }}"
+            - name: "LOGGING__LOGLEVEL__ORG.ECLIPSE.TRACTUSX.PORTAL.BACKEND.CUSTODIAN.LIBRARY"
+              value: "{{ .Values.backend.checklistworker.logging.custodianLibrary }}"
+            - name: "LOGGING__LOGLEVEL__ORG.ECLIPSE.TRACTUSX.PORTAL.BACKEND.SDFACTORY.LIBRARY"
+              value: "{{ .Values.backend.checklistworker.logging.sdfactoryLibrary }}"
+            - name: "MAILINGSERVICE__MAIL__SMTPHOST"
+              value: "{{ .Values.backend.mailing.host }}"
+            - name: "MAILINGSERVICE__MAIL__SMTPPASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.mailing.secret }}"
+                  key: "password"
+            - name: "MAILINGSERVICE__MAIL__SMTPPORT"
+              value: "{{ .Values.backend.mailing.port }}"
+            - name: "MAILINGSERVICE__MAIL__SMTPUSER"
+              value: "{{ .Values.backend.mailing.user }}"
+            - name: "PROVISIONING__CENTRALIDENTITYPROVIDER__CONFIG__CLIENTID"
+              value: "{{ .Values.backend.provisioning.centralIdentityProvider.clientId }}"
+            - name: "PROVISIONING__CENTRALREALM"
+              value: "{{ .Values.backend.provisioning.centralRealm }}"
+            - name: "PROVISIONING__CENTRALREALMID"
+              value: "{{ .Values.backend.provisioning.centralRealmId }}"
+            - name: "PROVISIONING__INVITEDUSERINITIALROLES__Cl1-CX-Registration__0"
+              value: "{{ .Values.backend.provisioning.invitedUserInitialRoles.registration }}"
+            - name: "PROVISIONING__SHAREDREALM__SMTPSERVER__AUTH"
+              value: "{{ .Values.backend.provisioning.sharedRealm.smtpServer.auth }}"
+            - name: "PROVISIONING__SHAREDREALM__SMTPSERVER__FROM"
+              value: "{{ .Values.backend.provisioning.sharedRealm.smtpServer.from }}"
+            - name: "PROVISIONING__SHAREDREALM__SMTPSERVER__HOST"
+              value: "{{ .Values.backend.provisioning.sharedRealm.smtpServer.host }}"
+            - name: "PROVISIONING__SHAREDREALM__SMTPSERVER__PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.mailing.secret }}"
+                  key: "provisioning-sharedrealm-password"
+            - name: "PROVISIONING__SHAREDREALM__SMTPSERVER__PORT"
+              value: "{{ .Values.backend.provisioning.sharedRealm.smtpServer.port }}"
+            - name: "PROVISIONING__SHAREDREALM__SMTPSERVER__REPLYTO"
+              value: "{{ .Values.backend.provisioning.sharedRealm.smtpServer.replyTo }}"
+            - name: "PROVISIONING__SHAREDREALM__SMTPSERVER__STARTTLS"
+              value: "{{ .Values.backend.provisioning.sharedRealm.smtpServer.startTls }}"
+            - name: "PROVISIONING__SHAREDREALM__SMTPSERVER__USER"
+              value: "{{ .Values.backend.provisioning.sharedRealm.smtpServer.user }}"
+            - name: "PROVISIONING__SHAREDREALMCLIENT__CLIENTID"
+              value: "{{ .Values.backend.provisioning.sharedRealmClient.clientId }}"
+            ports:
+            - name: http
+              containerPort: {{ .Values.portContainer }}
+              protocol: TCP

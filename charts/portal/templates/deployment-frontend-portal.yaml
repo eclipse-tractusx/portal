@@ -1,5 +1,5 @@
 ###############################################################
-# Copyright (c) 2021,2022 Contributors to the Eclipse Foundation
+# Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -23,6 +23,8 @@ metadata:
   name: {{ .Values.frontend.portal.name }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
       app: {{ .Values.frontend.portal.name }}
@@ -35,7 +37,57 @@ spec:
       - name: {{ .Values.frontend.portal.name }}
         securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
-        image: {{ .Values.frontend.portal.image.name }}:{{ .Values.frontend.portal.image.tag | default .Chart.AppVersion }}
+        image: {{ .Values.frontend.portal.image.name }}:{{ .Values.frontend.portal.image.portaltag | default .Chart.AppVersion }}
         imagePullPolicy: "Always"
+        env:
+          - name: PORTAL_FRONTEND_URL
+            value: "{{ .Values.portalAddress }}"
+          - name: PORTAL_ASSETS_URL
+            value: "{{ .Values.portalAddress }}{{ .Values.frontend.assets.path }}"
+          - name: PORTAL_BACKEND_URL
+            value: "{{ .Values.portalBackendAddress }}"
+          - name: CENTRALIDP_URL
+            value: "{{ .Values.centralidpAddress }}{{ .Values.frontend.centralidpAuthPath }}"
+          - name: BPDM_API_URL
+            value: "{{ .Values.bpdmPartnersPoolAddress }}{{ .Values.frontend.bpdmPartnersPoolApiPath }}"
+          - name: SEMANTICS_URL
+            value: "{{ .Values.semanticsAddress }}"
         ports:
-        - containerPort: {{ .Values.portContainer }}
+        - name: http
+          containerPort: {{ .Values.portContainer }}
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: "/"
+            port: {{ .Values.portContainer }}
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+        # @url: https://cloud.google.com/blog/products/containers-kubernetes/kubernetes-best-practices-setting-up-health-checks-with-readiness-and-liveness-probes
+        readinessProbe:
+          httpGet:
+            path: "/"
+            port: {{ .Values.portContainer }}
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

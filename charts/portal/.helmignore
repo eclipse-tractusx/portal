@@ -23,4 +23,5 @@
 .vscode/
 
 # Custom dirs and files
-values-dummy.yaml
+argocd/
+*.gotmpl

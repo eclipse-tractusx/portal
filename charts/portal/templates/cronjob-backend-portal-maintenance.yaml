@@ -1,0 +1,59 @@
+###############################################################
+# Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation
+#
+# See the NOTICE file(s) distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Apache License, Version 2.0 which is available at
+# https://www.apache.org/licenses/LICENSE-2.0.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+###############################################################
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Values.backend.portalmaintenance.name }}
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: {{ .Values.backend.portalmaintenance.name }}
+            securityContext:
+              {{- toYaml .Values.securityContext | nindent 16 }}
+            image: "{{ .Values.backend.portalmaintenance.image.name }}:{{ .Values.backend.portalmaintenance.image.portalmaintenancetag | default .Chart.AppVersion }}"
+            imagePullPolicy: "Always"
+            env:
+              {{- if .Values.postgresql.enabled }}
+              - name: "PORTAL_PASSWORD"
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Values.postgresql.auth.existingSecret }}"
+                    key: "portal-password"
+              - name: "CONNECTIONSTRINGS__PORTALDB"
+                value: "Server={{ .Values.postgresql.fullnameOverride }}-primary;Database={{ .Values.postgresql.auth.database }};Port={{ .Values.postgresql.auth.port }};User Id={{ .Values.postgresql.auth.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
+              {{- end }}
+              {{- if not .Values.postgresql.enabled }}
+              - name: "PORTAL_PASSWORD"
+                valueFrom:
+                  secretKeyRef:
+                    name: "{{ .Values.externalDatabase.secret }}"
+                    key: "portal-password"
+              - name: "CONNECTIONSTRINGS__PORTALDB"
+                value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
+              {{- end }}
+            ports:
+            - name: http
+              containerPort: {{ .Values.portContainer }}
+              protocol: TCP

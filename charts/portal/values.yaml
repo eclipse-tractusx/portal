@@ -1,5 +1,5 @@
 ###############################################################
-# Copyright (c) 2021,2022 Contributors to the Eclipse Foundation
+# Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -18,138 +18,594 @@
 ###############################################################
 
 name: "portal"
+
+# -- Provide portal base address.
+portalAddress: "https://portal.example.org"
+
+# -- Provide portal-backend base address.
+portalBackendAddress: "https://portal-backend.example.org"
+
+# -- Provide centralidp base address (CX IAM), without trailing '/auth'.
+centralidpAddress: "https://centralidp.example.org"
+
+# -- Provide sharedidp address (CX IAM), without trailing '/auth'.
+sharedidpAddress: "https://sharedidp.example.org"
+
+# -- Provide semantics base address.
+semanticsAddress: "https://semantics.example.org"
+
+# -- Provide daps base address
+dapsAddress: "https://daps.example.org"
+
+# -- Provide bpdm partners pool base address.
+bpdmPartnersPoolAddress: "https://partners-pool.example.org"
+
+# -- Provide bpdm portal gate base address.
+bpdmPortalGateAddress: "https://portal-gate.example.org"
+
+# -- Provide custodian base address.
+custodianAddress: "https://managed-identity-wallets.example.org"
+
+# -- Provide sdfactory base address.
+sdfactoryAddress: "https://sdfactory.example.org"
+
+# -- Provide clearinghouse base address.
+clearinghouseAddress: "https://validation.example.org"
+# -- Provide clearinghouse token address.
+clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
+
+frontend:
+  ingress:
+  # -- Portal frontend ingress parameters,
+    # enable ingress record generation for portal frontend.
+    enabled: false
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      nginx.ingress.kubernetes.io/rewrite-target: "/$1"
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      # -- Provide CORS allowed origin.
+      nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
+    tls:
+      # -- Provide tls secret.
+      - secretName: ""
+        # -- Provide host for tls secret.
+        hosts:
+          - ""
+    hosts:
+      # -- Provide default path for the ingress record.
+      - host: "portal.example.org"
+        paths:
+          - path: "/(.*)"
+            pathType: "Prefix"
+            backend:
+              service: "portal"
+              port: 8080
+          - path: "/registration/(.*)"
+            pathType: "Prefix"
+            backend:
+              service: "registration"
+              port: 8080
+          - path: "/((assets|documentation)/.*)"
+            pathType: "Prefix"
+            backend:
+              service: "assets"
+              port: 8080
+  portal:
+    name: "portal"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-frontend"
+      portaltag: 1.0.0
+  registration:
+    name: "registration"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-frontend-registration"
+      registrationtag: 1.0.0
+  assets:
+    name: "assets"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-assets"
+      assetstag: 1.0.0
+    path: "/assets"
+  centralidpAuthPath: "/auth"
+  bpdmPartnersPoolApiPath: "/api"
+
+backend:
+  ingress:
+  # -- Portal-backend ingress parameters,
+    # enable ingress record generation for portal-backend.
+    enabled: false
+    name: "portal-backend"
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+      # -- Provide CORS allowed origin.
+      nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
+    tls:
+      # -- Provide tls secret.
+      - secretName: ""
+        # -- Provide host for tls secret.
+        hosts:
+          - ""
+    hosts:
+      # -- Provide default path for the ingress record.
+      - host: "portal-backend.example.org"
+        paths:
+          - path: "/api/registration"
+            pathType: "Prefix"
+            backend:
+              service: "registration-service"
+              port: 8080
+          - path: "/api/administration"
+            pathType: "Prefix"
+            backend:
+              service: "administration-service"
+              port: 8080
+          - path: "/api/notification"
+            pathType: "Prefix"
+            backend:
+              service: "notification-service"
+              port: 8080
+          - path: "/api/provisioning"
+            pathType: "Prefix"
+            backend:
+              service: "provisioning-service"
+              port: 8080
+          - path: "/api/apps"
+            pathType: "Prefix"
+            backend:
+              service: "marketplace-app-service"
+              port: 8080
+          - path: "/api/services"
+            pathType: "Prefix"
+            backend:
+              service: "services-service"
+              port: 8080
+  dbConnection:
+    schema: "portal"
+    sslMode: "Disable"
+  portalHomePath: "/home"
+  userManagementPath: "/usermanagement"
+  keycloak:
+    # -- Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM).
+    secret: "secret-backend-keycloak"
+    central:
+      # -- Provide centralidp client-id from CX IAM centralidp.
+      clientId: "central-client-id"
+      # -- Client-secret for centralidp client-id. Secret-key 'central-client-secret'.
+      clientSecret: ""
+      authRealm: "CX-Central"
+      jwtBearerOptions:
+        metadataPath: "/auth/realms/CX-Central/.well-known/openid-configuration"
+        tokenValidationParameters:
+          validIssuerPath: "/auth/realms/CX-Central"
+          validAudiencePortal: "Cl2-CX-Portal"
+          validAudienceRegistration: "Cl1-CX-Registration"
+      tokenPath: "/auth/realms/CX-Central/protocol/openid-connect/token"
+      dbConnection:
+        host: "centralidp-postgresql-primary"
+        port: 5432
+        user: "kccentral"
+        database: "iamcentralidp"
+        # -- Password for the kccentral username. Secret-key 'central-db-password'.
+        password: ""
+        schema: "public"
+        sslMode: "Disable"
+    shared:
+      # -- Provide sharedidp client-id from CX IAM sharedidp.
+      clientId: "shared-client-id"
+      # -- Client-secret for sharedidp client-id. Secret-key 'shared-client-secret'.
+      clientSecret: ""
+      authRealm: "master"
+  mailing:
+    # -- Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm.
+    secret: "secret-backend-mailing"
+    # -- Provide host.
+    host: "smtp.example.org"
+    # -- Provide port.
+    port: "587"
+    # -- Provide user.
+    user: "smtp-user"
+    # -- Password for the smtp username. Secret-key 'password'.
+    password: ""
+  interfaces:
+    # -- Secret containing the client-secrets for the connection to daps, custodian, bpdm, sdFactory and clearinghouse.
+    secret: "secret-backend-interfaces"
+  registration:
+    name: "registration-service"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-backend_registration-service"
+      registrationservicetag: v1.0.0
+    logging:
+      registrationServiceBpn: "Information"
+    portalRegistrationPath: "/registration"
+    keycloakClientId: "Cl1-CX-Registration"
+    applicationStatusIds:
+      status0: "SUBMITTED"
+      status1: "DECLINED"
+      status2: "CONFIRMED"
+    documentTypeIds:
+      type0: "CX_FRAME_CONTRACT"
+      type1: "COMMERCIAL_REGISTER_EXTRACT"
+    swaggerEnabled: false
+  administration:
+    name: "administration-service"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-backend_administration-service"
+      administrationservicetag: v1.0.0
+    logging:
+      businessLogic: "Information"
+      sdfactoryLibrary: "Information"
+    connectors:
+      validCertificationContentTypes:
+        type0: "application/x-pem-file"
+        type1: "application/x-x509-ca-cert"
+        type2: "application/pkix-cert"
+        type3: "application/octet-stream"
+      selfDescriptionDocumentPath: /api/administration/documents/selfDescription
+    keycloakClientId: "Cl2-CX-Portal"
+    daps:
+      apiPath: "/api/v1/daps"
+      scope: "openid"
+      grantType: "client_credentials"
+      # -- Provide daps client-id from CX IAM centralidp.
+      clientId: "daps-client-id"
+      # -- Client-secret for daps client-id. Secret-key 'daps-client-secret'.
+      clientSecret: ""
+    identityProviderAdmin:
+      csvSettings:
+        fileName: "identityproviderlinks.csv"
+        contentType: "text/csv"
+        charset: "UTF-8"
+        separator: ","
+        headerUserId: "UserId"
+        headerFirstName: "FirstName"
+        headerLastName: "LastName"
+        headerEmail: "Email"
+        headerProviderAlias: "ProviderAlias"
+        headerProviderUserId: "ProviderUserId"
+        headerProviderUserName: "ProviderUserName"
+    invitation:
+      invitedUserInitialRoles:
+        role0: "Company Admin"
+    registration:
+      partnerUserInitialRoles:
+        role0: "Company Admin"
+      documentTypeIds:
+        type0: "COMMERCIAL_REGISTER_EXTRACT"
+    userManagement:
+      companyUserStatusIds:
+        status0: "ACTIVE"
+        status1: "INACTIVE"
+    serviceAccount:
+      clientId: "technical_roles_management"
+    swaggerEnabled: false
+  provisioning:
+    centralRealm: "CX-Central"
+    centralRealmId: "CX-Central"
+    invitedUserInitialRoles:
+      registration: "Company Admin"
+    serviceAccountClientPrefix: "sa"
+    centralIdentityProvider:
+      clientId: "central-idp"
+    sharedRealmClient:
+      clientId: "central-idp"
+    sharedRealm:
+      smtpServer:
+        # -- Provide host.
+        host: "smtp.example.org"
+        # -- Provide port.
+        port: "587"
+        # -- Provide user.
+        user: "smtp-user"
+        # -- Password for the smtp username. Secret-key 'provisioning-sharedrealm-password'.
+        password: ""
+        ssl: ""
+        startTls: "true"
+        auth: "true"
+        # -- Provide from.
+        from: "smtp@example.org"
+        # -- Provide replyTo.
+        replyTo: "smtp@example.org"
+    service:
+      name: "provisioning-service"
+      image:
+        name: "ghcr.io/catenax-ng/tx-portal-backend_provisioning-service"
+        provisioningservicetag: v1.0.0
+      swaggerEnabled: false
+  appmarketplace:
+    name: "marketplace-app-service"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-backend_marketplace-app-service"
+      appmarketplaceservicetag: v1.0.0
+    logging:
+      offersLibrary: "Information"
+    appOverviewPath: "/appoverview"
+    catenaAdminRoles:
+      role0: "CX Admin"
+    serviceAccountRoles:
+      role0: "App Tech User"
+    salesManagerRoles:
+      role0: "Sales Manager"
+    serviceManagerRoles:
+      role0: "App Manager"
+    activeAppCompanyAdminRoles:
+      role0: "IT Admin"
+      role1: "Company Admin"
+    approveAppUserRoles:
+      role0: "Sales Manager"
+      role1: "Service Manager"
+    ITAdminRoles:
+      role0: "IT Admin"
+    documentTypeIds:
+      type0: "APP_CONTRACT"
+      type1: "APP_DATA_DETAILS"
+      type2: "ADDITIONAL_DETAILS"
+      type3: "APP_TECHNICAL_INFORMATION"
+      type4: "APP_LEADIMAGE"
+      type5: "APP_IMAGE"
+    contentTypeSettings:
+      setting0: "application/pdf"
+      setting1: "image/jpeg"
+      setting2: "image/png"
+    notificationTypeIds:
+      type0: "APP_RELEASE_REQUEST"
+    activeAppNotificationTypeIds:
+      type0: "APP_ROLE_ADDED"
+    submitAppNotificationTypeIds:
+      type0: "APP_RELEASE_REQUEST"
+    approveAppNotificationTypeIds:
+      type0: "APP_RELEASE_APPROVAL"
+    appImageDocumentTypeIds:
+      type0: "APP_LEADIMAGE"
+      type1: "APP_IMAGE"
+    offerStatusIds:
+      status0: "IN_REVIEW"
+      status1: "ACTIVE"
+    swaggerEnabled: false
+  portalmigrations:
+    name: "portal-migrations"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-backend_portal-migrations"
+      portalmigrationstag: 8428dbe3d4fe9a344ea5d0adb178e6807d9fa78c
+    seeding:
+      testDataEnvironments: ""
+  portalmaintenance:
+    name: "portal-maintenance"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-backend_maintenance-service"
+      portalmaintenancetag: v1.0.0
+  notification:
+    name: "notification-service"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-backend_notification-service"
+      notificationservicetag: v1.0.0
+    swaggerEnabled: false
+  services:
+    name: "services-service"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-backend_services-service"
+      servicesservicetag: v1.0.0
+    logging:
+      offersLibrary: "Information"
+    serviceMarketplacePath: "/servicemarketplace"
+    catenaAdminRoles:
+      role0: "CX Admin"
+    serviceAccountRoles:
+      role0: "App Tech User"
+    salesManagerRoles:
+      role0: "Sales Manager"
+    serviceManagerRoles:
+      role0: "Service Manager"
+    approveServiceUserRoles:
+      role0: "Sales Manager"
+      role1: "Service Manager"
+    ITAdminRoles:
+      role0: "IT Admin"
+    documentTypeIds:
+      type0: "ADDITIONAL_DETAILS"
+    contentTypeSettings:
+      setting0: "application/pdf"
+    submitServiceNotificationTypeIds:
+      type0: "SERVICE_RELEASE_REQUEST"
+    approveServiceNotificationTypeIds:
+      type0: "SERVICE_RELEASE_APPROVAL"
+    swaggerEnabled: false
+  provisioningmigrations:
+    name: "provisioning-migrations"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-backend_provisioning-migrations"
+      provisioningmigrationstag: v1.0.0
+  checklistworker:
+    name: "checklist-worker"
+    image:
+      name: "ghcr.io/catenax-ng/tx-portal-backend_checklist-worker"
+      checklistworkertag: v1.0.0
+    logging:
+      checklistLibrary: "Information"
+      bpdmLibrary: "Information"
+      clearinghouseLibrary: "Information"
+      custodianLibrary: "Information"
+      sdfactoryLibrary: "Information"
+    applicationActivation:
+      applicationApprovalInitialRoles:
+        portal:
+          role0: "Company Admin"
+        registration:
+          role0: "Company Admin"
+      clientToRemoveRolesOnActivation:
+        client0: "Cl1-CX-Registration"
+      welcomeNotificationTypeIds:
+        type0: "WELCOME"
+        type1: "WELCOME_USE_CASES"
+        type2: "WELCOME_SERVICE_PROVIDER"
+        type3: "WELCOME_CONNECTOR_REGISTRATION"
+        type4: "WELCOME_APP_MARKETPLACE"
+    bpdm:
+      scope: "openid"
+      grantType: "client_credentials"
+      # -- Provide bpdm client-id from CX IAM centralidp.
+      clientId: "bpdm-client-id"
+      # -- Client-secret for bpdm client-id. Secret-key 'bpdm-client-secret'.
+      clientSecret: ""
+    custodian:
+      scope: "openid"
+      grantType: "client_credentials"
+      # -- Provide custodian client-id from CX IAM centralidp.
+      clientId: "custodian-client-id"
+      # -- Client-secret for custodian client-id. Secret-key 'custodian-client-secret'.
+      clientSecret: ""
+    sdfactory:
+      selfdescriptionPath: "/api/rel3/selfdescription"
+      scope: "openid"
+      grantType: "client_credentials"
+      # -- Provide BPN for sdfactory.
+      issuerBpn: "BPNDUMMY000DUMMY"
+      # -- Provide sdfactory client-id from CX IAM centralidp.
+      clientId: "sdfactory-client-id"
+      # -- Client-secret for sdfactory client-id. Secret-key 'sdfactory-client-secret'.
+      clientSecret: ""
+    clearinghouse:
+      scope: "openid"
+      grantType: "client_credentials"
+      # -- Provide clearinghouse client-id from clearinghouse IAM.
+      clientId: "clearinghouse-client-id"
+      # -- Client-secret for clearinghouse client-id. Secret-key 'clearinghouse-client-secret'.
+      clientSecret: ""
+      callbackPath: "/api/administration/registration/clearinghouse"
+  placeholder: "empty"
+
+postgresql:
+# -- PostgreSQL chart configuration
+  # Switch to enable or disable the PostgreSQL helm chart
+  enabled: true
+  # -- FullnameOverride to 'portal-backend-postgresql'.
+  fullnameOverride: "portal-backend-postgresql"
+  auth:
+    # -- Database name
+    database: "postgres"
+    # -- Database port number
+    port: 5432
+    # -- Secret containing the passwords for root usernames postgres and non-root usernames repl_user, portal and provisioning.
+    existingSecret: "secret-postgres-init"
+    # -- Password for the root username 'postgres'. Secret-key 'postgres-password'.
+    password: ""
+    # -- Password for the non-root username 'repl_user'. Secret-key 'replication-password'.
+    replicationPassword: ""
+    # -- Non-root username for portal.
+    portalUser: "portal"
+    # -- Non-root username for provisioning.
+    provisioningUser: "provisioning"
+    # -- Password for the non-root username 'portal'. Secret-key 'portal-password'.
+    portalPassword: ""
+    # -- Password for the non-root username 'provisioning'. Secret-key 'provisioning-password'.
+    provisioningPassword: ""
+  architecture: "replication"
+  audit:
+    pgAuditLog: "write, ddl"
+    logLinePrefix: "%m %u %d "
+  primary:
+    initdb:
+      scriptsConfigMap: "configmap-postgres-init"
+    extraEnvVars:
+      - name: "PORTAL_PASSWORD"
+        valueFrom:
+          secretKeyRef:
+            name: "{{ .Values.auth.existingSecret }}"
+            key: "portal-password"
+      - name: "PROVISIONING_PASSWORD"
+        valueFrom:
+          secretKeyRef:
+            name: "{{ .Values.auth.existingSecret }}"
+            key: "provisioning-password"
+
+
+externalDatabase:
+# -- External PostgreSQL configuration
+# IMPORTANT: init scripts (01-init-db-user.sh and 02-init-db.sql) available
+# in templates/configmap-backend-postgres-init.yaml need to be executed beforehand.
+  # Database host
+  host: "portal-backend-postgresql-external-db"
+  # -- Database name
+  database: "postgres"
+  # -- Database port number
+  port: 5432
+  # -- Secret containing the passwords non-root usernames portal and provisioning.
+  secret: "secret-postgres-external-db"
+  # -- Non-root username for portal.
+  portalUser: "portal"
+  # -- Non-root username for provisioning.
+  provisioningUser: "provisioning"
+  # -- Password for the non-root username 'portal'. Secret-key 'portal-password'.
+  portalPassword: ""
+  # -- Password for the non-root username 'provisioning'. Secret-key 'provisioning-password'.
+  provisioningPassword: ""
+
 portContainer: 8080
+
 portService: 8080
-replicaCount: 1
+
+replicaCount: 3
+
 securityContext:
   allowPrivilegeEscalation: false
   runAsNonRoot: true
   capabilities:
     drop: ["ALL"]
 
-frontend:
-  ingress:
-    enabled: false
-  portal:
-    name: "portal"
-    image:
-      name: "ghcr.io/catenax-ng/tx-portal-frontend"
-      tag: "0.6.0"
-  registration:
-    name: "registration"
-    image:
-      name: "ghcr.io/catenax-ng/tx-portal-frontend-registration"
-      tag: "0.6.0"
+# -- If you do want to specify resources, uncomment the following lines,
+# adjust them as necessary, and remove the curly braces after 'resources:'.
+resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
 
-backend:
-  ingress:
-    enabled: false
-    name: "portal-backend"
-  registration:
-    name: "registration-service"
-    image:
-      name: "ghcr.io/catenax-ng/product-portal-backend_registration-service"
-      tag: "int-v0.6.0"
-    secret:
-      name: "secret-registration"
-      appsettings: ""
-  administration:
-    name: "administration-service"
-    image:
-      name: "ghcr.io/catenax-ng/product-portal-backend_administration-service"
-      tag: "int-v0.6.0"
-    secret:
-      name: "secret-administration"
-      appsettings: ""
-  provisioning:
-    name: "provisioning-service"
-    image:
-      name: "ghcr.io/catenax-ng/product-portal-backend_provisioning-service"
-      tag: "int-v0.6.0"
-    secret:
-      name: "secret-provisioning"
-      appsettings: ""
-  appmarketplace:
-    name: "marketplace-app-service"
-    image:
-      name: "ghcr.io/catenax-ng/product-portal-backend_marketplace-app-service"
-      tag: "int-v0.6.0"
-    secret:
-      name: "secret-appmarketplace"
-      appsettings: ""
-  portalmigrations:
-    name: "portal-migrations"
-    image:
-      name: "ghcr.io/catenax-ng/product-portal-backend_portal-migrations"
-      tag: "int-v0.6.0"
-    secret:
-      name: "secret-portal-migrations"
-      appsettings: ""
-  portalmaintenance:
-    name: "portal-maintenance"
-    image:
-      name: "ghcr.io/catenax-ng/product-portal-backend_maintenance-service"
-      tag: "int-v0.6.0"
-    secret:
-      name: "secret-portal-maintenance"
-      appsettings: ""
-  notification:
-    name: "notification-service"
-    image:
-      name: "ghcr.io/catenax-ng/product-portal-backend_notification-service"
-      tag: "int-v0.6.0"
-    secret:
-      name: "secret-notification"
-      appsettings: ""
-  services:
-    name: "services-service"
-    image:
-      name: "ghcr.io/catenax-ng/product-portal-backend_services-service"
-      tag: "int-v0.6.0"
-    secret:
-      name: "secret-services"
-      appsettings: ""
+# -- Node labels for pod assignment
+nodeSelector: {}
 
-postgresql:
-  enabled: true
-  fullnameOverride: "portal-backend-postgresql"
-  auth:
-    existingSecret: "secret-postgres-init"
-  architecture: "replication"
-  audit:
-    pgAuditLog: "write, ddl"
-    logLinePrefix: "%m %u %d "
-  primary:
-    extraVolumeMounts:
-      - name: "initdb"
-        mountPath: "/docker-entrypoint-initdb.d"
-      - name: "initdb-secrets"
-        mountPath: "/secrets"
-    extraVolumes:
-      - name: "initdb"
-        emptyDir: {}
-      - name: "initdb-secrets"
-        secret:
-          secretName: "secret-postgres-init-db-user"
-    initContainers:
-      - name: "initdb"
-        image: "ghcr.io/catenax-ng/product-portal-cd_initdb:v0.6.0"
-        imagePullPolicy: "Always"
-        command:
-          - sh
-        args:
-          - -c
-          - |
-            echo "Copying initdb secret sqls..."
-            cp /secrets/* /docker-entrypoint-initdb.d
-            echo "Copying initdb sqls..."
-            cp -R /import/* /docker-entrypoint-initdb.d
-        volumeMounts:
-        - name: "initdb"
-          mountPath: "/docker-entrypoint-initdb.d"
-        - name: "initdb-secrets"
-          mountPath: "/secrets"
-  secret:
-    password: ""
-    replicationPassword: ""
-    initUserDbSql: ""
+# -- Tolerations for pod assignment
+tolerations: []
+
+
+affinity:
+# -- Following Catena-X Helm Best Practices,
+# [reference](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: DoesNotExist
+          topologyKey: kubernetes.io/hostname
+
+
+updateStrategy:
+# -- Update strategy type,
+# rolling update configuration parameters,
+# [reference](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies).
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+
+livenessProbe:
+# -- Following Catena-X Helm Best Practices,
+# [reference](https://github.com/helm/charts/blob/master/stable/nginx-ingress/values.yaml#L210).
+  failureThreshold: 3
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 1

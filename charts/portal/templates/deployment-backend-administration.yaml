@@ -224,6 +224,8 @@ spec:
           value: "{{ .Values.backend.administration.invitation.invitedUserInitialRoles.role0 }}"
         - name: "INVITATION__REGISTRATIONAPPADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.registration.portalRegistrationPath }}"
+        - name: "INVITATION__INITIALLOGINTHEME"
+          value: "{{ .Values.backend.administration.invitation.initialLoginTheme }}"
         - name: "JWTBEAREROPTIONS__METADATAADDRESS"
           value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDAUDIENCE"

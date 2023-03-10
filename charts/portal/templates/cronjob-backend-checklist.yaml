@@ -86,6 +86,8 @@ spec:
               value: "{{ .Values.backend.checklistworker.applicationActivation.welcomeNotificationTypeIds.type3 }}"
             - name: "APPLICATIONACTIVATION__WELCOMENOTIFICATIONTYPEIDS__4"
               value: "{{ .Values.backend.checklistworker.applicationActivation.welcomeNotificationTypeIds.type4 }}"
+            - name: "APPLICATIONACTIVATION__LOGINTHEME"
+              value: "{{ .Values.backend.checklistworker.applicationActivation.loginTheme }}"
             - name: "CHECKLIST__BPDM__BASEADDRESS"
               value: "{{ .Values.bpdmPortalGateAddress }}"
             - name: "CHECKLIST__BPDM__CLIENTID"

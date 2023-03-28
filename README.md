@@ -1,6 +1,6 @@
 # Helm chart for Catena-X Portal
 
-![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.1.0](https://img.shields.io/badge/AppVersion-1.1.0-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
+![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
 
 This helm chart installs the Catena-X Portal application which consists of
 
@@ -11,7 +11,7 @@ This helm chart installs the Catena-X Portal application which consists of
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
 
-For further information please refer to the [technical documentation](https://github.com/eclipse-tractusx/portal-assets/tree/1.1.0/developer/Technical%20Documentation).
+For further information please refer to the [technical documentation](https://github.com/eclipse-tractusx/portal-assets/tree/1.2.0/developer/Technical%20Documentation).
 
 The referenced container images are for demonstration purposes only.
 
@@ -36,7 +36,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.1.0
+    version: 1.2.0
 ```
 
 ## Requirements
@@ -73,13 +73,13 @@ dependencies:
 | frontend.ingress.hosts[0] | object | `{"host":"portal.example.org","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assetsORdocumentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"ghcr.io/catenax-ng/tx-portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"1.1.0"` |  |
+| frontend.portal.image.portaltag | string | `"v1.2.0"` |  |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"ghcr.io/catenax-ng/tx-portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"1.1.0"` |  |
+| frontend.registration.image.registrationtag | string | `"v1.2.0"` |  |
 | frontend.assets.name | string | `"assets"` |  |
 | frontend.assets.image.name | string | `"ghcr.io/catenax-ng/tx-portal-assets"` |  |
-| frontend.assets.image.assetstag | string | `"1.1.0"` |  |
+| frontend.assets.image.assetstag | string | `"v1.2.0"` |  |
 | frontend.assets.path | string | `"/assets"` |  |
 | frontend.centralidpAuthPath | string | `"/auth"` |  |
 | frontend.bpdmPartnersPoolApiPath | string | `"/api"` |  |
@@ -105,6 +105,7 @@ dependencies:
 | backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath | string | `"/auth/realms/CX-Central"` |  |
 | backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validAudiencePortal | string | `"Cl2-CX-Portal"` |  |
 | backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validAudienceRegistration | string | `"Cl1-CX-Registration"` |  |
+| backend.keycloak.central.jwtBearerOptions.refreshInterval | string | `"00:00:30"` |  |
 | backend.keycloak.central.tokenPath | string | `"/auth/realms/CX-Central/protocol/openid-connect/token"` |  |
 | backend.keycloak.central.dbConnection.host | string | `"centralidp-postgresql-primary"` |  |
 | backend.keycloak.central.dbConnection.port | int | `5432` |  |
@@ -124,7 +125,7 @@ dependencies:
 | backend.interfaces.secret | string | `"secret-backend-interfaces"` | Secret containing the client-secrets for the connection to daps, custodian, bpdm, sdFactory and clearinghouse. |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v1.1.0"` |  |
+| backend.registration.image.registrationservicetag | string | `"v1.2.0"` |  |
 | backend.registration.logging.registrationServiceBpn | string | `"Information"` |  |
 | backend.registration.portalRegistrationPath | string | `"/registration"` |  |
 | backend.registration.keycloakClientId | string | `"Cl1-CX-Registration"` |  |
@@ -134,9 +135,10 @@ dependencies:
 | backend.registration.documentTypeIds.type0 | string | `"CX_FRAME_CONTRACT"` |  |
 | backend.registration.documentTypeIds.type1 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.registration.swaggerEnabled | bool | `false` |  |
+| backend.registration.registrationDocumentTypeIds.type0 | string | `"CX_FRAME_CONTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v1.1.0"` |  |
+| backend.administration.image.administrationservicetag | string | `"v1.2.0"` |  |
 | backend.administration.logging.businessLogic | string | `"Information"` |  |
 | backend.administration.logging.sdfactoryLibrary | string | `"Information"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type0 | string | `"application/x-pem-file"` |  |
@@ -169,6 +171,7 @@ dependencies:
 | backend.administration.userManagement.companyUserStatusIds.status1 | string | `"INACTIVE"` |  |
 | backend.administration.serviceAccount.clientId | string | `"technical_roles_management"` |  |
 | backend.administration.swaggerEnabled | bool | `false` |  |
+| backend.administration.frameDocumentTypeIds.type0 | string | `"CX_FRAME_CONTRACT"` |  |
 | backend.provisioning.centralRealm | string | `"CX-Central"` |  |
 | backend.provisioning.centralRealmId | string | `"CX-Central"` |  |
 | backend.provisioning.invitedUserInitialRoles.registration | string | `"Company Admin"` |  |
@@ -186,11 +189,11 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.provisioning.service.name | string | `"provisioning-service"` |  |
 | backend.provisioning.service.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_provisioning-service"` |  |
-| backend.provisioning.service.image.provisioningservicetag | string | `"v1.1.0"` |  |
+| backend.provisioning.service.image.provisioningservicetag | string | `"v1.2.0"` |  |
 | backend.provisioning.service.swaggerEnabled | bool | `false` |  |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.1.0"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.2.0"` |  |
 | backend.appmarketplace.logging.offersLibrary | string | `"Information"` |  |
 | backend.appmarketplace.appOverviewPath | string | `"/appoverview"` |  |
 | backend.appmarketplace.catenaAdminRoles.role0 | string | `"CX Admin"` |  |
@@ -240,14 +243,14 @@ dependencies:
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.1.0"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.2.0"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v1.1.0"` |  |
+| backend.notification.image.notificationservicetag | string | `"v1.2.0"` |  |
 | backend.notification.swaggerEnabled | bool | `false` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v1.1.0"` |  |
+| backend.services.image.servicesservicetag | string | `"v1.2.0"` |  |
 | backend.services.logging.offersLibrary | string | `"Information"` |  |
 | backend.services.serviceMarketplacePath | string | `"/servicemarketplace"` |  |
 | backend.services.catenaAdminRoles.role0 | string | `"CX Admin"` |  |
@@ -264,10 +267,10 @@ dependencies:
 | backend.services.swaggerEnabled | bool | `false` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.1.0"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.2.0"` |  |
 | backend.checklistworker.name | string | `"checklist-worker"` |  |
 | backend.checklistworker.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_checklist-worker"` |  |
-| backend.checklistworker.image.checklistworkertag | string | `"v1.1.0"` |  |
+| backend.checklistworker.image.checklistworkertag | string | `"v1.2.0"` |  |
 | backend.checklistworker.logging.checklistLibrary | string | `"Information"` |  |
 | backend.checklistworker.logging.bpdmLibrary | string | `"Information"` |  |
 | backend.checklistworker.logging.clearinghouseLibrary | string | `"Information"` |  |
@@ -301,6 +304,7 @@ dependencies:
 | backend.checklistworker.clearinghouse.clientId | string | `"clearinghouse-client-id"` | Provide clearinghouse client-id from clearinghouse IAM. |
 | backend.checklistworker.clearinghouse.clientSecret | string | `""` | Client-secret for clearinghouse client-id. Secret-key 'clearinghouse-client-secret'. |
 | backend.checklistworker.clearinghouse.callbackPath | string | `"/api/administration/registration/clearinghouse"` |  |
+| backend.checklistworker.processes.lockExpirySeconds | string | `"300"` |  |
 | backend.placeholder | string | `"empty"` |  |
 | postgresql.enabled | bool | `true` | PostgreSQL chart configuration Switch to enable or disable the PostgreSQL helm chart |
 | postgresql.fullnameOverride | string | `"portal-backend-postgresql"` | FullnameOverride to 'portal-backend-postgresql'. |

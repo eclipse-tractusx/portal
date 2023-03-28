@@ -164,6 +164,8 @@ spec:
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validAudiencePortal }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDISSUER"
           value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath }}"
+        - name: "JWTBEAREROPTIONS__REFRESHINTERVAL"
+          value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.refreshInterval }}"
         - name: "KEYCLOAK__CENTRAL__AUTHREALM"
           value: "{{ .Values.backend.keycloak.central.authRealm }}"
         - name: "KEYCLOAK__CENTRAL__CLIENTID"

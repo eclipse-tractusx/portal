@@ -2,6 +2,18 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.2.0
+
+### Change
+
+* changed to v1.2.0 images
+* enabled additional config for portal-backend
+* removed PORTAL_FRONTEND_URL environment variable for portal-frontend
+
+### Technical Support
+
+* trg: added repo metafile
+
 ## 1.1.0
 
 ### Change

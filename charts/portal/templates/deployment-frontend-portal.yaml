@@ -40,8 +40,6 @@ spec:
         image: {{ .Values.frontend.portal.image.name }}:{{ .Values.frontend.portal.image.portaltag | default .Chart.AppVersion }}
         imagePullPolicy: "Always"
         env:
-          - name: PORTAL_FRONTEND_URL
-            value: "{{ .Values.portalAddress }}"
           - name: PORTAL_ASSETS_URL
             value: "{{ .Values.portalAddress }}{{ .Values.frontend.assets.path }}"
           - name: PORTAL_BACKEND_URL

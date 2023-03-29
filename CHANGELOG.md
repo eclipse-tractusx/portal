@@ -2,6 +2,19 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.0.2
+
+### Bugfix
+
+* changed to versioned image tag for portal-migrations job in portal-backend
+
+## 1.0.1
+
+### Technical Support
+
+* added license file on chart level
+* added information about home and sources to chart
+
 ## 1.0.0
 
 ### Change

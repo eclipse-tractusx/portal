@@ -20,7 +20,7 @@
 apiVersion: v2
 name: portal
 type: application
-version: 1.1.0
+version: 1.1.1
 appVersion: 1.1.0
 description: Helm chart for Catena-X Portal
 home: https://github.com/eclipse-tractusx/portal-cd

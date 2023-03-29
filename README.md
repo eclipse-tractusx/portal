@@ -1,6 +1,6 @@
 # Helm chart for Catena-X Portal
 
-![Version: 1.2.0](https://img.shields.io/badge/Version-1.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
+![Version: 1.2.1](https://img.shields.io/badge/Version-1.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.2.0](https://img.shields.io/badge/AppVersion-1.2.0-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
 
 This helm chart installs the Catena-X Portal application which consists of
 
@@ -11,7 +11,7 @@ This helm chart installs the Catena-X Portal application which consists of
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
 
-For further information please refer to the [technical documentation](https://github.com/eclipse-tractusx/portal-assets/tree/1.2.0/developer/Technical%20Documentation).
+For further information please refer to the [technical documentation](https://github.com/eclipse-tractusx/portal-assets/tree/v1.2.0/developer/Technical%20Documentation).
 
 The referenced container images are for demonstration purposes only.
 
@@ -36,7 +36,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.2.0
+    version: 1.2.1
 ```
 
 ## Requirements
@@ -70,7 +70,7 @@ dependencies:
 | frontend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"https://*.example.org"` | Provide CORS allowed origin. |
 | frontend.ingress.tls[0] | object | `{"hosts":[""],"secretName":""}` | Provide tls secret. |
 | frontend.ingress.tls[0].hosts | list | `[""]` | Provide host for tls secret. |
-| frontend.ingress.hosts[0] | object | `{"host":"portal.example.org","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assetsORdocumentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
+| frontend.ingress.hosts[0] | object | `{"host":"portal.example.org","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assets|documentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"ghcr.io/catenax-ng/tx-portal-frontend"` |  |
 | frontend.portal.image.portaltag | string | `"v1.2.0"` |  |
@@ -239,7 +239,7 @@ dependencies:
 | backend.appmarketplace.swaggerEnabled | bool | `false` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"8428dbe3d4fe9a344ea5d0adb178e6807d9fa78c"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v1.2.0"` |  |
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_maintenance-service"` |  |

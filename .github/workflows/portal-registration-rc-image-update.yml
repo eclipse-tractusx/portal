@@ -17,7 +17,7 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-name: Portal Registration INT Release Auto-image-update
+name: Portal Registration Release Candidate Auto-image-update
 
 on:
   workflow_dispatch:
@@ -41,14 +41,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Modify image tag in values-int.yaml
+      - name: Modify image tag in values-rc.yaml
         run: |
-          sed -i 's/${{ env.IMAGE_BEGINN }}.*/${{ env.IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+          sed -i 's/${{ env.IMAGE_BEGINN }}.*/${{ env.IMAGE_FULL_NEW }}/' charts/portal/values-rc.yaml
 
-      - name: Commit and push updated values-int.yaml
+      - name: Commit and push updated values-rc.yaml
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add charts/portal/values-int.yaml
-          git commit -m "Add new images for portal registration int"
+          git add charts/portal/values-rc.yaml
+          git commit -m "Add new images for RC portal registration"
           bash ./scripts/push.sh

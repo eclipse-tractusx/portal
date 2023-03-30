@@ -17,7 +17,7 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-name: Portal Backend INT Release Auto-image-update
+name: Portal Backend Release Candidate Auto-image-update
 
 on:
   workflow_dispatch:
@@ -59,23 +59,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Modify image tag in values-int.yaml
+      - name: Modify image tag in values-rc.yaml
         run: |
-          sed -i 's/${{ env.ADMINISTRATION_IMAGE_BEGINN }}.*/${{ env.ADMINISTRATION_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
-          sed -i 's/${{ env.CHECKLIST_IMAGE_BEGINN }}.*/${{ env.CHECKLIST_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
-          sed -i 's/${{ env.PORTALMAINTENANCE_IMAGE_BEGINN }}.*/${{ env.PORTALMAINTENANCE_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
-          sed -i 's/${{ env.APPMARKETPLACE_IMAGE_BEGINN }}.*/${{ env.APPMARKETPLACE_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
-          sed -i 's/${{ env.NOTIFICATION_IMAGE_BEGINN }}.*/${{ env.NOTIFICATION_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
-          sed -i 's/${{ env.PORTALMIGRATIONS_IMAGE_BEGINN }}.*/${{ env.PORTALMIGRATIONS_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
-          sed -i 's/${{ env.PROVISIONING_IMAGE_BEGINN }}.*/${{ env.PROVISIONING_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
-          sed -i 's/${{ env.REGISTRATION_IMAGE_BEGINN }}.*/${{ env.REGISTRATION_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
-          sed -i 's/${{ env.SERVICES_IMAGE_BEGINN }}.*/${{ env.SERVICES_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
-          sed -i 's/${{ env.PROVISIONINGMIGRATIONS_IMAGE_BEGINN }}.*/${{ env.PROVISIONINGMIGRATIONS_IMAGE_FULL_NEW }}/' charts/portal/values-int.yaml
+          sed -i 's/${{ env.ADMINISTRATION_IMAGE_BEGINN }}.*/${{ env.ADMINISTRATION_IMAGE_FULL_NEW }}/' charts/portal/values-rc.yaml
+          sed -i 's/${{ env.CHECKLIST_IMAGE_BEGINN }}.*/${{ env.CHECKLIST_IMAGE_FULL_NEW }}/' charts/portal/values-rc.yaml
+          sed -i 's/${{ env.PORTALMAINTENANCE_IMAGE_BEGINN }}.*/${{ env.PORTALMAINTENANCE_IMAGE_FULL_NEW }}/' charts/portal/values-rc.yaml
+          sed -i 's/${{ env.APPMARKETPLACE_IMAGE_BEGINN }}.*/${{ env.APPMARKETPLACE_IMAGE_FULL_NEW }}/' charts/portal/values-rc.yaml
+          sed -i 's/${{ env.NOTIFICATION_IMAGE_BEGINN }}.*/${{ env.NOTIFICATION_IMAGE_FULL_NEW }}/' charts/portal/values-rc.yaml
+          sed -i 's/${{ env.PORTALMIGRATIONS_IMAGE_BEGINN }}.*/${{ env.PORTALMIGRATIONS_IMAGE_FULL_NEW }}/' charts/portal/values-rc.yaml
+          sed -i 's/${{ env.PROVISIONING_IMAGE_BEGINN }}.*/${{ env.PROVISIONING_IMAGE_FULL_NEW }}/' charts/portal/values-rc.yaml
+          sed -i 's/${{ env.REGISTRATION_IMAGE_BEGINN }}.*/${{ env.REGISTRATION_IMAGE_FULL_NEW }}/' charts/portal/values-rc.yaml
+          sed -i 's/${{ env.SERVICES_IMAGE_BEGINN }}.*/${{ env.SERVICES_IMAGE_FULL_NEW }}/' charts/portal/values-rc.yaml
+          sed -i 's/${{ env.PROVISIONINGMIGRATIONS_IMAGE_BEGINN }}.*/${{ env.PROVISIONINGMIGRATIONS_IMAGE_FULL_NEW }}/' charts/portal/values-rc.yaml
 
-      - name: Commit and push updated values-int.yaml
+      - name: Commit and push updated values-rc.yaml
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add charts/portal/values-int.yaml
-          git commit -m "Add new images for int"
+          git add charts/portal/values-rc.yaml
+          git commit -m "Add new images for RC portal backend"
           bash ./scripts/push.sh

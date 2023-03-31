@@ -149,6 +149,16 @@ spec:
           value: "{{ .Values.backend.services.submitServiceNotificationTypeIds.type0 }}"
         - name: "SWAGGERENABLED"
           value: "{{ .Values.backend.services.swaggerEnabled }}"
+        - name: "SERVICES__SERVICEIMAGEDOCUMENTTYPEIDS__0"
+          value: "{{ .Values.backend.services.serviceImageDocumentTypeIds.type0 }}"
+        - name: "SERVICES__SERVICEIMAGEDOCUMENTTYPEIDS__1"
+          value: "{{ .Values.backend.services.serviceImageDocumentTypeIds.type1 }}"
+        - name: "SERVICES__SERVICEIMAGEDOCUMENTTYPEIDS__2"
+          value: "{{ .Values.backend.services.serviceImageDocumentTypeIds.type2 }}"
+        - name: "SERVICES__OFFERSTATUSIDS__0"
+          value: "{{ .Values.backend.services.offerStatusIds.status0 }}"
+        - name: "SERVICES__OFFERSTATUSIDS__1"
+          value: "{{ .Values.backend.services.offerStatusIds.status1 }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

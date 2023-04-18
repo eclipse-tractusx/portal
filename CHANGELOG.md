@@ -2,6 +2,18 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.3.0-RC3
+
+### Change
+
+* changed to v1.3.0-RC3 images
+
+## 1.3.0-RC2
+
+### Change
+
+* changed to v1.3.0-RC3 images
+
 ## 1.3.0-RC1
 
 ### Change

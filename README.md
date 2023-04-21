@@ -1,6 +1,6 @@
 # Helm chart for Catena-X Portal
 
-![Version: 1.3.0-RC3](https://img.shields.io/badge/Version-1.3.0--RC3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0-RC3](https://img.shields.io/badge/AppVersion-1.3.0--RC3-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
+![Version: 1.3.0-RC4](https://img.shields.io/badge/Version-1.3.0--RC4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.3.0-RC4](https://img.shields.io/badge/AppVersion-1.3.0--RC4-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
 
 This helm chart installs the Catena-X Portal application which consists of
 
@@ -10,6 +10,9 @@ This helm chart installs the Catena-X Portal application which consists of
 * [portal-backend](https://github.com/eclipse-tractusx/portal-backend).
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
+This version is compatible with the 1.1.0 version of the IAM instances:
+* [Central Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-1.1.0/charts/centralidp/README.md)
+* [Shared Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-1.1.0/charts/sharedidp/README.md)
 
 For further information please refer to the [technical documentation](https://github.com/eclipse-tractusx/portal-assets/tree/v1.3.0-RC3/developer/Technical%20Documentation).
 
@@ -36,7 +39,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.3.0-RC3
+    version: 1.3.0-RC4
 ```
 
 ## Requirements
@@ -73,7 +76,7 @@ dependencies:
 | frontend.ingress.hosts[0] | object | `{"host":"portal.example.org","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assetsORdocumentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"ghcr.io/catenax-ng/tx-portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v1.3.0-RC3"` |  |
+| frontend.portal.image.portaltag | string | `"v1.3.0-RC4"` |  |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"ghcr.io/catenax-ng/tx-portal-frontend-registration"` |  |
 | frontend.registration.image.registrationtag | string | `"v1.3.0-RC2"` |  |
@@ -125,7 +128,7 @@ dependencies:
 | backend.interfaces.secret | string | `"secret-backend-interfaces"` | Secret containing the client-secrets for the connection to daps, custodian, bpdm, sdFactory and clearinghouse. |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v1.3.0-RC3"` |  |
+| backend.registration.image.registrationservicetag | string | `"v1.3.0-RC4"` |  |
 | backend.registration.logging.registrationServiceBpn | string | `"Information"` |  |
 | backend.registration.portalRegistrationPath | string | `"/registration"` |  |
 | backend.registration.keycloakClientId | string | `"Cl1-CX-Registration"` |  |
@@ -138,7 +141,7 @@ dependencies:
 | backend.registration.registrationDocumentTypeIds.type0 | string | `"CX_FRAME_CONTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v1.3.0-RC3"` |  |
+| backend.administration.image.administrationservicetag | string | `"v1.3.0-RC4"` |  |
 | backend.administration.logging.businessLogic | string | `"Information"` |  |
 | backend.administration.logging.sdfactoryLibrary | string | `"Information"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type0 | string | `"application/x-pem-file"` |  |
@@ -189,11 +192,11 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.provisioning.service.name | string | `"provisioning-service"` |  |
 | backend.provisioning.service.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_provisioning-service"` |  |
-| backend.provisioning.service.image.provisioningservicetag | string | `"v1.3.0-RC3"` |  |
+| backend.provisioning.service.image.provisioningservicetag | string | `"v1.3.0-RC4"` |  |
 | backend.provisioning.service.swaggerEnabled | bool | `false` |  |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.3.0-RC3"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.3.0-RC4"` |  |
 | backend.appmarketplace.logging.offersLibrary | string | `"Information"` |  |
 | backend.appmarketplace.appOverviewPath | string | `"/appoverview"` |  |
 | backend.appmarketplace.catenaAdminRoles.role0 | string | `"CX Admin"` |  |
@@ -239,18 +242,18 @@ dependencies:
 | backend.appmarketplace.swaggerEnabled | bool | `false` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v1.3.0-RC3"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v1.3.0-RC4"` |  |
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.3.0-RC3"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.3.0-RC4"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v1.3.0-RC3"` |  |
+| backend.notification.image.notificationservicetag | string | `"v1.3.0-RC4"` |  |
 | backend.notification.swaggerEnabled | bool | `false` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v1.3.0-RC3"` |  |
+| backend.services.image.servicesservicetag | string | `"v1.3.0-RC4"` |  |
 | backend.services.logging.offersLibrary | string | `"Information"` |  |
 | backend.services.serviceMarketplacePath | string | `"/servicemarketplace"` |  |
 | backend.services.catenaAdminRoles.role0 | string | `"CX Admin"` |  |
@@ -270,12 +273,14 @@ dependencies:
 | backend.services.serviceImageDocumentTypeIds.type2 | string | `"SERVICE_LEADIMAGE"` |  |
 | backend.services.offerStatusIds.status0 | string | `"IN_REVIEW"` |  |
 | backend.services.offerStatusIds.status1 | string | `"ACTIVE"` |  |
+| backend.services.deleteDocumentTypeIds.type0 | string | `"SERVICE_LEADIMAGE"` |  |
+| backend.services.deleteDocumentTypeIds.type1 | string | `"ADDITIONAL_DETAILS"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.3.0-RC3"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.3.0-RC4"` |  |
 | backend.checklistworker.name | string | `"checklist-worker"` |  |
 | backend.checklistworker.image.name | string | `"ghcr.io/catenax-ng/tx-portal-backend_checklist-worker"` |  |
-| backend.checklistworker.image.checklistworkertag | string | `"v1.3.0-RC3"` |  |
+| backend.checklistworker.image.checklistworkertag | string | `"v1.3.0-RC4"` |  |
 | backend.checklistworker.logging.checklistLibrary | string | `"Information"` |  |
 | backend.checklistworker.logging.bpdmLibrary | string | `"Information"` |  |
 | backend.checklistworker.logging.clearinghouseLibrary | string | `"Information"` |  |

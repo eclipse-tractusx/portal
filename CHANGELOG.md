@@ -2,36 +2,17 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 1.3.0-RC4
+## 1.3.0
 
 ### Change
 
-* changed to v1.3.0-RC4 images
+* changed to v1.3.0 images
 * enabled additional config for portal-backend
 
 ### Bugfix
 
 * enabled usage of existing secret values if secret exists: stops regeneration of random secret values at 'helm upgrade'
 * stopped creation of the corresponding secret if database dependency is disabled
-
-## 1.3.0-RC3
-
-### Change
-
-* changed to v1.3.0-RC3 images
-
-## 1.3.0-RC2
-
-### Change
-
-* changed to v1.3.0-RC3 images
-
-## 1.3.0-RC1
-
-### Change
-
-* changed to v1.3.0-RC1 images
-* enabled additional config for portal-backend
 
 ### Technical Support
 

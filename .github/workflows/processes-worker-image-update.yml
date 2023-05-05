@@ -17,7 +17,7 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-name: Checklist-Worker Auto-image-update
+name: Processes-Worker Auto-image-update
 
 on:
   workflow_dispatch:
@@ -28,8 +28,8 @@ on:
         default: 'no content'
 
 env:
-  IMAGE_BEGINN: 'checklistworkertag: '
-  IMAGE_FULL_NEW: 'checklistworkertag: ${{ inputs.new-image }}'
+  IMAGE_BEGINN: 'processesworkertag: '
+  IMAGE_FULL_NEW: 'processesworkertag: ${{ inputs.new-image }}'
 
 jobs:
   update-image-tag:
@@ -50,5 +50,5 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add charts/portal/values-dev.yaml
-          git commit -m "Add new image for checklist worker"
+          git commit -m "Add new image for processes worker"
           bash ./scripts/push.sh

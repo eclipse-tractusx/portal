@@ -47,8 +47,8 @@ jobs:
 
       - name: Commit and push updated values.yaml
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name eclipse-tractusx-bot
+          git config user.email tractusx-bot@eclipse.org
           git add charts/portal/values.yaml
           git commit -m "Add new image for processes worker"
           bash ./scripts/push.sh

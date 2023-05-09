@@ -51,5 +51,5 @@ jobs:
           git config user.email tractusx-bot@eclipse.org
           git add charts/portal/values.yaml
           git commit -m "Add new image for services service"
-          bash ./scripts/push.sh
+          bash ./consortia/scripts/push.sh
 

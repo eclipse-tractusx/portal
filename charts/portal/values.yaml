@@ -423,7 +423,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-backend_maintenance-service"
-      portalmaintenancetag: f56edcb4a6afb51f3d33a650433cda7ab2fdf7f0
+      portalmaintenancetag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
   notification:
     name: "notification-service"
     image:

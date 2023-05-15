@@ -100,7 +100,7 @@ frontend:
     name: "registration"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-frontend-registration"
-      registrationtag: bdf88b5a017294965ea008efec4190ecb7e326e2
+      registrationtag: eb684083f631b10a2532756a90985263ae9db37d
   assets:
     name: "assets"
     image:

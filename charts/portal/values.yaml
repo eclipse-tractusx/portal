@@ -94,17 +94,17 @@ frontend:
   portal:
     name: "portal"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-frontend"
+      name: "tractusx/portal-frontend"
       portaltag: 1a203f68f3cf08e9a81462891897040d41b00980
   registration:
     name: "registration"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-frontend-registration"
+      name: "tractusx/portal-frontend-registration"
       registrationtag: eb684083f631b10a2532756a90985263ae9db37d
   assets:
     name: "assets"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-assets"
+      name: "tractusx/portal-assets"
       assetstag: ef8cf2e852421de23570493da7955fd9a61abf0f
     path: "/assets"
   centralidpAuthPath: "/auth"
@@ -224,7 +224,7 @@ backend:
   registration:
     name: "registration-service"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-backend_registration-service"
+      name: "tractusx/portal-registration-service"
       registrationservicetag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
     logging:
       registrationServiceBpn: "Information"
@@ -251,7 +251,7 @@ backend:
   administration:
     name: "administration-service"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-backend_administration-service"
+      name: "tractusx/portal-administration-service"
       administrationservicetag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
     logging:
       businessLogic: "Information"
@@ -345,7 +345,7 @@ backend:
   appmarketplace:
     name: "marketplace-app-service"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-backend_marketplace-app-service"
+      name: "tractusx/portal-marketplace-app-service"
       appmarketplaceservicetag: 5c043dd6f6a9218f332cd9939bb342852bbf8bf9
     logging:
       offersLibrary: "Information"
@@ -415,19 +415,19 @@ backend:
   portalmigrations:
     name: "portal-migrations"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-backend_portal-migrations"
+      name: "tractusx/portal-portal-migrations"
       portalmigrationstag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
     seeding:
       testDataEnvironments: ""
   portalmaintenance:
     name: "portal-maintenance"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-backend_maintenance-service"
+      name: "tractusx/portal-maintenance-service"
       portalmaintenancetag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
   notification:
     name: "notification-service"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-backend_notification-service"
+      name: "tractusx/portal-notification-service"
       notificationservicetag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
     healthChecks:
       startup:
@@ -441,7 +441,7 @@ backend:
   services:
     name: "services-service"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-backend_services-service"
+      name: "tractusx/portal-services-service"
       servicesservicetag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
     logging:
       offersLibrary: "Information"
@@ -493,12 +493,12 @@ backend:
   provisioningmigrations:
     name: "provisioning-migrations"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-backend_provisioning-migrations"
+      name: "tractusx/portal-provisioning-migrations"
       provisioningmigrationstag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
   processesworker:
     name: "processes-worker"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-backend_processes-worker"
+      name: "tractusx/portal-processes-worker"
       processesworkertag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
     logging:
       processesLibrary: "Information"

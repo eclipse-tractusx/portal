@@ -38,8 +38,8 @@ env:
   NOTIFICATION_IMAGE_FULL_NEW: 'notificationservicetag: ${{ inputs.new-image }}'
   PORTALMIGRATIONS_IMAGE_BEGINN: 'portalmigrationstag: '
   PORTALMIGRATIONS_IMAGE_FULL_NEW: 'portalmigrationstag: ${{ inputs.new-image }}'
-  CHECKLIST_IMAGE_BEGINN: 'checklistworkertag: '
-  CHECKLIST_IMAGE_FULL_NEW: 'checklistworkertag: ${{ inputs.new-image }}'
+  PROCESSES_IMAGE_BEGINN: 'processesworkertag: '
+  PROCESSES_IMAGE_FULL_NEW: 'processesworkertag: ${{ inputs.new-image }}'
   PROVISIONING_IMAGE_BEGINN: 'provisioningservicetag: '
   PROVISIONING_IMAGE_FULL_NEW: 'provisioningservicetag: ${{ inputs.new-image }}'
   REGISTRATION_IMAGE_BEGINN: 'registrationservicetag: '
@@ -62,7 +62,7 @@ jobs:
       - name: Modify image tag in values.yaml
         run: |
           sed -i 's/${{ env.ADMINISTRATION_IMAGE_BEGINN }}.*/${{ env.ADMINISTRATION_IMAGE_FULL_NEW }}/' charts/portal/values.yaml
-          sed -i 's/${{ env.CHECKLIST_IMAGE_BEGINN }}.*/${{ env.CHECKLIST_IMAGE_FULL_NEW }}/' charts/portal/values.yaml
+          sed -i 's/${{ env.PROCESSES_IMAGE_BEGINN }}.*/${{ env.PROCESSES_IMAGE_FULL_NEW }}/' charts/portal/values.yaml
           sed -i 's/${{ env.PORTALMAINTENANCE_IMAGE_BEGINN }}.*/${{ env.PORTALMAINTENANCE_IMAGE_FULL_NEW }}/' charts/portal/values.yaml
           sed -i 's/${{ env.APPMARKETPLACE_IMAGE_BEGINN }}.*/${{ env.APPMARKETPLACE_IMAGE_FULL_NEW }}/' charts/portal/values.yaml
           sed -i 's/${{ env.NOTIFICATION_IMAGE_BEGINN }}.*/${{ env.NOTIFICATION_IMAGE_FULL_NEW }}/' charts/portal/values.yaml
@@ -74,8 +74,8 @@ jobs:
 
       - name: Commit and push updated values.yaml
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.name eclipse-tractusx-bot
+          git config user.email tractusx-bot@eclipse.org
           git add charts/portal/values.yaml
           git commit -m "Add new images for portal backend"
-          bash ./scripts/push.sh
+          bash ./consortia/scripts/push.sh

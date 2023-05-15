@@ -41,14 +41,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Modify image tag in values-dev.yaml
+      - name: Modify image tag in values.yaml
         run: |
-          sed -i 's/${{ env.IMAGE_BEGINN }}.*/${{ env.IMAGE_FULL_NEW }}/' charts/portal/values-dev.yaml
+          sed -i 's/${{ env.IMAGE_BEGINN }}.*/${{ env.IMAGE_FULL_NEW }}/' charts/portal/values.yaml
 
-      - name: Commit and push updated values-dev.yaml
+      - name: Commit and push updated values.yaml
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add charts/portal/values-dev.yaml
+          git config user.name eclipse-tractusx-bot
+          git config user.email tractusx-bot@eclipse.org
+          git add charts/portal/values.yaml
           git commit -m "Add new image for portal-migrations"
-          bash ./scripts/push.sh
+          bash ./consortia/scripts/push.sh

@@ -95,7 +95,7 @@ frontend:
     name: "portal"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-frontend"
-      portaltag: 2893a9645890fa7e7f308756754ca47e0537374f
+      portaltag: 1a203f68f3cf08e9a81462891897040d41b00980
   registration:
     name: "registration"
     image:

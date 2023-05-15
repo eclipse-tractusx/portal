@@ -95,17 +95,17 @@ frontend:
     name: "portal"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-frontend"
-      portaltag: v1.3.0
+      portaltag: 2893a9645890fa7e7f308756754ca47e0537374f
   registration:
     name: "registration"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-frontend-registration"
-      registrationtag: v1.3.0
+      registrationtag: bdf88b5a017294965ea008efec4190ecb7e326e2
   assets:
     name: "assets"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-assets"
-      assetstag: v1.3.0
+      assetstag: 16473d2fa7d3112f27f70a56dc1855dd9ac85905
     path: "/assets"
   centralidpAuthPath: "/auth"
   bpdmPartnersPoolApiPath: "/api"
@@ -214,13 +214,28 @@ backend:
   interfaces:
     # -- Secret containing the client-secrets for the connection to daps, custodian, bpdm, sdFactory and clearinghouse.
     secret: "secret-backend-interfaces"
+  healthChecks:
+    startup:
+      path: "/health/startup"
+    liveness:
+      path: "/healthz"
+    readyness:
+      path: "/ready"
   registration:
     name: "registration-service"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-backend_registration-service"
-      registrationservicetag: v1.3.0
+      registrationservicetag: c50e4c82461078c695f35a6c816d2372aeecf1b9
     logging:
       registrationServiceBpn: "Information"
+    healthChecks:
+      startup:
+        tags: []
+# -- healthchecks to be enabled for startupProbe
+#       - name: "HEALTHCHECKS__0__TAGS__0"
+#         value: "keycloak"
+#       - name: "HEALTHCHECKS__0__TAGS__1"
+#         value: "portaldb"
     portalRegistrationPath: "/registration"
     keycloakClientId: "Cl1-CX-Registration"
     applicationStatusIds:
@@ -237,10 +252,20 @@ backend:
     name: "administration-service"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-backend_administration-service"
-      administrationservicetag: v1.3.0
+      administrationservicetag: c50e4c82461078c695f35a6c816d2372aeecf1b9
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
+    healthChecks:
+      startup:
+        tags: []
+# -- healthchecks to be enabled for startupProbe
+#       - name: "HEALTHCHECKS__0__TAGS__0"
+#         value: "keycloak"
+#       - name: "HEALTHCHECKS__0__TAGS__1"
+#         value: "portaldb"
+#       - name: "HEALTHCHECKS__0__TAGS__2"
+#         value: "provisioningdb"
     connectors:
       validCertificationContentTypes:
         type0: "application/x-pem-file"
@@ -275,14 +300,15 @@ backend:
         role0: "Company Admin"
       initialLoginTheme: "catenax-shared"
     registration:
-      partnerUserInitialRoles:
-        role0: "Company Admin"
       documentTypeIds:
         type0: "COMMERCIAL_REGISTER_EXTRACT"
     userManagement:
       companyUserStatusIds:
         status0: "ACTIVE"
         status1: "INACTIVE"
+      userAdminRoles:
+        role0: "Company Admin"
+        role1: "IT Admin"
     serviceAccount:
       clientId: "technical_roles_management"
     swaggerEnabled: false
@@ -315,19 +341,22 @@ backend:
         from: "smtp@example.org"
         # -- Provide replyTo.
         replyTo: "smtp@example.org"
-    service:
-      name: "provisioning-service"
-      image:
-        name: "ghcr.io/catenax-ng/tx-portal-backend_provisioning-service"
-        provisioningservicetag: v1.3.0
-      swaggerEnabled: false
+
   appmarketplace:
     name: "marketplace-app-service"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-backend_marketplace-app-service"
-      appmarketplaceservicetag: v1.3.0
+      appmarketplaceservicetag: c50e4c82461078c695f35a6c816d2372aeecf1b9
     logging:
       offersLibrary: "Information"
+    healthChecks:
+      startup:
+        tags: []
+# -- healthchecks to be enabled for startupProbe
+#       - name: "HEALTHCHECKS__0__TAGS__0"
+#         value: "keycloak"
+#       - name: "HEALTHCHECKS__0__TAGS__1"
+#         value: "portaldb"
     appOverviewPath: "/appoverview"
     catenaAdminRoles:
       role0: "CX Admin"
@@ -345,14 +374,11 @@ backend:
       role1: "Service Manager"
     ITAdminRoles:
       role0: "IT Admin"
-    documentTypeIds:
-      type0: "APP_CONTRACT"
-      type1: "APP_DATA_DETAILS"
-      type2: "ADDITIONAL_DETAILS"
-      type3: "APP_TECHNICAL_INFORMATION"
-      type4: "APP_LEADIMAGE"
-      type5: "APP_IMAGE"
-      type6: "CONFORMITY_APPROVAL_BUSINESS_APPS"
+    uploadAppDocumentTypeIds:
+      setting0: "application/pdf"
+      setting1: "image/jpeg"
+      setting2: "image/png"
+      setting3: "image/svg+xml"
     deleteDocumentTypeIds:
       type0: "APP_CONTRACT"
       type1: "ADDITIONAL_DETAILS"
@@ -364,10 +390,6 @@ backend:
       type0: "APP_LEADIMAGE"
       type1: "APP_IMAGE"
       type2: "CONFORMITY_APPROVAL_BUSINESS_APPS"
-    contentTypeSettings:
-      setting0: "application/pdf"
-      setting1: "image/jpeg"
-      setting2: "image/png"
     notificationTypeIds:
       type0: "APP_RELEASE_REQUEST"
     activeAppNotificationTypeIds:
@@ -387,31 +409,50 @@ backend:
       status0: "IN_REVIEW"
       status1: "ACTIVE"
     swaggerEnabled: false
+    technicalUserProfileClient: "technical_roles_management"
+    companyAdminRoles:
+      role0: "Company Admin"
   portalmigrations:
     name: "portal-migrations"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-backend_portal-migrations"
-      portalmigrationstag: v1.3.0
+      portalmigrationstag: f4737efee0612cbc4b9a3e359d686100dfd4f35f
     seeding:
       testDataEnvironments: ""
   portalmaintenance:
     name: "portal-maintenance"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-backend_maintenance-service"
-      portalmaintenancetag: v1.3.0
+      portalmaintenancetag: f56edcb4a6afb51f3d33a650433cda7ab2fdf7f0
   notification:
     name: "notification-service"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-backend_notification-service"
-      notificationservicetag: v1.3.0
+      notificationservicetag: c50e4c82461078c695f35a6c816d2372aeecf1b9
+    healthChecks:
+      startup:
+        tags: []
+# -- healthchecks to be enabled for startupProbe
+#       - name: "HEALTHCHECKS__0__TAGS__0"
+#         value: "keycloak"
+#       - name: "HEALTHCHECKS__0__TAGS__1"
+#         value: "portaldb"
     swaggerEnabled: false
   services:
     name: "services-service"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-backend_services-service"
-      servicesservicetag: v1.3.0
+      servicesservicetag: c50e4c82461078c695f35a6c816d2372aeecf1b9
     logging:
       offersLibrary: "Information"
+    healthChecks:
+      startup:
+        tags: []
+# -- healthchecks to be enabled for startupProbe
+#       - name: "HEALTHCHECKS__0__TAGS__0"
+#         value: "keycloak"
+#       - name: "HEALTHCHECKS__0__TAGS__1"
+#         value: "portaldb"
     serviceMarketplacePath: "/servicemarketplace"
     catenaAdminRoles:
       role0: "CX Admin"
@@ -426,10 +467,11 @@ backend:
       role1: "Service Manager"
     ITAdminRoles:
       role0: "IT Admin"
-    documentTypeIds:
-      type0: "ADDITIONAL_DETAILS"
-    contentTypeSettings:
+    uploadServiceDocumentTypeIds:
       setting0: "application/pdf"
+      setting1: "image/jpeg"
+      setting2: "image/png"
+      setting3: "image/svg+xml"
     submitServiceNotificationTypeIds:
       type0: "SERVICE_RELEASE_REQUEST"
     approveServiceNotificationTypeIds:
@@ -445,18 +487,21 @@ backend:
     deleteDocumentTypeIds:
       type0: "SERVICE_LEADIMAGE"
       type1: "ADDITIONAL_DETAILS"
+    technicalUserProfileClient: "technical_roles_management"
+    companyAdminRoles:
+      role0: "Company Admin"
   provisioningmigrations:
     name: "provisioning-migrations"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-backend_provisioning-migrations"
-      provisioningmigrationstag: v1.3.0
-  checklistworker:
-    name: "checklist-worker"
+      provisioningmigrationstag: d37d04846cf61ebbc40aa1f7a05b4ee25cedfe93
+  processesworker:
+    name: "processes-worker"
     image:
-      name: "ghcr.io/catenax-ng/tx-portal-backend_checklist-worker"
-      checklistworkertag: v1.3.0
+      name: "ghcr.io/catenax-ng/tx-portal-backend_processes-worker"
+      processesworkertag: f56edcb4a6afb51f3d33a650433cda7ab2fdf7f0
     logging:
-      checklistLibrary: "Information"
+      processesLibrary: "Information"
       bpdmLibrary: "Information"
       clearinghouseLibrary: "Information"
       custodianLibrary: "Information"
@@ -630,14 +675,20 @@ updateStrategy:
     maxSurge: 1
     maxUnavailable: 0
 
-livenessProbe:
 # -- Following Catena-X Helm Best Practices,
 # [reference](https://github.com/helm/charts/blob/master/stable/nginx-ingress/values.yaml#L210).
-  failureThreshold: 3
+startupProbe:
+  failureThreshold: 30
   initialDelaySeconds: 10
   periodSeconds: 10
   successThreshold: 1
   timeoutSeconds: 1
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 1
+  timeoutSeconds: 10
 readinessProbe:
   failureThreshold: 3
   initialDelaySeconds: 10

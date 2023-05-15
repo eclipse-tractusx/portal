@@ -442,7 +442,7 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
+      servicesservicetag: 1d1e935fa29880614f0b21fdfc68a3e7063f9889
     logging:
       offersLibrary: "Information"
     healthChecks:

@@ -416,7 +416,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "ghcr.io/catenax-ng/tx-portal-backend_portal-migrations"
-      portalmigrationstag: f4737efee0612cbc4b9a3e359d686100dfd4f35f
+      portalmigrationstag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
     seeding:
       testDataEnvironments: ""
   portalmaintenance:

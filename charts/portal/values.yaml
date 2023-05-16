@@ -423,7 +423,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
+      portalmaintenancetag: 4153bafd5a0ed2c922d142571280fc5863d97eb8
   notification:
     name: "notification-service"
     image:

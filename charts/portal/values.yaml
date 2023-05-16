@@ -346,7 +346,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: a7028c41bc47166b21a70d1263714e90975f3090
+      appmarketplaceservicetag: 4153bafd5a0ed2c922d142571280fc5863d97eb8
     logging:
       offersLibrary: "Information"
     healthChecks:

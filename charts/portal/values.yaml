@@ -428,7 +428,7 @@ backend:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: f6a4a4256d932b2d6a6e3c0f4202d33bd35c386f
+      notificationservicetag: a7028c41bc47166b21a70d1263714e90975f3090
     healthChecks:
       startup:
         tags: []

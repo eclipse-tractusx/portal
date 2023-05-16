@@ -225,7 +225,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
+      registrationservicetag: f6a4a4256d932b2d6a6e3c0f4202d33bd35c386f
     logging:
       registrationServiceBpn: "Information"
     healthChecks:

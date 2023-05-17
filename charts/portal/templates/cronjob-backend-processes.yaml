@@ -242,7 +242,7 @@ spec:
               value: "{{ .Values.backend.provisioning.sharedRealm.smtpServer.user }}"
             - name: "PROVISIONING__SHAREDREALMCLIENT__CLIENTID"
               value: "{{ .Values.backend.provisioning.sharedRealmClient.clientId }}"
-                        - name: "OFFERSUBSCRIPTIONPROCESS__BASEPORTALADDRESS"
+            - name: "OFFERSUBSCRIPTIONPROCESS__BASEPORTALADDRESS"
               value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
             - name: "OFFERSUBSCRIPTIONPROCESS__SERVICEACCOUNTROLES__technical_roles_management__0"
               value: "{{ .Values.backend.processesworker.offerSubscriptionProcess.serviceAccountRoles.role0 }}"

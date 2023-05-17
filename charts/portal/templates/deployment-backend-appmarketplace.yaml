@@ -104,26 +104,26 @@ spec:
           value: "{{ .Values.portalAddress }}{{ .Values.backend.userManagementPath }}"
         - name: "APPMARKETPLACE__CATENAADMINROLES__Cl2-CX-Portal__0"
           value: "{{ .Values.backend.appmarketplace.catenaAdminRoles.role0 }}"
-        - name: "APPMARKETPLACE__CONTENTTYPESETTINGS__0"
-          value: "{{ .Values.backend.appmarketplace.contentTypeSettings.setting0 }}"
-        - name: "APPMARKETPLACE__CONTENTTYPESETTINGS__1"
-          value: "{{ .Values.backend.appmarketplace.contentTypeSettings.setting1 }}"
-        - name: "APPMARKETPLACE__CONTENTTYPESETTINGS__2"
-          value: "{{ .Values.backend.appmarketplace.contentTypeSettings.setting2 }}"
-        - name: "APPMARKETPLACE__DOCUMENTTYPEIDS__0"
-          value: "{{ .Values.backend.appmarketplace.documentTypeIds.type0 }}"
-        - name: "APPMARKETPLACE__DOCUMENTTYPEIDS__1"
-          value: "{{ .Values.backend.appmarketplace.documentTypeIds.type1 }}"
-        - name: "APPMARKETPLACE__DOCUMENTTYPEIDS__2"
-          value: "{{ .Values.backend.appmarketplace.documentTypeIds.type2 }}"
-        - name: "APPMARKETPLACE__DOCUMENTTYPEIDS__3"
-          value: "{{ .Values.backend.appmarketplace.documentTypeIds.type3 }}"
-        - name: "APPMARKETPLACE__DOCUMENTTYPEIDS__4"
-          value: "{{ .Values.backend.appmarketplace.documentTypeIds.type4 }}"
-        - name: "APPMARKETPLACE__DOCUMENTTYPEIDS__5"
-          value: "{{ .Values.backend.appmarketplace.documentTypeIds.type5 }}"
-        - name: "APPMARKETPLACE__DOCUMENTTYPEIDS__6"
-          value: "{{ .Values.backend.appmarketplace.documentTypeIds.type6 }}"
+        - name: "APPMARKETPLACE__UPLOADAPPDOCUMENTTYPEIDS__APP_CONTRACT__0"
+          value: "{{ .Values.backend.appmarketplace.uploadAppDocumentTypeIds.setting0 }}"
+        - name: "APPMARKETPLACE__UPLOADAPPDOCUMENTTYPEIDS__ADDITIONAL_DETAILS__0"
+          value: "{{ .Values.backend.appmarketplace.uploadAppDocumentTypeIds.setting0 }}"
+        - name: "APPMARKETPLACE__UPLOADAPPDOCUMENTTYPEIDS__APP_TECHNICAL_INFORMATION__0"
+          value: "{{ .Values.backend.appmarketplace.uploadAppDocumentTypeIds.setting0 }}"
+        - name: "APPMARKETPLACE__UPLOADAPPDOCUMENTTYPEIDS__APP_LEADIMAGE__0"
+          value: "{{ .Values.backend.appmarketplace.uploadAppDocumentTypeIds.setting1 }}"
+        - name: "APPMARKETPLACE__UPLOADAPPDOCUMENTTYPEIDS__APP_LEADIMAGE__1"
+          value: "{{ .Values.backend.appmarketplace.uploadAppDocumentTypeIds.setting2 }}"
+        - name: "APPMARKETPLACE__UPLOADAPPDOCUMENTTYPEIDS__APP_LEADIMAGE__2"
+          value: "{{ .Values.backend.appmarketplace.uploadAppDocumentTypeIds.setting3 }}"  
+        - name: "APPMARKETPLACE__UPLOADAPPDOCUMENTTYPEIDS__APP_IMAGE__0"
+          value: "{{ .Values.backend.appmarketplace.uploadAppDocumentTypeIds.setting1 }}" 
+        - name: "APPMARKETPLACE__UPLOADAPPDOCUMENTTYPEIDS__APP_IMAGE__1"
+          value: "{{ .Values.backend.appmarketplace.uploadAppDocumentTypeIds.setting2 }}"
+        - name: "APPMARKETPLACE__UPLOADAPPDOCUMENTTYPEIDS__APP_IMAGE__2"
+          value: "{{ .Values.backend.appmarketplace.uploadAppDocumentTypeIds.setting3 }}"
+        - name: "APPMARKETPLACE__UPLOADAPPDOCUMENTTYPEIDS__CONFORMITY_APPROVAL_BUSINESS_APPS__0"
+          value: "{{ .Values.backend.appmarketplace.uploadAppDocumentTypeIds.setting0 }}"
         - name: "APPMARKETPLACE__DELETEDOCUMENTTYPEIDS__0"
           value: "{{ .Values.backend.appmarketplace.deleteDocumentTypeIds.type0 }}"
         - name: "APPMARKETPLACE__DELETEDOCUMENTTYPEIDS__1"
@@ -158,6 +158,19 @@ spec:
           value: "{{ .Values.backend.appmarketplace.serviceManagerRoles.role0 }}"
         - name: "APPMARKETPLACE__SUBMITAPPNOTIFICATIONTYPEIDS__0"
           value: "{{ .Values.backend.appmarketplace.submitAppNotificationTypeIds.type0 }}"
+        - name: "APPMARKETPLACE__TECHNICALUSERPROFILECLIENT"
+          value: "{{ .Values.backend.appmarketplace.technicalUserProfileClient }}"
+        - name: "APPMARKETPLACE__COMPANYADMINROLES__Cl2-CX-Portal__0"
+          value: "{{ .Values.backend.appmarketplace.companyAdminRoles.role0 }}"
+        - name: "HEALTHCHECKS__0__PATH"
+          value: "{{ .Values.backend.healthChecks.startup.path}}"
+        {{- if .Values.backend.appmarketplace.healthChecks.startup.tags }}
+        {{- toYaml .Values.backend.appmarketplace.healthChecks.startup.tags | nindent 8 }}
+        {{- end }}
+        - name: "HEALTHCHECKS__1__PATH"
+          value: "{{ .Values.backend.healthChecks.readyness.path}}"
+        - name: "HEALTHCHECKS__2__PATH"
+          value: "{{ .Values.backend.healthChecks.liveness.path}}"
         - name: "JWTBEAREROPTIONS__METADATAADDRESS"
           value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDAUDIENCE"
@@ -211,6 +224,36 @@ spec:
         - name: http
           containerPort: {{ .Values.portContainer }}
           protocol: TCP
+        startupProbe:
+          httpGet:
+            path: {{ .Values.backend.healthChecks.startup.path }}
+            port: {{ .Values.portContainer }}
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.startupProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.startupProbe.successThreshold }}
+          failureThreshold: {{ .Values.startupProbe.failureThreshold }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.backend.healthChecks.liveness.path }}
+            port: {{ .Values.portContainer }}
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.backend.healthChecks.readyness.path }}
+            port: {{ .Values.portContainer }}
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

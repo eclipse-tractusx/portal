@@ -80,6 +80,15 @@ spec:
           value: "{{ .Values.backend.dbConnection.schema }}"
         - name: "BPN_ADDRESS"
           value: "{{ .Values.bpdmPartnersPoolAddress }}"
+        - name: "HEALTHCHECKS__0__PATH"
+          value: "{{ .Values.backend.healthChecks.startup.path}}"
+        {{- if .Values.backend.registration.healthChecks.startup.tags }}
+        {{- toYaml .Values.backend.registration.healthChecks.startup.tags | nindent 8 }}
+        {{- end }}
+        - name: "HEALTHCHECKS__1__PATH"
+          value: "{{ .Values.backend.healthChecks.readyness.path}}"
+        - name: "HEALTHCHECKS__2__PATH"
+          value: "{{ .Values.backend.healthChecks.liveness.path}}"
         - name: "JWTBEAREROPTIONS__METADATAADDRESS"
           value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDAUDIENCE"
@@ -151,6 +160,36 @@ spec:
         - name: http
           containerPort: {{ .Values.portContainer }}
           protocol: TCP
+        startupProbe:
+          httpGet:
+            path: {{ .Values.backend.healthChecks.startup.path }}
+            port: {{ .Values.portContainer }}
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.startupProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.startupProbe.successThreshold }}
+          failureThreshold: {{ .Values.startupProbe.failureThreshold }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.backend.healthChecks.liveness.path }}
+            port: {{ .Values.portContainer }}
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.livenessProbe.successThreshold }}
+          failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.backend.healthChecks.readyness.path }}
+            port: {{ .Values.portContainer }}
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.readinessProbe.successThreshold }}
+          failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

@@ -17,14 +17,25 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-apiVersion: v1
-kind: Service
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
-  name: {{ .Values.backend.provisioning.service.name }}
+  name: portal
 spec:
-  type: ClusterIP
-  ports:
-  - port: {{ .Values.portService }}
-    targetPort: {{ .Values.portContainer }}
-  selector:
-    app: {{ .Values.backend.provisioning.service.name }}
+  destination:
+    namespace: product-portal
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: charts/portal
+    repoURL: 'https://github.com/eclipse-tractusx/portal-cd.git'
+    targetRevision: dev
+    plugin:
+      env:
+        - name: AVP_SECRET
+          value: vault-secret
+        - name: helm_args
+          value: '-f values.yaml -f ../../consortia/environments/values-dev.yaml'
+  project: project-portal
+  syncPolicy:
+    automated:
+      prune: true

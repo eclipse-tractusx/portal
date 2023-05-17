@@ -212,7 +212,7 @@ backend:
     # -- Password for the smtp username. Secret-key 'password'.
     password: ""
   interfaces:
-    # -- Secret containing the client-secrets for the connection to daps, custodian, bpdm, sdFactory and clearinghouse.
+    # -- Secret containing the client-secrets for the connection to daps, custodian, bpdm, sdFactory, clearinghouse and the offer provider.
     secret: "secret-backend-interfaces"
   healthChecks:
     startup:
@@ -559,6 +559,20 @@ backend:
       callbackPath: "/api/administration/registration/clearinghouse"
     processes:
       lockExpirySeconds: "300"
+    offerSubscriptionProcess:
+      serviceAccountRoles:
+        role0: "Digital Twin Management"
+      itAdminRoles:
+        role0: "IT Admin"
+    offerProvider:
+      serviceManagerRoles:
+        role0: "App Manager"
+      scope: "openid"
+      grantType: "client_credentials"
+      # -- Provide offer-provider client-id from CX IAM centralidp.
+      clientId: "offerprovider-client-id"
+      # -- Client-secret for offer provider client-id. Secret-key 'offer-provider-client-secret'.
+      clientSecret: ""
   placeholder: "empty"
 
 postgresql:

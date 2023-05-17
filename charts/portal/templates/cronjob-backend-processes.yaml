@@ -242,6 +242,31 @@ spec:
               value: "{{ .Values.backend.provisioning.sharedRealm.smtpServer.user }}"
             - name: "PROVISIONING__SHAREDREALMCLIENT__CLIENTID"
               value: "{{ .Values.backend.provisioning.sharedRealmClient.clientId }}"
+                        - name: "OFFERSUBSCRIPTIONPROCESS__BASEPORTALADDRESS"
+              value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
+            - name: "OFFERSUBSCRIPTIONPROCESS__SERVICEACCOUNTROLES__technical_roles_management__0"
+              value: "{{ .Values.backend.processesworker.offerSubscriptionProcess.serviceAccountRoles.role0 }}"
+            - name: "OFFERSUBSCRIPTIONPROCESS__ITADMINROLES__Cl2-CX-Portal__0"
+              value: "{{ .Values.backend.processesworker.offerSubscriptionProcess.itAdminRoles.role0 }}"
+            - name: "OFFERPROVIDER__SERVICEMANAGERROLES__Cl2-CX-Portal__0"
+              value: "{{ .Values.backend.processesworker.offerProvider.serviceManagerRoles.role0 }}"
+            - name: "OFFERPROVIDER__CLIENTID"
+              value: "{{ .Values.backend.processesworker.offerProvider.clientId }}"
+            - name: "OFFERPROVIDER__CLIENTSECRET"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.interfaces.secret }}"
+                  key: "offerprovider-client-secret"
+            - name: "OFFERPROVIDER__GRANTTYPE"
+              value: "{{ .Values.backend.processesworker.offerProvider.grantType }}"
+            - name: "OFFERPROVIDER__KEYCLOAKTOKENADDRESS"
+              value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.tokenPath }}"
+            - name: "OFFERPROVIDER__PASSWORD"
+              value: "{{ .Values.backend.placeholder }}"
+            - name: "OFFERPROVIDER__SCOPE"
+              value: "{{ .Values.backend.processesworker.offerProvider.scope }}"
+            - name: "OFFERPROVIDER__USERNAME"
+              value: "{{ .Values.backend.placeholder }}"
             ports:
             - name: http
               containerPort: {{ .Values.portContainer }}

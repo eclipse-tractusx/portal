@@ -416,7 +416,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: v1.4.0
+      portalmigrationstag: 2681d4dbe7586774b793f24167b71a6c2568e60d
     seeding:
       testDataEnvironments: ""
   portalmaintenance:

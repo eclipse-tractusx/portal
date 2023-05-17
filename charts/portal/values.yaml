@@ -499,7 +499,7 @@ backend:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: v1.4.0
+      processesworkertag: 2681d4dbe7586774b793f24167b71a6c2568e60d
     logging:
       processesLibrary: "Information"
       bpdmLibrary: "Information"

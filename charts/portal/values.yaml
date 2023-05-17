@@ -225,7 +225,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: 9cce60bb6c51927f3e0023579ea2295be20de507
+      registrationservicetag: v1.4.0
     logging:
       registrationServiceBpn: "Information"
     healthChecks:
@@ -252,7 +252,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: 9cce60bb6c51927f3e0023579ea2295be20de507
+      administrationservicetag: v1.4.0
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
@@ -346,7 +346,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: 9cce60bb6c51927f3e0023579ea2295be20de507
+      appmarketplaceservicetag: v1.4.0
     logging:
       offersLibrary: "Information"
     healthChecks:
@@ -416,19 +416,19 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: 9cce60bb6c51927f3e0023579ea2295be20de507
+      portalmigrationstag: v1.4.0
     seeding:
       testDataEnvironments: ""
   portalmaintenance:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: 4153bafd5a0ed2c922d142571280fc5863d97eb8
+      portalmaintenancetag: v1.4.0
   notification:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: 9cce60bb6c51927f3e0023579ea2295be20de507
+      notificationservicetag: v1.4.0
     healthChecks:
       startup:
         tags: []
@@ -442,7 +442,7 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: 9cce60bb6c51927f3e0023579ea2295be20de507
+      servicesservicetag: v1.4.0
     logging:
       offersLibrary: "Information"
     healthChecks:
@@ -494,12 +494,12 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: 1a91e14c44118519c37e947088e23ff4d7e9f4d0
+      provisioningmigrationstag: v1.4.0
   processesworker:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: 4153bafd5a0ed2c922d142571280fc5863d97eb8
+      processesworkertag: v1.4.0
     logging:
       processesLibrary: "Information"
       bpdmLibrary: "Information"

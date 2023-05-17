@@ -228,7 +228,7 @@ backend:
       registrationservicetag: v1.4.0
     logging:
       registrationServiceBpn: "Information"
-    # -- healthchecks to be enabled for startupProbe,
+    # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
       startup:
@@ -257,7 +257,7 @@ backend:
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
-    # -- healthchecks to be enabled for startupProbe,
+    # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
       startup:
@@ -350,7 +350,7 @@ backend:
       appmarketplaceservicetag: v1.4.0
     logging:
       offersLibrary: "Information"
-    # -- healthchecks to be enabled for startupProbe,
+    # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
       startup:
@@ -431,7 +431,7 @@ backend:
     image:
       name: "tractusx/portal-notification-service"
       notificationservicetag: v1.4.0
-    # -- healthchecks to be enabled for startupProbe,
+    # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
       startup:
@@ -448,7 +448,7 @@ backend:
       servicesservicetag: v1.4.0
     logging:
       offersLibrary: "Information"
-    # -- healthchecks to be enabled for startupProbe,
+    # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
       startup:

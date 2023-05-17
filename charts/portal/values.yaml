@@ -494,7 +494,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v1.4.0
+      provisioningmigrationstag: 2681d4dbe7586774b793f24167b71a6c2568e60d
   processesworker:
     name: "processes-worker"
     image:

@@ -225,7 +225,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: 2681d4dbe7586774b793f24167b71a6c2568e60d
+      registrationservicetag: 0efe1fc8801fb098e17b43a4be513ffeb6efb888
     logging:
       registrationServiceBpn: "Information"
     # -- Healthchecks to be enabled for startupProbe,

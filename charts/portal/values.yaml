@@ -228,14 +228,15 @@ backend:
       registrationservicetag: 2681d4dbe7586774b793f24167b71a6c2568e60d
     logging:
       registrationServiceBpn: "Information"
+    # -- Healthchecks to be enabled for startupProbe,
+    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
       startup:
         tags: []
-# -- healthchecks to be enabled for startupProbe
-#       - name: "HEALTHCHECKS__0__TAGS__0"
-#         value: "keycloak"
-#       - name: "HEALTHCHECKS__0__TAGS__1"
-#         value: "portaldb"
+        # - name: "HEALTHCHECKS__0__TAGS__0"
+        #   value: "keycloak"
+        # - name: "HEALTHCHECKS__0__TAGS__1"
+        #   value: "portaldb"
     portalRegistrationPath: "/registration"
     keycloakClientId: "Cl1-CX-Registration"
     applicationStatusIds:
@@ -256,16 +257,17 @@ backend:
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
+    # -- Healthchecks to be enabled for startupProbe,
+    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
       startup:
         tags: []
-# -- healthchecks to be enabled for startupProbe
-#       - name: "HEALTHCHECKS__0__TAGS__0"
-#         value: "keycloak"
-#       - name: "HEALTHCHECKS__0__TAGS__1"
-#         value: "portaldb"
-#       - name: "HEALTHCHECKS__0__TAGS__2"
-#         value: "provisioningdb"
+        # - name: "HEALTHCHECKS__0__TAGS__0"
+        #   value: "keycloak"
+        # - name: "HEALTHCHECKS__0__TAGS__1"
+        #   value: "portaldb"
+        # - name: "HEALTHCHECKS__0__TAGS__2"
+        #   value: "provisioningdb"
     connectors:
       validCertificationContentTypes:
         type0: "application/x-pem-file"
@@ -341,7 +343,6 @@ backend:
         from: "smtp@example.org"
         # -- Provide replyTo.
         replyTo: "smtp@example.org"
-
   appmarketplace:
     name: "marketplace-app-service"
     image:
@@ -349,14 +350,15 @@ backend:
       appmarketplaceservicetag: 2681d4dbe7586774b793f24167b71a6c2568e60d
     logging:
       offersLibrary: "Information"
+    # -- Healthchecks to be enabled for startupProbe,
+    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
       startup:
         tags: []
-# -- healthchecks to be enabled for startupProbe
-#       - name: "HEALTHCHECKS__0__TAGS__0"
-#         value: "keycloak"
-#       - name: "HEALTHCHECKS__0__TAGS__1"
-#         value: "portaldb"
+        # - name: "HEALTHCHECKS__0__TAGS__0"
+        #   value: "keycloak"
+        # - name: "HEALTHCHECKS__0__TAGS__1"
+        #   value: "portaldb"
     appOverviewPath: "/appoverview"
     catenaAdminRoles:
       role0: "CX Admin"
@@ -429,14 +431,15 @@ backend:
     image:
       name: "tractusx/portal-notification-service"
       notificationservicetag: 2681d4dbe7586774b793f24167b71a6c2568e60d
+    # -- Healthchecks to be enabled for startupProbe,
+    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
       startup:
         tags: []
-# -- healthchecks to be enabled for startupProbe
-#       - name: "HEALTHCHECKS__0__TAGS__0"
-#         value: "keycloak"
-#       - name: "HEALTHCHECKS__0__TAGS__1"
-#         value: "portaldb"
+        # - name: "HEALTHCHECKS__0__TAGS__0"
+        #   value: "keycloak"
+        # - name: "HEALTHCHECKS__0__TAGS__1"
+        #   value: "portaldb"
     swaggerEnabled: false
   services:
     name: "services-service"
@@ -445,14 +448,15 @@ backend:
       servicesservicetag: 2681d4dbe7586774b793f24167b71a6c2568e60d
     logging:
       offersLibrary: "Information"
+    # -- Healthchecks to be enabled for startupProbe,
+    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
       startup:
         tags: []
-# -- healthchecks to be enabled for startupProbe
-#       - name: "HEALTHCHECKS__0__TAGS__0"
-#         value: "keycloak"
-#       - name: "HEALTHCHECKS__0__TAGS__1"
-#         value: "portaldb"
+        # - name: "HEALTHCHECKS__0__TAGS__0"
+        #   value: "keycloak"
+        # - name: "HEALTHCHECKS__0__TAGS__1"
+        #   value: "portaldb"
     serviceMarketplacePath: "/servicemarketplace"
     catenaAdminRoles:
       role0: "CX Admin"

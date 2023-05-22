@@ -2,6 +2,29 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.4.0
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v1.4.0
+  * portal-frontend-registration: v1.3.1
+  * portal-assets: v1.4.0
+  * portal-backend: v1.4.0
+* changed container registry to docker hub
+* renamed checklist worker to processes worker
+* enabled additional config for portal-backend
+* removed provisioning-service from portal-backend
+* added the option to enable healthchecks for portal-backend services
+
+### Bugfix
+
+n/a
+### Technical Support
+
+* enabled auto-deployment to consortia dev k8s cluster from eclipse-tractusx GH org
+* remove obsolete image update workflows
+
 ## 1.3.0
 
 ### Change

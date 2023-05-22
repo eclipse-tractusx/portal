@@ -592,7 +592,7 @@ postgresql:
     logLinePrefix: "%m %u %d "
   primary:
     extendedConfiguration: |
-      max_connections = 400
+      max_connections = 200
     initdb:
       scriptsConfigMap: "configmap-postgres-init"
     extraEnvVars:

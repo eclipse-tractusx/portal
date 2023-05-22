@@ -606,6 +606,9 @@ postgresql:
           secretKeyRef:
             name: "{{ .Values.auth.existingSecret }}"
             key: "provisioning-password"
+  readReplicas:
+    extendedConfiguration: |
+      max_connections = 200
 
 
 externalDatabase:

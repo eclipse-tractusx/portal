@@ -445,7 +445,7 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: 401349ba6c2d3ebf3aba69640e2240de63a5097b
+      servicesservicetag: dee8e207c214d1762e6eda299900d69f085a1e4e
     logging:
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,

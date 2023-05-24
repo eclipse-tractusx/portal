@@ -226,3 +226,9 @@ postgresql:
     replicationPassword: "<path:portal/data/dev/postgres#replication-password>"
     portalPassword: "<path:portal/data/dev/postgres#portal-password>"
     provisioningPassword: "<path:portal/data/dev/postgres#provisioning-password>"
+  primary:
+    extendedConfiguration: |
+      max_connections = 200
+  readReplicas:
+    extendedConfiguration: |
+      max_connections = 200

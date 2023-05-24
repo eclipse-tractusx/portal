@@ -591,8 +591,8 @@ postgresql:
     pgAuditLog: "write, ddl"
     logLinePrefix: "%m %u %d "
   primary:
-    extendedConfiguration: |
-      max_connections = 200
+    # -- Extended PostgreSQL Primary configuration (increase of max_connections recommended - default is 100)
+    extendedConfiguration: ""
     initdb:
       scriptsConfigMap: "configmap-postgres-init"
     extraEnvVars:
@@ -607,9 +607,8 @@ postgresql:
             name: "{{ .Values.auth.existingSecret }}"
             key: "provisioning-password"
   readReplicas:
-    extendedConfiguration: |
-      max_connections = 200
-
+  # -- Extended PostgreSQL read only replicas configuration (increase of max_connections recommended - default is 100)
+    extendedConfiguration: ""
 
 externalDatabase:
 # -- External PostgreSQL configuration

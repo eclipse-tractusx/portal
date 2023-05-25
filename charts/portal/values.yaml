@@ -430,7 +430,7 @@ backend:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: dee8e207c214d1762e6eda299900d69f085a1e4e
+      notificationservicetag: 08eb414e0f1549c669f41eccf7b9d3827e274149
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:

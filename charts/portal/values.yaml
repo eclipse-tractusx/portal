@@ -253,7 +253,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: 89f0b9764baf83460a239220e9113752a8da15ce
+      administrationservicetag: c5b053dbce1cbd16e0c0186c2b1481d7190a5e69
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"

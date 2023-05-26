@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Kubernetes KinD Cluster
-        uses: container-tools/kind-action@v1
+        uses: container-tools/kind-action@v2
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
@@ -41,7 +41,7 @@ jobs:
         run: |
           changed=$(ct list-changed --target-branch ${{ github.event.repository.default_branch }})
           if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
+            echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
       # run chart linting 

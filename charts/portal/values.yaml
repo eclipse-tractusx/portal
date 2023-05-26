@@ -100,7 +100,7 @@ frontend:
     name: "registration"
     image:
       name: "tractusx/portal-frontend-registration"
-      registrationtag: 12d4e1e1543450fe3196cb8ee7d8351def2c1c9a
+      registrationtag: c70f549ff8637cd4b692e8dfb166abdd9bb3459e
   assets:
     name: "assets"
     image:

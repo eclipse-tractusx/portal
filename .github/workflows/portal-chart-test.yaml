@@ -1,6 +1,6 @@
 name: Portal Lint and Test Chart
 
-on: 
+on:
   push:
     paths:
       - 'charts/portal/**'

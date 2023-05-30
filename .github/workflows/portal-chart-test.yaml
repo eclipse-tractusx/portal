@@ -68,7 +68,7 @@ jobs:
       # define charts to test with the --charts parameter
       - name: Run chart-testing (install)
         run: ct install --charts charts/portal --config charts/chart-testing-config.yaml
-        # if: steps.list-changed.outputs.changed == 'true'
+        if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'
 
         # Upgrade the release portal chart version with the locally available chart
       - name: Run helm upgrade
@@ -78,4 +78,4 @@ jobs:
           helm install portal --version ${{ github.event.inputs.upgrade_from }} tractusx-dev/portal
           helm dependency update charts/portal
           helm upgrade portal charts/portal
-        # if: steps.list-changed.outputs.changed == 'true'
+        if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'

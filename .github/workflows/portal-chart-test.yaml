@@ -16,6 +16,12 @@ on:
         default: 'kindest/node:v1.24.6'
         required: false
         type: string
+      upgrade_from:
+        description: 'portal chart version to upgrade from'
+        # portal version from 3.1 release
+        default: '1.3.0'
+        required: false
+        type: string
 
 jobs:
   lint-test:
@@ -62,4 +68,14 @@ jobs:
       # define charts to test with the --charts parameter
       - name: Run chart-testing (install)
         run: ct install --charts charts/portal --config charts/chart-testing-config.yaml
+        # if: steps.list-changed.outputs.changed == 'true'
+
+        # Upgrade the release portal chart version with the locally available chart
+      - name: Run helm upgrade
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
+          helm install portal --version ${{ github.event.inputs.upgrade_from }} tractusx-dev/portal
+          helm dependency update charts/portal
+          helm upgrade portal charts/portal
         # if: steps.list-changed.outputs.changed == 'true'

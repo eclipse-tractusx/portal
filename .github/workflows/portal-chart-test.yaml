@@ -22,7 +22,7 @@ jobs:
       - name: Kubernetes KinD Cluster
         uses: container-tools/kind-action@v2
         with:
-          node_image: v1.27.2
+          node_image: kindest/node:v1.27.2
 
       - name: Set up Helm
         uses: azure/setup-helm@v3

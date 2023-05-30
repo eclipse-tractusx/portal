@@ -70,7 +70,7 @@ jobs:
         run: ct install --charts charts/portal --config charts/chart-testing-config.yaml
         if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'
 
-        # Upgrade the release portal chart version with the locally available chart
+        # Upgrade the released portal chart version with the locally available chart
       - name: Run helm upgrade
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami

@@ -1,6 +1,6 @@
 name: Portal Lint and Test Chart
 
-on:
+on: 
   push:
     paths:
       - 'charts/portal/**'
@@ -47,10 +47,6 @@ jobs:
       # run chart linting 
       - name: Run chart-testing (lint)
         run: ct lint --charts charts/portal --config charts/chart-testing-config.yaml
-
-      # run chart linting 
-      - name: Run kubectl version
-        run: kubectl version
 
       # install the chart to the kind cluster and run helm test
       # define charts to test with the --charts parameter

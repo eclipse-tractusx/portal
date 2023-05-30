@@ -55,4 +55,4 @@ jobs:
       # define charts to test with the --charts parameter
       - name: Run chart-testing (install)
         run: ct install --charts charts/portal --config charts/chart-testing-config.yaml
-        if: steps.list-changed.outputs.changed == 'true'
+        # if: steps.list-changed.outputs.changed == 'true'

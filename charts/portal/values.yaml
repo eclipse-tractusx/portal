@@ -105,7 +105,7 @@ frontend:
     name: "assets"
     image:
       name: "tractusx/portal-assets"
-      assetstag: 909cd5f5cd935fdd27d731104928be31328e99fa
+      assetstag: ada99db0500a54fea9fb57af7be358c4b8bb9e18
     path: "/assets"
   centralidpAuthPath: "/auth"
   bpdmPartnersPoolApiPath: "/api"

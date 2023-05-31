@@ -75,7 +75,7 @@ jobs:
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
-          helm install portal --version ${{ github.event.inputs.upgrade_from }} tractusx-dev/portal
+          helm install portal tractusx-dev/portal --version ${{ github.event.inputs.upgrade_from }}
           helm dependency update charts/portal
           helm upgrade portal charts/portal
         if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'

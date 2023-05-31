@@ -562,6 +562,8 @@ backend:
     offerSubscriptionProcess:
       serviceAccountRoles:
         role0: "Digital Twin Management"
+      serviceManagerRoles:
+        role0: "App Manager"
       itAdminRoles:
         role0: "IT Admin"
     offerProvider:

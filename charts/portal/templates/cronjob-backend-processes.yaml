@@ -246,6 +246,8 @@ spec:
               value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
             - name: "OFFERSUBSCRIPTIONPROCESS__SERVICEACCOUNTROLES__technical_roles_management__0"
               value: "{{ .Values.backend.processesworker.offerSubscriptionProcess.serviceAccountRoles.role0 }}"
+            - name: "OFFERSUBSCRIPTIONPROCESS__SERVICEMANAGERROLES__Cl2-CX-Portal__0"
+              value: "{{ .Values.backend.processesworker.offerSubscriptionProcess.serviceManagerRoles.role0 }}"
             - name: "OFFERSUBSCRIPTIONPROCESS__ITADMINROLES__Cl2-CX-Portal__0"
               value: "{{ .Values.backend.processesworker.offerSubscriptionProcess.itAdminRoles.role0 }}"
             - name: "OFFERPROVIDER__SERVICEMANAGERROLES__Cl2-CX-Portal__0"

@@ -219,6 +219,9 @@ backend:
       issuerBpn: "BPNL00000003CRHK"
       clientId: "<path:portal/data/processes-worker#sdfactory-client-id>"
       clientSecret: "<path:portal/data/beta/processes-worker#sdfactory-client-secret>"
+    offerProvider:
+      clientId: "<path:portal/data/processes-worker#offerprovider-client-id>"
+      clientSecret: "<path:portal/data/beta/processes-worker#offerprovider-client-secret>"
 
 postgresql:
   auth:

@@ -503,7 +503,7 @@ backend:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: 29d76e290c4dbd04a5c6664c2219e5223b8b6734
+      processesworkertag: 24f68999011191d26d097f8538602c5651d0378d
     logging:
       processesLibrary: "Information"
       bpdmLibrary: "Information"

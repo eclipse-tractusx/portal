@@ -347,7 +347,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: bbad24d9a9946c00a89e60a1cf65cd1f5eef853a
+      appmarketplaceservicetag: b3d171307b4e777ff6e489cc8a7d62a6c1f10752
     logging:
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,

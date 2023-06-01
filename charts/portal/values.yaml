@@ -571,7 +571,7 @@ backend:
         role0: "App Manager"
       scope: "openid"
       grantType: "client_credentials"
-      # -- Provide offer-provider client-id from CX IAM centralidp.
+      # -- Provide offerprovider client-id from CX IAM centralidp.
       clientId: "offerprovider-client-id"
       # -- Client-secret for offer provider client-id. Secret-key 'offerprovider-client-secret'.
       clientSecret: ""

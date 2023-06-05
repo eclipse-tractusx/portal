@@ -95,17 +95,17 @@ frontend:
     name: "portal"
     image:
       name: "tractusx/portal-frontend"
-      portaltag: v1.4.0
+      portaltag: v1.5.0-RC1
   registration:
     name: "registration"
     image:
       name: "tractusx/portal-frontend-registration"
-      registrationtag: v1.3.1
+      registrationtag: v1.4.0-RC1
   assets:
     name: "assets"
     image:
       name: "tractusx/portal-assets"
-      assetstag: v1.4.0
+      assetstag: v1.5.0-RC1
     path: "/assets"
   centralidpAuthPath: "/auth"
   bpdmPartnersPoolApiPath: "/api"
@@ -212,7 +212,7 @@ backend:
     # -- Password for the smtp username. Secret-key 'password'.
     password: ""
   interfaces:
-    # -- Secret containing the client-secrets for the connection to daps, custodian, bpdm, sdFactory and clearinghouse.
+    # -- Secret containing the client-secrets for the connection to daps, custodian, bpdm, sdFactory, clearinghouse and offer provider.
     secret: "secret-backend-interfaces"
   healthChecks:
     startup:
@@ -225,7 +225,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: v1.4.0
+      registrationservicetag: v1.5.0-RC1
     logging:
       registrationServiceBpn: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -253,7 +253,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: v1.4.0
+      administrationservicetag: v1.5.0-RC1
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
@@ -347,7 +347,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: v1.4.0
+      appmarketplaceservicetag: v1.5.0-RC1
     logging:
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -418,19 +418,19 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: v1.4.0
+      portalmigrationstag: v1.5.0-RC1
     seeding:
       testDataEnvironments: ""
   portalmaintenance:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: v1.4.0
+      portalmaintenancetag: v1.5.0-RC1
   notification:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: v1.4.0
+      notificationservicetag: v1.5.0-RC1
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
@@ -445,7 +445,7 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: v1.4.0
+      servicesservicetag: v1.5.0-RC1
     logging:
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -498,12 +498,12 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v1.4.0
+      provisioningmigrationstag: v1.5.0-RC1
   processesworker:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: v1.4.0
+      processesworkertag: v1.5.0-RC1
     logging:
       processesLibrary: "Information"
       bpdmLibrary: "Information"
@@ -559,6 +559,22 @@ backend:
       callbackPath: "/api/administration/registration/clearinghouse"
     processes:
       lockExpirySeconds: "300"
+    offerSubscriptionProcess:
+      serviceAccountRoles:
+        role0: "Digital Twin Management"
+      serviceManagerRoles:
+        role0: "App Manager"
+      itAdminRoles:
+        role0: "IT Admin"
+    offerprovider:
+      serviceManagerRoles:
+        role0: "App Manager"
+      scope: "openid"
+      grantType: "client_credentials"
+      # -- Provide offerprovider client-id from CX IAM centralidp.
+      clientId: "offerprovider-client-id"
+      # -- Client-secret for offer provider client-id. Secret-key 'offerprovider-client-secret'.
+      clientSecret: ""
   placeholder: "empty"
 
 postgresql:
@@ -591,6 +607,8 @@ postgresql:
     pgAuditLog: "write, ddl"
     logLinePrefix: "%m %u %d "
   primary:
+    # -- Extended PostgreSQL Primary configuration (increase of max_connections recommended - default is 100)
+    extendedConfiguration: ""
     initdb:
       scriptsConfigMap: "configmap-postgres-init"
     extraEnvVars:
@@ -604,7 +622,9 @@ postgresql:
           secretKeyRef:
             name: "{{ .Values.auth.existingSecret }}"
             key: "provisioning-password"
-
+  readReplicas:
+  # -- Extended PostgreSQL read only replicas configuration (increase of max_connections recommended - default is 100)
+    extendedConfiguration: ""
 
 externalDatabase:
 # -- External PostgreSQL configuration

@@ -220,6 +220,9 @@ backend:
       issuerBpn: "BPNL00000003CRHK"
       clientId: "<path:portal/data/processes-worker#sdfactory-client-id>"
       clientSecret: "<path:portal/data/pen/processes-worker#sdfactory-client-secret>"
+    offerProvider:
+      clientId: "<path:portal/data/processes-worker#offerprovider-client-id>"
+      clientSecret: "<path:portal/data/beta/processes-worker#offerprovider-client-secret>"
 
 postgresql:
   auth:
@@ -227,3 +230,9 @@ postgresql:
     replicationPassword: "<path:portal/data/pen/postgres#replication-password>"
     portalPassword: "<path:portal/data/pen/postgres#portal-password>"
     provisioningPassword: "<path:portal/data/pen/postgres#provisioning-password>"
+  primary:
+    extendedConfiguration: |
+      max_connections = 200
+  readReplicas:
+    extendedConfiguration: |
+      max_connections = 200

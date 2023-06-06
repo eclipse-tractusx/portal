@@ -2,6 +2,34 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.5.0-RC1
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v1.5.0-RC1
+  * portal-frontend-registration: v1.4.0-RC1
+  * portal-assets: v1.5.0-RC1
+  * portal-backend: v1.5.0-RC1
+* enabled config for portal-backend (auto-setup)
+* enabled secret for interfaces to support new keys at upgrade
+
+### Technical Support
+
+* improved helm test workflow:
+
+  * enabled testing of helm upgrade from different portal chart versions via workflow dispatch
+  * enabled testing with different Kubernetes versions via workflow dispatch
+
+* updated code of conduct in leading and source repositories
+
+### Bugfix
+
+db-dependency:
+
+* increased max_connections for consortia environments to 200 to avoid running out of slots, which was observed at upgrade
+* added general recommendation to increase max_connections from default value (100 slots) in default values file
+
 ## 1.4.0
 
 ### Change

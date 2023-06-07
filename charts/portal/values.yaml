@@ -225,7 +225,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: 29d76e290c4dbd04a5c6664c2219e5223b8b6734
+      registrationservicetag: v1.5.0-RC1
     logging:
       registrationServiceBpn: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -253,7 +253,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: 24f68999011191d26d097f8538602c5651d0378d
+      administrationservicetag: v1.5.0-RC1
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
@@ -347,7 +347,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: b3d171307b4e777ff6e489cc8a7d62a6c1f10752
+      appmarketplaceservicetag: v1.5.0-RC1
     logging:
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -418,19 +418,19 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: 29d76e290c4dbd04a5c6664c2219e5223b8b6734
+      portalmigrationstag: v1.5.0-RC1
     seeding:
       testDataEnvironments: ""
   portalmaintenance:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: 29d76e290c4dbd04a5c6664c2219e5223b8b6734
+      portalmaintenancetag: v1.5.0-RC1
   notification:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: 29d76e290c4dbd04a5c6664c2219e5223b8b6734
+      notificationservicetag: v1.5.0-RC1
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
@@ -445,7 +445,7 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: b3d171307b4e777ff6e489cc8a7d62a6c1f10752
+      servicesservicetag: v1.5.0-RC1
     logging:
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -498,12 +498,12 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: 29d76e290c4dbd04a5c6664c2219e5223b8b6734
+      provisioningmigrationstag: v1.5.0-RC1
   processesworker:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: b3d171307b4e777ff6e489cc8a7d62a6c1f10752
+      processesworkertag: v1.5.0-RC1
     logging:
       processesLibrary: "Information"
       bpdmLibrary: "Information"

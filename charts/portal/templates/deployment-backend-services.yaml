@@ -36,7 +36,11 @@ spec:
       containers:
       - name: {{ .Values.backend.services.name }}
         securityContext:
-          {{- toYaml .Values.securityContext | nindent 12 }}
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
         image: "{{ .Values.backend.services.image.name }}:{{ .Values.backend.services.image.servicesservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"
         env:

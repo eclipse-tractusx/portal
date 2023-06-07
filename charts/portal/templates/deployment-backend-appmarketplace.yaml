@@ -36,7 +36,11 @@ spec:
       containers:
       - name: {{ .Values.backend.appmarketplace.name }}
         securityContext:
-          {{- toYaml .Values.securityContext | nindent 12 }}
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
         image: "{{ .Values.backend.appmarketplace.image.name }}:{{ .Values.backend.appmarketplace.image.appmarketplaceservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"
         env:

@@ -773,18 +773,11 @@ portService: 8080
 
 replicaCount: 3
 
-securityContext:
-  allowPrivilegeEscalation: false
-  runAsNonRoot: true
-  capabilities:
-    drop: ["ALL"]
-
 # -- Node labels for pod assignment
 nodeSelector: {}
 
 # -- Tolerations for pod assignment
 tolerations: []
-
 
 affinity:
 # -- Following Catena-X Helm Best Practices,
@@ -798,7 +791,6 @@ affinity:
               - key: app.kubernetes.io/name
                 operator: DoesNotExist
           topologyKey: kubernetes.io/hostname
-
 
 updateStrategy:
 # -- Update strategy type,

@@ -36,7 +36,11 @@ spec:
       containers:
       - name: {{ .Values.frontend.portal.name }}
         securityContext:
-          {{- toYaml .Values.securityContext | nindent 12 }}
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
         image: {{ .Values.frontend.portal.image.name }}:{{ .Values.frontend.portal.image.portaltag | default .Chart.AppVersion }}
         imagePullPolicy: "Always"
         env:

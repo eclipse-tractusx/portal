@@ -34,7 +34,11 @@ spec:
       containers:
       - name: {{ .Values.backend.portalmigrations.name }}
         securityContext:
-          {{- toYaml .Values.securityContext | nindent 12 }}
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
         image: "{{ .Values.backend.portalmigrations.image.name }}:{{ .Values.backend.portalmigrations.image.portalmigrationstag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"
         env:

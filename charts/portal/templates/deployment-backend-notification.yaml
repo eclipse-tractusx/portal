@@ -156,7 +156,7 @@ spec:
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         resources:
-          {{- toYaml .Values.resources | nindent 12 }}
+          {{- toYaml .Values.backend.notification.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

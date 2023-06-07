@@ -96,16 +96,46 @@ frontend:
     image:
       name: "tractusx/portal-frontend"
       portaltag: 449bc23eacc88dec2d2ff9d1a6df5e7896e2cd70
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
   registration:
     name: "registration"
     image:
       name: "tractusx/portal-frontend-registration"
       registrationtag: 4a46c262d8f7292b85cc6f573a5d4620456cd25d
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
   assets:
     name: "assets"
     image:
       name: "tractusx/portal-assets"
       assetstag: 18df55f58de1b4027d12d2b98246a1db5f39a851
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
     path: "/assets"
   centralidpAuthPath: "/auth"
   bpdmPartnersPoolApiPath: "/api"
@@ -226,6 +256,16 @@ backend:
     image:
       name: "tractusx/portal-registration-service"
       registrationservicetag: v1.5.0-RC1
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     logging:
       registrationServiceBpn: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -254,6 +294,16 @@ backend:
     image:
       name: "tractusx/portal-administration-service"
       administrationservicetag: v1.5.0-RC1
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
@@ -348,6 +398,16 @@ backend:
     image:
       name: "tractusx/portal-marketplace-app-service"
       appmarketplaceservicetag: v1.5.0-RC1
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     logging:
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -419,6 +479,16 @@ backend:
     image:
       name: "tractusx/portal-portal-migrations"
       portalmigrationstag: v1.5.0-RC1
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     seeding:
       testDataEnvironments: ""
   portalmaintenance:
@@ -426,11 +496,31 @@ backend:
     image:
       name: "tractusx/portal-maintenance-service"
       portalmaintenancetag: v1.5.0-RC1
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
   notification:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
       notificationservicetag: v1.5.0-RC1
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
@@ -446,6 +536,16 @@ backend:
     image:
       name: "tractusx/portal-services-service"
       servicesservicetag: v1.5.0-RC1
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     logging:
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -499,11 +599,31 @@ backend:
     image:
       name: "tractusx/portal-provisioning-migrations"
       provisioningmigrationstag: v1.5.0-RC1
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
   processesworker:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
       processesworkertag: v1.5.0-RC1
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     logging:
       processesLibrary: "Information"
       bpdmLibrary: "Information"
@@ -658,16 +778,6 @@ securityContext:
   runAsNonRoot: true
   capabilities:
     drop: ["ALL"]
-
-# -- If you do want to specify resources, uncomment the following lines,
-# adjust them as necessary, and remove the curly braces after 'resources:'.
-resources: {}
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
 
 # -- Node labels for pod assignment
 nodeSelector: {}

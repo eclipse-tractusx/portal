@@ -60,3 +60,5 @@ spec:
         - name: http
           containerPort: {{ .Values.portContainer }}
           protocol: TCP
+        resources:
+          {{- toYaml .Values.backend.provisioningmigrations.resources | nindent 12 }}

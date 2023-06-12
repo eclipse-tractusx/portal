@@ -62,6 +62,7 @@ frontend:
             backend:
               service: "assets"
               port: 8080
+
   portal:
     resources:
       limits:
@@ -70,6 +71,7 @@ frontend:
       requests:
         cpu: 100m
         memory: 128Mi
+
   registration:
     resources:
       limits:
@@ -78,6 +80,7 @@ frontend:
       requests:
         cpu: 100m
         memory: 128Mi
+
   assets:
     resources:
       limits:

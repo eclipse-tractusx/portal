@@ -63,6 +63,33 @@ frontend:
               service: "assets"
               port: 8080
 
+  portal:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+  registration:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+  assets:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
 backend:
   ingress:
     enabled: true
@@ -124,6 +151,13 @@ backend:
   registration:
     logging:
       registrationServiceBpn: "Debug"
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     healthChecks:
       startup:
         tags:
@@ -137,6 +171,13 @@ backend:
     logging:
       businessLogic: "Debug"
       sdfactoryLibrary: "Debug"
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     healthChecks:
       startup:
         tags:
@@ -164,6 +205,13 @@ backend:
   appmarketplace:
     logging:
       offersLibrary: "Debug"
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     healthChecks:
       startup:
         tags:
@@ -174,10 +222,33 @@ backend:
     swaggerEnabled: true
 
   portalmigrations:
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     seeding:
       testDataEnvironments: "consortia"
 
+  portalmaintenance:
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+
   notification:
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     healthChecks:
       startup:
         tags:
@@ -190,6 +261,13 @@ backend:
   services:
     logging:
       offersLibrary: "Debug"
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     healthChecks:
       startup:
         tags:
@@ -206,6 +284,13 @@ backend:
       clearinghouseLibrary: "Debug"
       custodianLibrary: "Debug"
       sdfactoryLibrary: "Debug"
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     bpdm:
       clientId: "<path:portal/data/processes-worker#bpdm-client-id>"
       clientSecret: "<path:portal/data/dev/processes-worker#bpdm-client-secret>"
@@ -222,6 +307,15 @@ backend:
     offerProvider:
       clientId: "<path:portal/data/processes-worker#offerprovider-client-id>"
       clientSecret: "<path:portal/data/beta/processes-worker#offerprovider-client-secret>"
+
+  provisioningmigrations:
+    resources:
+      limits:
+        cpu: 250m
+        memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
 
 postgresql:
   fullnameOverride: "portal-backend-rc-postgresql"

@@ -32,7 +32,11 @@ spec:
           containers:
           - name: {{ .Values.backend.processesworker.name }}
             securityContext:
-              {{- toYaml .Values.securityContext | nindent 16 }}
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                - ALL
+              runAsNonRoot: true
             image: "{{ .Values.backend.processesworker.image.name }}:{{ .Values.backend.processesworker.image.processesworkertag | default .Chart.AppVersion }}"
             imagePullPolicy: "Always"
             env:
@@ -273,3 +277,5 @@ spec:
             - name: http
               containerPort: {{ .Values.portContainer }}
               protocol: TCP
+            resources:
+              {{- toYaml .Values.backend.processesworker.resources | nindent 14 }}

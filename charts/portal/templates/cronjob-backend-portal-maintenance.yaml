@@ -62,4 +62,4 @@ spec:
               containerPort: {{ .Values.portContainer }}
               protocol: TCP
             resources:
-              {{- toYaml .Values.backend.portalmaintenance.resources | nindent 16 }}
+              {{- toYaml .Values.backend.portalmaintenance.resources | nindent 14 }}

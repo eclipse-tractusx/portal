@@ -259,7 +259,7 @@ spec:
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         resources:
-          {{- toYaml .Values.backend.appmarketplace.resources | nindent 12 }}
+          {{- toYaml .Values.backend.appmarketplace.resources | nindent 10 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

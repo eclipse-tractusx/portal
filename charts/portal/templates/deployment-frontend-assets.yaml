@@ -69,7 +69,7 @@ spec:
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         resources:
-          {{- toYaml .Values.frontend.assets.resources | nindent 12 }}
+          {{- toYaml .Values.frontend.assets.resources | nindent 10 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -255,7 +255,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: 9d6e676f8bcfd630137b8682a1c4b206f659cc18
+      registrationservicetag: 6cf2bbfced247271f22ca27bc21d3d9c093a2e50
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

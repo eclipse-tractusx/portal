@@ -160,6 +160,9 @@ spec:
           value: "{{ .Values.backend.registration.swaggerEnabled }}"
         - name: "REGISTRATION__REGISTRATIONDOCUMENTTYPEIDS__0"
           value: "{{ .Values.backend.registration.registrationDocumentTypeIds.type0 }}"
+        - name: "REGISTRATION__SUBMITDOCUMENTTYPEIDS__0"
+          value: "{{ .Values.backend.registration.submitDocumentTypeIds.type0 }}"
+
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

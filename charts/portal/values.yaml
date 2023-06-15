@@ -289,6 +289,8 @@ backend:
     swaggerEnabled: false
     registrationDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"
+    submitDocumentTypeIds:
+      type0: "COMMERCIAL_REGISTER_EXTRACT"
   administration:
     name: "administration-service"
     image:

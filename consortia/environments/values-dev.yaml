@@ -306,7 +306,7 @@ backend:
       clientSecret: "<path:portal/data/dev/processes-worker#sdfactory-client-secret>"
     offerProvider:
       clientId: "<path:portal/data/processes-worker#offerprovider-client-id>"
-      clientSecret: "<path:portal/data/beta/processes-worker#offerprovider-client-secret>"
+      clientSecret: "<path:portal/data/dev/processes-worker#offerprovider-client-secret>"
 
   provisioningmigrations:
     resources:

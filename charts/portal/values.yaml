@@ -600,7 +600,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: 8f2e6b5ed04d1342245944e083ab02b9d7043b9a
+      provisioningmigrationstag: 7b3bde2cde312f60a4528fb57f1da60946ae1a25
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

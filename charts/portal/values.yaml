@@ -697,6 +697,10 @@ backend:
       clientId: "offerprovider-client-id"
       # -- Client-secret for offer provider client-id. Secret-key 'offerprovider-client-secret'.
       clientSecret: ""
+  clients:
+    portal: "Cl2-CX-Portal"
+    registration: "Cl1-CX-Registration"
+    technicalRolesManagement: "technical_roles_management"
   placeholder: "empty"
 
 postgresql:

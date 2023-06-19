@@ -63,18 +63,6 @@ frontend:
               service: "assets"
               port: 8080
 
-  portal:
-    image:
-      portaltag: 1d70aa1bcbf352c77de590a059a6aa19fcdae9c6
-
-  assets:
-    image:
-      assetstag: efaf6d161cf82da20ccdb89471ff78076dfe3e9c
-
-  registration:
-    image:
-      registrationtag: 8d79cd5765be80c640101bb288c9c8fe75c9bed4
-
 backend:
   ingress:
     enabled: true
@@ -139,15 +127,11 @@ backend:
     password: "<path:portal/data/mailing#password>"
 
   registration:
-    image:
-      registrationservicetag: 8ac0de0875563183f32b92ebafa7e67ae76e03d1
     logging:
       registrationServiceBpn: "Debug"
     swaggerEnabled: true
 
   administration:
-    image:
-      administrationservicetag: 8ac0de0875563183f32b92ebafa7e67ae76e03d1
     logging:
       businessLogic: "Debug"
       sdfactoryLibrary: "Debug"
@@ -166,46 +150,26 @@ backend:
         from: "<path:portal/data/mailing#from>"
         replyTo: "<path:portal/data/mailing#replyto>"
     service:
-      image:
-        provisioningservicetag: 8ac0de0875563183f32b92ebafa7e67ae76e03d1
       swaggerEnabled: true
 
   appmarketplace:
-    image:
-      appmarketplaceservicetag: 8ac0de0875563183f32b92ebafa7e67ae76e03d1
     logging:
       offersLibrary: "Debug"
     swaggerEnabled: true
 
   portalmigrations:
-    image:
-      portalmigrationstag: 8ac0de0875563183f32b92ebafa7e67ae76e03d1
     seeding:
       testDataEnvironments: "consortia"
 
-  portalmaintenance:
-    image:
-      portalmaintenancetag: 8ac0de0875563183f32b92ebafa7e67ae76e03d1
-
   notification:
-    image:
-      notificationservicetag: 8ac0de0875563183f32b92ebafa7e67ae76e03d1
     swaggerEnabled: true
 
   services:
-    image:
-      servicesservicetag: 8ac0de0875563183f32b92ebafa7e67ae76e03d1
     logging:
       offersLibrary: "Debug"
     swaggerEnabled: true
 
-  provisioningmigrations:
-    image:
-      provisioningmigrationstag: 8724784f40be5c4d5b3490ba1053000994419ad2
-
   checklistworker:
-    image:
-      checklistworkertag: 8ac0de0875563183f32b92ebafa7e67ae76e03d1
     logging:
       checklistLibrary: "Debug"
       bpdmLibrary: "Debug"

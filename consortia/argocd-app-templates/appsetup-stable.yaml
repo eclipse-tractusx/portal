@@ -34,5 +34,8 @@ spec:
         - name: AVP_SECRET
           value: vault-secret
         - name: helm_args
-          value: '-f values.yaml -f ../../consortia/environments/values-preprod.yaml'
+          value: '-f values.yaml -f ../../consortia/environments/values-stable.yaml'
   project: project-portal
+  syncPolicy:
+    automated:
+      prune: true

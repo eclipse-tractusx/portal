@@ -439,10 +439,28 @@ backend:
     ITAdminRoles:
       role0: "IT Admin"
     uploadAppDocumentTypeIds:
-      setting0: "application/pdf"
-      setting1: "image/jpeg"
-      setting2: "image/png"
-      setting3: "image/svg+xml"
+      documentTypeId0: "APP_TECHNICAL_INFORMATION"
+      mediaTypeIds0:
+        mediaTypeId0: "PDF"
+      documentTypeId1: "APP_LEADIMAGE"
+      mediaTypeIds1:
+        mediaTypeId0: "JPEG"
+        mediaTypeId1: "PNG"
+        mediaTypeId2: "SVG"
+      documentTypeId2: "APP_IMAGE"
+      mediaTypeIds2:
+        mediaTypeId0: "JPEG"
+        mediaTypeId1: "PNG"
+        mediaTypeId2: "SVG"
+      documentTypeId3: "APP_CONTRACT"
+      mediaTypeIds3:
+        mediaTypeId0: "PDF"
+      documentTypeId4: "ADDITIONAL_DETAILS"
+      mediaTypeIds4:
+        mediaTypeId0: "PDF"
+      documentTypeId5: "CONFORMITY_APPROVAL_BUSINESS_APPS"
+      mediaTypeIds5:
+        mediaTypeId0: "PDF"
     deleteDocumentTypeIds:
       type0: "APP_CONTRACT"
       type1: "ADDITIONAL_DETAILS"
@@ -574,10 +592,14 @@ backend:
     ITAdminRoles:
       role0: "IT Admin"
     uploadServiceDocumentTypeIds:
-      setting0: "application/pdf"
-      setting1: "image/jpeg"
-      setting2: "image/png"
-      setting3: "image/svg+xml"
+      documentTypeId0: "ADDITIONAL_DETAILS"
+      mediaTypeIds0:
+        mediaTypeId0: "PDF"
+      documentTypeId1: "SERVICE_LEADIMAGE"
+      mediaTypeIds1:
+        mediaTypeId0: "JPEG"
+        mediaTypeId1: "PNG"
+        mediaTypeId2: "SVG"
     submitServiceNotificationTypeIds:
       type0: "SERVICE_RELEASE_REQUEST"
     approveServiceNotificationTypeIds:

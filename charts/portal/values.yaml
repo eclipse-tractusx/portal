@@ -95,7 +95,7 @@ frontend:
     name: "portal"
     image:
       name: "tractusx/portal-frontend"
-      portaltag: 2882e5b8d6992f5801622bf1e13524119304d552
+      portaltag: v1.5.0
   registration:
     name: "registration"
     image:

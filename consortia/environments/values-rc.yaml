@@ -65,27 +65,27 @@ frontend:
 
   portal:
     resources:
-      limits:
-        cpu: 100m
-        memory: 128Mi
+#       limits:
+#         cpu: 100m
+#         memory: 128Mi
       requests:
         cpu: 100m
         memory: 128Mi
 
   registration:
     resources:
-      limits:
-        cpu: 100m
-        memory: 128Mi
+#       limits:
+#         cpu: 100m
+#         memory: 128Mi
       requests:
         cpu: 100m
         memory: 128Mi
 
   assets:
     resources:
-      limits:
-        cpu: 100m
-        memory: 128Mi
+#       limits:
+#         cpu: 100m
+#         memory: 128Mi
       requests:
         cpu: 100m
         memory: 128Mi
@@ -152,9 +152,9 @@ backend:
     logging:
       registrationServiceBpn: "Debug"
     resources:
-      limits:
-        cpu: 250m
-        memory: 256Mi
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
       requests:
         cpu: 250m
         memory: 256Mi
@@ -172,9 +172,9 @@ backend:
       businessLogic: "Debug"
       sdfactoryLibrary: "Debug"
     resources:
-      limits:
-        cpu: 250m
-        memory: 256Mi
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
       requests:
         cpu: 250m
         memory: 256Mi
@@ -206,9 +206,9 @@ backend:
     logging:
       offersLibrary: "Debug"
     resources:
-      limits:
-        cpu: 250m
-        memory: 256Mi
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
       requests:
         cpu: 250m
         memory: 256Mi
@@ -223,9 +223,9 @@ backend:
 
   portalmigrations:
     resources:
-      limits:
-        cpu: 250m
-        memory: 256Mi
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
       requests:
         cpu: 250m
         memory: 256Mi
@@ -234,18 +234,18 @@ backend:
 
   portalmaintenance:
     resources:
-      limits:
-        cpu: 250m
-        memory: 256Mi
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
       requests:
         cpu: 250m
         memory: 256Mi
 
   notification:
     resources:
-      limits:
-        cpu: 250m
-        memory: 256Mi
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
       requests:
         cpu: 250m
         memory: 256Mi
@@ -262,9 +262,9 @@ backend:
     logging:
       offersLibrary: "Debug"
     resources:
-      limits:
-        cpu: 250m
-        memory: 256Mi
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
       requests:
         cpu: 250m
         memory: 256Mi
@@ -285,9 +285,9 @@ backend:
       custodianLibrary: "Debug"
       sdfactoryLibrary: "Debug"
     resources:
-      limits:
-        cpu: 250m
-        memory: 256Mi
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
       requests:
         cpu: 250m
         memory: 256Mi
@@ -310,9 +310,9 @@ backend:
 
   provisioningmigrations:
     resources:
-      limits:
-        cpu: 250m
-        memory: 256Mi
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
       requests:
         cpu: 250m
         memory: 256Mi

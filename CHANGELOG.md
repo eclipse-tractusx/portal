@@ -4,10 +4,9 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
 
 ## 1.5.1
 
-### Bugfix
+### Change
 
-* Marketplace Service:  POST: /api/apps/autoSetup fixed mailing for subscription activation
-* Services Service:  POST: /api/services/autoSetup fixed mailing for subscription activation
+* changed to new container images for portal-backend: v1.5.1
 
 ## 1.5.0
 

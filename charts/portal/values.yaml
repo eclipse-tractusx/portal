@@ -320,6 +320,11 @@ backend:
         #   value: "portaldb"
         # - name: "HEALTHCHECKS__0__TAGS__2"
         #   value: "provisioningdb"
+    companyData:
+      useCaseParticipationMediaTypes:
+        type0: "PDF"
+      ssiCertificateMediaTypes:
+        type0: "PDF"
     connectors:
       validCertificationContentTypes:
         type0: "application/x-pem-file"

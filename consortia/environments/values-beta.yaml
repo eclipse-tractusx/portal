@@ -27,8 +27,8 @@ bpdmPartnersPoolAddress: "https://partners-pool.beta.demo.catena-x.net"
 bpdmPortalGateAddress: "https://portal-gate.dev.demo.catena-x.net"
 custodianAddress: "https://managed-identity-wallets.beta.demo.catena-x.net"
 sdfactoryAddress: "https://sdfactory.beta.demo.catena-x.net"
-clearinghouseAddress: "https://validation.dev.dih-cloud.com"
-clearinghouseTokenAddress: "https://iam.dev.dih-cloud.com/realms/notarisation/protocol/openid-connect/token"
+clearinghouseAddress: "https://validation.test.dih-cloud.com"
+clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
 
 frontend:
 
@@ -295,7 +295,7 @@ backend:
       clientId: "<path:portal/data/processes-worker#bpdm-client-id>"
       clientSecret: "<path:portal/data/beta/processes-worker#bpdm-client-secret>"
     clearinghouse:
-      clientId: "<path:portal/data/processes-worker#clearinghouse-client-id>"
+      clientId: "<path:portal/data/beta/processes-worker#clearinghouse-client-id>"
       clientSecret: "<path:portal/data/beta/processes-worker#clearinghouse-client-secret>"
     custodian:
       clientId: "<path:portal/data/processes-worker#custodian-client-id>"

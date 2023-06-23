@@ -1,13 +1,13 @@
 # Helm chart for Catena-X Portal
 
-![Version: 1.5.0](https://img.shields.io/badge/Version-1.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.5.0](https://img.shields.io/badge/AppVersion-1.5.0-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
+![Version: 1.5.1](https://img.shields.io/badge/Version-1.5.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.5.1](https://img.shields.io/badge/AppVersion-1.5.1-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
 
 This helm chart installs the Catena-X Portal application which consists of
 
 * [portal-frontend (v1.5.0)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.5.0),
 * [portal-frontend-registration (v1.4.0)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.4.0),
 * [portal-assets (v1.5.0)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.5.0) and
-* [portal-backend (v1.5.0)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.5.0).
+* [portal-backend (v1.5.1)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.5.1).
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
 This version is compatible with the 1.1.0 version of the IAM instances:
@@ -41,7 +41,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.5.0
+    version: 1.5.1
 ```
 
 ## Requirements
@@ -133,7 +133,7 @@ dependencies:
 | backend.healthChecks.readyness.path | string | `"/ready"` |  |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"tractusx/portal-registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v1.5.0"` |  |
+| backend.registration.image.registrationservicetag | string | `"v1.5.1"` |  |
 | backend.registration.logging.registrationServiceBpn | string | `"Information"` |  |
 | backend.registration.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
 | backend.registration.portalRegistrationPath | string | `"/registration"` |  |
@@ -147,7 +147,7 @@ dependencies:
 | backend.registration.registrationDocumentTypeIds.type0 | string | `"CX_FRAME_CONTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"tractusx/portal-administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v1.5.0"` |  |
+| backend.administration.image.administrationservicetag | string | `"v1.5.1"` |  |
 | backend.administration.logging.businessLogic | string | `"Information"` |  |
 | backend.administration.logging.sdfactoryLibrary | string | `"Information"` |  |
 | backend.administration.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
@@ -200,7 +200,7 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"tractusx/portal-marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.5.0"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.5.1"` |  |
 | backend.appmarketplace.logging.offersLibrary | string | `"Information"` |  |
 | backend.appmarketplace.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
 | backend.appmarketplace.appOverviewPath | string | `"/appoverview"` |  |
@@ -243,19 +243,19 @@ dependencies:
 | backend.appmarketplace.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"tractusx/portal-portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v1.5.0"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v1.5.1"` |  |
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"tractusx/portal-maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.5.0"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.5.1"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"tractusx/portal-notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v1.5.0"` |  |
+| backend.notification.image.notificationservicetag | string | `"v1.5.1"` |  |
 | backend.notification.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
 | backend.notification.swaggerEnabled | bool | `false` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"tractusx/portal-services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v1.5.0"` |  |
+| backend.services.image.servicesservicetag | string | `"v1.5.1"` |  |
 | backend.services.logging.offersLibrary | string | `"Information"` |  |
 | backend.services.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
 | backend.services.serviceMarketplacePath | string | `"/servicemarketplace"` |  |
@@ -284,10 +284,10 @@ dependencies:
 | backend.services.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"tractusx/portal-provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.5.0"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.5.1"` |  |
 | backend.processesworker.name | string | `"processes-worker"` |  |
 | backend.processesworker.image.name | string | `"tractusx/portal-processes-worker"` |  |
-| backend.processesworker.image.processesworkertag | string | `"v1.5.0"` |  |
+| backend.processesworker.image.processesworkertag | string | `"v1.5.1"` |  |
 | backend.processesworker.logging.processesLibrary | string | `"Information"` |  |
 | backend.processesworker.logging.bpdmLibrary | string | `"Information"` |  |
 | backend.processesworker.logging.clearinghouseLibrary | string | `"Information"` |  |

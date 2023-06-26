@@ -295,7 +295,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: 7b5eb910939444f3f6b0b422eeb494cd526a9273
+      administrationservicetag: 03c4ff74538b2ea7a199ef9f0121eed09d7f972a
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

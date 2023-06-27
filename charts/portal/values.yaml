@@ -677,6 +677,7 @@ backend:
       # -- Client-secret for bpdm client-id. Secret-key 'bpdm-client-secret'.
       clientSecret: ""
     custodian:
+      membershipErrorMessage: "Credential of type MembershipCredential is already exists"
       scope: "openid"
       grantType: "client_credentials"
       # -- Provide custodian client-id from CX IAM centralidp.

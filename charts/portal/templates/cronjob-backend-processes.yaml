@@ -138,6 +138,8 @@ spec:
               value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.processesworker.clearinghouse.callbackPath }}"
             - name: "APPLICATIONCHECKLIST__CUSTODIAN__BASEADDRESS"
               value: "{{ .Values.custodianAddress }}"
+            - name: "APPLICATIONCHECKLIST__CUSTODIAN__MEMBERSHIPERRORMESSAGE"
+              value: "{{ .Values.backend.processesworker.custodian.membershipErrorMessage }}"
             - name: "APPLICATIONCHECKLIST__CUSTODIAN__CLIENTID"
               value: "{{ .Values.backend.processesworker.custodian.clientId }}"
             - name: "APPLICATIONCHECKLIST__CUSTODIAN__CLIENTSECRET"

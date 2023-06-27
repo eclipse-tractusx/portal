@@ -399,7 +399,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: ac47b8dcb2b4ca31813350d9e563d727ce0417b0
+      appmarketplaceservicetag: c99a45a7f1f2e696b1b3c5b058dddcd5b6cecf10
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

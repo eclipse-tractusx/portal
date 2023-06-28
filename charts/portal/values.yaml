@@ -341,6 +341,7 @@ backend:
       clientId: "daps-client-id"
       # -- Client-secret for daps client-id. Secret-key 'daps-client-secret'.
       clientSecret: ""
+      isActive: "false"
     identityProviderAdmin:
       csvSettings:
         fileName: "identityproviderlinks.csv"

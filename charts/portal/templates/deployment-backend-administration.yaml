@@ -189,6 +189,8 @@ spec:
           value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.administration.connectors.selfDescriptionDocumentPath }}"
         - name: "DAPS__CLIENTID"
           value: "{{ .Values.backend.administration.daps.clientId }}"
+        - name: "DAPS__ISACTIVE"
+          value: "{{ .Values.backend.administration.daps.isActive }}"
         - name: "DAPS__CLIENTSECRET"
           valueFrom:
             secretKeyRef:

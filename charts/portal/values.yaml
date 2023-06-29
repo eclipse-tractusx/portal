@@ -515,7 +515,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: 03c4ff74538b2ea7a199ef9f0121eed09d7f972a
+      portalmaintenancetag: f5f83c9631862e3f4f72533f1810167d1fb34588
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

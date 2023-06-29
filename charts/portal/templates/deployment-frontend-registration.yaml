@@ -36,7 +36,11 @@ spec:
       containers:
       - name: {{ .Values.frontend.registration.name }}
         securityContext:
-          {{- toYaml .Values.securityContext | nindent 12 }}
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
         image: {{ .Values.frontend.registration.image.name }}:{{ .Values.frontend.registration.image.registrationtag | default .Chart.AppVersion }}
         imagePullPolicy: "Always"
         env:
@@ -72,7 +76,7 @@ spec:
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         resources:
-          {{- toYaml .Values.resources | nindent 12 }}
+          {{- toYaml .Values.frontend.registration.resources | nindent 10 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

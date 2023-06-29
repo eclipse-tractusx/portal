@@ -34,7 +34,11 @@ spec:
       containers:
       - name: {{ .Values.backend.provisioningmigrations.name }}
         securityContext:
-          {{- toYaml .Values.securityContext | nindent 12 }}
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
         image: "{{ .Values.backend.provisioningmigrations.image.name }}:{{ .Values.backend.provisioningmigrations.image.provisioningmigrationstag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"
         env:
@@ -60,3 +64,5 @@ spec:
         - name: http
           containerPort: {{ .Values.portContainer }}
           protocol: TCP
+        resources:
+          {{- toYaml .Values.backend.provisioningmigrations.resources | nindent 10 }}

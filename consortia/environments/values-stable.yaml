@@ -17,18 +17,18 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-portalAddress: "https://portal.pre-prod.demo.catena-x.net"
-portalBackendAddress: "https://portal-backend.pre-prod.demo.catena-x.net"
-centralidpAddress: "https://centralidp.pre-prod.demo.catena-x.net"
-sharedidpAddress: "https://sharedidp.pre-prod.demo.catena-x.net"
-semanticsAddress: "https://semantics.pre-prod.demo.catena-x.net"
-dapsAddress: "https://drs.pre-prod.demo.catena-x.net"
-bpdmPartnersPoolAddress: "https://partners-pool.pre-prod.demo.catena-x.net"
-bpdmPortalGateAddress: "https://portal-gate.pre-prod.demo.catena-x.net"
-custodianAddress: "https://managed-identity-wallets.pre-prod.demo.catena-x.net"
-sdfactoryAddress: "https://sdfactory.pre-prod.demo.catena-x.net"
-clearinghouseAddress: "https://validation.dev.dih-cloud.com"
-clearinghouseTokenAddress: "https://iam.dev.dih-cloud.com/realms/notarisation/protocol/openid-connect/token"
+portalAddress: "https://portal.stable.demo.catena-x.net"
+portalBackendAddress: "https://portal-backend.stable.demo.catena-x.net"
+centralidpAddress: "https://centralidp.stable.demo.catena-x.net"
+sharedidpAddress: "https://sharedidp.stable.demo.catena-x.net"
+semanticsAddress: "https://semantics.stable.demo.catena-x.net"
+dapsAddress: "https://drs.stable.demo.catena-x.net"
+bpdmPartnersPoolAddress: "https://partners-pool.stable.demo.catena-x.net"
+bpdmPortalGateAddress: "https://portal-gate.stable.demo.catena-x.net"
+custodianAddress: "https://managed-identity-wallets.stable.demo.catena-x.net"
+sdfactoryAddress: "https://sdfactory.stable.demo.catena-x.net"
+clearinghouseAddress: "https://validation.test.dih-cloud.com/api/v1/validation"
+clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
 
 frontend:
 
@@ -39,13 +39,13 @@ frontend:
       nginx.ingress.kubernetes.io/rewrite-target: "/$1"
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, https://*.pre-prod.demo.catena-x.net"
+      nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, https://*.stable.demo.catena-x.net"
     tls:
       - secretName: "tls-secret"
         hosts:
-          - "portal.pre-prod.demo.catena-x.net"
+          - "portal.stable.demo.catena-x.net"
     hosts:
-      - host: "portal.pre-prod.demo.catena-x.net"
+      - host: "portal.stable.demo.catena-x.net"
         paths:
           - path: "/(.*)"
             pathType: "Prefix"
@@ -63,6 +63,33 @@ frontend:
               service: "assets"
               port: 8080
 
+  portal:
+    resources:
+#       limits:
+#         cpu: 100m
+#         memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+  registration:
+    resources:
+#       limits:
+#         cpu: 100m
+#         memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
+  assets:
+    resources:
+#       limits:
+#         cpu: 100m
+#         memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
 backend:
   ingress:
     enabled: true
@@ -71,13 +98,13 @@ backend:
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "8m"
-      nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, https://*.pre-prod.demo.catena-x.net"
+      nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, https://*.stable.demo.catena-x.net"
     tls:
       - secretName: "tls-secret"
         hosts:
-          - "portal-backend.pre-prod.demo.catena-x.net"
+          - "portal-backend.stable.demo.catena-x.net"
     hosts:
-      - host: "portal-backend.pre-prod.demo.catena-x.net"
+      - host: "portal-backend.stable.demo.catena-x.net"
         paths:
           - path: "/api/registration"
             pathType: "Prefix"
@@ -108,12 +135,12 @@ backend:
   keycloak:
     central:
       clientId: "<path:portal/data/keycloak#central-client-id>"
-      clientSecret: "<path:portal/data/pre-prod/keycloak#central-client-secret>"
+      clientSecret: "<path:portal/data/stable/keycloak#central-client-secret>"
       dbConnection:
-        password: "<path:portal/data/pre-prod/keycloak#central-db-password>"
+        password: "<path:portal/data/stable/keycloak#central-db-password>"
     shared:
       clientId: "<path:portal/data/keycloak#shared-client-id>"
-      clientSecret: "<path:portal/data/pre-prod/keycloak#shared-client-secret>"
+      clientSecret: "<path:portal/data/stable/keycloak#shared-client-secret>"
 
   mailing:
     host: "<path:portal/data/mailing#host>"
@@ -124,6 +151,13 @@ backend:
   registration:
     logging:
       registrationServiceBpn: "Debug"
+    resources:
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     healthChecks:
       startup:
         tags:
@@ -137,6 +171,13 @@ backend:
     logging:
       businessLogic: "Debug"
       sdfactoryLibrary: "Debug"
+    resources:
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     healthChecks:
       startup:
         tags:
@@ -148,7 +189,7 @@ backend:
           value: "provisioningdb"
     daps:
       clientId: "<path:portal/data/administration#daps-client-id>"
-      clientSecret: "<path:portal/data/pre-prod/administration#daps-client-secret>"
+      clientSecret: "<path:portal/data/stable/administration#daps-client-secret>"
     swaggerEnabled: true
 
   provisioning:
@@ -164,6 +205,13 @@ backend:
   appmarketplace:
     logging:
       offersLibrary: "Debug"
+    resources:
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     healthChecks:
       startup:
         tags:
@@ -174,10 +222,33 @@ backend:
     swaggerEnabled: true
 
   portalmigrations:
+    resources:
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     seeding:
       testDataEnvironments: "consortia"
 
+  portalmaintenance:
+    resources:
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
+
   notification:
+    resources:
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     healthChecks:
       startup:
         tags:
@@ -190,6 +261,13 @@ backend:
   services:
     logging:
       offersLibrary: "Debug"
+    resources:
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     healthChecks:
       startup:
         tags:
@@ -206,29 +284,45 @@ backend:
       clearinghouseLibrary: "Debug"
       custodianLibrary: "Debug"
       sdfactoryLibrary: "Debug"
+    resources:
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
     bpdm:
-      clientId: "<path:portal/data/processes-worker#bpdm-client-id>"
-      clientSecret: "<path:portal/data/pre-prod/processes-worker#bpdm-client-secret>"
+      clientId: "<path:portal/data/checklist-worker#bpdm-client-id>"
+      clientSecret: "<path:portal/data/stable/checklist-worker#bpdm-client-secret>"
     clearinghouse:
-      clientId: "<path:portal/data/processes-worker#clearinghouse-client-id>"
-      clientSecret: "<path:portal/data/pre-prod/processes-worker#clearinghouse-client-secret>"
+      clientId: "<path:portal/data/stable/checklist-worker#clearinghouse-client-id>"
+      clientSecret: "<path:portal/data/stable/checklist-worker#clearinghouse-client-secret>"
     custodian:
-      clientId: "<path:portal/data/processes-worker#custodian-client-id>"
-      clientSecret: "<path:portal/data/pre-prod/processes-worker#custodian-client-secret>"
+      clientId: "<path:portal/data/checklist-worker#custodian-client-id>"
+      clientSecret: "<path:portal/data/stable/checklist-worker#custodian-client-secret>"
     sdfactory:
       issuerBpn: "BPNL00000003CRHK"
-      clientId: "<path:portal/data/processes-worker#sdfactory-client-id>"
-      clientSecret: "<path:portal/data/pre-prod/processes-worker#sdfactory-client-secret>"
+      clientId: "<path:portal/data/checklist-worker#sdfactory-client-id>"
+      clientSecret: "<path:portal/data/stable/checklist-worker#sdfactory-client-secret>"
     offerProvider:
       clientId: "<path:portal/data/processes-worker#offerprovider-client-id>"
-      clientSecret: "<path:portal/data/beta/processes-worker#offerprovider-client-secret>"
+      clientSecret: "<path:portal/data/stable/processes-worker#offerprovider-client-secret>"
+
+  provisioningmigrations:
+    resources:
+#       limits:
+#         cpu: 250m
+#         memory: 256Mi
+      requests:
+        cpu: 250m
+        memory: 256Mi
 
 postgresql:
   auth:
-    password: "<path:portal/data/pre-prod/postgres#postgres-password>"
-    replicationPassword: "<path:portal/data/pre-prod/postgres#replication-password>"
-    portalPassword: "<path:portal/data/pre-prod/postgres#portal-password>"
-    provisioningPassword: "<path:portal/data/pre-prod/postgres#provisioning-password>"
+    password: "<path:portal/data/stable/postgres#postgres-password>"
+    replicationPassword: "<path:portal/data/stable/postgres#replication-password>"
+    portalPassword: "<path:portal/data/stable/postgres#portal-password>"
+    provisioningPassword: "<path:portal/data/stable/postgres#provisioning-password>"
   primary:
     extendedConfiguration: |
       max_connections = 200

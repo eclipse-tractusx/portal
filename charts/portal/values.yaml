@@ -95,17 +95,47 @@ frontend:
     name: "portal"
     image:
       name: "tractusx/portal-frontend"
-      portaltag: v1.5.0
+      portaltag: a9d65952859186044665c09cd8ae5da2bd8d9bc2
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
   registration:
     name: "registration"
     image:
       name: "tractusx/portal-frontend-registration"
-      registrationtag: v1.4.0
+      registrationtag: c4556672f49adc306b0f42c3581de3e321bbc50b
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
   assets:
     name: "assets"
     image:
       name: "tractusx/portal-assets"
-      assetstag: v1.5.0
+      assetstag: 15bd1f3d722a73ec1fd34baab83757828f2970dc
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 100m
+      #   memory: 128Mi
     path: "/assets"
   centralidpAuthPath: "/auth"
   bpdmPartnersPoolApiPath: "/api"
@@ -225,7 +255,17 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: v1.5.1
+      registrationservicetag: f0f0ce828386c22c8865e5c67ab5c5aeeeee070e
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     logging:
       registrationServiceBpn: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -249,11 +289,23 @@ backend:
     swaggerEnabled: false
     registrationDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"
+    submitDocumentTypeIds:
+      type0: "COMMERCIAL_REGISTER_EXTRACT"
   administration:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: v1.5.1
+      administrationservicetag: f0f0ce828386c22c8865e5c67ab5c5aeeeee070e
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
@@ -347,7 +399,17 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: v1.5.1
+      appmarketplaceservicetag: f0f0ce828386c22c8865e5c67ab5c5aeeeee070e
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     logging:
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -377,10 +439,28 @@ backend:
     ITAdminRoles:
       role0: "IT Admin"
     uploadAppDocumentTypeIds:
-      setting0: "application/pdf"
-      setting1: "image/jpeg"
-      setting2: "image/png"
-      setting3: "image/svg+xml"
+      documentTypeId0: "APP_TECHNICAL_INFORMATION"
+      mediaTypeIds0:
+        mediaTypeId0: "PDF"
+      documentTypeId1: "APP_LEADIMAGE"
+      mediaTypeIds1:
+        mediaTypeId0: "JPEG"
+        mediaTypeId1: "PNG"
+        mediaTypeId2: "SVG"
+      documentTypeId2: "APP_IMAGE"
+      mediaTypeIds2:
+        mediaTypeId0: "JPEG"
+        mediaTypeId1: "PNG"
+        mediaTypeId2: "SVG"
+      documentTypeId3: "APP_CONTRACT"
+      mediaTypeIds3:
+        mediaTypeId0: "PDF"
+      documentTypeId4: "ADDITIONAL_DETAILS"
+      mediaTypeIds4:
+        mediaTypeId0: "PDF"
+      documentTypeId5: "CONFORMITY_APPROVAL_BUSINESS_APPS"
+      mediaTypeIds5:
+        mediaTypeId0: "PDF"
     deleteDocumentTypeIds:
       type0: "APP_CONTRACT"
       type1: "ADDITIONAL_DETAILS"
@@ -418,19 +498,49 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: v1.5.1
+      portalmigrationstag: f0f0ce828386c22c8865e5c67ab5c5aeeeee070e
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     seeding:
       testDataEnvironments: ""
   portalmaintenance:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: v1.5.1
+      portalmaintenancetag: 03c4ff74538b2ea7a199ef9f0121eed09d7f972a
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
   notification:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: v1.5.1
+      notificationservicetag: f0f0ce828386c22c8865e5c67ab5c5aeeeee070e
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
@@ -445,7 +555,17 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: v1.5.1
+      servicesservicetag: f0f0ce828386c22c8865e5c67ab5c5aeeeee070e
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     logging:
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
@@ -472,10 +592,14 @@ backend:
     ITAdminRoles:
       role0: "IT Admin"
     uploadServiceDocumentTypeIds:
-      setting0: "application/pdf"
-      setting1: "image/jpeg"
-      setting2: "image/png"
-      setting3: "image/svg+xml"
+      documentTypeId0: "ADDITIONAL_DETAILS"
+      mediaTypeIds0:
+        mediaTypeId0: "PDF"
+      documentTypeId1: "SERVICE_LEADIMAGE"
+      mediaTypeIds1:
+        mediaTypeId0: "JPEG"
+        mediaTypeId1: "PNG"
+        mediaTypeId2: "SVG"
     submitServiceNotificationTypeIds:
       type0: "SERVICE_RELEASE_REQUEST"
     approveServiceNotificationTypeIds:
@@ -498,12 +622,32 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v1.5.1
+      provisioningmigrationstag: 2cb4dc190424b0f467b1645367ba97a631e8edff
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
   processesworker:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: v1.5.1
+      processesworkertag: f0f0ce828386c22c8865e5c67ab5c5aeeeee070e
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
     logging:
       processesLibrary: "Information"
       bpdmLibrary: "Information"
@@ -533,6 +677,7 @@ backend:
       # -- Client-secret for bpdm client-id. Secret-key 'bpdm-client-secret'.
       clientSecret: ""
     custodian:
+      membershipErrorMessage: "Credential of type MembershipCredential is already exists"
       scope: "openid"
       grantType: "client_credentials"
       # -- Provide custodian client-id from CX IAM centralidp.
@@ -575,6 +720,10 @@ backend:
       clientId: "offerprovider-client-id"
       # -- Client-secret for offer provider client-id. Secret-key 'offerprovider-client-secret'.
       clientSecret: ""
+  clients:
+    portal: "Cl2-CX-Portal"
+    registration: "Cl1-CX-Registration"
+    technicalRolesManagement: "technical_roles_management"
   placeholder: "empty"
 
 postgresql:
@@ -653,28 +802,11 @@ portService: 8080
 
 replicaCount: 3
 
-securityContext:
-  allowPrivilegeEscalation: false
-  runAsNonRoot: true
-  capabilities:
-    drop: ["ALL"]
-
-# -- If you do want to specify resources, uncomment the following lines,
-# adjust them as necessary, and remove the curly braces after 'resources:'.
-resources: {}
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
-
 # -- Node labels for pod assignment
 nodeSelector: {}
 
 # -- Tolerations for pod assignment
 tolerations: []
-
 
 affinity:
 # -- Following Catena-X Helm Best Practices,
@@ -688,7 +820,6 @@ affinity:
               - key: app.kubernetes.io/name
                 operator: DoesNotExist
           topologyKey: kubernetes.io/hostname
-
 
 updateStrategy:
 # -- Update strategy type,

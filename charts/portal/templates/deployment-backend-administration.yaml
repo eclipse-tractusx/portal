@@ -36,7 +36,11 @@ spec:
       containers:
       - name: {{ .Values.backend.administration.name }}
         securityContext:
-          {{- toYaml .Values.securityContext | nindent 12 }}
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
         image: "{{ .Values.backend.administration.image.name }}:{{ .Values.backend.administration.image.administrationservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"
         env:
@@ -126,7 +130,9 @@ spec:
         - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__USERNAME"
           value: "{{ .Values.backend.placeholder }}"
         - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__CALLBACKURL"
-          value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.processesworker.clearinghouse.callbackPath }}"
+          value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.processesworker.clearinghouse.callbackPath }}"  
+        - name: "APPLICATIONCHECKLIST__CUSTODIAN__MEMBERSHIPERRORMESSAGE"
+          value: "{{ .Values.backend.processesworker.custodian.membershipErrorMessage }}"
         - name: "APPLICATIONCHECKLIST__CUSTODIAN__BASEADDRESS"
           value: "{{ .Values.custodianAddress }}"
         - name: "APPLICATIONCHECKLIST__CUSTODIAN__CLIENTID"
@@ -231,7 +237,9 @@ spec:
           value: "{{ .Values.backend.administration.identityProviderAdmin.csvSettings.headerUserId }}"
         - name: "IDENTITYPROVIDERADMIN__CSVSETTINGS__SEPARATOR"
           value: "{{ .Values.backend.administration.identityProviderAdmin.csvSettings.separator }}"
-        - name: "INVITATION__INVITEDUSERINITIALROLES__Cl1-CX-Registration__0"
+        - name: "INVITATION__INVITEDUSERINITIALROLES__0__CLIENTID"
+          value: "{{ .Values.backend.clients.registration }}"
+        - name: "INVITATION__INVITEDUSERINITIALROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.administration.invitation.invitedUserInitialRoles.role0 }}"
         - name: "INVITATION__REGISTRATIONAPPADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.registration.portalRegistrationPath }}"
@@ -288,7 +296,9 @@ spec:
           value: "{{ .Values.backend.provisioning.centralRealm }}"
         - name: "PROVISIONING__CENTRALREALMID"
           value: "{{ .Values.backend.provisioning.centralRealmId }}"
-        - name: "PROVISIONING__INVITEDUSERINITIALROLES__Cl1-CX-Registration__0"
+        - name: "PROVISIONING__INVITEDUSERINITIALROLES__0__CLIENTID"
+          value: "{{ .Values.backend.clients.registration }}"
+        - name: "PROVISIONING__INVITEDUSERINITIALROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.provisioning.invitedUserInitialRoles.registration }}"
         - name: "PROVISIONING__SHAREDREALM__SMTPSERVER__AUTH"
           value: "{{ .Values.backend.provisioning.sharedRealm.smtpServer.auth }}"
@@ -321,9 +331,11 @@ spec:
           value: "{{ .Values.backend.administration.userManagement.companyUserStatusIds.status0 }}"
         - name: "USERMANAGEMENT__COMPANYUSERSTATUSIDS__1"
           value: "{{ .Values.backend.administration.userManagement.companyUserStatusIds.status1 }}"
-        - name: "USERMANAGEMENT__USERADMINROLES__Cl2-CX-Portal__0"
+        - name: "USERMANAGEMENT__USERADMINROLES__0__CLIENTID"
+          value: "{{ .Values.backend.clients.portal }}"
+        - name: "USERMANAGEMENT__USERADMINROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.administration.userManagement.userAdminRoles.role0 }}"
-        - name: "USERMANAGEMENT__USERADMINROLES__Cl2-CX-Portal__1"
+        - name: "USERMANAGEMENT__USERADMINROLES__0__USERROLENAMES__1"
           value: "{{ .Values.backend.administration.userManagement.userAdminRoles.role1 }}"
         - name: "USERMANAGEMENT__PORTAL__BASEPORTALADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
@@ -364,7 +376,7 @@ spec:
           successThreshold: {{ .Values.readinessProbe.successThreshold }}
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         resources:
-          {{- toYaml .Values.resources | nindent 12 }}
+          {{- toYaml .Values.backend.administration.resources | nindent 10 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

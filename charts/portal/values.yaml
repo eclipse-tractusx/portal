@@ -95,7 +95,7 @@ frontend:
     name: "portal"
     image:
       name: "tractusx/portal-frontend"
-      portaltag: a9d65952859186044665c09cd8ae5da2bd8d9bc2
+      portaltag: 872aace4a14bf39f3dc9cf8860a05202e4450b6f
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -255,7 +255,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: f0f0ce828386c22c8865e5c67ab5c5aeeeee070e
+      registrationservicetag: 92aad9cd8fdfc273874106026ec01225070ea105
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -295,7 +295,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: f0f0ce828386c22c8865e5c67ab5c5aeeeee070e
+      administrationservicetag: 92aad9cd8fdfc273874106026ec01225070ea105
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -622,7 +622,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: 2cb4dc190424b0f467b1645367ba97a631e8edff
+      provisioningmigrationstag: 92aad9cd8fdfc273874106026ec01225070ea105
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

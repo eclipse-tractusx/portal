@@ -511,6 +511,7 @@ backend:
       #   memory: 256Mi
     seeding:
       testDataEnvironments: ""
+      testDataPaths: "Seeder/Data"
   portalmaintenance:
     name: "portal-maintenance"
     image:

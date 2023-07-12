@@ -334,13 +334,14 @@ backend:
       selfDescriptionDocumentPath: /api/administration/documents/selfDescription
     keycloakClientId: "Cl2-CX-Portal"
     daps:
-      apiPath: "/api/v1/daps"
+      apiPath: "/api/v1/daps/"
       scope: "openid"
       grantType: "client_credentials"
       # -- Provide daps client-id from CX IAM centralidp.
       clientId: "daps-client-id"
       # -- Client-secret for daps client-id. Secret-key 'daps-client-secret'.
       clientSecret: ""
+      isActive: "false"
     identityProviderAdmin:
       csvSettings:
         fileName: "identityproviderlinks.csv"

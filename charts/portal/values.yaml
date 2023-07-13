@@ -504,7 +504,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: db5d7bbc0dc820ceaf8b21251339bb0bc4a528ad
+      portalmigrationstag: 74b7a458e896968fec701ec9e25e3ffc9f621292
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

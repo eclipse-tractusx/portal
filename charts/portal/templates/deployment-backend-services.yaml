@@ -115,7 +115,7 @@ spec:
               key: "shared-client-secret"
         - name: "KEYCLOAK__SHARED__CONNECTIONSTRING"
           value: "{{ .Values.sharedidpAddress }}"
-        - name: "LOGGING__LOGLEVEL__ORG.CATENAX.NG.PORTAL.BACKEND.OFFERS.LIBRARY.SERVICE"
+        - name: "LOGGING__LOGLEVEL__ORG.ECLIPSE.TRACTUSX.PORTAL.BACKEND.OFFERS.LIBRARY.SERVICE"
           value: "{{ .Values.backend.services.logging.offersLibrary }}"
         - name: "MAILINGSERVICE__MAIL__SMTPHOST"
           value: "{{ .Values.backend.mailing.host }}"

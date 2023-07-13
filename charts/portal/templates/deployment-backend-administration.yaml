@@ -281,7 +281,7 @@ spec:
               key: "shared-client-secret"
         - name: "KEYCLOAK__SHARED__CONNECTIONSTRING"
           value: "{{ .Values.sharedidpAddress }}"
-        - name: "LOGGING__LOGLEVEL__ORG.CATENAX.NG.PORTAL.BACKEND.ADMINISTRATION.SERVICE.BUSINESSLOGIC"
+        - name: "LOGGING__LOGLEVEL__ORG.ECLIPSE.TRACTUSX.PORTAL.BACKEND.ADMINISTRATION.SERVICE.BUSINESSLOGIC"
           value: "{{ .Values.backend.administration.logging.businessLogic }}"
         - name: "LOGGING__LOGLEVEL__ORG.ECLIPSE.TRACTUSX.PORTAL.BACKEND.SDFACTORY.LIBRARY"
           value: "{{ .Values.backend.administration.logging.sdfactoryLibrary }}"

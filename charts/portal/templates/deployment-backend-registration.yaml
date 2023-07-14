@@ -123,7 +123,7 @@ spec:
               key: "shared-client-secret"
         - name: "KEYCLOAK__SHARED__CONNECTIONSTRING"
           value: "{{ .Values.sharedidpAddress }}"
-        - name: "LOGGING__LOGLEVEL__ORG.CATENAX.NG.PORTAL.BACKEND.REGISTRATION.SERVICE.BPN"
+        - name: "LOGGING__LOGLEVEL__ORG.ECLIPSE.TRACTUSX.PORTAL.BACKEND.REGISTRATION.SERVICE.BPN"
           value: "{{ .Values.backend.registration.logging.registrationServiceBpn }}"
         - name: "MAILINGSERVICE__MAIL__SMTPHOST"
           value: "{{ .Values.backend.mailing.host }}"

@@ -173,6 +173,10 @@ spec:
           value: "{{ .Values.sdfactoryAddress }}{{ .Values.backend.processesworker.sdfactory.selfdescriptionPath }}"
         - name: "APPLICATIONCHECKLIST__SDFACTORY__USERNAME"
           value: "{{ .Values.backend.placeholder }}"
+        - name: "COMPANYDATA__USECASEPARTICIPATIONMEDIATYPES__0"
+          value: "{{ .Values.backend.administration.companyData.useCaseParticipationMediaTypes.type0 }}"
+        - name: "COMPANYDATA__SSICERTIFICATEMEDIATYPES__0"
+          value: "{{ .Values.backend.administration.companyData.ssiCertificateMediaTypes.type0 }}"
         - name: "CONNECTORS__VALIDCERTIFICATIONCONTENTTYPES__0"
           value: "{{ .Values.backend.administration.connectors.validCertificationContentTypes.type0 }}"
         - name: "CONNECTORS__VALIDCERTIFICATIONCONTENTTYPES__1"
@@ -185,6 +189,8 @@ spec:
           value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.administration.connectors.selfDescriptionDocumentPath }}"
         - name: "DAPS__CLIENTID"
           value: "{{ .Values.backend.administration.daps.clientId }}"
+        - name: "DAPS__ISACTIVE"
+          value: "{{ .Values.backend.administration.daps.isActive }}"
         - name: "DAPS__CLIENTSECRET"
           valueFrom:
             secretKeyRef:
@@ -275,7 +281,7 @@ spec:
               key: "shared-client-secret"
         - name: "KEYCLOAK__SHARED__CONNECTIONSTRING"
           value: "{{ .Values.sharedidpAddress }}"
-        - name: "LOGGING__LOGLEVEL__ORG.CATENAX.NG.PORTAL.BACKEND.ADMINISTRATION.SERVICE.BUSINESSLOGIC"
+        - name: "LOGGING__LOGLEVEL__ORG.ECLIPSE.TRACTUSX.PORTAL.BACKEND.ADMINISTRATION.SERVICE.BUSINESSLOGIC"
           value: "{{ .Values.backend.administration.logging.businessLogic }}"
         - name: "LOGGING__LOGLEVEL__ORG.ECLIPSE.TRACTUSX.PORTAL.BACKEND.SDFACTORY.LIBRARY"
           value: "{{ .Values.backend.administration.logging.sdfactoryLibrary }}"

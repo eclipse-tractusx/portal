@@ -219,7 +219,7 @@ backend:
       issuerBpn: "BPNL00000003CRHK"
       clientId: "<path:portal/data/checklist-worker#sdfactory-client-id>"
       clientSecret: "<path:portal/data/stable/checklist-worker#sdfactory-client-secret>"
-    offerProvider:
+    offerprovider:
       clientId: "<path:portal/data/processes-worker#offerprovider-client-id>"
       clientSecret: "<path:portal/data/stable/processes-worker#offerprovider-client-secret>"
 

@@ -1,13 +1,13 @@
 # Helm chart for Catena-X Portal
 
-![Version: 1.6.0-RC2](https://img.shields.io/badge/Version-1.6.0--RC2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.0-RC2](https://img.shields.io/badge/AppVersion-1.6.0--RC2-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
+![Version: 1.6.0-RC3](https://img.shields.io/badge/Version-1.6.0--RC3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.0-RC3](https://img.shields.io/badge/AppVersion-1.6.0--RC3-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
 
 This helm chart installs the Catena-X Portal application which consists of
 
-* [portal-frontend (v1.6.0-RC2)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.6.0-RC2),
+* [portal-frontend (v1.6.0-RC3)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.6.0-RC3),
 * [portal-frontend-registration (v1.5.0-RC1)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.5.0-RC1),
 * [portal-assets (v1.6.0-RC1)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.0-RC1) and
-* [portal-backend (v1.6.0-RC2)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.6.0-RC2).
+* [portal-backend (v1.6.0-RC3)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.6.0-RC3).
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
 This version is compatible with the 1.2.0-RC1 version of the IAM instances:
@@ -41,7 +41,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.6.0-RC2
+    version: 1.6.0-RC3
 ```
 
 ## Requirements
@@ -78,7 +78,7 @@ dependencies:
 | frontend.ingress.hosts[0] | object | `{"host":"portal.example.org","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assetsORdocumentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"tractusx/portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v1.6.0-RC2"` |  |
+| frontend.portal.image.portaltag | string | `"v1.6.0-RC3"` |  |
 | frontend.portal.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"tractusx/portal-frontend-registration"` |  |
@@ -136,7 +136,7 @@ dependencies:
 | backend.healthChecks.readyness.path | string | `"/ready"` |  |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"tractusx/portal-registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v1.6.0-RC2"` |  |
+| backend.registration.image.registrationservicetag | string | `"v1.6.0-RC3"` |  |
 | backend.registration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.registration.logging.registrationServiceBpn | string | `"Information"` |  |
 | backend.registration.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
@@ -152,7 +152,7 @@ dependencies:
 | backend.registration.submitDocumentTypeIds.type0 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"tractusx/portal-administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v1.6.0-RC2"` |  |
+| backend.administration.image.administrationservicetag | string | `"v1.6.0-RC3"` |  |
 | backend.administration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.administration.logging.businessLogic | string | `"Information"` |  |
 | backend.administration.logging.sdfactoryLibrary | string | `"Information"` |  |
@@ -209,7 +209,7 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"tractusx/portal-marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.6.0-RC2"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.6.0-RC3"` |  |
 | backend.appmarketplace.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.appmarketplace.logging.offersLibrary | string | `"Information"` |  |
 | backend.appmarketplace.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
@@ -265,23 +265,23 @@ dependencies:
 | backend.appmarketplace.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"tractusx/portal-portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v1.6.0-RC2"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v1.6.0-RC3"` |  |
 | backend.portalmigrations.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmigrations.seeding.testDataPaths | string | `"Seeder/Data"` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"tractusx/portal-maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.6.0-RC2"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.6.0-RC3"` |  |
 | backend.portalmaintenance.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"tractusx/portal-notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v1.6.0-RC2"` |  |
+| backend.notification.image.notificationservicetag | string | `"v1.6.0-RC3"` |  |
 | backend.notification.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.notification.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
 | backend.notification.swaggerEnabled | bool | `false` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"tractusx/portal-services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v1.6.0-RC2"` |  |
+| backend.services.image.servicesservicetag | string | `"v1.6.0-RC3"` |  |
 | backend.services.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.services.logging.offersLibrary | string | `"Information"` |  |
 | backend.services.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
@@ -313,11 +313,11 @@ dependencies:
 | backend.services.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"tractusx/portal-provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.6.0-RC2"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.6.0-RC3"` |  |
 | backend.provisioningmigrations.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.processesworker.name | string | `"processes-worker"` |  |
 | backend.processesworker.image.name | string | `"tractusx/portal-processes-worker"` |  |
-| backend.processesworker.image.processesworkertag | string | `"v1.6.0-RC2"` |  |
+| backend.processesworker.image.processesworkertag | string | `"v1.6.0-RC3"` |  |
 | backend.processesworker.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.processesworker.logging.processesLibrary | string | `"Information"` |  |
 | backend.processesworker.logging.bpdmLibrary | string | `"Information"` |  |

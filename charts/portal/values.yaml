@@ -38,10 +38,10 @@ semanticsAddress: "https://semantics.example.org"
 dapsAddress: "https://daps.example.org"
 
 # -- Provide bpdm partners pool base address.
-bpdmPartnersPoolAddress: "https://partners-pool.example.org"
+bpdmPartnersPoolAddress: "https://business-partners.example.org"
 
 # -- Provide bpdm portal gate base address.
-bpdmPortalGateAddress: "https://portal-gate.example.org"
+bpdmPortalGateAddress: "https://business-partners.example.org"
 
 # -- Provide custodian base address.
 custodianAddress: "https://managed-identity-wallets.example.org"
@@ -515,6 +515,11 @@ backend:
       # requests:
       #   cpu: 250m
       #   memory: 256Mi
+    processIdentity:
+      userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
+      processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
+      identityTypeId: 2
+      processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
     seeding:
       testDataEnvironments: ""
       testDataPaths: "Seeder/Data"
@@ -533,6 +538,11 @@ backend:
       # requests:
       #   cpu: 250m
       #   memory: 256Mi
+    processIdentity:
+      userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
+      processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
+      identityTypeId: 2
+      processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
   notification:
     name: "notification-service"
     image:
@@ -727,6 +737,11 @@ backend:
       clientId: "offerprovider-client-id"
       # -- Client-secret for offer provider client-id. Secret-key 'offerprovider-client-secret'.
       clientSecret: ""
+    processIdentity:
+      userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
+      processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
+      identityTypeId: 2
+      processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

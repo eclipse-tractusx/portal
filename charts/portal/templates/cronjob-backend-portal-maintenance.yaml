@@ -57,6 +57,14 @@ spec:
               - name: "CONNECTIONSTRINGS__PORTALDB"
                 value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
               {{- end }}
+              - name: "PROCESSIDENTITY__USERENTITYID"
+                value: "{{ .Values.backend.portalmaintenance.processIdentity.userEntityId }}"
+              - name: "PROCESSIDENTITY__PROCESSUSERID"
+                value: "{{ .Values.backend.portalmaintenance.processIdentity.processUserId }}"
+              - name: "PROCESSIDENTITY__IDENTITYTYPEID"
+                value: "{{ .Values.backend.portalmaintenance.processIdentity.identityTypeId }}"
+              - name: "PROCESSIDENTITY__PROCESSUSERCOMPANYID"
+                value: "{{ .Values.backend.portalmaintenance.processIdentity.processUserCompanyId }}"
             ports:
             - name: http
               containerPort: {{ .Values.portContainer }}

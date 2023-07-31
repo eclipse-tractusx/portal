@@ -38,10 +38,10 @@ semanticsAddress: "https://semantics.example.org"
 dapsAddress: "https://daps.example.org"
 
 # -- Provide bpdm partners pool base address.
-bpdmPartnersPoolAddress: "https://partners-pool.example.org"
+bpdmPartnersPoolAddress: "https://business-partners.example.org"
 
 # -- Provide bpdm portal gate base address.
-bpdmPortalGateAddress: "https://portal-gate.example.org"
+bpdmPortalGateAddress: "https://business-partners.example.org"
 
 # -- Provide custodian base address.
 custodianAddress: "https://managed-identity-wallets.example.org"

@@ -54,6 +54,8 @@ spec:
             value: "{{ .Values.bpdmPartnersPoolAddress }}{{ .Values.frontend.bpdmPartnersPoolApiPath }}"
           - name: SEMANTICS_URL
             value: "{{ .Values.semanticsAddress }}"
+          - name: MANAGED_IDENTITY_WALLETS_NEW_URL
+            value: "{{ .Values.custodianAddress }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

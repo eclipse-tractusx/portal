@@ -255,7 +255,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: 45a131b81d32be44b894d95d026ef5c48fc746b9
+      registrationservicetag: 9dc4d5aa74106052035ddaedf430614851c11e89
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -295,7 +295,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: 45a131b81d32be44b894d95d026ef5c48fc746b9
+      administrationservicetag: 9dc4d5aa74106052035ddaedf430614851c11e89
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -405,7 +405,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: 45a131b81d32be44b894d95d026ef5c48fc746b9
+      appmarketplaceservicetag: 9dc4d5aa74106052035ddaedf430614851c11e89
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -504,7 +504,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: 45a131b81d32be44b894d95d026ef5c48fc746b9
+      portalmigrationstag: 9dc4d5aa74106052035ddaedf430614851c11e89
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -527,7 +527,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: 45a131b81d32be44b894d95d026ef5c48fc746b9
+      portalmaintenancetag: 9dc4d5aa74106052035ddaedf430614851c11e89
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -547,7 +547,7 @@ backend:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: 45a131b81d32be44b894d95d026ef5c48fc746b9
+      notificationservicetag: 9dc4d5aa74106052035ddaedf430614851c11e89
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -572,7 +572,7 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: 45a131b81d32be44b894d95d026ef5c48fc746b9
+      servicesservicetag: 9dc4d5aa74106052035ddaedf430614851c11e89
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -639,7 +639,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: 45a131b81d32be44b894d95d026ef5c48fc746b9
+      provisioningmigrationstag: 9dc4d5aa74106052035ddaedf430614851c11e89
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -654,7 +654,7 @@ backend:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: 45a131b81d32be44b894d95d026ef5c48fc746b9
+      processesworkertag: 9dc4d5aa74106052035ddaedf430614851c11e89
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

@@ -34,9 +34,6 @@ sharedidpAddress: "https://sharedidp.example.org"
 # -- Provide semantics base address.
 semanticsAddress: "https://semantics.example.org"
 
-# -- Provide daps base address
-dapsAddress: "https://daps.example.org"
-
 # -- Provide bpdm partners pool base address.
 bpdmPartnersPoolAddress: "https://business-partners.example.org"
 
@@ -242,7 +239,7 @@ backend:
     # -- Password for the smtp username. Secret-key 'password'.
     password: ""
   interfaces:
-    # -- Secret containing the client-secrets for the connection to daps, custodian, bpdm, sdFactory, clearinghouse and offer provider.
+    # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse and offer provider.
     secret: "secret-backend-interfaces"
   healthChecks:
     startup:
@@ -333,15 +330,6 @@ backend:
         type3: "application/octet-stream"
       selfDescriptionDocumentPath: /api/administration/documents/selfDescription
     keycloakClientId: "Cl2-CX-Portal"
-    daps:
-      apiPath: "/api/v1/daps/"
-      scope: "openid"
-      grantType: "client_credentials"
-      # -- Provide daps client-id from CX IAM centralidp.
-      clientId: "daps-client-id"
-      # -- Client-secret for daps client-id. Secret-key 'daps-client-secret'.
-      clientSecret: ""
-      isActive: "false"
     identityProviderAdmin:
       csvSettings:
         fileName: "identityproviderlinks.csv"

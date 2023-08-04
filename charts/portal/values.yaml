@@ -268,6 +268,7 @@ backend:
       #   memory: 256Mi
     logging:
       registrationServiceBpn: "Information"
+      default: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
@@ -309,6 +310,7 @@ backend:
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
+      default: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
@@ -417,6 +419,7 @@ backend:
       #   cpu: 250m
       #   memory: 256Mi
     logging:
+      default: "Information"
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
@@ -523,6 +526,8 @@ backend:
     seeding:
       testDataEnvironments: ""
       testDataPaths: "Seeder/Data"
+    logging:
+      default: "Information"
   portalmaintenance:
     name: "portal-maintenance"
     image:
@@ -543,6 +548,8 @@ backend:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
       identityTypeId: 2
       processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
+    logging:
+      default: "Information"
   notification:
     name: "notification-service"
     image:
@@ -568,6 +575,8 @@ backend:
         # - name: "HEALTHCHECKS__0__TAGS__1"
         #   value: "portaldb"
     swaggerEnabled: false
+    logging:
+      default: "Information"
   services:
     name: "services-service"
     image:
@@ -584,6 +593,7 @@ backend:
       #   cpu: 250m
       #   memory: 256Mi
     logging:
+      default: "Information"
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
@@ -650,6 +660,8 @@ backend:
       # requests:
       #   cpu: 250m
       #   memory: 256Mi
+    logging:
+      default: "Information"
   processesworker:
     name: "processes-worker"
     image:
@@ -666,11 +678,13 @@ backend:
       #   cpu: 250m
       #   memory: 256Mi
     logging:
+      default: "Information"
       processesLibrary: "Information"
       bpdmLibrary: "Information"
       clearinghouseLibrary: "Information"
       custodianLibrary: "Information"
       sdfactoryLibrary: "Information"
+      offerProvider: "Information"
     applicationActivation:
       applicationApprovalInitialRoles:
         portal:

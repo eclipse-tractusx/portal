@@ -123,6 +123,7 @@ backend:
 
   registration:
     logging:
+      default: "Debug"
       registrationServiceBpn: "Debug"
     healthChecks:
       startup:
@@ -135,6 +136,7 @@ backend:
 
   administration:
     logging:
+      default: "Debug"
       businessLogic: "Debug"
       sdfactoryLibrary: "Debug"
     healthChecks:
@@ -163,6 +165,7 @@ backend:
 
   appmarketplace:
     logging:
+      default: "Debug"
       offersLibrary: "Debug"
     healthChecks:
       startup:
@@ -174,10 +177,14 @@ backend:
     swaggerEnabled: true
 
   portalmigrations:
+    logging:
+      default: "Debug"
     seeding:
       testDataEnvironments: "consortia"
 
   notification:
+    logging:
+      default: "Debug"
     healthChecks:
       startup:
         tags:
@@ -189,6 +196,7 @@ backend:
 
   services:
     logging:
+      default: "Debug"
       offersLibrary: "Debug"
     healthChecks:
       startup:
@@ -201,11 +209,13 @@ backend:
 
   processesworker:
     logging:
+      default: "Debug"
       processesLibrary: "Debug"
       bpdmLibrary: "Debug"
       clearinghouseLibrary: "Debug"
       custodianLibrary: "Debug"
       sdfactoryLibrary: "Debug"
+      offerProvider: "Debug"
     bpdm:
       clientId: "<path:portal/data/processes-worker#bpdm-client-id>"
       clientSecret: "<path:portal/data/beta/processes-worker#bpdm-client-secret>"

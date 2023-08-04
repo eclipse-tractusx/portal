@@ -22,7 +22,6 @@ portalBackendAddress: "https://portal-backend-rc.dev.demo.catena-x.net"
 centralidpAddress: "https://centralidp-rc.dev.demo.catena-x.net"
 sharedidpAddress: "https://sharedidp-rc.dev.demo.catena-x.net"
 semanticsAddress: "https://semantics.dev.demo.catena-x.net"
-dapsAddress: "https://drs.dev.demo.catena-x.net"
 bpdmPartnersPoolAddress: "https://business-partners.dev.demo.catena-x.net"
 bpdmPortalGateAddress: "https://business-partners.dev.demo.catena-x.net"
 custodianAddress: "https://managed-identity-wallets-new.dev.demo.catena-x.net"
@@ -148,9 +147,6 @@ backend:
           value: "portaldb"
         - name: "HEALTHCHECKS__0__TAGS__2"
           value: "provisioningdb"
-    daps:
-      clientId: "<path:portal/data/administration#daps-client-id>"
-      clientSecret: "<path:portal/data/dev/administration#daps-client-secret>"
     swaggerEnabled: true
 
   provisioning:

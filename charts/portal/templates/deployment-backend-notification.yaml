@@ -123,6 +123,8 @@ spec:
               key: "shared-client-secret"
         - name: "KEYCLOAK__SHARED__CONNECTIONSTRING"
           value: "{{ .Values.sharedidpAddress }}"
+        - name: "SERILOG__MINIMUMLEVEL__DEFAULT"
+          value: "{{ .Values.backend.notification.logging.default }}"
         - name: "SWAGGERENABLED"
           value: "{{ .Values.backend.notification.swaggerEnabled }}"
         ports:

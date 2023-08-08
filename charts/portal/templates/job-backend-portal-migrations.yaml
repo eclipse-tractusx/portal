@@ -64,6 +64,8 @@ spec:
             value: "{{ .Values.backend.portalmigrations.seeding.testDataEnvironments }}"
           - name: "SEEDING__DATAPATHS__0"
             value: "{{ .Values.backend.portalmigrations.seeding.testDataPaths }}"
+          - name: "SERILOG__MINIMUMLEVEL__DEFAULT"
+            value: "{{ .Values.backend.portalmigrations.logging.default }}"
           - name: "PROCESSIDENTITY__USERENTITYID"
             value: "{{ .Values.backend.portalmigrations.processIdentity.userEntityId }}"
           - name: "PROCESSIDENTITY__PROCESSUSERID"

@@ -22,7 +22,6 @@ portalBackendAddress: "https://portal-backend-pen.dev.demo.catena-x.net"
 centralidpAddress: "https://centralidp-pen.dev.demo.catena-x.net"
 sharedidpAddress: "https://sharedidp-pen.dev.demo.catena-x.net"
 semanticsAddress: "https://semantics-pen.dev.demo.catena-x.net"
-dapsAddress: "https://drs-pen.int.demo.catena-x.net"
 bpdmPartnersPoolAddress: "https://business-partners-pen.dev.demo.catena-x.net"
 bpdmPortalGateAddress: "https://business-partners-pen.dev.demo.catena-x.net"
 custodianAddress: "https://managed-identity-wallets-pen-new.dev.demo.catena-x.net"
@@ -124,6 +123,7 @@ backend:
 
   registration:
     logging:
+      default: "Debug"
       registrationServiceBpn: "Debug"
     healthChecks:
       startup:
@@ -136,6 +136,7 @@ backend:
 
   administration:
     logging:
+      default: "Debug"
       businessLogic: "Debug"
       sdfactoryLibrary: "Debug"
     healthChecks:
@@ -147,9 +148,6 @@ backend:
           value: "portaldb"
         - name: "HEALTHCHECKS__0__TAGS__2"
           value: "provisioningdb"
-    daps:
-      clientId: "<path:portal/data/administration#daps-client-id>"
-      clientSecret: "<path:portal/data/pen/administration#daps-client-secret>"
     swaggerEnabled: true
 
   provisioning:
@@ -164,6 +162,7 @@ backend:
 
   appmarketplace:
     logging:
+      default: "Debug"
       offersLibrary: "Debug"
     healthChecks:
       startup:
@@ -175,10 +174,14 @@ backend:
     swaggerEnabled: true
 
   portalmigrations:
+    logging:
+      default: "Debug"
     seeding:
       testDataEnvironments: "consortia"
 
   notification:
+    logging:
+      default: "Debug"
     healthChecks:
       startup:
         tags:
@@ -190,6 +193,7 @@ backend:
 
   services:
     logging:
+      default: "Debug"
       offersLibrary: "Debug"
     healthChecks:
       startup:
@@ -202,11 +206,13 @@ backend:
 
   processesworker:
     logging:
+      default: "Debug"
       processesLibrary: "Debug"
       bpdmLibrary: "Debug"
       clearinghouseLibrary: "Debug"
       custodianLibrary: "Debug"
       sdfactoryLibrary: "Debug"
+      offerProvider: "Debug"
     bpdm:
       clientId: "<path:portal/data/processes-worker#bpdm-client-id>"
       clientSecret: "<path:portal/data/pen/processes-worker#bpdm-client-secret>"

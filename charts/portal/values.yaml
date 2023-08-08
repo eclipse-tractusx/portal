@@ -34,9 +34,6 @@ sharedidpAddress: "https://sharedidp.example.org"
 # -- Provide semantics base address.
 semanticsAddress: "https://semantics.example.org"
 
-# -- Provide daps base address
-dapsAddress: "https://daps.example.org"
-
 # -- Provide bpdm partners pool base address.
 bpdmPartnersPoolAddress: "https://business-partners.example.org"
 
@@ -95,7 +92,7 @@ frontend:
     name: "portal"
     image:
       name: "tractusx/portal-frontend"
-      portaltag: 3f05d0e54a60b72ebf1d286ea70bd1b8463257c1
+      portaltag: v1.6.0-RC5
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -125,7 +122,7 @@ frontend:
     name: "assets"
     image:
       name: "tractusx/portal-assets"
-      assetstag: 30143459d6a6e13a3bae9163a626ed41ce7e054b
+      assetstag: v1.6.0-RC3
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -242,7 +239,7 @@ backend:
     # -- Password for the smtp username. Secret-key 'password'.
     password: ""
   interfaces:
-    # -- Secret containing the client-secrets for the connection to daps, custodian, bpdm, sdFactory, clearinghouse and offer provider.
+    # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse and offer provider.
     secret: "secret-backend-interfaces"
   healthChecks:
     startup:
@@ -255,7 +252,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: fd35b70e3f7d0a43aac4be224e8b5fe139fc4866
+      registrationservicetag: v1.6.0-RC5
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -268,6 +265,7 @@ backend:
       #   memory: 256Mi
     logging:
       registrationServiceBpn: "Information"
+      default: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
@@ -295,7 +293,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: fd35b70e3f7d0a43aac4be224e8b5fe139fc4866
+      administrationservicetag: v1.6.0-RC5
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -309,6 +307,7 @@ backend:
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
+      default: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
     healthChecks:
@@ -333,15 +332,6 @@ backend:
         type3: "application/octet-stream"
       selfDescriptionDocumentPath: /api/administration/documents/selfDescription
     keycloakClientId: "Cl2-CX-Portal"
-    daps:
-      apiPath: "/api/v1/daps/"
-      scope: "openid"
-      grantType: "client_credentials"
-      # -- Provide daps client-id from CX IAM centralidp.
-      clientId: "daps-client-id"
-      # -- Client-secret for daps client-id. Secret-key 'daps-client-secret'.
-      clientSecret: ""
-      isActive: "false"
     identityProviderAdmin:
       csvSettings:
         fileName: "identityproviderlinks.csv"
@@ -405,7 +395,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: fd35b70e3f7d0a43aac4be224e8b5fe139fc4866
+      appmarketplaceservicetag: v1.6.0-RC5
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -417,6 +407,7 @@ backend:
       #   cpu: 250m
       #   memory: 256Mi
     logging:
+      default: "Information"
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
@@ -504,7 +495,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: f2546d9967e5a6bdd082069e7335397970db268e
+      portalmigrationstag: v1.6.0-RC5
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -523,11 +514,13 @@ backend:
     seeding:
       testDataEnvironments: ""
       testDataPaths: "Seeder/Data"
+    logging:
+      default: "Information"
   portalmaintenance:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: f2546d9967e5a6bdd082069e7335397970db268e
+      portalmaintenancetag: v1.6.0-RC5
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -543,11 +536,13 @@ backend:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
       identityTypeId: 2
       processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
+    logging:
+      default: "Information"
   notification:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: fd35b70e3f7d0a43aac4be224e8b5fe139fc4866
+      notificationservicetag: v1.6.0-RC5
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -568,11 +563,13 @@ backend:
         # - name: "HEALTHCHECKS__0__TAGS__1"
         #   value: "portaldb"
     swaggerEnabled: false
+    logging:
+      default: "Information"
   services:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: fd35b70e3f7d0a43aac4be224e8b5fe139fc4866
+      servicesservicetag: v1.6.0-RC5
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -584,6 +581,7 @@ backend:
       #   cpu: 250m
       #   memory: 256Mi
     logging:
+      default: "Information"
       offersLibrary: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
@@ -639,22 +637,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: f2546d9967e5a6bdd082069e7335397970db268e
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
-      # limits:
-      #   cpu: 250m
-      #   memory: 256Mi
-      # requests:
-      #   cpu: 250m
-      #   memory: 256Mi
-  processesworker:
-    name: "processes-worker"
-    image:
-      name: "tractusx/portal-processes-worker"
-      processesworkertag: f2546d9967e5a6bdd082069e7335397970db268e
+      provisioningmigrationstag: v1.6.0-RC5
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -666,11 +649,30 @@ backend:
       #   cpu: 250m
       #   memory: 256Mi
     logging:
+      default: "Information"
+  processesworker:
+    name: "processes-worker"
+    image:
+      name: "tractusx/portal-processes-worker"
+      processesworkertag: v1.6.0-RC5
+    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
+    # If you do want to specify resources, uncomment the following lines,
+    # adjust them as necessary, and remove the curly braces after 'resources:'.
+    resources: {}
+      # limits:
+      #   cpu: 250m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 250m
+      #   memory: 256Mi
+    logging:
+      default: "Information"
       processesLibrary: "Information"
       bpdmLibrary: "Information"
       clearinghouseLibrary: "Information"
       custodianLibrary: "Information"
       sdfactoryLibrary: "Information"
+      offerProvider: "Information"
     applicationActivation:
       applicationApprovalInitialRoles:
         portal:

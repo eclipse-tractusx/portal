@@ -1,22 +1,22 @@
 # Helm chart for Catena-X Portal
 
-![Version: 1.6.0-RC5](https://img.shields.io/badge/Version-1.6.0--RC5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.0-RC5](https://img.shields.io/badge/AppVersion-1.6.0--RC5-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
+![Version: 1.6.0-RC6](https://img.shields.io/badge/Version-1.6.0--RC6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.0-RC6](https://img.shields.io/badge/AppVersion-1.6.0--RC6-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
 
 This helm chart installs the Catena-X Portal application which consists of
 
-* [portal-frontend (v1.6.0-RC5)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.6.0-RC5),
-* [portal-frontend-registration (v1.5.0-RC2)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.5.0-RC2),
-* [portal-assets (v1.6.0-RC3)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.0-RC3) and
-* [portal-backend (v1.6.0-RC5)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.6.0-RC5).
+* [portal-frontend (v1.6.0-RC6)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.6.0-RC6),
+* [portal-frontend-registration (v1.5.0-RC3)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.5.0-RC3),
+* [portal-assets (v1.6.0-RC4)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.0-RC4) and
+* [portal-backend (v1.6.0-RC6)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.6.0-RC6).
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
 This version is compatible with the 1.2.0-RC1 version of the IAM instances:
 * [Central Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-1.2.0-RC1/charts/centralidp/README.md)
 * [Shared Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-1.2.0-RC1/charts/sharedidp/README.md)
 
-For information on how to upgrade from previous versions please refer to [Version Upgrade](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.0-RC3/developer/Technical%20Documentation/Version%20Upgrade/portal-upgrade-details.md).
+For information on how to upgrade from previous versions please refer to [Version Upgrade](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.0-RC4/developer/Technical%20Documentation/Version%20Upgrade/portal-upgrade-details.md).
 
-For further information please refer to [Technical Documentation](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.0-RC3/developer/Technical%20Documentation).
+For further information please refer to [Technical Documentation](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.0-RC4/developer/Technical%20Documentation).
 
 The referenced container images are for demonstration purposes only.
 
@@ -41,7 +41,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.6.0-RC5
+    version: 1.6.0-RC6
 ```
 
 ## Requirements
@@ -77,15 +77,15 @@ dependencies:
 | frontend.ingress.hosts[0] | object | `{"host":"portal.example.org","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assetsORdocumentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"tractusx/portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v1.6.0-RC5"` |  |
+| frontend.portal.image.portaltag | string | `"v1.6.0-RC6"` |  |
 | frontend.portal.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"v1.5.0-RC2"` |  |
+| frontend.registration.image.registrationtag | string | `"v1.5.0-RC3"` |  |
 | frontend.registration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | frontend.assets.name | string | `"assets"` |  |
 | frontend.assets.image.name | string | `"tractusx/portal-assets"` |  |
-| frontend.assets.image.assetstag | string | `"v1.6.0-RC2"` |  |
+| frontend.assets.image.assetstag | string | `"v1.6.0-RC4"` |  |
 | frontend.assets.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | frontend.assets.path | string | `"/assets"` |  |
 | frontend.centralidpAuthPath | string | `"/auth"` |  |
@@ -135,7 +135,7 @@ dependencies:
 | backend.healthChecks.readyness.path | string | `"/ready"` |  |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"tractusx/portal-registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v1.6.0-RC5"` |  |
+| backend.registration.image.registrationservicetag | string | `"v1.6.0-RC6"` |  |
 | backend.registration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.registration.logging.registrationServiceBpn | string | `"Information"` |  |
 | backend.registration.logging.default | string | `"Information"` |  |
@@ -152,7 +152,7 @@ dependencies:
 | backend.registration.submitDocumentTypeIds.type0 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"tractusx/portal-administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v1.6.0-RC5"` |  |
+| backend.administration.image.administrationservicetag | string | `"v1.6.0-RC6"` |  |
 | backend.administration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.administration.logging.businessLogic | string | `"Information"` |  |
 | backend.administration.logging.sdfactoryLibrary | string | `"Information"` |  |
@@ -204,7 +204,7 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"tractusx/portal-marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.6.0-RC5"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.6.0-RC6"` |  |
 | backend.appmarketplace.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.appmarketplace.logging.default | string | `"Information"` |  |
 | backend.appmarketplace.logging.offersLibrary | string | `"Information"` |  |
@@ -261,7 +261,7 @@ dependencies:
 | backend.appmarketplace.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"tractusx/portal-portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v1.6.0-RC5"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v1.6.0-RC6"` |  |
 | backend.portalmigrations.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.portalmigrations.processIdentity.userEntityId | string | `"090c9121-7380-4bb0-bb10-fffd344f930a"` |  |
 | backend.portalmigrations.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
@@ -272,7 +272,7 @@ dependencies:
 | backend.portalmigrations.logging.default | string | `"Information"` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"tractusx/portal-maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.6.0-RC5"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.6.0-RC6"` |  |
 | backend.portalmaintenance.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.portalmaintenance.processIdentity.userEntityId | string | `"090c9121-7380-4bb0-bb10-fffd344f930a"` |  |
 | backend.portalmaintenance.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
@@ -281,14 +281,14 @@ dependencies:
 | backend.portalmaintenance.logging.default | string | `"Information"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"tractusx/portal-notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v1.6.0-RC5"` |  |
+| backend.notification.image.notificationservicetag | string | `"v1.6.0-RC6"` |  |
 | backend.notification.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.notification.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
 | backend.notification.swaggerEnabled | bool | `false` |  |
 | backend.notification.logging.default | string | `"Information"` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"tractusx/portal-services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v1.6.0-RC5"` |  |
+| backend.services.image.servicesservicetag | string | `"v1.6.0-RC6"` |  |
 | backend.services.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.services.logging.default | string | `"Information"` |  |
 | backend.services.logging.offersLibrary | string | `"Information"` |  |
@@ -321,12 +321,12 @@ dependencies:
 | backend.services.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"tractusx/portal-provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.6.0-RC5"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.6.0-RC6"` |  |
 | backend.provisioningmigrations.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.provisioningmigrations.logging.default | string | `"Information"` |  |
 | backend.processesworker.name | string | `"processes-worker"` |  |
 | backend.processesworker.image.name | string | `"tractusx/portal-processes-worker"` |  |
-| backend.processesworker.image.processesworkertag | string | `"v1.6.0-RC5"` |  |
+| backend.processesworker.image.processesworkertag | string | `"v1.6.0-RC6"` |  |
 | backend.processesworker.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.processesworker.logging.default | string | `"Information"` |  |
 | backend.processesworker.logging.processesLibrary | string | `"Information"` |  |

@@ -124,7 +124,8 @@ backend:
   registration:
     logging:
       default: "Debug"
-      registrationServiceBpn: "Debug"
+      bpdmLibrary: "Debug"
+      registrationService: "Debug"
     healthChecks:
       startup:
         tags:
@@ -139,6 +140,8 @@ backend:
       default: "Debug"
       businessLogic: "Debug"
       sdfactoryLibrary: "Debug"
+      bpdmLibrary: "Debug"
+      custodianLibrary: "Debug"
     healthChecks:
       startup:
         tags:

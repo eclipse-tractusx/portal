@@ -264,7 +264,8 @@ backend:
       #   cpu: 250m
       #   memory: 256Mi
     logging:
-      registrationServiceBpn: "Information"
+      bpdmLibrary: "Information"
+      registrationService: "Information"
       default: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
@@ -307,6 +308,8 @@ backend:
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
+      bpdmLibrary: "Information"
+      custodianLibrary: "Information"
       default: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.

@@ -65,7 +65,7 @@ spec:
                 value: "{{ .Values.backend.portalmaintenance.processIdentity.identityTypeId }}"
               - name: "PROCESSIDENTITY__PROCESSUSERCOMPANYID"
                 value: "{{ .Values.backend.portalmaintenance.processIdentity.processUserCompanyId }}"
-              - name: "SERILOG__MINIMUMLEVEL__DEFAULT"
+              - name: "SERILOG__MINIMUMLEVEL__Default"
                 value: "{{ .Values.backend.portalmaintenance.logging.default }}"
             ports:
             - name: http

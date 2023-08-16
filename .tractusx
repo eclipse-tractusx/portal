@@ -13,3 +13,6 @@ repositories:
   - name: "portal-backend"
     usage: "backend code for the portal"
     url: "https://github.com/eclipse-tractusx/portal-backend"
+  - name: "portal-shared-components"
+    usage: "shared UI components"
+    url: "https://github.com/eclipse-tractusx/portal-shared-components"

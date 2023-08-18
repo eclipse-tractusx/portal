@@ -202,7 +202,7 @@ spec:
               value: "{{ .Values.sharedidpAddress }}"
             - name: "SERILOG__MINIMUMLEVEL__Default"
               value: "{{ .Values.backend.processesworker.logging.default }}"
-            - name: "SERILOG__MINIMUMLEVEL__OVERRIDE__Org.Eclipse.TractusX.Portal.Backend.Process.Library"
+            - name: "SERILOG__MINIMUMLEVEL__OVERRIDE__Org.Eclipse.TractusX.Portal.Backend.Processes.Worker.Library"
               value: "{{ .Values.backend.processesworker.logging.processesLibrary }}"
             - name: "SERILOG__MINIMUMLEVEL__OVERRIDE__Org.Eclipse.TractusX.Portal.Backend.Bpdm.Library"
               value: "{{ .Values.backend.processesworker.logging.bpdmLibrary }}"

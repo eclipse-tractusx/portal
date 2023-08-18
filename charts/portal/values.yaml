@@ -264,7 +264,8 @@ backend:
       #   cpu: 250m
       #   memory: 256Mi
     logging:
-      registrationServiceBpn: "Information"
+      bpdmLibrary: "Information"
+      registrationService: "Information"
       default: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
@@ -307,6 +308,8 @@ backend:
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
+      bpdmLibrary: "Information"
+      custodianLibrary: "Information"
       default: "Information"
     # -- Healthchecks to be enabled for startupProbe,
     # enable by removing the brackets after 'tags:' and uncommenting the following lines.
@@ -506,14 +509,16 @@ backend:
       # requests:
       #   cpu: 250m
       #   memory: 256Mi
+    seeding:
+      testDataEnvironments: ""
+      # -- when changing the testDataPath the processIdentity needs to be adjusted as well,
+      # or it must be ensured that the identity is existing within the files under the new path
+      testDataPaths: "Seeder/Data"
     processIdentity:
       userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
       identityTypeId: 2
       processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
-    seeding:
-      testDataEnvironments: ""
-      testDataPaths: "Seeder/Data"
     logging:
       default: "Information"
   portalmaintenance:

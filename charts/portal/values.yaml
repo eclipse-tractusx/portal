@@ -511,7 +511,7 @@ backend:
       #   memory: 256Mi
     seeding:
       testDataEnvironments: ""
-      # when changing the testDataPath the processIdentity needs to be adjusted as well,
+      # -- when changing the testDataPath the processIdentity needs to be adjusted as well,
       # or it must be ensured that the identity is existing within the files under the new path
       testDataPaths: "Seeder/Data"
     processIdentity:

@@ -2,7 +2,7 @@
 
 This content is produced and maintained by the Eclipse Tractus-X project.
 
-* Project home: https://projects.eclipse.org/projects/automotive.tractusx
+- Project home: https://projects.eclipse.org/projects/automotive.tractusx
 
 ## Copyright
 
@@ -22,20 +22,21 @@ SPDX-License-Identifier: Apache-2.0
 
 The project maintains the following source code repositories in the GitHub organization https://github.com/eclipse-tractusx:
 
-* https://github.com/eclipse-tractusx/portal-frontend-registration
-* https://github.com/eclipse-tractusx/portal-frontend
-* https://github.com/eclipse-tractusx/portal-backend
-* https://github.com/eclipse-tractusx/portal-assets
-* https://github.com/eclipse-tractusx/portal-cd
-* https://github.com/eclipse-tractusx/portal-iam
+- https://github.com/eclipse-tractusx/portal-frontend-registration
+- https://github.com/eclipse-tractusx/portal-frontend
+- https://github.com/eclipse-tractusx/portal-shared-components
+- https://github.com/eclipse-tractusx/portal-backend
+- https://github.com/eclipse-tractusx/portal-assets
+- https://github.com/eclipse-tractusx/portal-cd
+- https://github.com/eclipse-tractusx/portal-iam
 
 ## Third-party Content
 
 This project depends on the following Helm chart from Bitnami:
 
-* License: Apache License, Version 2.0
-* Licence Path: https://artifacthub.io/packages/helm/bitnami/postgresql#license
-* Source URL: https://artifacthub.io/packages/helm/bitnami/postgresql
+- License: Apache License, Version 2.0
+- Licence Path: https://artifacthub.io/packages/helm/bitnami/postgresql#license
+- Source URL: https://artifacthub.io/packages/helm/bitnami/postgresql
 
 ## Cryptography
 

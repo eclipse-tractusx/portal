@@ -122,7 +122,7 @@ frontend:
     name: "assets"
     image:
       name: "tractusx/portal-assets"
-      assetstag: 779cca41110493cf90f408607fac292c3be7483b
+      assetstag: 712de0640952764aeacc04418076c92c32f8943b
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

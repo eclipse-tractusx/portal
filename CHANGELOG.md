@@ -2,97 +2,24 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 1.6.0-RC8
+## 1.6.0
 
 ### Change
 
 * changed to new container images
-  * portal-assets: v1.6.0-RC6
-  * portal-frontend: v1.6.0-RC8
-  * portal-frontend-registration: v1.5.0-RC5
-  * portal-backend: v1.6.0-RC8
+  * portal-assets: v1.6.0
+  * portal-frontend: v1.6.0
+  * portal-frontend-registration: v1.5.0
+  * portal-backend: v1.6.0
 
-* added file header
-
-## 1.6.0-RC7
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.6.0-RC5
-  * portal-frontend: v1.6.0-RC7
-  * portal-frontend-registration: v1.5.0-RC4
-  * portal-backend: v1.6.0-RC7
-
-* added additional logging configuration for portal-backend
-* added documentation for seeding testDataPaths for portal-backend
-
-## 1.6.0-RC6
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.6.0-RC4
-  * portal-frontend: v1.6.0-RC6
-  * portal-frontend-registration: v1.5.0-RC3
-  * portal-backend: v1.6.0-RC6
-
-### Bugfix
-
-* changed logging config due to case sensitive values
-
-## 1.6.0-RC5
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.6.0-RC3
-  * portal-frontend: v1.6.0-RC5
-  * portal-backend: v1.6.0-RC5
-* remove config for portal-backend (daps)
-
-## 1.6.0-RC4
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.6.0-RC2
-  * portal-frontend: v1.6.0-RC4
-  * portal-frontend-registration: v1.5.0-RC2
-  * portal-backend: v1.6.0-RC4
-* enabled config for portal-backend (process-worker-identity)
-
-## 1.6.0-RC3
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v1.6.0-RC3
-  * portal-backend: v1.6.0-RC3
-
-## 1.6.0-RC2
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.6.0-RC1
-  * portal-frontend: v1.6.0-RC2
-  * portal-backend: v1.6.0-RC2
-
-## 1.6.0-RC1
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v1.6.0-RC1
-  * portal-frontend-registration: v1.5.0-RC1
-  * portal-backend: v1.6.0-RC1
-* enabled config for portal-backend
+* portal-backend:
+  * enabled and/or extended config in particular for process identity, seeding data path and logging
+  * removed config for daps
 
 ### Technical Support
 
-* improved helm test workflow:
-  * changed ct install to helm install due to issue with too long console logs
+* fixed helm test workflow:
+  * changed ct install to helm install due too long console logs with Serilog
 
 ## 1.5.1
 

@@ -107,7 +107,7 @@ frontend:
     name: "registration"
     image:
       name: "tractusx/portal-frontend-registration"
-      registrationtag: 9ab4bf0a65c6f36e5128ec31b75380c206cc662c
+      registrationtag: ef1dc42d9c3496762c49a865478a3e26df49b1ad
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

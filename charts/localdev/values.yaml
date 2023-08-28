@@ -1,0 +1,165 @@
+###############################################################
+# Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation
+#
+# See the NOTICE file(s) distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Apache License, Version 2.0 which is available at
+# https://www.apache.org/licenses/LICENSE-2.0.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+###############################################################
+
+portal:
+  enabled: true
+  replicaCount: 1
+  frontend:
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/rewrite-target: "/$1"
+        nginx.ingress.kubernetes.io/use-regex: "true"
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
+      tls:
+        # -- Provide tls secret.
+        - secretName: ""
+          # -- Provide host for tls secret.
+          hosts:
+            - "portal.example.org"
+      hosts:
+        - host: "portal.example.org"
+          paths:
+            - path: "/(.*)"
+              pathType: "Prefix"
+              backend:
+                service: "portal"
+                port: 8080
+            - path: "/registration/(.*)"
+              pathType: "Prefix"
+              backend:
+                service: "registration"
+                port: 8080
+            - path: "/((assets|documentation)/.*)"
+              pathType: "Prefix"
+              backend:
+                service: "assets"
+                port: 8080
+  backend:
+    ingress:
+      enabled: true
+      name: "portal-backend"
+      annotations:
+        kubernetes.io/ingress.class: "nginx"
+        nginx.ingress.kubernetes.io/use-regex: "true"
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
+      tls:
+        # -- Provide tls secret.
+        - secretName: ""
+          # -- Provide host for tls secret.
+          hosts:
+            - "portal-backend.example.org"
+      hosts:
+        - host: "portal-backend.example.org"
+          paths:
+            - path: "/api/registration"
+              pathType: "Prefix"
+              backend:
+                service: "registration-service"
+                port: 8080
+            - path: "/api/administration"
+              pathType: "Prefix"
+              backend:
+                service: "administration-service"
+                port: 8080
+            - path: "/api/notification"
+              pathType: "Prefix"
+              backend:
+                service: "notification-service"
+                port: 8080
+            - path: "/api/provisioning"
+              pathType: "Prefix"
+              backend:
+                service: "provisioning-service"
+                port: 8080
+            - path: "/api/apps"
+              pathType: "Prefix"
+              backend:
+                service: "marketplace-app-service"
+                port: 8080
+            - path: "/api/services"
+              pathType: "Prefix"
+              backend:
+                service: "services-service"
+                port: 8080
+
+centralidp:
+  enabled: true
+  keycloak:
+    nameOverride: "centralidp"
+    replicaCount: 1
+    postgresql:
+      nameOverride: "centralidp-postgresql"
+    ingress:
+      enabled: true
+      ingressClassName: "nginx"
+      hostname: "centralidp.example.org"
+      annotations:
+        nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+        nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "https://centralidp.example.org"
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+        nginx.ingress.kubernetes.io/proxy-buffering: "on"
+        nginx.ingress.kubernetes.io/proxy-buffers-number: "20"
+        nginx.ingress.kubernetes.io/use-regex: "true"
+      tls: false
+
+sharedidp:
+  enabled: true
+  keycloak:
+    nameOverride: "sharedidp"
+    replicaCount: 1
+    postgresql:
+      nameOverride: "sharedidp-postgresql"
+    ingress:
+      enabled: true
+      ingressClassName: "nginx"
+      hostname: "sharedidp.example.org"
+      annotations:
+        nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+        nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "https://sharedidp.example.org"
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+        nginx.ingress.kubernetes.io/proxy-buffering: "on"
+        nginx.ingress.kubernetes.io/proxy-buffers-number: "20"
+        nginx.ingress.kubernetes.io/use-regex: "true"
+      tls: false
+
+pgadmin4:
+  enabled: true
+#   secret:
+#     password: ""
+  env:
+    email: portal-iam@example.org
+#   existingSecret: secret-pgadmin4
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+      - host: pgadmin4.example.org
+        paths:
+        - path: /
+          pathType: Prefix

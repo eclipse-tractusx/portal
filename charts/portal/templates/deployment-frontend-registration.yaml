@@ -49,7 +49,7 @@ spec:
           - name: PORTAL_BACKEND_URL
             value: "{{ .Values.portalBackendAddress }}"
           - name: CENTRALIDP_URL
-            value: "{{ .Values.centralidpAddress }}{{ .Values.frontend.centralidpAuthPath }}"
+            value: "{{ .Values.centralidpAddress }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

@@ -208,11 +208,11 @@ backend:
         requireHttpsMetadata: "true"
         metadataPath: "/auth/realms/CX-Central/.well-known/openid-configuration"
         tokenValidationParameters:
-          validIssuerPath: "/auth/realms/CX-Central"
+          validIssuerPath: "/realms/CX-Central"
           validAudiencePortal: "Cl2-CX-Portal"
           validAudienceRegistration: "Cl1-CX-Registration"
         refreshInterval: "00:00:30"
-      tokenPath: "/auth/realms/CX-Central/protocol/openid-connect/token"
+      tokenPath: "/realms/CX-Central/protocol/openid-connect/token"
       dbConnection:
         host: "centralidp-postgresql-primary"
         port: 5432

@@ -574,7 +574,7 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: 57e69f611e461192a09804dcd1457dbed1ad2402
+      servicesservicetag: abf1ef1f4546cc0d56f84553a33b277b54bc2f97
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

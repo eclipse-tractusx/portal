@@ -150,6 +150,9 @@ backend:
           value: "portaldb"
         - name: "HEALTHCHECKS__0__TAGS__2"
           value: "provisioningdb"
+    onboardingServiceProvider:
+      clientId: "<path:portal/data/administration#onboardingserviceprovider-client-id>"
+      clientSecret: "<path:portal/data/pen/administration#onboardingserviceprovider-client-secret>"
     swaggerEnabled: true
 
   provisioning:

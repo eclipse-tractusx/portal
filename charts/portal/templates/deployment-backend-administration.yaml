@@ -284,7 +284,7 @@ spec:
         - name: "NETWORK2NETWORK__INITIALROLES__0__CLIENTID"
           value: "{{ .Values.backend.clients.portal }}"
         - name: "NETWORK2NETWORK__INITIALROLES__0__USERROLENAMES__0"
-          value: "{{ .Values.backend.administration.initialRoles.role0 }}"
+          value: "{{ .Values.backend.administration.network2network.initialRoles.role0 }}"
         - name: "PROVISIONING__CENTRALIDENTITYPROVIDER__CONFIG__CLIENTID"
           value: "{{ .Values.backend.provisioning.centralIdentityProvider.clientId }}"
         - name: "PROVISIONING__CENTRALREALM"

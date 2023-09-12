@@ -430,6 +430,9 @@ backend:
       role0: "Sales Manager"
     serviceManagerRoles:
       role0: "App Manager"
+    subscriptionManagerRoles:
+      role0: "App Manager"
+      role1: "Sales Manger"
     activeAppCompanyAdminRoles:
       role0: "IT Admin"
       role1: "Company Admin"
@@ -606,6 +609,9 @@ backend:
       role0: "Sales Manager"
     serviceManagerRoles:
       role0: "Service Manager"
+    subscriptionManagerRoles:
+      role0: "Service Manager"
+      role1: "Sales Manger"
     approveServiceUserRoles:
       role0: "Sales Manager"
       role1: "Service Manager"

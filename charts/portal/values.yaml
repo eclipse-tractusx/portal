@@ -439,6 +439,9 @@ backend:
     approveAppUserRoles:
       role0: "Sales Manager"
       role1: "Service Manager"
+    activationUserRoles:
+      role0: "Sales Manager"
+      role1: "App Manager"
     ITAdminRoles:
       role0: "IT Admin"
     uploadAppDocumentTypeIds:
@@ -613,6 +616,9 @@ backend:
       role0: "Service Manager"
       role1: "Sales Manger"
     approveServiceUserRoles:
+      role0: "Sales Manager"
+      role1: "Service Manager"
+    activationUserRoles:
       role0: "Sales Manager"
       role1: "Service Manager"
     ITAdminRoles:

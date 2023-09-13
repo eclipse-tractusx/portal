@@ -43,6 +43,11 @@ dependencies:
     name: sharedidp
     repository: https://eclipse-tractusx.github.io/charts/dev
     version: 1.2.0
+  - name: cert-manager
+    version: v1.12.4
+    repository: https://charts.jetstack.io
+    alias: cert-manager
+    condition: cert-manager.enabled
   - condition: pgadmin4.enabled
     name: pgadmin4
     repository: https://helm.runix.net

@@ -18,7 +18,7 @@
 ###############################################################
 
 portal:
-  enabled: true
+  enabled: false
   replicaCount: 1
   frontend:
     ingress:
@@ -108,6 +108,90 @@ centralidp:
   keycloak:
     nameOverride: "centralidp"
     replicaCount: 1
+    extraEnvVars:
+      - name: KEYCLOAK_ENABLE_TLS
+        value: "true"
+      - name: KEYCLOAK_TLS_KEYSTORE_FILE
+        value: "/opt/bitnami/keycloak/certs/keycloak.keystore.jks"
+      - name: KEYCLOAK_TLS_TRUSTSTORE_FILE
+        value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
+      - name: KEYCLOAK_TLS_KEYSTORE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: centralidp-tls
+            key: tls-keystore-password
+      - name: KEYCLOAK_TLS_TRUSTSTORE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: centralidp-tls
+            key: tls-truststore-password
+      - name: KEYCLOAK_EXTRA_ARGS
+        value: "-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/realms/CX-Central-realm.json -Dkeycloak.migration.strategy=IGNORE_EXISTING"
+    extraVolumes:
+      - name: certificates
+        secret:
+          secretName: root-cx-secret
+          defaultMode: 420
+      - name: shared-certs
+        emptyDir: {}
+      - name: themes
+        emptyDir: {}
+      - name: realms
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: certificates
+        mountPath: /certs
+      - name: shared-certs
+        mountPath: "/opt/bitnami/keycloak/certs"
+      - name: themes
+        mountPath: "/opt/bitnami/keycloak/themes/catenax-central"
+      - name: realms
+        mountPath: "/realms"
+    initContainers:
+      - name: init-certs
+        image: docker.io/bitnami/keycloak:16.1.1-debian-10-r103
+        imagePullPolicy: Always
+        command: ["/bin/bash"]
+        args:
+          - -ec
+          - >-
+            keytool -import -file "/certs/ca.crt" \
+                    -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
+                    -storepass "${KEYCLOAK_TLS_TRUSTSTORE_PASSWORD}" \
+                    -noprompt
+        env:
+          - name: KEYCLOAK_TLS_KEYSTORE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: centralidp-tls
+                key: tls-keystore-password
+          - name: KEYCLOAK_TLS_TRUSTSTORE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: centralidp-tls
+                key: tls-truststore-password
+        volumeMounts:
+          - name: certificates
+            mountPath: /certs
+          - name: shared-certs
+            mountPath: "/opt/bitnami/keycloak/certs"
+      - name: import
+        image: tractusx/portal-iam:v1.2.0-RC2
+        imagePullPolicy: Always
+        command:
+          - sh
+        args:
+          - -c
+          - |
+            echo "Copying themes..."
+            cp -R /import/themes/catenax-central/* /themes
+            echo "Copying realms..."
+            cp -R /import/catenax-central/realms/* /realms
+        volumeMounts:
+        - name: themes
+          mountPath: "/themes"
+        - name: realms
+          mountPath: "/realms"
     postgresql:
       nameOverride: "centralidp-postgresql"
     ingress:
@@ -115,6 +199,7 @@ centralidp:
       ingressClassName: "nginx"
       hostname: "centralidp.example.org"
       annotations:
+        cert-manager.io/cluster-issuer: "clusterissuer-cx"
         nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
         nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
         nginx.ingress.kubernetes.io/cors-allow-origin: "https://centralidp.example.org"
@@ -123,13 +208,122 @@ centralidp:
         nginx.ingress.kubernetes.io/proxy-buffering: "on"
         nginx.ingress.kubernetes.io/proxy-buffers-number: "20"
         nginx.ingress.kubernetes.io/use-regex: "true"
-      tls: false
+      tls: true
+  secrets:
+    auth:
+      existingSecret:
+        # -- Password for the admin username 'admin'. Secret-key 'admin-password'.
+        adminpassword: ""
+      tls:
+        keystore: ""
+        truststore: ""
+    postgresql:
+      auth:
+        existingSecret:
+          # -- Password for the root username 'postgres'. Secret-key 'postgres-password'.
+          postgrespassword: ""
+          # -- Password for the non-root username 'kcshared'. Secret-key 'password'.
+          password: ""
+          # -- Password for the non-root username 'repl_user'. Secret-key 'replication-password'.
+          replicationPassword: ""
 
 sharedidp:
   enabled: true
   keycloak:
     nameOverride: "sharedidp"
     replicaCount: 1
+    extraEnvVars:
+      - name: KEYCLOAK_ENABLE_TLS
+        value: "true"
+      - name: KEYCLOAK_TLS_KEYSTORE_FILE
+        value: "/opt/bitnami/keycloak/certs/keycloak.keystore.jks"
+      - name: KEYCLOAK_TLS_TRUSTSTORE_FILE
+        value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
+      - name: KEYCLOAK_TLS_KEYSTORE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: sharedidp-tls
+            key: tls-keystore-password
+      - name: KEYCLOAK_TLS_TRUSTSTORE_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: sharedidp-tls
+            key: tls-truststore-password
+      - name: KEYCLOAK_EXTRA_ARGS
+        value: "-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/realms -Dkeycloak.migration.strategy=IGNORE_EXISTING"
+    extraVolumes:
+      - name: certificates
+        secret:
+          secretName: root-cx-secret
+          defaultMode: 420
+      - name: shared-certs
+        emptyDir: {}
+      - name: themes-catenax-shared
+        emptyDir: {}
+      - name: themes-catenax-shared-portal
+        emptyDir: {}
+      - name: realms
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: certificates
+        mountPath: /certs
+      - name: shared-certs
+        mountPath: "/opt/bitnami/keycloak/certs"
+      - name: themes-catenax-shared
+        mountPath: "/opt/bitnami/keycloak/themes/catenax-shared"
+      - name: themes-catenax-shared-portal
+        mountPath: "/opt/bitnami/keycloak/themes/catenax-shared-portal"
+      - name: realms
+        mountPath: "/realms"
+    initContainers:
+      - name: init-certs
+        image: docker.io/bitnami/keycloak:16.1.1-debian-10-r103
+        imagePullPolicy: Always
+        command: ["/bin/bash"]
+        args:
+          - -ec
+          - >-
+            keytool -import -file "/certs/ca.crt" \
+                    -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
+                    -storepass "${KEYCLOAK_TLS_TRUSTSTORE_PASSWORD}" \
+                    -noprompt
+        env:
+          - name: KEYCLOAK_TLS_KEYSTORE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: centralidp-tls
+                key: tls-keystore-password
+          - name: KEYCLOAK_TLS_TRUSTSTORE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: centralidp-tls
+                key: tls-truststore-password
+        volumeMounts:
+          - name: certificates
+            mountPath: /certs
+          - name: shared-certs
+            mountPath: "/opt/bitnami/keycloak/certs"
+      - name: import
+        image: tractusx/portal-iam:v1.2.0-RC2
+        imagePullPolicy: Always
+        command:
+          - sh
+        args:
+          - -c
+          - |
+            echo "Copying themes-catenax-shared..."
+            cp -R /import/themes/catenax-shared/* /themes-catenax-shared
+            echo "Copying themes-catenax-shared-portal..."
+            cp -R /import/themes/catenax-shared-portal/* /themes-catenax-shared-portal
+            echo "Copying realms..."
+            cp -R /import/catenax-shared/realms/* /realms
+        volumeMounts:
+        - name: themes-catenax-shared
+          mountPath: "/themes-catenax-shared"
+        - name: themes-catenax-shared-portal
+          mountPath: "/themes-catenax-shared-portal"
+        - name: realms
+          mountPath: "/realms"
     postgresql:
       nameOverride: "sharedidp-postgresql"
     ingress:
@@ -137,6 +331,7 @@ sharedidp:
       ingressClassName: "nginx"
       hostname: "sharedidp.example.org"
       annotations:
+        cert-manager.io/cluster-issuer: "clusterissuer-cx"
         nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
         nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
         nginx.ingress.kubernetes.io/cors-allow-origin: "https://sharedidp.example.org"
@@ -145,7 +340,27 @@ sharedidp:
         nginx.ingress.kubernetes.io/proxy-buffering: "on"
         nginx.ingress.kubernetes.io/proxy-buffers-number: "20"
         nginx.ingress.kubernetes.io/use-regex: "true"
-      tls: false
+      tls: true
+  secrets:
+    auth:
+      existingSecret:
+        # -- Password for the admin username 'admin'. Secret-key 'admin-password'.
+        adminpassword: ""
+      tls:
+        keystore: ""
+        truststore: ""
+    postgresql:
+      auth:
+        existingSecret:
+          # -- Password for the root username 'postgres'. Secret-key 'postgres-password'.
+          postgrespassword: ""
+          # -- Password for the non-root username 'kcshared'. Secret-key 'password'.
+          password: ""
+          # -- Password for the non-root username 'repl_user'. Secret-key 'replication-password'.
+          replicationPassword: ""
+
+cert-manager:
+  installCRDs: true
 
 pgadmin4:
   enabled: true

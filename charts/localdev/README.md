@@ -35,6 +35,20 @@ To find out the IP address of your Minikube:
 ```shell
 $ minikube ip
 ```
+TLS:
+
+openssl genrsa -out ca.key 2048
+cp /etc/ssl/openssl.cnf openssl-with-ca.cnf
+
+add in openssl-with-ca.cnf under '[ v3_ca ]' the following:
+basicConstraints = critical,CA:TRUE
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer:always
+
+openssl req -x509 -new -nodes -key ca.key -sha256 -days 1024 -out ca.crt -extensions v3_ca -config openssl-with-ca.cnf
+
+cat "ca.crt" | base64
+
 
 ## Requirements
 

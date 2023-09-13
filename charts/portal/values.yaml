@@ -240,7 +240,7 @@ backend:
     # -- Password for the smtp username. Secret-key 'password'.
     password: ""
   interfaces:
-    # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse and offer provider.
+    # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse, offer provider and onboarding service provider.
     secret: "secret-backend-interfaces"
   healthChecks:
     startup:

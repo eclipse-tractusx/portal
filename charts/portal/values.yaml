@@ -472,6 +472,11 @@ backend:
       type0: "APP_LEADIMAGE"
       type1: "APP_IMAGE"
       type2: "CONFORMITY_APPROVAL_BUSINESS_APPS"
+    activeAppDocumentTypeIds:
+      type0: "APP_IMAGE"
+      type1: "APP_TECHNICAL_INFORMATION"
+      type2: "APP_CONTRACT"
+      type3: "ADDITIONAL_DETAILS"
     notificationTypeIds:
       type0: "APP_RELEASE_REQUEST"
     activeAppNotificationTypeIds:

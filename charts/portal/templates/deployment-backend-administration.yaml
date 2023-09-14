@@ -285,6 +285,8 @@ spec:
           value: "{{ .Values.backend.clients.portal }}"
         - name: "NETWORK2NETWORK__INITIALROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.administration.network2network.initialRoles.role0 }}"
+        - name: "NETWORK2NETWORK__BASEPORTALADDRESS"
+          value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
         - name: "PROVISIONING__CENTRALIDENTITYPROVIDER__CONFIG__CLIENTID"
           value: "{{ .Values.backend.provisioning.centralIdentityProvider.clientId }}"
         - name: "PROVISIONING__CENTRALREALM"

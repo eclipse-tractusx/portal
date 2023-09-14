@@ -671,7 +671,7 @@ backend:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: fab4138f5fff6eb14da8d336355380242cb21a71
+      processesworkertag: ab76eea5324b13791b082ec8a2361eb5fbfad7a8
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

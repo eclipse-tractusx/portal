@@ -17,7 +17,7 @@
 * SPDX-License-Identifier: Apache-2.0
 
 Postgresql is a dependency of a dependency, which resulted in an empty .Chart.Name..
-Setting the chart name therefore statically for the relevant resources.
+Therefore, setting the chart name statically for the relevant resources.
 */}}
 
 {{- define "postgresql.primary.fullname" -}}

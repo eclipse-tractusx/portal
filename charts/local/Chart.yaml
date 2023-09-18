@@ -18,7 +18,7 @@
 ###############################################################
 
 apiVersion: v2
-name: portal-iam-dev
+name: local
 type: application
 version: 0.0.1
 appVersion: 1.6.0
@@ -43,12 +43,7 @@ dependencies:
     name: sharedidp
     repository: https://eclipse-tractusx.github.io/charts/dev
     version: 1.2.0
-  - name: cert-manager
-    version: v1.12.4
-    repository: https://charts.jetstack.io
-    alias: cert-manager
-    condition: cert-manager.enabled
   - condition: pgadmin4.enabled
     name: pgadmin4
     repository: https://helm.runix.net
-    version: 1.15.x
+    version: 1.17.x

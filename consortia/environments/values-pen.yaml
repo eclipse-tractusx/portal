@@ -151,8 +151,7 @@ backend:
         - name: "HEALTHCHECKS__0__TAGS__2"
           value: "provisioningdb"
     onboardingServiceProvider:
-      clientId: "<path:portal/data/administration#onboardingserviceprovider-client-id>"
-      clientSecret: "<path:portal/data/pen/administration#onboardingserviceprovider-client-secret>"
+      encryptionKey: "<path:portal/data/administration#onboardingserviceprovider-encryption-key>"
     swaggerEnabled: true
 
   provisioning:
@@ -234,6 +233,8 @@ backend:
     offerprovider:
       clientId: "<path:portal/data/processes-worker#offerprovider-client-id>"
       clientSecret: "<path:portal/data/pen/processes-worker#offerprovider-client-secret>"
+    onboardingServiceProvider:
+      encryptionKey: "<path:portal/data/processes-worker#process-onboardingserviceprovider-encryption-key>"
 
 postgresql:
   auth:

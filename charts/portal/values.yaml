@@ -372,12 +372,8 @@ backend:
       initialRoles:
         role0: "Company Admin"
     onboardingServiceProvider:
-      scope: "openid"
-      grantType: "client_credentials"
-      # -- Provide onboardingserviceprovider client-id from CX IAM centralidp.
-      clientId: "onboardingserviceprovider-client-id"
-      # -- Client-secret for onboardingserviceprovider client-id. Secret-key 'onboardingserviceprovider-client-secret'.
-      clientSecret: ""
+      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key'.
+      encryptionKey: ""
   provisioning:
     centralRealm: "CX-Central"
     centralRealmId: "CX-Central"
@@ -775,6 +771,9 @@ backend:
     networkRegistration:
       initialRoles:
         role0: "Company Admin"
+    onboardingServiceProvider:
+      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'.
+      encryptionKey: ""
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

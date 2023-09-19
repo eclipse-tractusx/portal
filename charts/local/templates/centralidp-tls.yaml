@@ -17,6 +17,7 @@
 * SPDX-License-Identifier: Apache-2.0
 */}}
 
+{{- if .Values.centralidp.enabled -}}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -38,3 +39,4 @@ stringData:
   tls-keystore-password: {{ ( .Values.centralidp.secrets.auth.tls.keystore | b64enc ) | default ( randAlphaNum 32 | quote ) }}
   tls-truststore-password: {{ ( .Values.centralidp.secrets.auth.tls.truststore | b64enc ) | default ( randAlphaNum 32 | quote ) }}
 {{ end }}
+{{- end -}}

@@ -206,6 +206,7 @@ backend:
       clientSecret: ""
       authRealm: "CX-Central"
       jwtBearerOptions:
+        requireHttpsMetadata: "true"
         metadataPath: "/auth/realms/CX-Central/.well-known/openid-configuration"
         tokenValidationParameters:
           validIssuerPath: "/auth/realms/CX-Central"

@@ -19,7 +19,7 @@ For detailed information please refer to the chart specific **[README](./charts/
 
 ##  LocalDev Portal & CX IAM
 
-This umbrella helm chart installs the CX Portal and the CX IAM Keycloak instances.
+This umbrella chart installs the CX Portal and the CX IAM Keycloak instances.
 
 It's intended for the local setup of the those components in order to aid the local development.
 

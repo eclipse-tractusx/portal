@@ -4,7 +4,7 @@
 
 This helm chart installs the CX Portal and the CX IAM Keycloak instances.
 
-It is meant for the local setup of the those components in order to aid the local development.
+It's intended for the local setup of the those components in order to aid the local development.
 
 ## Installation
 

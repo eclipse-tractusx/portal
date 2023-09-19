@@ -55,6 +55,7 @@ portal:
                 service: "assets"
                 port: 8080
   backend:
+    dotnetEnvironment: "Development"
     ingress:
       enabled: true
       ingressClassName: "nginx"
@@ -104,6 +105,23 @@ portal:
               backend:
                 service: "services-service"
                 port: 8080
+    keycloak:
+      central:
+        clientId: ""
+        clientSecret: ""
+        jwtBearerOptions:
+          requireHttpsMetadata: "false"
+        # -- Password for the user 'kccentral', defined at centralidp.secrets.postgresql.auth.existingSecret.password
+        dbConnection:
+          password: ""
+      shared:
+        clientId: ""
+        clientSecret: ""
+    mailing:
+      host: ""
+      port: ""
+      user: ""
+      password: ""
 
 centralidp:
   enabled: true
@@ -180,7 +198,7 @@ centralidp:
           - name: shared-certs
             mountPath: "/opt/bitnami/keycloak/certs"
       - name: import
-        image: tractusx/portal-iam:v1.2.0-RC2
+        image: tractusx/portal-iam:v1.2.0
         imagePullPolicy: Always
         command:
           - sh
@@ -221,6 +239,11 @@ centralidp:
       tls:
         keystore: ""
         truststore: ""
+    postgresql:
+      auth:
+        existingSecret:
+          # -- Password for the user 'kccentral'
+          password: ""
 
 sharedidp:
   enabled: true
@@ -306,7 +329,7 @@ sharedidp:
           - name: shared-certs
             mountPath: "/opt/bitnami/keycloak/certs"
       - name: import
-        image: tractusx/portal-iam:v1.2.0-RC2
+        image: tractusx/portal-iam:v1.2.0
         imagePullPolicy: Always
         command:
           - sh
@@ -319,6 +342,7 @@ sharedidp:
             cp -R /import/themes/catenax-shared-portal/* /themes-catenax-shared-portal
             echo "Copying realm..."
             cp -R /import/catenax-shared/realms/CX-Operator-realm.json /realms
+            cp -R /import/catenax-shared/realms/master-realm.json /realms
             echo "Copying realm-secret..."
             cp /secrets/CX-Operator-users-0.json /realms
         volumeMounts:

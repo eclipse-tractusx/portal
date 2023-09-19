@@ -1,6 +1,6 @@
 # {{ template "chart.description" . }}
 
-{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
 
 This helm chart installs the CX Portal and the CX IAM Keycloak instances.
 
@@ -13,7 +13,7 @@ To install the helm chart into the default namespace of your started Minikube cl
 Then change to the chart directory:
 
 ```bash
-$ cd charts/local/
+$ cd charts/localdev/
 ```
 
 Prepare the TLS setup:
@@ -38,13 +38,13 @@ $ helm dependency update
 And install the chart:
 
 ```bash
-$ helm install {{ template "chart.name" . }} .
+$ helm install local .
 ```
 
 To set your own configuration and secret values, install the helm chart with your own values file:
 
 ```bash
-$ helm install -f your-values.yaml {{ template "chart.name" . }} .
+$ helm install local -f your-values.yaml .
 ```
 In order to enable the local access via ingress, enable the according addon for Minikube:
 

@@ -1,6 +1,6 @@
 # Setup of CX Portal & IAM for local development
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.0](https://img.shields.io/badge/AppVersion-1.6.0-informational?style=flat-square) ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
+![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This helm chart installs the CX Portal and the CX IAM Keycloak instances.
 
@@ -13,7 +13,7 @@ To install the helm chart into the default namespace of your started Minikube cl
 Then change to the chart directory:
 
 ```bash
-$ cd charts/local/
+$ cd charts/localdev/
 ```
 
 Prepare the TLS setup:
@@ -44,7 +44,7 @@ $ helm install local .
 To set your own configuration and secret values, install the helm chart with your own values file:
 
 ```bash
-$ helm install -f your-values.yaml local .
+$ helm install local -f your-values.yaml .
 ```
 In order to enable the local access via ingress, enable the according addon for Minikube:
 

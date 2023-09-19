@@ -4,7 +4,7 @@
 
 This repository contains the following helm charts:
 
-##  Catena-X Portal
+##  Portal
 
 This helm chart installs the Catena-X Portal application which consists of
 

@@ -107,7 +107,7 @@ portal:
     dotnetEnvironment: "Development"
     keycloak:
       central:
-        clientId: ""
+        clientId: "central-client-id"
         clientSecret: ""
         jwtBearerOptions:
           requireHttpsMetadata: "false"
@@ -115,13 +115,22 @@ portal:
         dbConnection:
           password: ""
       shared:
-        clientId: ""
+        clientId: "shared-client-id"
         clientSecret: ""
     mailing:
-      host: ""
-      port: ""
-      user: ""
+      host: "smtp.example.org"
+      port: "587"
+      user: "smtp-user"
       password: ""
+    provisioning:
+      sharedRealm:
+        smtpServer:
+          host: "smtp.example.org"
+          port: "587"
+          user: "smtp-user"
+          password: ""
+          from: "smtp@example.org"
+          replyTo: "smtp@example.org"
 
 centralidp:
   enabled: true

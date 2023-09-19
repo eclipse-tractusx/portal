@@ -190,6 +190,7 @@ backend:
             backend:
               service: "services-service"
               port: 8080
+  dotnetEnvironment: "Production"
   dbConnection:
     schema: "portal"
     sslMode: "Disable"

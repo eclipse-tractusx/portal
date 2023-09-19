@@ -44,6 +44,8 @@ spec:
         image: "{{ .Values.backend.services.image.name }}:{{ .Values.backend.services.image.servicesservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"
         env:
+        - name: DOTNET_ENVIRONMENT
+          value: "{{ .Values.backend.dotnetEnvironment }}"
         {{- if .Values.postgresql.enabled }}
         - name: "PORTAL_PASSWORD"
           valueFrom:

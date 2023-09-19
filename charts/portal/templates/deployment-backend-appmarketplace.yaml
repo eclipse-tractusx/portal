@@ -44,6 +44,8 @@ spec:
         image: "{{ .Values.backend.appmarketplace.image.name }}:{{ .Values.backend.appmarketplace.image.appmarketplaceservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"
         env:
+        - name: DOTNET_ENVIRONMENT
+          value: "{{ .Values.backend.dotnetEnvironment }}"
         {{- if .Values.postgresql.enabled }}
         - name: "PORTAL_PASSWORD"
           valueFrom:

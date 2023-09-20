@@ -1,4 +1,4 @@
-# Helm charts for Catena-X Portal
+# Catena-X Portal: Helm charts
 
 ![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
 
@@ -23,7 +23,7 @@ This umbrella chart installs the CX Portal and the CX IAM Keycloak instances.
 
 It's intended for the local setup of the those components in order to aid the local development.
 
-For detailed information please refer to the chart specific **[README](./charts/localdev/README.md)**.
+For detailed information please refer to the chart specific [README](./charts/localdev/README.md).
 
 ## Notice for Docker images
 

@@ -8,6 +8,10 @@ It's intended for the local setup of the those components in order to aid the lo
 
 ## Installation
 
+> **Note:**
+> In its current state of development, this chart as well as the following installation guide have been successfully tested on **Linux**.
+> We'll test its reliability on other platforms and update the installation guide accordingly.
+
 To install the helm chart into the default namespace of your started Minikube cluster, make sure to clone the [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository beforehand.
 
 Then change to the chart directory:
@@ -62,9 +66,13 @@ $ minikube ip
 
 Credentials to log into the initial example realm:
 
-    cx-operator@cx.com
+```
+cx-operator@cx.com
+```
 
-    7XSXRwYLAm5kU2H
+```
+7XSXRwYLAm5kU2H
+```
 
 To easily get an overview of the deployment state of the applications running on your cluster:
 
@@ -144,6 +152,23 @@ $ minikube dashboard
 | portal.backend.ingress.hosts[0].paths[5].pathType | string | `"Prefix"` |  |
 | portal.backend.ingress.hosts[0].paths[5].backend.service | string | `"services-service"` |  |
 | portal.backend.ingress.hosts[0].paths[5].backend.port | int | `8080` |  |
+| portal.backend.dotnetEnvironment | string | `"Development"` |  |
+| portal.backend.keycloak.central.clientId | string | `"central-client-id"` |  |
+| portal.backend.keycloak.central.clientSecret | string | `""` |  |
+| portal.backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata | string | `"false"` |  |
+| portal.backend.keycloak.central.dbConnection | object | `{"password":""}` | Password for the user 'kccentral', defined at centralidp.secrets.postgresql.auth.existingSecret.password |
+| portal.backend.keycloak.shared.clientId | string | `"shared-client-id"` |  |
+| portal.backend.keycloak.shared.clientSecret | string | `""` |  |
+| portal.backend.mailing.host | string | `"smtp.example.org"` |  |
+| portal.backend.mailing.port | string | `"587"` |  |
+| portal.backend.mailing.user | string | `"smtp-user"` |  |
+| portal.backend.mailing.password | string | `""` |  |
+| portal.backend.provisioning.sharedRealm.smtpServer.host | string | `"smtp.example.org"` |  |
+| portal.backend.provisioning.sharedRealm.smtpServer.port | string | `"587"` |  |
+| portal.backend.provisioning.sharedRealm.smtpServer.user | string | `"smtp-user"` |  |
+| portal.backend.provisioning.sharedRealm.smtpServer.password | string | `""` |  |
+| portal.backend.provisioning.sharedRealm.smtpServer.from | string | `"smtp@example.org"` |  |
+| portal.backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` |  |
 | centralidp.enabled | bool | `true` |  |
 | centralidp.keycloak.nameOverride | string | `"centralidp"` |  |
 | centralidp.keycloak.replicaCount | int | `1` |  |
@@ -197,7 +222,7 @@ $ minikube dashboard
 | centralidp.keycloak.initContainers[0].volumeMounts[1].name | string | `"shared-certs"` |  |
 | centralidp.keycloak.initContainers[0].volumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | centralidp.keycloak.initContainers[1].name | string | `"import"` |  |
-| centralidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v1.2.0-RC2"` |  |
+| centralidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v1.2.0"` |  |
 | centralidp.keycloak.initContainers[1].imagePullPolicy | string | `"Always"` |  |
 | centralidp.keycloak.initContainers[1].command[0] | string | `"sh"` |  |
 | centralidp.keycloak.initContainers[1].args[0] | string | `"-c"` |  |
@@ -223,6 +248,7 @@ $ minikube dashboard
 | centralidp.secrets.auth.existingSecret.adminpassword | string | `""` | Password for the admin username 'admin'. Secret-key 'admin-password'. |
 | centralidp.secrets.auth.tls.keystore | string | `""` |  |
 | centralidp.secrets.auth.tls.truststore | string | `""` |  |
+| centralidp.secrets.postgresql.auth.existingSecret.password | string | `""` | Password for the user 'kccentral' |
 | sharedidp.enabled | bool | `true` |  |
 | sharedidp.keycloak.nameOverride | string | `"sharedidp"` |  |
 | sharedidp.keycloak.replicaCount | int | `1` |  |
@@ -284,11 +310,11 @@ $ minikube dashboard
 | sharedidp.keycloak.initContainers[0].volumeMounts[1].name | string | `"shared-certs"` |  |
 | sharedidp.keycloak.initContainers[0].volumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | sharedidp.keycloak.initContainers[1].name | string | `"import"` |  |
-| sharedidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v1.2.0-RC2"` |  |
+| sharedidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v1.2.0"` |  |
 | sharedidp.keycloak.initContainers[1].imagePullPolicy | string | `"Always"` |  |
 | sharedidp.keycloak.initContainers[1].command[0] | string | `"sh"` |  |
 | sharedidp.keycloak.initContainers[1].args[0] | string | `"-c"` |  |
-| sharedidp.keycloak.initContainers[1].args[1] | string | `"echo \"Copying themes-catenax-shared...\"\ncp -R /import/themes/catenax-shared/* /themes-catenax-shared\necho \"Copying themes-catenax-shared-portal...\"\ncp -R /import/themes/catenax-shared-portal/* /themes-catenax-shared-portal\necho \"Copying realm...\"\ncp -R /import/catenax-shared/realms/CX-Operator-realm.json /realms\necho \"Copying realm-secret...\"\ncp /secrets/CX-Operator-users-0.json /realms\n"` |  |
+| sharedidp.keycloak.initContainers[1].args[1] | string | `"echo \"Copying themes-catenax-shared...\"\ncp -R /import/themes/catenax-shared/* /themes-catenax-shared\necho \"Copying themes-catenax-shared-portal...\"\ncp -R /import/themes/catenax-shared-portal/* /themes-catenax-shared-portal\necho \"Copying realm...\"\ncp -R /import/catenax-shared/realms/CX-Operator-realm.json /realms\ncp -R /import/catenax-shared/realms/master-realm.json /realms\necho \"Copying realm-secret...\"\ncp /secrets/CX-Operator-users-0.json /realms\n"` |  |
 | sharedidp.keycloak.initContainers[1].volumeMounts[0].name | string | `"themes-catenax-shared"` |  |
 | sharedidp.keycloak.initContainers[1].volumeMounts[0].mountPath | string | `"/themes-catenax-shared"` |  |
 | sharedidp.keycloak.initContainers[1].volumeMounts[1].name | string | `"themes-catenax-shared-portal"` |  |

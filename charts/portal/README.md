@@ -67,7 +67,7 @@ dependencies:
 | clearinghouseAddress | string | `"https://validation.example.org"` | Provide clearinghouse base address. |
 | clearinghouseTokenAddress | string | `"https://keycloak.example.org/realms/example/protocol/openid-connect/token"` | Provide clearinghouse token address. |
 | frontend.ingress.enabled | bool | `false` | Portal frontend ingress parameters, enable ingress record generation for portal frontend. |
-| frontend.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
+| frontend.ingress.ingressClassName | string | `"nginx"` |  |
 | frontend.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | frontend.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | frontend.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -92,7 +92,6 @@ dependencies:
 | frontend.bpdmPartnersPoolApiPath | string | `"/api"` |  |
 | backend.ingress.enabled | bool | `false` | Portal-backend ingress parameters, enable ingress record generation for portal-backend. |
 | backend.ingress.name | string | `"portal-backend"` |  |
-| backend.ingress.annotations."kubernetes.io/ingress.class" | string | `"nginx"` |  |
 | backend.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | backend.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | backend.ingress.annotations."nginx.ingress.kubernetes.io/proxy-body-size" | string | `"8m"` |  |
@@ -100,6 +99,7 @@ dependencies:
 | backend.ingress.tls[0] | object | `{"hosts":[""],"secretName":""}` | Provide tls secret. |
 | backend.ingress.tls[0].hosts | list | `[""]` | Provide host for tls secret. |
 | backend.ingress.hosts[0] | object | `{"host":"portal-backend.example.org","paths":[{"backend":{"port":8080,"service":"registration-service"},"path":"/api/registration","pathType":"Prefix"},{"backend":{"port":8080,"service":"administration-service"},"path":"/api/administration","pathType":"Prefix"},{"backend":{"port":8080,"service":"notification-service"},"path":"/api/notification","pathType":"Prefix"},{"backend":{"port":8080,"service":"provisioning-service"},"path":"/api/provisioning","pathType":"Prefix"},{"backend":{"port":8080,"service":"marketplace-app-service"},"path":"/api/apps","pathType":"Prefix"},{"backend":{"port":8080,"service":"services-service"},"path":"/api/services","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
+| backend.dotnetEnvironment | string | `"Production"` |  |
 | backend.dbConnection.schema | string | `"portal"` |  |
 | backend.dbConnection.sslMode | string | `"Disable"` |  |
 | backend.portalHomePath | string | `"/home"` |  |
@@ -108,6 +108,7 @@ dependencies:
 | backend.keycloak.central.clientId | string | `"central-client-id"` | Provide centralidp client-id from CX IAM centralidp. |
 | backend.keycloak.central.clientSecret | string | `""` | Client-secret for centralidp client-id. Secret-key 'central-client-secret'. |
 | backend.keycloak.central.authRealm | string | `"CX-Central"` |  |
+| backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata | string | `"true"` |  |
 | backend.keycloak.central.jwtBearerOptions.metadataPath | string | `"/auth/realms/CX-Central/.well-known/openid-configuration"` |  |
 | backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath | string | `"/auth/realms/CX-Central"` |  |
 | backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validAudiencePortal | string | `"Cl2-CX-Portal"` |  |

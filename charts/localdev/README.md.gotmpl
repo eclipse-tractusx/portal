@@ -8,6 +8,10 @@ It's intended for the local setup of the those components in order to aid the lo
 
 ## Installation
 
+> **Note:**
+> In its current state of development, this chart as well as the following installation guide have been successfully tested on **Linux**.
+> We'll test its reliability on other platforms and update the installation guide accordingly.
+
 To install the helm chart into the default namespace of your started Minikube cluster, make sure to clone the [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository beforehand.
 
 Then change to the chart directory:
@@ -62,9 +66,13 @@ $ minikube ip
 
 Credentials to log into the initial example realm:
 
-    cx-operator@cx.com
+```
+cx-operator@cx.com
+```
 
-    7XSXRwYLAm5kU2H
+```
+7XSXRwYLAm5kU2H
+```
 
 To easily get an overview of the deployment state of the applications running on your cluster:
 

@@ -367,6 +367,9 @@ backend:
     swaggerEnabled: false
     frameDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"
+    network2network:
+      initialRoles:
+        role0: "Company Admin"
   provisioning:
     centralRealm: "CX-Central"
     centralRealmId: "CX-Central"
@@ -761,6 +764,9 @@ backend:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
       identityTypeId: 2
       processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
+    networkRegistration:
+      initialRoles:
+        role0: "Company Admin"
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

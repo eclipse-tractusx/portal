@@ -221,6 +221,10 @@ spec:
                 secretKeyRef:
                   name: "{{ .Values.backend.mailing.secret }}"
                   key: "password"
+            - name: "NETWORKREGISTRATION__INITIALROLES__0__CLIENTID"
+              value: "{{ .Values.backend.clients.portal }}"
+            - name: "NETWORKREGISTRATION__INITIALROLES__0__USERROLENAMES__0"
+              value: "{{ .Values.backend.processesworker.networkRegistration.initialRoles.role0 }}"
             - name: "MAILINGSERVICE__MAIL__SMTPPORT"
               value: "{{ .Values.backend.mailing.port }}"
             - name: "MAILINGSERVICE__MAIL__SMTPUSER"

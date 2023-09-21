@@ -56,8 +56,8 @@ frontend:
   # -- Portal frontend ingress parameters,
     # enable ingress record generation for portal frontend.
     enabled: false
+    ingressClassName: "nginx"
     annotations:
-      kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/rewrite-target: "/$1"
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/enable-cors: "true"
@@ -144,7 +144,6 @@ backend:
     enabled: false
     name: "portal-backend"
     annotations:
-      kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "8m"
@@ -190,6 +189,7 @@ backend:
             backend:
               service: "services-service"
               port: 8080
+  dotnetEnvironment: "Production"
   dbConnection:
     schema: "portal"
     sslMode: "Disable"
@@ -205,6 +205,7 @@ backend:
       clientSecret: ""
       authRealm: "CX-Central"
       jwtBearerOptions:
+        requireHttpsMetadata: "true"
         metadataPath: "/auth/realms/CX-Central/.well-known/openid-configuration"
         tokenValidationParameters:
           validIssuerPath: "/auth/realms/CX-Central"

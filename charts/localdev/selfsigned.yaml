@@ -17,8 +17,43 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-validate-maintainers: false
-chart-repos:
-  - bitnami=https://charts.bitnami.com/bitnami
-  - tractusx-dev=https://eclipse-tractusx.github.io/charts/dev
-  - pgadmin4=https://helm.runix.net
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: my-selfsigned-ca
+  namespace: default
+spec:
+  isCA: true
+  commonName: cx.local
+  secretName: root-secret
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+  usages: 
+    - any
+  subject:
+    organizations:
+      - CX
+    countries:
+      - DE
+    provinces:
+      - Some-State
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: my-ca-issuer
+spec:
+  ca:
+    secretName: root-secret

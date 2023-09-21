@@ -44,6 +44,8 @@ spec:
         image: "{{ .Values.backend.administration.image.name }}:{{ .Values.backend.administration.image.administrationservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"
         env:
+        - name: DOTNET_ENVIRONMENT
+          value: "{{ .Values.backend.dotnetEnvironment }}"
         {{- if .Values.postgresql.enabled }}
         - name: "PORTAL_PASSWORD"
           valueFrom:
@@ -232,6 +234,8 @@ spec:
           value: "{{ .Values.backend.administration.invitation.initialLoginTheme }}"
         - name: "JWTBEAREROPTIONS__METADATAADDRESS"
           value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
+        - name: "JWTBEAREROPTIONS__REQUIREHTTPSMETADATA"
+          value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDAUDIENCE"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validAudiencePortal }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDISSUER"

@@ -17,26 +17,26 @@
 * SPDX-License-Identifier: Apache-2.0
 */}}
 
-{{- if not .Values.postgresql.enabled -}}
+{{- if .Values.sharedidp.enabled -}}
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ .Values.externalDatabase.secret }}
+  name: sharedidp-tls
   namespace: {{ .Release.Namespace }}
 type: Opaque
 # use lookup function to check if secret exists
-{{- $secret := (lookup "v1" "Secret" .Release.Namespace .Values.externalDatabase.secret) }}
+{{- $secret := (lookup "v1" "Secret" .Release.Namespace "sharedidp-tls") }}
 {{ if $secret -}}
 data:
   # if secret exists, use value provided from values file (to cover update scenario) or existing value from secret
   # use data map instead of stringData to prevent base64 encoding of already base64-encoded existing value from secret
   # use index function for secret keys with hyphen otherwise '$secret.data.secretKey' works too
-  portal-password: {{ ( .Values.externalDatabase.portalPassword | b64enc | quote ) | default ( index $secret.data "portal-password" ) }}
-  provisioning-password: {{ ( .Values.externalDatabase.provisioningPassword | b64enc | quote ) | default ( index $secret.data "provisioning-password" ) }}
+  tls-keystore-password: {{ ( .Values.sharedidp.secrets.auth.tls.keystore | b64enc ) | default ( index $secret.data "tls-keystore-password" ) }}
+  tls-truststore-password: {{ ( .Values.sharedidp.secrets.auth.tls.truststore | b64enc ) | default ( index $secret.data "tls-truststore-password" ) }}
 {{ else -}}
 stringData:
   # if secret doesn't exist, use provided value from values file or generate a random one
-  portal-password: {{ ( .Values.externalDatabase.portalPassword | quote ) | default ( randAlphaNum 32 | quote ) }}
-  provisioning-password: {{ ( .Values.externalDatabase.provisioningPassword | quote ) | default ( randAlphaNum 32 | quote ) }}
+  tls-keystore-password: {{ ( .Values.sharedidp.secrets.auth.tls.keystore | b64enc ) | default ( randAlphaNum 32 | quote ) }}
+  tls-truststore-password: {{ ( .Values.sharedidp.secrets.auth.tls.truststore | b64enc ) | default ( randAlphaNum 32 | quote ) }}
 {{ end }}
 {{- end -}}

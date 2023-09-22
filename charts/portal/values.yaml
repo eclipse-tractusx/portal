@@ -240,7 +240,7 @@ backend:
     # -- Password for the smtp username. Secret-key 'password'.
     password: ""
   interfaces:
-    # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse and offer provider.
+    # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse, offer provider and onboarding service provider.
     secret: "secret-backend-interfaces"
   healthChecks:
     startup:
@@ -371,6 +371,9 @@ backend:
     network2network:
       initialRoles:
         role0: "Company Admin"
+    onboardingServiceProvider:
+      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key'.
+      encryptionKey: ""
   provisioning:
     centralRealm: "CX-Central"
     centralRealmId: "CX-Central"
@@ -768,6 +771,9 @@ backend:
     networkRegistration:
       initialRoles:
         role0: "Company Admin"
+    onboardingServiceProvider:
+      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'.
+      encryptionKey: ""
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

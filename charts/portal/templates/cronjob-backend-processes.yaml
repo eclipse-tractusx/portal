@@ -307,6 +307,11 @@ spec:
               value: "{{ .Values.backend.processesworker.processIdentity.identityTypeId }}"
             - name: "PROCESSIDENTITY__PROCESSUSERCOMPANYID"
               value: "{{ .Values.backend.processesworker.processIdentity.processUserCompanyId }}"
+            - name: "ONBOARDINGSERVICEPROVIDER__ENCYRPTIONKEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.interfaces.secret }}"
+                  key: "process-onboardingserviceprovider-encryption-key"
             ports:
             - name: http
               containerPort: {{ .Values.portContainer }}

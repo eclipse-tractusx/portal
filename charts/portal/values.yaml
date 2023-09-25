@@ -222,12 +222,16 @@ backend:
         password: ""
         schema: "public"
         sslMode: "Disable"
+      # -- Flag if the api should be used with an leading /auth path
+      useAuthTrail: true
     shared:
       # -- Provide sharedidp client-id from CX IAM sharedidp.
       clientId: "shared-client-id"
       # -- Client-secret for sharedidp client-id. Secret-key 'shared-client-secret'.
       clientSecret: ""
       authRealm: "master"
+      # -- Flag if the api should be used with an leading /auth path
+      useAuthTrail: true
   mailing:
     # -- Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm.
     secret: "secret-backend-mailing"

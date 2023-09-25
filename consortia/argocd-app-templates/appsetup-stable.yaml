@@ -48,7 +48,7 @@ spec:
             frontend:
               ingress:
                 enabled: true
-                ingressClassName: "nginx"
+                className: "nginx"
                 annotations:
                   nginx.ingress.kubernetes.io/rewrite-target: "/$$1"
                   nginx.ingress.kubernetes.io/use-regex: "true"
@@ -79,7 +79,7 @@ spec:
             backend:
               ingress:
                 enabled: true
-                ingressClassName: "nginx"
+                className: "nginx"
                 annotations:
                   nginx.ingress.kubernetes.io/use-regex: "true"
                   nginx.ingress.kubernetes.io/enable-cors: "true"
@@ -237,6 +237,9 @@ spec:
                 offerprovider:
                   clientId: "<path:portal/data/processes-worker#offerprovider-client-id>"
                   clientSecret: "<path:portal/data/stable/processes-worker#offerprovider-client-secret>"
+                onboardingServiceProvider:
+                  encryptionKey: "<path:portal/data/stable/processes-worker#process-onboardingserviceprovider-encryption-key>"
+
             postgresql:
               auth:
                 password: "<path:portal/data/stable/postgres#postgres-password>"

@@ -56,7 +56,7 @@ frontend:
   # -- Portal frontend ingress parameters,
     # enable ingress record generation for portal frontend.
     enabled: false
-    ingressClassName: "nginx"
+    className: "nginx"
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: "/$1"
       nginx.ingress.kubernetes.io/use-regex: "true"
@@ -143,6 +143,7 @@ backend:
     # enable ingress record generation for portal-backend.
     enabled: false
     name: "portal-backend"
+    className: "nginx"
     annotations:
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/enable-cors: "true"

@@ -273,15 +273,15 @@ backend:
       bpdmLibrary: "Information"
       registrationService: "Information"
       default: "Information"
-    # -- Healthchecks to be enabled for startupProbe,
-    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
+    # -- Keycloak Healthcheck to be enabled for startupProbe;
+    # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
       startup:
-        tags: []
+        tags:
         # - name: "HEALTHCHECKS__0__TAGS__0"
         #   value: "keycloak"
-        # - name: "HEALTHCHECKS__0__TAGS__1"
-        #   value: "portaldb"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
     portalRegistrationPath: "/registration"
     keycloakClientId: "Cl1-CX-Registration"
     applicationStatusIds:
@@ -317,17 +317,17 @@ backend:
       bpdmLibrary: "Information"
       custodianLibrary: "Information"
       default: "Information"
-    # -- Healthchecks to be enabled for startupProbe,
-    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
+    # -- Keycloak Healthcheck to be enabled for startupProbe;
+    # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
       startup:
-        tags: []
+        tags:
         # - name: "HEALTHCHECKS__0__TAGS__0"
         #   value: "keycloak"
-        # - name: "HEALTHCHECKS__0__TAGS__1"
-        #   value: "portaldb"
-        # - name: "HEALTHCHECKS__0__TAGS__2"
-        #   value: "provisioningdb"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
+        - name: "HEALTHCHECKS__0__TAGS__2"
+          value: "provisioningdb"
     companyData:
       useCaseParticipationMediaTypes:
         type0: "PDF"
@@ -424,15 +424,15 @@ backend:
     logging:
       default: "Information"
       offersLibrary: "Information"
-    # -- Healthchecks to be enabled for startupProbe,
-    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
+    # -- Keycloak Healthcheck to be enabled for startupProbe;
+    # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
       startup:
-        tags: []
+        tags:
         # - name: "HEALTHCHECKS__0__TAGS__0"
         #   value: "keycloak"
-        # - name: "HEALTHCHECKS__0__TAGS__1"
-        #   value: "portaldb"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
     appOverviewPath: "/appoverview"
     catenaAdminRoles:
       role0: "CX Admin"
@@ -576,15 +576,15 @@ backend:
       # requests:
       #   cpu: 250m
       #   memory: 256Mi
-    # -- Healthchecks to be enabled for startupProbe,
-    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
+    # -- Keycloak Healthcheck to be enabled for startupProbe;
+    # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
       startup:
-        tags: []
+        tags:
         # - name: "HEALTHCHECKS__0__TAGS__0"
         #   value: "keycloak"
-        # - name: "HEALTHCHECKS__0__TAGS__1"
-        #   value: "portaldb"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
     swaggerEnabled: false
     logging:
       default: "Information"
@@ -606,15 +606,15 @@ backend:
     logging:
       default: "Information"
       offersLibrary: "Information"
-    # -- Healthchecks to be enabled for startupProbe,
-    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
+    # -- Keycloak Healthcheck to be enabled for startupProbe;
+    # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
       startup:
-        tags: []
+        tags:
         # - name: "HEALTHCHECKS__0__TAGS__0"
         #   value: "keycloak"
-        # - name: "HEALTHCHECKS__0__TAGS__1"
-        #   value: "portaldb"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
     serviceMarketplacePath: "/servicemarketplace"
     catenaAdminRoles:
       role0: "CX Admin"

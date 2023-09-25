@@ -110,6 +110,8 @@ spec:
           value: "{{ .Values.backend.appmarketplace.approveAppUserRoles.role1 }}"
         - name: "APPMARKETPLACE__BASEPORTALADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
+        - name: "APPMARKETPLACE__ACTIVATIONPORTALADDRESS"
+          value: "{{ .Values.portalAddress }}"
         - name: "APPMARKETPLACE__USERMANAGEMENTADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.userManagementPath }}"
         - name: "APPMARKETPLACE__CATENAADMINROLES__0__CLIENTID"

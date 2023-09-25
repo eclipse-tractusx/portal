@@ -144,6 +144,8 @@ spec:
           value: "{{ .Values.backend.services.approveServiceUserRoles.role1 }}"
         - name: "SERVICES__BASEPORTALADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
+        - name: "SERVICES__ACTIVATIONPORTALADDRESS"
+          value: "{{ .Values.portalAddress }}"
         - name: "SERVICES__USERMANAGEMENTADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.userManagementPath }}"
         - name: "SERVICES__CATENAADMINROLES__0__CLIENTID"

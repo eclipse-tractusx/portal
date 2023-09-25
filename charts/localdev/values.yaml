@@ -29,7 +29,6 @@ portal:
   frontend:
     ingress:
       enabled: true
-      className: "nginx"
       annotations:
         cert-manager.io/cluster-issuer: "my-ca-issuer"
         nginx.ingress.kubernetes.io/rewrite-target: "/$1"
@@ -63,7 +62,6 @@ portal:
   backend:
     ingress:
       enabled: true
-      className: "nginx"
       name: "portal-backend"
       annotations:
         cert-manager.io/cluster-issuer: "my-ca-issuer"

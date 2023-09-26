@@ -19,11 +19,16 @@
 
 portal:
   enabled: true
+  # -- Set your local frontend to integrate into local development.
+  portalAddress: "https://portal.example.org"
+  # -- Set your local backend service to integrate into local development.
+  # Start port forwarding tunnel for database access, e.g.:
+  # 'kubectl port-forward service/portal-backend-postgresql-primary 5432:5432'
+  portalBackendAddress: "https://portal-backend.example.org"
   replicaCount: 1
   frontend:
     ingress:
       enabled: true
-      ingressClassName: "nginx"
       annotations:
         cert-manager.io/cluster-issuer: "my-ca-issuer"
         nginx.ingress.kubernetes.io/rewrite-target: "/$1"
@@ -40,31 +45,30 @@ portal:
         - host: "portal.example.org"
           paths:
             - path: "/(.*)"
-              pathType: "Prefix"
+              pathType: "ImplementationSpecific"
               backend:
                 service: "portal"
                 port: 8080
             - path: "/registration/(.*)"
-              pathType: "Prefix"
+              pathType: "ImplementationSpecific"
               backend:
                 service: "registration"
                 port: 8080
             - path: "/((assets|documentation)/.*)"
-              pathType: "Prefix"
+              pathType: "ImplementationSpecific"
               backend:
                 service: "assets"
                 port: 8080
   backend:
     ingress:
       enabled: true
-      ingressClassName: "nginx"
       name: "portal-backend"
       annotations:
         cert-manager.io/cluster-issuer: "my-ca-issuer"
         nginx.ingress.kubernetes.io/use-regex: "true"
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: "8m"
-        nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, https://*.example.org"
       tls:
         # -- Provide tls secret.
         - secretName: "portal-backend.example.org-tls"
@@ -131,6 +135,14 @@ portal:
           password: ""
           from: "smtp@example.org"
           replyTo: "smtp@example.org"
+  postgresql:
+    auth:
+      # -- Password for the root username 'postgres'. Secret-key 'postgres-password'.
+      password: ""
+      # -- Password for the non-root username 'portal'. Secret-key 'portal-password'.
+      portalPassword: ""
+      # -- Password for the non-root username 'provisioning'. Secret-key 'provisioning-password'.
+      provisioningPassword: ""
 
 centralidp:
   enabled: true

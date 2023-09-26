@@ -2,26 +2,53 @@
 
 ![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-This helm chart installs the CX Portal and the CX IAM Keycloak instances.
+This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-1.6.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-1.2.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-1.2.0/charts/sharedidp/README.md)).
 
-It's intended for the local setup of the those components in order to aid the local development.
+This chart also sets up a [pgadmin4](https://artifacthub.io/packages/helm/runix/pgadmin4) instance for easy access to the deployed Postgres databases which are only available from within the Kubernetes cluster.
 
-## Installation
+For detailed information about the default configuration values, please have a look at the [Values table](#values) and/or [Values file](./values.yaml).
 
-> **Note:**
-> In its current state of development, this chart as well as the following installation guide have been successfully tested on **Linux**.
-> We'll test its reliability on other platforms and update the installation guide accordingly.
+It's intended for the local setup of the those components in order to aid the local development. In order to integrate with the local development adapt the address values in the Values file for [Portal Frontend](./values.yaml#L23) and/or [Portal Backend](./values.yaml#L27).
 
-To install the helm chart into the default namespace of your started Minikube cluster, make sure to clone the [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository beforehand.
+## Usage
 
-Then change to the chart directory:
+The following steps describe how to setup the LocalDev chart into the default namespace of your started [**Minikube**](https://minikube.sigs.k8s.io/docs/start) cluster:
+
+> **Note**
+>
+> In its current state of development, this chart as well as the following installation guide have been tested on Linux and Mac.
+>
+> Please be aware that most of the installed images are only available in amd64 architecture and that the installation on Mac (specifically on Apple Silicon) may come with performance issues or even crashing behavior.
+>
+> **Linux** is the **preferred platform** to install this chart on.
+> Very generally speaking, amd64 architecture is quite common with Linux devices and also the network setup with Minikube is very straightforward on Linux.
+>
+> We plan to test the chart's reliability also on Windows and to update the installation guide accordingly.
+
+> **Recommendations**
+>
+> Resources for Minikube
+>| OS     | CPU(cores) | Memory(GB) |
+>| :------| :--------: | :--------: |
+>| Linux  |     2      |      6     |
+>| Mac    |     4      |      8     |
+>
+> Use the dashboard provided by Minikube to get an overview about the deployment on the cluster
+> ```bash
+> $ minikube dashboard
+> ```
+
+1. [Prepare self-signed TLS setup](#1-prepare-self-signed-tls-setup)
+2. [Prepare network setup](#2-prepare-network-setup)
+3. [Install from released chart or portal-cd repository](#3-install-from-released-chart-or-portal-cd-repository)
+4. [Perform first login](perform-first-login)
+
+### 1. Prepare self-signed TLS setup
 
 ```bash
-$ cd charts/localdev/
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
 ```
-
-Prepare the TLS setup:
-
 ```bash
 helm install \
   cert-manager jetstack/cert-manager \
@@ -29,17 +56,123 @@ helm install \
   --version v1.13.0 \
   --set installCRDs=true
 ```
+
 ```bash
-kubectl apply -f selfsigned.yaml
+kubectl apply -f - <<EOF
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: my-selfsigned-ca
+  namespace: default
+spec:
+  isCA: true
+  commonName: cx.local
+  secretName: root-secret
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+  subject:
+    organizations:
+      - CX
+    countries:
+      - DE
+    provinces:
+      - Some-State
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: my-ca-issuer
+spec:
+  ca:
+    secretName: root-secret
+EOF
+```
+See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsigned) for reference.
+
+### 2. Prepare network setup
+
+In order to enable the local access via ingress, use the according addon for Minikube:
+
+```bash
+$ minikube addons enable ingress
 ```
 
+Make sure that the DNS resolution for the hostnames is in place:
+
+```bash
+$ minikube addons enable ingress-dns
+```
+And execute installation step [3 Add the `minikube ip` as a DNS server](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns) for your OS:
+
+```
+domain example.org
+nameserver 192.168.49.2
+search_order 1
+timeout 5
+```
+Replace 192.168.49.2 with your minikube ip.
+
+To find out the IP address of your Minikube:
+
+```bash
+$ minikube ip
+```
+
+Additional network setup for Mac only:
+
+Install and start [Docker Mac Net Connect](https://github.com/chipmk/docker-mac-net-connect#installation).
+
+We also recommend to execute the usage example after install to check proper setup.
+
+If you're having issues with getting 'Docker Mac Net Connect' to work, we recommend to check out this issue: [#21](https://github.com/chipmk/docker-mac-net-connect/issues/21).
+
+The tool is necessary due to [#7332](https://github.com/kubernetes/minikube/issues/7332).
+
+### 3. Install from released chart or [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository
+
+#### From the released chart
+
+Install the chart with the release name 'local':
+
+```bash
+$ helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
+$ helm install local tractusx-dev/localdev-portal-iam
+```
+
+To set your own configuration and secret values, install the helm chart with your own values file:
+
+```bash
+$ helm install -f your-values.yaml local tractusx-dev/localdev-portal-iam
+```
+
+#### From [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository:
+
+Make sure to clone the [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository beforehand.
+
+Then change to the chart directory:
+
+```bash
+$ cd charts/localdev/
+```
 Download the chart dependencies:
 
 ```bash
 $ helm dependency update
 ```
 
-And install the chart:
+Install the chart with the release name 'local':
 
 ```bash
 $ helm install local .
@@ -50,21 +183,19 @@ To set your own configuration and secret values, install the helm chart with you
 ```bash
 $ helm install local -f your-values.yaml .
 ```
-In order to enable the local access via ingress, enable the according addon for Minikube:
 
-```bash
-$ minikube addons enable ingress
-```
+### 4. Perform first login
 
-And adjust your local hosts file so that the chosen hostnames resolve to the IP address of your Minikube.
+Make sure to accept the risk of the self-signed certificates for the following hosts using the continue option:
+- [centralidp.example.org](https://centralidp.example.org)
+- [sharedidp.example.org](https://sharedidp.example.org)
+- [portal-backend.example.org](https://portal-backend.example.org)
+- [portal.example.org](https://portal.example.org)
+- [pgadmin4.example.org](https://pdadmin.example.org)
 
-To find out the IP address of your Minikube:
+Then proceed with the login to [portal.example.org](https://portal.example.org).
 
-```bash
-$ minikube ip
-```
-
-Credentials to log into the initial example realm:
+Credentials to log into the initial example realm (CX-Operator):
 
 ```
 cx-operator@cx.com
@@ -72,12 +203,6 @@ cx-operator@cx.com
 
 ```
 7XSXRwYLAm5kU2H
-```
-
-To easily get an overview of the deployment state of the applications running on your cluster:
-
-```bash
-$ minikube dashboard
 ```
 
 ## Requirements
@@ -94,37 +219,39 @@ $ minikube dashboard
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | portal.enabled | bool | `true` |  |
+| portal.portalAddress | string | `"https://portal.example.org"` | Set your local frontend to integrate into local development. |
+| portal.portalBackendAddress | string | `"https://portal-backend.example.org"` | Set your local backend service to integrate into local development. Start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/portal-backend-postgresql-primary 5432:5432' |
 | portal.replicaCount | int | `1` |  |
 | portal.frontend.ingress.enabled | bool | `true` |  |
-| portal.frontend.ingress.ingressClassName | string | `"nginx"` |  |
+| portal.frontend.ingress.className | string | `"nginx"` |  |
 | portal.frontend.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"my-ca-issuer"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
-| portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"https://*.example.org"` |  |
+| portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"http://localhost:5000, https://*.example.org"` |  |
 | portal.frontend.ingress.tls[0] | object | `{"hosts":["portal.example.org"],"secretName":"portal.example.org-tls"}` | Provide tls secret. |
 | portal.frontend.ingress.tls[0].hosts | list | `["portal.example.org"]` | Provide host for tls secret. |
 | portal.frontend.ingress.hosts[0].host | string | `"portal.example.org"` |  |
 | portal.frontend.ingress.hosts[0].paths[0].path | string | `"/(.*)"` |  |
-| portal.frontend.ingress.hosts[0].paths[0].pathType | string | `"Prefix"` |  |
+| portal.frontend.ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | portal.frontend.ingress.hosts[0].paths[0].backend.service | string | `"portal"` |  |
 | portal.frontend.ingress.hosts[0].paths[0].backend.port | int | `8080` |  |
 | portal.frontend.ingress.hosts[0].paths[1].path | string | `"/registration/(.*)"` |  |
-| portal.frontend.ingress.hosts[0].paths[1].pathType | string | `"Prefix"` |  |
+| portal.frontend.ingress.hosts[0].paths[1].pathType | string | `"ImplementationSpecific"` |  |
 | portal.frontend.ingress.hosts[0].paths[1].backend.service | string | `"registration"` |  |
 | portal.frontend.ingress.hosts[0].paths[1].backend.port | int | `8080` |  |
 | portal.frontend.ingress.hosts[0].paths[2].path | string | `"/((assets|documentation)/.*)"` |  |
-| portal.frontend.ingress.hosts[0].paths[2].pathType | string | `"Prefix"` |  |
+| portal.frontend.ingress.hosts[0].paths[2].pathType | string | `"ImplementationSpecific"` |  |
 | portal.frontend.ingress.hosts[0].paths[2].backend.service | string | `"assets"` |  |
 | portal.frontend.ingress.hosts[0].paths[2].backend.port | int | `8080` |  |
 | portal.backend.ingress.enabled | bool | `true` |  |
-| portal.backend.ingress.ingressClassName | string | `"nginx"` |  |
+| portal.backend.ingress.className | string | `"nginx"` |  |
 | portal.backend.ingress.name | string | `"portal-backend"` |  |
 | portal.backend.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"my-ca-issuer"` |  |
 | portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/proxy-body-size" | string | `"8m"` |  |
-| portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"https://*.example.org"` |  |
+| portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"http://localhost:5000, https://*.example.org"` |  |
 | portal.backend.ingress.tls[0] | object | `{"hosts":["portal-backend.example.org"],"secretName":"portal-backend.example.org-tls"}` | Provide tls secret. |
 | portal.backend.ingress.tls[0].hosts | list | `["portal-backend.example.org"]` | Provide host for tls secret. |
 | portal.backend.ingress.hosts[0].host | string | `"portal-backend.example.org"` |  |
@@ -169,6 +296,9 @@ $ minikube dashboard
 | portal.backend.provisioning.sharedRealm.smtpServer.password | string | `""` |  |
 | portal.backend.provisioning.sharedRealm.smtpServer.from | string | `"smtp@example.org"` |  |
 | portal.backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` |  |
+| portal.postgresql.auth.password | string | `""` | Password for the root username 'postgres'. Secret-key 'postgres-password'. |
+| portal.postgresql.auth.portalPassword | string | `""` | Password for the non-root username 'portal'. Secret-key 'portal-password'. |
+| portal.postgresql.auth.provisioningPassword | string | `""` | Password for the non-root username 'provisioning'. Secret-key 'provisioning-password'. |
 | centralidp.enabled | bool | `true` |  |
 | centralidp.keycloak.nameOverride | string | `"centralidp"` |  |
 | centralidp.keycloak.replicaCount | int | `1` |  |

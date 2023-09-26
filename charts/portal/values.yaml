@@ -134,7 +134,8 @@ frontend:
       #   cpu: 100m
       #   memory: 128Mi
     path: "/assets"
-  bpdmPartnersPoolApiPath: "/api"
+  centralidpAuthPath: "/auth"
+  bpdmPartnersPoolApiPath: "/pool/api"
 
 backend:
   ingress:

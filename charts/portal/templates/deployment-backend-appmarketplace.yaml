@@ -196,7 +196,7 @@ spec:
           value: "{{ .Values.backend.clients.portal }}"
         - name: "APPMARKETPLACE__SERVICEMANAGERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.serviceManagerRoles.role0 }}"
-        - name: "SERVICES__SUBSCRIPTIONMANAGERROLES__0__CLIENTID"
+        - name: "APPMARKETPLACE__SUBSCRIPTIONMANAGERROLES__0__CLIENTID"
           value: "{{ .Values.backend.clients.portal }}"
         - name: "APPMARKETPLACE__SUBSCRIPTIONMANAGERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.subscriptionManagerRoles.role0 }}"

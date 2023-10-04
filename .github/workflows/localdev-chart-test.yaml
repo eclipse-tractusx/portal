@@ -136,6 +136,7 @@ jobs:
       - name: Run helm install
         run: |
           helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
+          helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add pgadmin4 https://helm.runix.net
           helm install local charts/localdev
         if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'

@@ -562,7 +562,7 @@ backend:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: 29dbdeb9a8b3e809fdab2406140a226bc55de844
+      notificationservicetag: 06b60bf2c2aa90a1a19f99e811f8ccf964e318e0
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

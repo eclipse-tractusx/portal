@@ -188,7 +188,7 @@ Make sure to accept the risk of the self-signed certificates for the following h
 - [sharedidp.example.org/auth](https://sharedidp.example.org/auth/)
 - [portal-backend.example.org](https://portal-backend.example.org)
 - [portal.example.org](https://portal.example.org/)
-- [pgadmin4.example.org](https://pdadmin.example.org/)
+- [pgadmin4.example.org](https://pgadmin4.example.org/)
 
 Then proceed with the login to [portal.example.org](https://portal.example.org).
 
@@ -206,7 +206,7 @@ cx-operator@cx.com
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 11.9.13 |
+| https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
 | https://eclipse-tractusx.github.io/charts/dev | centralidp | 1.2.0 |
 | https://eclipse-tractusx.github.io/charts/dev | portal | 1.6.0 |
 | https://eclipse-tractusx.github.io/charts/dev | sharedidp | 1.2.0 |
@@ -216,7 +216,7 @@ cx-operator@cx.com
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| portal.enabled | bool | `false` |  |
+| portal.enabled | bool | `true` |  |
 | portal.portalAddress | string | `"https://portal.example.org"` | Set your local frontend to integrate into local development. |
 | portal.portalBackendAddress | string | `"https://portal-backend.example.org"` | Set your local backend service to integrate into local development. Start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/portal-backend-postgresql-primary 5432:5432' |
 | portal.replicaCount | int | `1` |  |
@@ -295,7 +295,7 @@ cx-operator@cx.com
 | portal.postgresql.auth.password | string | `""` | Password for the root username 'postgres'. Secret-key 'postgres-password'. |
 | portal.postgresql.auth.portalPassword | string | `""` | Password for the non-root username 'portal'. Secret-key 'portal-password'. |
 | portal.postgresql.auth.provisioningPassword | string | `""` | Password for the non-root username 'provisioning'. Secret-key 'provisioning-password'. |
-| centralidp.enabled | bool | `false` |  |
+| centralidp.enabled | bool | `true` |  |
 | centralidp.keycloak.nameOverride | string | `"centralidp"` |  |
 | centralidp.keycloak.replicaCount | int | `1` |  |
 | centralidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_ENABLE_TLS"` |  |
@@ -375,7 +375,7 @@ cx-operator@cx.com
 | centralidp.secrets.auth.tls.keystore | string | `""` |  |
 | centralidp.secrets.auth.tls.truststore | string | `""` |  |
 | centralidp.secrets.postgresql.auth.existingSecret.password | string | `""` | Password for the user 'kccentral' |
-| sharedidp.enabled | bool | `false` |  |
+| sharedidp.enabled | bool | `true` |  |
 | sharedidp.keycloak.nameOverride | string | `"sharedidp"` |  |
 | sharedidp.keycloak.replicaCount | int | `1` |  |
 | sharedidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_ENABLE_TLS"` |  |
@@ -466,26 +466,26 @@ cx-operator@cx.com
 | sharedidp.secrets.auth.existingSecret.adminpassword | string | `""` | Password for the admin username 'admin'. Secret-key 'admin-password'. |
 | sharedidp.secrets.auth.tls.keystore | string | `""` |  |
 | sharedidp.secrets.auth.tls.truststore | string | `""` |  |
-| postgresql.enabled | bool | `true` | Additional PostgreSQL for backend development; start port forwarding tunnel for database access, e.g.: 'kubectl port-forward local-portal-postgresql-primary-0 5432:5432' |
-| postgresql.nameOverride | string | `"portal-postgresql"` |  |
-| postgresql.auth.database | string | `"postgres"` |  |
-| postgresql.auth.port | int | `5432` |  |
-| postgresql.auth.existingSecret | string | `"secret-postgres-init-localdev"` |  |
-| postgresql.auth.password | string | `""` |  |
-| postgresql.auth.replicationPassword | string | `""` |  |
-| postgresql.auth.portalUser | string | `"portal"` |  |
-| postgresql.auth.provisioningUser | string | `"provisioning"` |  |
-| postgresql.auth.provisioningPassword | string | `""` |  |
-| postgresql.architecture | string | `"replication"` |  |
-| postgresql.audit.pgAuditLog | string | `"write, ddl"` |  |
-| postgresql.audit.logLinePrefix | string | `"%m %u %d "` |  |
-| postgresql.primary.initdb.scriptsConfigMap | string | `"configmap-postgres-init-localdev"` |  |
-| postgresql.primary.extraEnvVars[0].name | string | `"PORTAL_PASSWORD"` |  |
-| postgresql.primary.extraEnvVars[0].valueFrom.secretKeyRef.name | string | `"{{ .Values.auth.existingSecret }}"` |  |
-| postgresql.primary.extraEnvVars[0].valueFrom.secretKeyRef.key | string | `"portal-password"` |  |
-| postgresql.primary.extraEnvVars[1].name | string | `"PROVISIONING_PASSWORD"` |  |
-| postgresql.primary.extraEnvVars[1].valueFrom.secretKeyRef.name | string | `"{{ .Values.auth.existingSecret }}"` |  |
-| postgresql.primary.extraEnvVars[1].valueFrom.secretKeyRef.key | string | `"provisioning-password"` |  |
+| postgresportal.enabled | bool | `true` | Additional PostgreSQL for backend development; start port forwarding tunnel for database access, e.g.: 'kubectl port-forward local-portal-postgresql-primary-0 5432:5432' |
+| postgresportal.nameOverride | string | `"portal-postgresql"` |  |
+| postgresportal.auth.database | string | `"postgres"` |  |
+| postgresportal.auth.port | int | `5432` |  |
+| postgresportal.auth.existingSecret | string | `"secret-postgres-init-localdev"` |  |
+| postgresportal.auth.password | string | `""` |  |
+| postgresportal.auth.replicationPassword | string | `""` |  |
+| postgresportal.auth.portalUser | string | `"portal"` |  |
+| postgresportal.auth.provisioningUser | string | `"provisioning"` |  |
+| postgresportal.auth.provisioningPassword | string | `""` |  |
+| postgresportal.architecture | string | `"replication"` |  |
+| postgresportal.audit.pgAuditLog | string | `"write, ddl"` |  |
+| postgresportal.audit.logLinePrefix | string | `"%m %u %d "` |  |
+| postgresportal.primary.initdb.scriptsConfigMap | string | `"configmap-postgres-init-localdev"` |  |
+| postgresportal.primary.extraEnvVars[0].name | string | `"PORTAL_PASSWORD"` |  |
+| postgresportal.primary.extraEnvVars[0].valueFrom.secretKeyRef.name | string | `"{{ .Values.auth.existingSecret }}"` |  |
+| postgresportal.primary.extraEnvVars[0].valueFrom.secretKeyRef.key | string | `"portal-password"` |  |
+| postgresportal.primary.extraEnvVars[1].name | string | `"PROVISIONING_PASSWORD"` |  |
+| postgresportal.primary.extraEnvVars[1].valueFrom.secretKeyRef.name | string | `"{{ .Values.auth.existingSecret }}"` |  |
+| postgresportal.primary.extraEnvVars[1].valueFrom.secretKeyRef.key | string | `"provisioning-password"` |  |
 | pgadmin4.enabled | bool | `true` |  |
 | pgadmin4.env.email | string | `"local@example.org"` |  |
 | pgadmin4.ingress.enabled | bool | `true` |  |

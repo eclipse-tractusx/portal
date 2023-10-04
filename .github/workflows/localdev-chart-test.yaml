@@ -138,7 +138,7 @@ jobs:
           helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add pgadmin4 https://helm.runix.net
-          helm install local charts/localdev
+          helm install local charts/localdev --timeout 10m
         if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'
 
       #   # Upgrade the released localdev chart version with the locally available chart

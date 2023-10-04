@@ -401,7 +401,7 @@ sharedidp:
         keystore: ""
         truststore: ""
 
-postgresql:
+postgresportal:
 # -- Additional PostgreSQL for backend development;
   # start port forwarding tunnel for database access, e.g.:
   # 'kubectl port-forward local-portal-postgresql-primary-0 5432:5432'

@@ -4,11 +4,11 @@
 
 This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-1.6.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-1.2.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-1.2.0/charts/sharedidp/README.md)).
 
-This chart also sets up a [pgadmin4](https://artifacthub.io/packages/helm/runix/pgadmin4) instance for easy access to the deployed Postgres databases which are only available from within the Kubernetes cluster.
+It's intended for the local setup of the those components in order to aid the local development. In order to integrate with the local development adapt the address values in the Values file for [Portal Frontend](./values.yaml#L23) and/or [Portal Backend](./values.yaml#L27).
+
+This chart also sets up an additional [postgresql](https://artifacthub.io/packages/helm/bitnami/postgresql) instance to support the Portal Backend development as well as a [pgadmin4](https://artifacthub.io/packages/helm/runix/pgadmin4) instance for easy access to the deployed Postgres databases which are only available from within the Kubernetes cluster.
 
 For detailed information about the default configuration values, please have a look at the [Values table](#values) and/or [Values file](./values.yaml).
-
-It's intended for the local setup of the those components in order to aid the local development. In order to integrate with the local development adapt the address values in the Values file for [Portal Frontend](./values.yaml#L23) and/or [Portal Backend](./values.yaml#L27).
 
 ## Usage
 
@@ -206,6 +206,7 @@ cx-operator@cx.com
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.bitnami.com/bitnami | postgresql | 11.9.13 |
 | https://eclipse-tractusx.github.io/charts/dev | centralidp | 1.2.0 |
 | https://eclipse-tractusx.github.io/charts/dev | portal | 1.6.0 |
 | https://eclipse-tractusx.github.io/charts/dev | sharedidp | 1.2.0 |
@@ -215,7 +216,7 @@ cx-operator@cx.com
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| portal.enabled | bool | `true` |  |
+| portal.enabled | bool | `false` |  |
 | portal.portalAddress | string | `"https://portal.example.org"` | Set your local frontend to integrate into local development. |
 | portal.portalBackendAddress | string | `"https://portal-backend.example.org"` | Set your local backend service to integrate into local development. Start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/portal-backend-postgresql-primary 5432:5432' |
 | portal.replicaCount | int | `1` |  |
@@ -294,7 +295,7 @@ cx-operator@cx.com
 | portal.postgresql.auth.password | string | `""` | Password for the root username 'postgres'. Secret-key 'postgres-password'. |
 | portal.postgresql.auth.portalPassword | string | `""` | Password for the non-root username 'portal'. Secret-key 'portal-password'. |
 | portal.postgresql.auth.provisioningPassword | string | `""` | Password for the non-root username 'provisioning'. Secret-key 'provisioning-password'. |
-| centralidp.enabled | bool | `true` |  |
+| centralidp.enabled | bool | `false` |  |
 | centralidp.keycloak.nameOverride | string | `"centralidp"` |  |
 | centralidp.keycloak.replicaCount | int | `1` |  |
 | centralidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_ENABLE_TLS"` |  |
@@ -374,7 +375,7 @@ cx-operator@cx.com
 | centralidp.secrets.auth.tls.keystore | string | `""` |  |
 | centralidp.secrets.auth.tls.truststore | string | `""` |  |
 | centralidp.secrets.postgresql.auth.existingSecret.password | string | `""` | Password for the user 'kccentral' |
-| sharedidp.enabled | bool | `true` |  |
+| sharedidp.enabled | bool | `false` |  |
 | sharedidp.keycloak.nameOverride | string | `"sharedidp"` |  |
 | sharedidp.keycloak.replicaCount | int | `1` |  |
 | sharedidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_ENABLE_TLS"` |  |
@@ -465,6 +466,26 @@ cx-operator@cx.com
 | sharedidp.secrets.auth.existingSecret.adminpassword | string | `""` | Password for the admin username 'admin'. Secret-key 'admin-password'. |
 | sharedidp.secrets.auth.tls.keystore | string | `""` |  |
 | sharedidp.secrets.auth.tls.truststore | string | `""` |  |
+| postgresql.enabled | bool | `true` | Additional PostgreSQL for backend development; start port forwarding tunnel for database access, e.g.: 'kubectl port-forward local-portal-postgresql-primary-0 5432:5432' |
+| postgresql.nameOverride | string | `"portal-postgresql"` |  |
+| postgresql.auth.database | string | `"postgres"` |  |
+| postgresql.auth.port | int | `5432` |  |
+| postgresql.auth.existingSecret | string | `"secret-postgres-init-localdev"` |  |
+| postgresql.auth.password | string | `""` |  |
+| postgresql.auth.replicationPassword | string | `""` |  |
+| postgresql.auth.portalUser | string | `"portal"` |  |
+| postgresql.auth.provisioningUser | string | `"provisioning"` |  |
+| postgresql.auth.provisioningPassword | string | `""` |  |
+| postgresql.architecture | string | `"replication"` |  |
+| postgresql.audit.pgAuditLog | string | `"write, ddl"` |  |
+| postgresql.audit.logLinePrefix | string | `"%m %u %d "` |  |
+| postgresql.primary.initdb.scriptsConfigMap | string | `"configmap-postgres-init-localdev"` |  |
+| postgresql.primary.extraEnvVars[0].name | string | `"PORTAL_PASSWORD"` |  |
+| postgresql.primary.extraEnvVars[0].valueFrom.secretKeyRef.name | string | `"{{ .Values.auth.existingSecret }}"` |  |
+| postgresql.primary.extraEnvVars[0].valueFrom.secretKeyRef.key | string | `"portal-password"` |  |
+| postgresql.primary.extraEnvVars[1].name | string | `"PROVISIONING_PASSWORD"` |  |
+| postgresql.primary.extraEnvVars[1].valueFrom.secretKeyRef.name | string | `"{{ .Values.auth.existingSecret }}"` |  |
+| postgresql.primary.extraEnvVars[1].valueFrom.secretKeyRef.key | string | `"provisioning-password"` |  |
 | pgadmin4.enabled | bool | `true` |  |
 | pgadmin4.env.email | string | `"local@example.org"` |  |
 | pgadmin4.ingress.enabled | bool | `true` |  |

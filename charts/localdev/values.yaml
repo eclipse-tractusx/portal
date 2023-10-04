@@ -401,6 +401,40 @@ sharedidp:
         keystore: ""
         truststore: ""
 
+postgresql:
+# -- Additional PostgreSQL for backend development;
+  # start port forwarding tunnel for database access, e.g.:
+  # 'kubectl port-forward local-portal-postgresql-primary-0 5432:5432'
+  enabled: true
+  nameOverride: "portal-postgresql"
+  auth:
+    database: "postgres"
+    port: 5432
+    existingSecret: "secret-postgres-init-localdev"
+    password: ""
+    replicationPassword: ""
+    portalUser: "portal"
+    provisioningUser: "provisioning"
+    provisioningPassword: ""
+  architecture: "replication"
+  audit:
+    pgAuditLog: "write, ddl"
+    logLinePrefix: "%m %u %d "
+  primary:
+    initdb:
+      scriptsConfigMap: "configmap-postgres-init-localdev"
+    extraEnvVars:
+      - name: "PORTAL_PASSWORD"
+        valueFrom:
+          secretKeyRef:
+            name: "{{ .Values.auth.existingSecret }}"
+            key: "portal-password"
+      - name: "PROVISIONING_PASSWORD"
+        valueFrom:
+          secretKeyRef:
+            name: "{{ .Values.auth.existingSecret }}"
+            key: "provisioning-password"
+
 pgadmin4:
   enabled: true
 #   secret:

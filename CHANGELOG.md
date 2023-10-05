@@ -2,6 +2,34 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+
+## 1.7.0-alpha
+
+### Change
+
+* changed to new container images
+  * portal-assets: v1.6.1
+  * portal-frontend: v1.7.0-alpha
+  * portal-frontend-registration: v1.5.1
+  * portal-backend: v1.7.0-alpha
+* remove deprecated ingress annotation 'kubernetes.io/ingress.class' and changed to ingress.ClassName
+
+* portal-backend:
+  * enabled and/or extended config in particular for network2network (N2N) and onboarding service provider (OSP)
+  * updated bpdm api path
+  * enabled config of DOTNET_ENVIRONMENT
+  * enabled config of JWTBEAREROPTIONS_REQUIREHTTPSMETADATA
+  * set database healthchecks in default values file
+
+### Bugfix
+
+* fixed escaping of secret values: quotes added
+
+### Technical Support
+
+* updated k8s version and version to upgrade from for helm test workflow
+* updated Security.md
+
 ## 1.6.0
 
 ### Change

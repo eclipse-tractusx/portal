@@ -1,22 +1,22 @@
 # Helm chart for Catena-X Portal
 
-![Version: 1.6.0](https://img.shields.io/badge/Version-1.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.6.0](https://img.shields.io/badge/AppVersion-1.6.0-informational?style=flat-square)
+![Version: 1.7.0-alpha](https://img.shields.io/badge/Version-1.7.0--alpha-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.7.0-alpha](https://img.shields.io/badge/AppVersion-1.7.0--alpha-informational?style=flat-square)
 
 This helm chart installs the Catena-X Portal application which consists of
 
-* [portal-frontend (v1.6.0)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.6.0),
-* [portal-frontend-registration (v1.5.0)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.5.0),
-* [portal-assets (v1.6.0)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.0) and
-* [portal-backend (v1.6.0)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.6.0).
+* [portal-frontend (v1.7.0-alpha)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.7.0-alpha),
+* [portal-frontend-registration (v1.5.1)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.5.1),
+* [portal-assets (v1.6.1)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.1) and
+* [portal-backend (v1.7.0-alpha)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.7.0-alpha).
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
 This version is compatible with the 1.2.0 version of the IAM instances:
 * [Central Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-1.2.0/charts/centralidp/README.md)
 * [Shared Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-1.2.0/charts/sharedidp/README.md)
 
-For information on how to upgrade from previous versions please refer to [Version Upgrade](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.0/developer/Technical%20Documentation/Version%20Upgrade/portal-upgrade-details.md).
+For information on how to upgrade from previous versions please refer to [Version Upgrade](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.1/developer/Technical%20Documentation/Version%20Upgrade/portal-upgrade-details.md).
 
-For further information please refer to [Technical Documentation](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.0/developer/Technical%20Documentation).
+For further information please refer to [Technical Documentation](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.1/developer/Technical%20Documentation).
 
 The referenced container images are for demonstration purposes only.
 
@@ -41,7 +41,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.6.0
+    version: 1.7.0-alpha
 ```
 
 ## Requirements
@@ -67,31 +67,32 @@ dependencies:
 | clearinghouseAddress | string | `"https://validation.example.org"` | Provide clearinghouse base address. |
 | clearinghouseTokenAddress | string | `"https://keycloak.example.org/realms/example/protocol/openid-connect/token"` | Provide clearinghouse token address. |
 | frontend.ingress.enabled | bool | `false` | Portal frontend ingress parameters, enable ingress record generation for portal frontend. |
-| frontend.ingress.ingressClassName | string | `"nginx"` |  |
+| frontend.ingress.className | string | `"nginx"` |  |
 | frontend.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | frontend.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | frontend.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | frontend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"https://*.example.org"` | Provide CORS allowed origin. |
 | frontend.ingress.tls[0] | object | `{"hosts":[""],"secretName":""}` | Provide tls secret. |
 | frontend.ingress.tls[0].hosts | list | `[""]` | Provide host for tls secret. |
-| frontend.ingress.hosts[0] | object | `{"host":"portal.example.org","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assetsORdocumentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
+| frontend.ingress.hosts[0] | object | `{"host":"portal.example.org","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assets|documentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"tractusx/portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v1.6.0"` |  |
+| frontend.portal.image.portaltag | string | `"v1.7.0-alpha"` |  |
 | frontend.portal.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"v1.5.0"` |  |
+| frontend.registration.image.registrationtag | string | `"v1.5.1"` |  |
 | frontend.registration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | frontend.assets.name | string | `"assets"` |  |
 | frontend.assets.image.name | string | `"tractusx/portal-assets"` |  |
-| frontend.assets.image.assetstag | string | `"v1.6.0"` |  |
+| frontend.assets.image.assetstag | string | `"v1.6.1"` |  |
 | frontend.assets.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | frontend.assets.path | string | `"/assets"` |  |
 | frontend.centralidpAuthPath | string | `"/auth"` |  |
-| frontend.bpdmPartnersPoolApiPath | string | `"/api"` |  |
+| frontend.bpdmPartnersPoolApiPath | string | `"/pool/api"` |  |
 | backend.ingress.enabled | bool | `false` | Portal-backend ingress parameters, enable ingress record generation for portal-backend. |
 | backend.ingress.name | string | `"portal-backend"` |  |
+| backend.ingress.className | string | `"nginx"` |  |
 | backend.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | backend.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | backend.ingress.annotations."nginx.ingress.kubernetes.io/proxy-body-size" | string | `"8m"` |  |
@@ -122,26 +123,28 @@ dependencies:
 | backend.keycloak.central.dbConnection.password | string | `""` | Password for the kccentral username. Secret-key 'central-db-password'. |
 | backend.keycloak.central.dbConnection.schema | string | `"public"` |  |
 | backend.keycloak.central.dbConnection.sslMode | string | `"Disable"` |  |
+| backend.keycloak.central.useAuthTrail | bool | `true` | Flag if the api should be used with an leading /auth path |
 | backend.keycloak.shared.clientId | string | `"shared-client-id"` | Provide sharedidp client-id from CX IAM sharedidp. |
 | backend.keycloak.shared.clientSecret | string | `""` | Client-secret for sharedidp client-id. Secret-key 'shared-client-secret'. |
 | backend.keycloak.shared.authRealm | string | `"master"` |  |
+| backend.keycloak.shared.useAuthTrail | bool | `true` | Flag if the api should be used with an leading /auth path |
 | backend.mailing.secret | string | `"secret-backend-mailing"` | Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm. |
 | backend.mailing.host | string | `"smtp.example.org"` | Provide host. |
 | backend.mailing.port | string | `"587"` | Provide port. |
 | backend.mailing.user | string | `"smtp-user"` | Provide user. |
 | backend.mailing.password | string | `""` | Password for the smtp username. Secret-key 'password'. |
-| backend.interfaces.secret | string | `"secret-backend-interfaces"` | Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse and offer provider. |
+| backend.interfaces.secret | string | `"secret-backend-interfaces"` | Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse, offer provider and onboarding service provider. |
 | backend.healthChecks.startup.path | string | `"/health/startup"` |  |
 | backend.healthChecks.liveness.path | string | `"/healthz"` |  |
 | backend.healthChecks.readyness.path | string | `"/ready"` |  |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"tractusx/portal-registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v1.6.0"` |  |
+| backend.registration.image.registrationservicetag | string | `"v1.7.0-alpha"` |  |
 | backend.registration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.registration.logging.bpdmLibrary | string | `"Information"` |  |
 | backend.registration.logging.registrationService | string | `"Information"` |  |
 | backend.registration.logging.default | string | `"Information"` |  |
-| backend.registration.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
+| backend.registration.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.registration.portalRegistrationPath | string | `"/registration"` |  |
 | backend.registration.keycloakClientId | string | `"Cl1-CX-Registration"` |  |
 | backend.registration.applicationStatusIds.status0 | string | `"SUBMITTED"` |  |
@@ -154,14 +157,14 @@ dependencies:
 | backend.registration.submitDocumentTypeIds.type0 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"tractusx/portal-administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v1.6.0"` |  |
+| backend.administration.image.administrationservicetag | string | `"v1.7.0-alpha"` |  |
 | backend.administration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.administration.logging.businessLogic | string | `"Information"` |  |
 | backend.administration.logging.sdfactoryLibrary | string | `"Information"` |  |
 | backend.administration.logging.bpdmLibrary | string | `"Information"` |  |
 | backend.administration.logging.custodianLibrary | string | `"Information"` |  |
 | backend.administration.logging.default | string | `"Information"` |  |
-| backend.administration.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
+| backend.administration.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"},{"name":"HEALTHCHECKS__0__TAGS__2","value":"provisioningdb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.administration.companyData.useCaseParticipationMediaTypes.type0 | string | `"PDF"` |  |
 | backend.administration.companyData.ssiCertificateMediaTypes.type0 | string | `"PDF"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type0 | string | `"application/x-pem-file"` |  |
@@ -191,6 +194,7 @@ dependencies:
 | backend.administration.serviceAccount.clientId | string | `"technical_roles_management"` |  |
 | backend.administration.swaggerEnabled | bool | `false` |  |
 | backend.administration.frameDocumentTypeIds.type0 | string | `"CX_FRAME_CONTRACT"` |  |
+| backend.administration.onboardingServiceProvider.encryptionKey | string | `""` | Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key'. |
 | backend.provisioning.centralRealm | string | `"CX-Central"` |  |
 | backend.provisioning.centralRealmId | string | `"CX-Central"` |  |
 | backend.provisioning.invitedUserInitialRoles.registration | string | `"Company Admin"` |  |
@@ -208,20 +212,24 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"tractusx/portal-marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.6.0"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.7.0-alpha"` |  |
 | backend.appmarketplace.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.appmarketplace.logging.default | string | `"Information"` |  |
 | backend.appmarketplace.logging.offersLibrary | string | `"Information"` |  |
-| backend.appmarketplace.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
+| backend.appmarketplace.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.appmarketplace.appOverviewPath | string | `"/appoverview"` |  |
 | backend.appmarketplace.catenaAdminRoles.role0 | string | `"CX Admin"` |  |
 | backend.appmarketplace.serviceAccountRoles.role0 | string | `"App Tech User"` |  |
 | backend.appmarketplace.salesManagerRoles.role0 | string | `"Sales Manager"` |  |
 | backend.appmarketplace.serviceManagerRoles.role0 | string | `"App Manager"` |  |
+| backend.appmarketplace.subscriptionManagerRoles.role0 | string | `"App Manager"` |  |
+| backend.appmarketplace.subscriptionManagerRoles.role1 | string | `"Sales Manager"` |  |
 | backend.appmarketplace.activeAppCompanyAdminRoles.role0 | string | `"IT Admin"` |  |
 | backend.appmarketplace.activeAppCompanyAdminRoles.role1 | string | `"Company Admin"` |  |
 | backend.appmarketplace.approveAppUserRoles.role0 | string | `"Sales Manager"` |  |
 | backend.appmarketplace.approveAppUserRoles.role1 | string | `"Service Manager"` |  |
+| backend.appmarketplace.activationUserRoles.role0 | string | `"Sales Manager"` |  |
+| backend.appmarketplace.activationUserRoles.role1 | string | `"App Manager"` |  |
 | backend.appmarketplace.ITAdminRoles.role0 | string | `"IT Admin"` |  |
 | backend.appmarketplace.uploadAppDocumentTypeIds.documentTypeId0 | string | `"APP_TECHNICAL_INFORMATION"` |  |
 | backend.appmarketplace.uploadAppDocumentTypeIds.mediaTypeIds0.mediaTypeId0 | string | `"PDF"` |  |
@@ -265,7 +273,7 @@ dependencies:
 | backend.appmarketplace.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"tractusx/portal-portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v1.6.0"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v1.7.0-alpha"` |  |
 | backend.portalmigrations.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmigrations.seeding.testDataPaths | string | `"Seeder/Data"` | when changing the testDataPath the processIdentity needs to be adjusted as well, or it must be ensured that the identity is existing within the files under the new path |
@@ -276,7 +284,7 @@ dependencies:
 | backend.portalmigrations.logging.default | string | `"Information"` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"tractusx/portal-maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.6.0"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.7.0-alpha"` |  |
 | backend.portalmaintenance.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.portalmaintenance.processIdentity.userEntityId | string | `"090c9121-7380-4bb0-bb10-fffd344f930a"` |  |
 | backend.portalmaintenance.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
@@ -285,25 +293,29 @@ dependencies:
 | backend.portalmaintenance.logging.default | string | `"Information"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"tractusx/portal-notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v1.6.0"` |  |
+| backend.notification.image.notificationservicetag | string | `"v1.7.0-alpha"` |  |
 | backend.notification.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
-| backend.notification.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
+| backend.notification.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.notification.swaggerEnabled | bool | `false` |  |
 | backend.notification.logging.default | string | `"Information"` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"tractusx/portal-services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v1.6.0"` |  |
+| backend.services.image.servicesservicetag | string | `"v1.7.0-alpha"` |  |
 | backend.services.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.services.logging.default | string | `"Information"` |  |
 | backend.services.logging.offersLibrary | string | `"Information"` |  |
-| backend.services.healthChecks | object | `{"startup":{"tags":[]}}` | Healthchecks to be enabled for startupProbe, enable by removing the brackets after 'tags:' and uncommenting the following lines. |
+| backend.services.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.services.serviceMarketplacePath | string | `"/servicemarketplace"` |  |
 | backend.services.catenaAdminRoles.role0 | string | `"CX Admin"` |  |
 | backend.services.serviceAccountRoles.role0 | string | `"App Tech User"` |  |
 | backend.services.salesManagerRoles.role0 | string | `"Sales Manager"` |  |
 | backend.services.serviceManagerRoles.role0 | string | `"Service Manager"` |  |
+| backend.services.subscriptionManagerRoles.role0 | string | `"Service Manager"` |  |
+| backend.services.subscriptionManagerRoles.role1 | string | `"Sales Manager"` |  |
 | backend.services.approveServiceUserRoles.role0 | string | `"Sales Manager"` |  |
 | backend.services.approveServiceUserRoles.role1 | string | `"Service Manager"` |  |
+| backend.services.activationUserRoles.role0 | string | `"Sales Manager"` |  |
+| backend.services.activationUserRoles.role1 | string | `"Service Manager"` |  |
 | backend.services.ITAdminRoles.role0 | string | `"IT Admin"` |  |
 | backend.services.uploadServiceDocumentTypeIds.documentTypeId0 | string | `"ADDITIONAL_DETAILS"` |  |
 | backend.services.uploadServiceDocumentTypeIds.mediaTypeIds0.mediaTypeId0 | string | `"PDF"` |  |
@@ -325,12 +337,12 @@ dependencies:
 | backend.services.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"tractusx/portal-provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.6.0"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.7.0-alpha"` |  |
 | backend.provisioningmigrations.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.provisioningmigrations.logging.default | string | `"Information"` |  |
 | backend.processesworker.name | string | `"processes-worker"` |  |
 | backend.processesworker.image.name | string | `"tractusx/portal-processes-worker"` |  |
-| backend.processesworker.image.processesworkertag | string | `"v1.6.0"` |  |
+| backend.processesworker.image.processesworkertag | string | `"v1.7.0-alpha"` |  |
 | backend.processesworker.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | backend.processesworker.logging.default | string | `"Information"` |  |
 | backend.processesworker.logging.processesLibrary | string | `"Information"` |  |
@@ -381,6 +393,7 @@ dependencies:
 | backend.processesworker.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
 | backend.processesworker.processIdentity.identityTypeId | int | `2` |  |
 | backend.processesworker.processIdentity.processUserCompanyId | string | `"2dc4249f-b5ca-4d42-bef1-7a7a950a4f87"` |  |
+| backend.processesworker.onboardingServiceProvider.encryptionKey | string | `""` | Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'. |
 | backend.clients.portal | string | `"Cl2-CX-Portal"` |  |
 | backend.clients.registration | string | `"Cl1-CX-Registration"` |  |
 | backend.clients.technicalRolesManagement | string | `"technical_roles_management"` |  |

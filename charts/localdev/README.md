@@ -4,15 +4,15 @@
 
 This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-1.6.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-1.2.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-1.2.0/charts/sharedidp/README.md)).
 
-This chart also sets up a [pgadmin4](https://artifacthub.io/packages/helm/runix/pgadmin4) instance for easy access to the deployed Postgres databases which are only available from within the Kubernetes cluster.
+It's intended for the local setup of the those components in order to aid the local development. In order to integrate with the local development adapt the address values in the Values file for [Portal Frontend](./values.yaml#L23) and/or [Portal Backend](./values.yaml#L27).
+
+This chart also sets up an additional [postgresql](https://artifacthub.io/packages/helm/bitnami/postgresql) instance to support the Portal Backend development as well as a [pgadmin4](https://artifacthub.io/packages/helm/runix/pgadmin4) instance for easy access to the deployed Postgres databases which are only available from within the Kubernetes cluster.
 
 For detailed information about the default configuration values, please have a look at the [Values table](#values) and/or [Values file](./values.yaml).
 
-It's intended for the local setup of the those components in order to aid the local development. In order to integrate with the local development adapt the address values in the Values file for [Portal Frontend](./values.yaml#L23) and/or [Portal Backend](./values.yaml#L27).
-
 ## Usage
 
-The following steps describe how to setup the LocalDev chart into the default namespace of your started [**Minikube**](https://minikube.sigs.k8s.io/docs/start) cluster:
+The following steps describe how to setup the LocalDev chart into the namespace 'localdev' of your started [**Minikube**](https://minikube.sigs.k8s.io/docs/start) cluster:
 
 > **Note**
 >
@@ -52,7 +52,8 @@ helm repo update
 ```bash
 helm install \
   cert-manager jetstack/cert-manager \
-  --namespace default \
+  --namespace localdev \
+  --create-namespace \
   --version v1.13.0 \
   --set installCRDs=true
 ```
@@ -70,7 +71,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: my-selfsigned-ca
-  namespace: default
+  namespace: localdev
 spec:
   isCA: true
   commonName: cx.local
@@ -132,13 +133,9 @@ $ minikube ip
 
 Additional network setup for Mac only:
 
-Install and start [Docker Mac Net Connect](https://github.com/chipmk/docker-mac-net-connect#installation).
+Install and start [docker-mac-net-connect](https://github.com/chipmk/docker-mac-net-connect#installation).
 
-We also recommend to execute the usage example after install to check proper setup.
-
-If you're having issues with getting 'Docker Mac Net Connect' to work, we recommend to check out this issue: [#21](https://github.com/chipmk/docker-mac-net-connect/issues/21).
-
-The tool is necessary due to [#7332](https://github.com/kubernetes/minikube/issues/7332).
+Necessary due to [#7332](https://github.com/kubernetes/minikube/issues/7332).
 
 ### 3. Install from released chart or [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository
 
@@ -148,13 +145,13 @@ Install the chart with the release name 'local':
 
 ```bash
 $ helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
-$ helm install local tractusx-dev/localdev-portal-iam
+$ helm install local tractusx-dev/localdev-portal-iam --namespace localdev
 ```
 
 To set your own configuration and secret values, install the helm chart with your own values file:
 
 ```bash
-$ helm install -f your-values.yaml local tractusx-dev/localdev-portal-iam
+$ helm install -f your-values.yaml local tractusx-dev/localdev-portal-iam --namespace localdev
 ```
 
 #### From [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository:
@@ -175,23 +172,23 @@ $ helm dependency update
 Install the chart with the release name 'local':
 
 ```bash
-$ helm install local .
+$ helm install local . --namespace localdev
 ```
 
 To set your own configuration and secret values, install the helm chart with your own values file:
 
 ```bash
-$ helm install local -f your-values.yaml .
+$ helm install local -f your-values.yaml . --namespace localdev
 ```
 
 ### 4. Perform first login
 
 Make sure to accept the risk of the self-signed certificates for the following hosts using the continue option:
-- [centralidp.example.org](https://centralidp.example.org)
-- [sharedidp.example.org](https://sharedidp.example.org)
+- [centralidp.example.org/auth](https://centralidp.example.org/auth/)
+- [sharedidp.example.org/auth](https://sharedidp.example.org/auth/)
 - [portal-backend.example.org](https://portal-backend.example.org)
-- [portal.example.org](https://portal.example.org)
-- [pgadmin4.example.org](https://pdadmin.example.org)
+- [portal.example.org](https://portal.example.org/)
+- [pgadmin4.example.org](https://pgadmin4.example.org/)
 
 Then proceed with the login to [portal.example.org](https://portal.example.org).
 
@@ -209,6 +206,7 @@ cx-operator@cx.com
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
 | https://eclipse-tractusx.github.io/charts/dev | centralidp | 1.2.0 |
 | https://eclipse-tractusx.github.io/charts/dev | portal | 1.6.0 |
 | https://eclipse-tractusx.github.io/charts/dev | sharedidp | 1.2.0 |
@@ -223,12 +221,11 @@ cx-operator@cx.com
 | portal.portalBackendAddress | string | `"https://portal-backend.example.org"` | Set your local backend service to integrate into local development. Start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/portal-backend-postgresql-primary 5432:5432' |
 | portal.replicaCount | int | `1` |  |
 | portal.frontend.ingress.enabled | bool | `true` |  |
-| portal.frontend.ingress.className | string | `"nginx"` |  |
 | portal.frontend.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"my-ca-issuer"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
-| portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"http://localhost:5000, https://*.example.org"` |  |
+| portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"https://*.example.org"` |  |
 | portal.frontend.ingress.tls[0] | object | `{"hosts":["portal.example.org"],"secretName":"portal.example.org-tls"}` | Provide tls secret. |
 | portal.frontend.ingress.tls[0].hosts | list | `["portal.example.org"]` | Provide host for tls secret. |
 | portal.frontend.ingress.hosts[0].host | string | `"portal.example.org"` |  |
@@ -245,13 +242,12 @@ cx-operator@cx.com
 | portal.frontend.ingress.hosts[0].paths[2].backend.service | string | `"assets"` |  |
 | portal.frontend.ingress.hosts[0].paths[2].backend.port | int | `8080` |  |
 | portal.backend.ingress.enabled | bool | `true` |  |
-| portal.backend.ingress.className | string | `"nginx"` |  |
 | portal.backend.ingress.name | string | `"portal-backend"` |  |
 | portal.backend.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"my-ca-issuer"` |  |
 | portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/proxy-body-size" | string | `"8m"` |  |
-| portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"http://localhost:5000, https://*.example.org"` |  |
+| portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"http://localhost:3000, https://*.example.org"` |  |
 | portal.backend.ingress.tls[0] | object | `{"hosts":["portal-backend.example.org"],"secretName":"portal-backend.example.org-tls"}` | Provide tls secret. |
 | portal.backend.ingress.tls[0].hosts | list | `["portal-backend.example.org"]` | Provide host for tls secret. |
 | portal.backend.ingress.hosts[0].host | string | `"portal-backend.example.org"` |  |
@@ -470,6 +466,26 @@ cx-operator@cx.com
 | sharedidp.secrets.auth.existingSecret.adminpassword | string | `""` | Password for the admin username 'admin'. Secret-key 'admin-password'. |
 | sharedidp.secrets.auth.tls.keystore | string | `""` |  |
 | sharedidp.secrets.auth.tls.truststore | string | `""` |  |
+| postgresportal.enabled | bool | `true` | Additional PostgreSQL for backend development; start port forwarding tunnel for database access, e.g.: 'kubectl port-forward local-portal-postgresql-primary-0 5432:5432' |
+| postgresportal.nameOverride | string | `"portal-postgresql"` |  |
+| postgresportal.auth.database | string | `"postgres"` |  |
+| postgresportal.auth.port | int | `5432` |  |
+| postgresportal.auth.existingSecret | string | `"secret-postgres-init-localdev"` |  |
+| postgresportal.auth.password | string | `""` |  |
+| postgresportal.auth.replicationPassword | string | `""` |  |
+| postgresportal.auth.portalUser | string | `"portal"` |  |
+| postgresportal.auth.provisioningUser | string | `"provisioning"` |  |
+| postgresportal.auth.provisioningPassword | string | `""` |  |
+| postgresportal.architecture | string | `"replication"` |  |
+| postgresportal.audit.pgAuditLog | string | `"write, ddl"` |  |
+| postgresportal.audit.logLinePrefix | string | `"%m %u %d "` |  |
+| postgresportal.primary.initdb.scriptsConfigMap | string | `"configmap-postgres-init-localdev"` |  |
+| postgresportal.primary.extraEnvVars[0].name | string | `"PORTAL_PASSWORD"` |  |
+| postgresportal.primary.extraEnvVars[0].valueFrom.secretKeyRef.name | string | `"{{ .Values.auth.existingSecret }}"` |  |
+| postgresportal.primary.extraEnvVars[0].valueFrom.secretKeyRef.key | string | `"portal-password"` |  |
+| postgresportal.primary.extraEnvVars[1].name | string | `"PROVISIONING_PASSWORD"` |  |
+| postgresportal.primary.extraEnvVars[1].valueFrom.secretKeyRef.name | string | `"{{ .Values.auth.existingSecret }}"` |  |
+| postgresportal.primary.extraEnvVars[1].valueFrom.secretKeyRef.key | string | `"provisioning-password"` |  |
 | pgadmin4.enabled | bool | `true` |  |
 | pgadmin4.env.email | string | `"local@example.org"` |  |
 | pgadmin4.ingress.enabled | bool | `true` |  |

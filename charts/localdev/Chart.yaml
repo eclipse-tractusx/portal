@@ -46,3 +46,8 @@ dependencies:
     name: pgadmin4
     repository: https://helm.runix.net
     version: 1.17.x
+  - condition: postgresql.enabled
+    name: postgresql
+    alias: postgresportal
+    repository: https://charts.bitnami.com/bitnami
+    version: 12.12.x

@@ -17,30 +17,26 @@
 * SPDX-License-Identifier: Apache-2.0
 */}}
 
-{{- if .Values.postgresql.enabled -}}
+{{- if .Values.centralidp.enabled -}}
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {{ .Values.postgresql.auth.existingSecret }}
+  name: centralidp-tls
   namespace: {{ .Release.Namespace }}
 type: Opaque
 # use lookup function to check if secret exists
-{{- $secret := (lookup "v1" "Secret" .Release.Namespace .Values.postgresql.auth.existingSecret) }}
+{{- $secret := (lookup "v1" "Secret" .Release.Namespace "centralidp-tls") }}
 {{ if $secret -}}
 data:
   # if secret exists, use value provided from values file (to cover update scenario) or existing value from secret
   # use data map instead of stringData to prevent base64 encoding of already base64-encoded existing value from secret
   # use index function for secret keys with hyphen otherwise '$secret.data.secretKey' works too
-  postgres-password: {{ ( .Values.postgresql.auth.password | b64enc )  | default ( index $secret.data "postgres-password" ) | quote }}
-  replication-password: {{ ( .Values.postgresql.auth.replicationPassword | b64enc )  | default ( index $secret.data "replication-password" ) | quote }}
-  portal-password: {{ ( .Values.postgresql.auth.portalPassword | b64enc ) | default ( index $secret.data "portal-password" ) | quote }}
-  provisioning-password: {{ ( .Values.postgresql.auth.provisioningPassword | b64enc ) | default ( index $secret.data "provisioning-password" ) | quote }}
+  tls-keystore-password: {{ ( .Values.centralidp.secrets.auth.tls.keystore | b64enc ) | default ( index $secret.data "tls-keystore-password" ) }}
+  tls-truststore-password: {{ ( .Values.centralidp.secrets.auth.tls.truststore | b64enc ) | default ( index $secret.data "tls-truststore-password" ) }}
 {{ else -}}
 stringData:
   # if secret doesn't exist, use provided value from values file or generate a random one
-  postgres-password: {{ .Values.postgresql.auth.password | default ( randAlphaNum 32 ) | quote }}
-  replication-password: {{ .Values.postgresql.auth.replicationPassword | default ( randAlphaNum 32 ) | quote }}
-  portal-password: {{ .Values.postgresql.auth.portalPassword | default ( randAlphaNum 32 ) | quote }}
-  provisioning-password: {{ .Values.postgresql.auth.provisioningPassword | default ( randAlphaNum 32 ) | quote }}
+  tls-keystore-password: {{ ( .Values.centralidp.secrets.auth.tls.keystore | b64enc ) | default ( randAlphaNum 32 | quote ) }}
+  tls-truststore-password: {{ ( .Values.centralidp.secrets.auth.tls.truststore | b64enc ) | default ( randAlphaNum 32 | quote ) }}
 {{ end }}
 {{- end -}}

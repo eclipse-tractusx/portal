@@ -40,6 +40,8 @@ spec:
             image: "{{ .Values.backend.processesworker.image.name }}:{{ .Values.backend.processesworker.image.processesworkertag | default .Chart.AppVersion }}"
             imagePullPolicy: "Always"
             env:
+            - name: DOTNET_ENVIRONMENT
+              value: "{{ .Values.backend.dotnetEnvironment }}"
             {{- if .Values.postgresql.enabled }}
             - name: "PORTAL_PASSWORD"
               valueFrom:
@@ -189,6 +191,8 @@ spec:
                   key: "central-client-secret"
             - name: "KEYCLOAK__CENTRAL__CONNECTIONSTRING"
               value: "{{ .Values.centralidpAddress }}"
+            - name: "KEYCLOAK__CENTRAL__USEAUTHTRAIL"
+              value: "{{ .Values.backend.keycloak.central.useAuthTrail }}"
             - name: "KEYCLOAK__SHARED__AUTHREALM"
               value: "{{ .Values.backend.keycloak.shared.authRealm }}"
             - name: "KEYCLOAK__SHARED__CLIENTID"
@@ -200,6 +204,8 @@ spec:
                   key: "shared-client-secret"
             - name: "KEYCLOAK__SHARED__CONNECTIONSTRING"
               value: "{{ .Values.sharedidpAddress }}"
+            - name: "KEYCLOAK__SHARED__USEAUTHTRAIL"
+              value: "{{ .Values.backend.keycloak.shared.useAuthTrail }}"
             - name: "SERILOG__MINIMUMLEVEL__Default"
               value: "{{ .Values.backend.processesworker.logging.default }}"
             - name: "SERILOG__MINIMUMLEVEL__OVERRIDE__Org.Eclipse.TractusX.Portal.Backend.Processes.Worker.Library"
@@ -221,6 +227,10 @@ spec:
                 secretKeyRef:
                   name: "{{ .Values.backend.mailing.secret }}"
                   key: "password"
+            - name: "NETWORKREGISTRATION__INITIALROLES__0__CLIENTID"
+              value: "{{ .Values.backend.clients.registration }}"
+            - name: "NETWORKREGISTRATION__INITIALROLES__0__USERROLENAMES__0"
+              value: "{{ .Values.backend.provisioning.invitedUserInitialRoles.registration }}"
             - name: "MAILINGSERVICE__MAIL__SMTPPORT"
               value: "{{ .Values.backend.mailing.port }}"
             - name: "MAILINGSERVICE__MAIL__SMTPUSER"
@@ -235,6 +245,7 @@ spec:
               value: "{{ .Values.backend.provisioning.centralRealmId }}"
             - name: "PROVISIONING__INVITEDUSERINITIALROLES__0__CLIENTID"
               value: "{{ .Values.backend.clients.registration }}"
+            # -- if the array is extended please extend NETWORKREGISTRATION__INITIALROLES as well
             - name: "PROVISIONING__INVITEDUSERINITIALROLES__0__USERROLENAMES__0"
               value: "{{ .Values.backend.provisioning.invitedUserInitialRoles.registration }}"
             - name: "PROVISIONING__SHAREDREALM__SMTPSERVER__AUTH"
@@ -301,6 +312,11 @@ spec:
               value: "{{ .Values.backend.processesworker.processIdentity.identityTypeId }}"
             - name: "PROCESSIDENTITY__PROCESSUSERCOMPANYID"
               value: "{{ .Values.backend.processesworker.processIdentity.processUserCompanyId }}"
+            - name: "ONBOARDINGSERVICEPROVIDER__ENCYRPTIONKEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.interfaces.secret }}"
+                  key: "process-onboardingserviceprovider-encryption-key"
             ports:
             - name: http
               containerPort: {{ .Values.portContainer }}

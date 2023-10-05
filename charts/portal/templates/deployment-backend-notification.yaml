@@ -44,6 +44,8 @@ spec:
         image: "{{ .Values.backend.notification.image.name }}:{{ .Values.backend.notification.image.notificationservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"
         env:
+        - name: DOTNET_ENVIRONMENT
+          value: "{{ .Values.backend.dotnetEnvironment }}"
         {{- if .Values.postgresql.enabled }}
         - name: "PORTAL_PASSWORD"
           valueFrom:
@@ -95,6 +97,8 @@ spec:
           value: "{{ .Values.backend.healthChecks.liveness.path}}"
         - name: "JWTBEAREROPTIONS__METADATAADDRESS"
           value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
+        - name: "JWTBEAREROPTIONS__REQUIREHTTPSMETADATA"
+          value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDAUDIENCE"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validAudiencePortal }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDISSUER"
@@ -112,6 +116,8 @@ spec:
               key: "central-client-secret"
         - name: "KEYCLOAK__CENTRAL__CONNECTIONSTRING"
           value: "{{ .Values.centralidpAddress }}"
+        - name: "KEYCLOAK__CENTRAL__USEAUTHTRAIL"
+          value: "{{ .Values.backend.keycloak.central.useAuthTrail }}"
         - name: "KEYCLOAK__SHARED__AUTHREALM"
           value: "{{ .Values.backend.keycloak.shared.authRealm }}"
         - name: "KEYCLOAK__SHARED__CLIENTID"
@@ -123,6 +129,8 @@ spec:
               key: "shared-client-secret"
         - name: "KEYCLOAK__SHARED__CONNECTIONSTRING"
           value: "{{ .Values.sharedidpAddress }}"
+        - name: "KEYCLOAK__SHARED__USEAUTHTRAIL"
+          value: "{{ .Values.backend.keycloak.shared.useAuthTrail }}"
         - name: "SERILOG__MINIMUMLEVEL__Default"
           value: "{{ .Values.backend.notification.logging.default }}"
         - name: "SWAGGERENABLED"

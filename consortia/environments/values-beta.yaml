@@ -33,8 +33,8 @@ frontend:
 
   ingress:
     enabled: true
+    className: "nginx"
     annotations:
-      kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/rewrite-target: "/$1"
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/enable-cors: "true"
@@ -65,8 +65,8 @@ frontend:
 backend:
   ingress:
     enabled: true
+    className: "nginx"
     annotations:
-      kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "8m"
@@ -150,6 +150,8 @@ backend:
           value: "portaldb"
         - name: "HEALTHCHECKS__0__TAGS__2"
           value: "provisioningdb"
+    onboardingServiceProvider:
+      encryptionKey: "<path:portal/data/beta/administration#onboardingserviceprovider-encryption-key>"
     swaggerEnabled: true
 
   provisioning:
@@ -231,6 +233,8 @@ backend:
     offerprovider:
       clientId: "<path:portal/data/processes-worker#offerprovider-client-id>"
       clientSecret: "<path:portal/data/beta/processes-worker#offerprovider-client-secret>"
+    onboardingServiceProvider:
+      encryptionKey: "<path:portal/data/beta/processes-worker#process-onboardingserviceprovider-encryption-key>"
 
 postgresql:
   auth:

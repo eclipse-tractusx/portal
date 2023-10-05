@@ -44,6 +44,8 @@ spec:
         image: "{{ .Values.backend.administration.image.name }}:{{ .Values.backend.administration.image.administrationservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"
         env:
+        - name: DOTNET_ENVIRONMENT
+          value: "{{ .Values.backend.dotnetEnvironment }}"
         {{- if .Values.postgresql.enabled }}
         - name: "PORTAL_PASSWORD"
           valueFrom:
@@ -232,6 +234,8 @@ spec:
           value: "{{ .Values.backend.administration.invitation.initialLoginTheme }}"
         - name: "JWTBEAREROPTIONS__METADATAADDRESS"
           value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
+        - name: "JWTBEAREROPTIONS__REQUIREHTTPSMETADATA"
+          value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDAUDIENCE"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validAudiencePortal }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDISSUER"
@@ -249,6 +253,8 @@ spec:
               key: "central-client-secret"
         - name: "KEYCLOAK__CENTRAL__CONNECTIONSTRING"
           value: "{{ .Values.centralidpAddress }}"
+        - name: "KEYCLOAK__CENTRAL__USEAUTHTRAIL"
+          value: "{{ .Values.backend.keycloak.central.useAuthTrail }}"
         - name: "KEYCLOAK__SHARED__AUTHREALM"
           value: "{{ .Values.backend.keycloak.shared.authRealm }}"
         - name: "KEYCLOAK__SHARED__CLIENTID"
@@ -260,6 +266,8 @@ spec:
               key: "shared-client-secret"
         - name: "KEYCLOAK__SHARED__CONNECTIONSTRING"
           value: "{{ .Values.sharedidpAddress }}"
+        - name: "KEYCLOAK__SHARED__USEAUTHTRAIL"
+          value: "{{ .Values.backend.keycloak.shared.useAuthTrail }}"
         - name: "SERILOG__MINIMUMLEVEL__Default"
           value: "{{ .Values.backend.administration.logging.default }}"
         - name: "SERILOG__MINIMUMLEVEL__OVERRIDE__Org.Eclipse.TractusX.Portal.Backend.Administration.Service.BusinessLogic"
@@ -281,6 +289,17 @@ spec:
           value: "{{ .Values.backend.mailing.port }}"
         - name: "MAILINGSERVICE__MAIL__SMTPUSER"
           value: "{{ .Values.backend.mailing.user }}"
+        - name: "NETWORK2NETWORK__INITIALROLES__0__CLIENTID"
+          value: "{{ .Values.backend.clients.registration }}"
+        - name: "NETWORK2NETWORK__INITIALROLES__0__USERROLENAMES__0"
+          value: "{{ .Values.backend.provisioning.invitedUserInitialRoles.registration }}"
+        - name: "NETWORK2NETWORK__BASEPORTALADDRESS"
+          value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
+        - name: "ONBOARDINGSERVICEPROVIDER__ENCYRPTIONKEY"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "onboardingserviceprovider-encryption-key"
         - name: "PROVISIONING__CENTRALIDENTITYPROVIDER__CONFIG__CLIENTID"
           value: "{{ .Values.backend.provisioning.centralIdentityProvider.clientId }}"
         - name: "PROVISIONING__CENTRALREALM"
@@ -289,6 +308,7 @@ spec:
           value: "{{ .Values.backend.provisioning.centralRealmId }}"
         - name: "PROVISIONING__INVITEDUSERINITIALROLES__0__CLIENTID"
           value: "{{ .Values.backend.clients.registration }}"
+        # -- if the array is extended please extend NETWORK2NETWORK__INITIALROLES as well
         - name: "PROVISIONING__INVITEDUSERINITIALROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.provisioning.invitedUserInitialRoles.registration }}"
         - name: "PROVISIONING__SHAREDREALM__SMTPSERVER__AUTH"

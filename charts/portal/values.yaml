@@ -56,8 +56,8 @@ frontend:
   # -- Portal frontend ingress parameters,
     # enable ingress record generation for portal frontend.
     enabled: false
+    className: "nginx"
     annotations:
-      kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/rewrite-target: "/$1"
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/enable-cors: "true"
@@ -92,7 +92,7 @@ frontend:
     name: "portal"
     image:
       name: "tractusx/portal-frontend"
-      portaltag: v1.6.0
+      portaltag: v1.7.0-alpha
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -107,7 +107,7 @@ frontend:
     name: "registration"
     image:
       name: "tractusx/portal-frontend-registration"
-      registrationtag: v1.5.0
+      registrationtag: v1.5.1
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -122,7 +122,7 @@ frontend:
     name: "assets"
     image:
       name: "tractusx/portal-assets"
-      assetstag: v1.6.0
+      assetstag: v1.6.1
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -135,7 +135,7 @@ frontend:
       #   memory: 128Mi
     path: "/assets"
   centralidpAuthPath: "/auth"
-  bpdmPartnersPoolApiPath: "/api"
+  bpdmPartnersPoolApiPath: "/pool/api"
 
 backend:
   ingress:
@@ -143,8 +143,8 @@ backend:
     # enable ingress record generation for portal-backend.
     enabled: false
     name: "portal-backend"
+    className: "nginx"
     annotations:
-      kubernetes.io/ingress.class: "nginx"
       nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/enable-cors: "true"
       nginx.ingress.kubernetes.io/proxy-body-size: "8m"
@@ -190,6 +190,7 @@ backend:
             backend:
               service: "services-service"
               port: 8080
+  dotnetEnvironment: "Production"
   dbConnection:
     schema: "portal"
     sslMode: "Disable"
@@ -205,6 +206,7 @@ backend:
       clientSecret: ""
       authRealm: "CX-Central"
       jwtBearerOptions:
+        requireHttpsMetadata: "true"
         metadataPath: "/auth/realms/CX-Central/.well-known/openid-configuration"
         tokenValidationParameters:
           validIssuerPath: "/auth/realms/CX-Central"
@@ -221,12 +223,16 @@ backend:
         password: ""
         schema: "public"
         sslMode: "Disable"
+      # -- Flag if the api should be used with an leading /auth path
+      useAuthTrail: true
     shared:
       # -- Provide sharedidp client-id from CX IAM sharedidp.
       clientId: "shared-client-id"
       # -- Client-secret for sharedidp client-id. Secret-key 'shared-client-secret'.
       clientSecret: ""
       authRealm: "master"
+      # -- Flag if the api should be used with an leading /auth path
+      useAuthTrail: true
   mailing:
     # -- Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm.
     secret: "secret-backend-mailing"
@@ -239,7 +245,7 @@ backend:
     # -- Password for the smtp username. Secret-key 'password'.
     password: ""
   interfaces:
-    # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse and offer provider.
+    # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse, offer provider and onboarding service provider.
     secret: "secret-backend-interfaces"
   healthChecks:
     startup:
@@ -252,7 +258,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: v1.6.0
+      registrationservicetag: v1.7.0-alpha
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -267,15 +273,15 @@ backend:
       bpdmLibrary: "Information"
       registrationService: "Information"
       default: "Information"
-    # -- Healthchecks to be enabled for startupProbe,
-    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
+    # -- Keycloak Healthcheck to be enabled for startupProbe;
+    # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
       startup:
-        tags: []
+        tags:
         # - name: "HEALTHCHECKS__0__TAGS__0"
         #   value: "keycloak"
-        # - name: "HEALTHCHECKS__0__TAGS__1"
-        #   value: "portaldb"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
     portalRegistrationPath: "/registration"
     keycloakClientId: "Cl1-CX-Registration"
     applicationStatusIds:
@@ -294,7 +300,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: v1.6.0
+      administrationservicetag: v1.7.0-alpha
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -311,17 +317,17 @@ backend:
       bpdmLibrary: "Information"
       custodianLibrary: "Information"
       default: "Information"
-    # -- Healthchecks to be enabled for startupProbe,
-    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
+    # -- Keycloak Healthcheck to be enabled for startupProbe;
+    # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
       startup:
-        tags: []
+        tags:
         # - name: "HEALTHCHECKS__0__TAGS__0"
         #   value: "keycloak"
-        # - name: "HEALTHCHECKS__0__TAGS__1"
-        #   value: "portaldb"
-        # - name: "HEALTHCHECKS__0__TAGS__2"
-        #   value: "provisioningdb"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
+        - name: "HEALTHCHECKS__0__TAGS__2"
+          value: "provisioningdb"
     companyData:
       useCaseParticipationMediaTypes:
         type0: "PDF"
@@ -367,6 +373,9 @@ backend:
     swaggerEnabled: false
     frameDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"
+    onboardingServiceProvider:
+      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key'.
+      encryptionKey: ""
   provisioning:
     centralRealm: "CX-Central"
     centralRealmId: "CX-Central"
@@ -398,7 +407,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: v1.6.0
+      appmarketplaceservicetag: v1.7.0-alpha
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -412,15 +421,15 @@ backend:
     logging:
       default: "Information"
       offersLibrary: "Information"
-    # -- Healthchecks to be enabled for startupProbe,
-    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
+    # -- Keycloak Healthcheck to be enabled for startupProbe;
+    # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
       startup:
-        tags: []
+        tags:
         # - name: "HEALTHCHECKS__0__TAGS__0"
         #   value: "keycloak"
-        # - name: "HEALTHCHECKS__0__TAGS__1"
-        #   value: "portaldb"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
     appOverviewPath: "/appoverview"
     catenaAdminRoles:
       role0: "CX Admin"
@@ -430,12 +439,18 @@ backend:
       role0: "Sales Manager"
     serviceManagerRoles:
       role0: "App Manager"
+    subscriptionManagerRoles:
+      role0: "App Manager"
+      role1: "Sales Manager"
     activeAppCompanyAdminRoles:
       role0: "IT Admin"
       role1: "Company Admin"
     approveAppUserRoles:
       role0: "Sales Manager"
       role1: "Service Manager"
+    activationUserRoles:
+      role0: "Sales Manager"
+      role1: "App Manager"
     ITAdminRoles:
       role0: "IT Admin"
     uploadAppDocumentTypeIds:
@@ -498,7 +513,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: v1.6.0
+      portalmigrationstag: v1.7.0-alpha
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -525,7 +540,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: v1.6.0
+      portalmaintenancetag: v1.7.0-alpha
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -547,7 +562,7 @@ backend:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: v1.6.0
+      notificationservicetag: v1.7.0-alpha
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -558,15 +573,15 @@ backend:
       # requests:
       #   cpu: 250m
       #   memory: 256Mi
-    # -- Healthchecks to be enabled for startupProbe,
-    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
+    # -- Keycloak Healthcheck to be enabled for startupProbe;
+    # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
       startup:
-        tags: []
+        tags:
         # - name: "HEALTHCHECKS__0__TAGS__0"
         #   value: "keycloak"
-        # - name: "HEALTHCHECKS__0__TAGS__1"
-        #   value: "portaldb"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
     swaggerEnabled: false
     logging:
       default: "Information"
@@ -574,7 +589,7 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: v1.6.0
+      servicesservicetag: v1.7.0-alpha
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -588,15 +603,15 @@ backend:
     logging:
       default: "Information"
       offersLibrary: "Information"
-    # -- Healthchecks to be enabled for startupProbe,
-    # enable by removing the brackets after 'tags:' and uncommenting the following lines.
+    # -- Keycloak Healthcheck to be enabled for startupProbe;
+    # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
       startup:
-        tags: []
+        tags:
         # - name: "HEALTHCHECKS__0__TAGS__0"
         #   value: "keycloak"
-        # - name: "HEALTHCHECKS__0__TAGS__1"
-        #   value: "portaldb"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
     serviceMarketplacePath: "/servicemarketplace"
     catenaAdminRoles:
       role0: "CX Admin"
@@ -606,7 +621,13 @@ backend:
       role0: "Sales Manager"
     serviceManagerRoles:
       role0: "Service Manager"
+    subscriptionManagerRoles:
+      role0: "Service Manager"
+      role1: "Sales Manager"
     approveServiceUserRoles:
+      role0: "Sales Manager"
+      role1: "Service Manager"
+    activationUserRoles:
       role0: "Sales Manager"
       role1: "Service Manager"
     ITAdminRoles:
@@ -642,7 +663,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v1.6.0
+      provisioningmigrationstag: v1.7.0-alpha
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -659,7 +680,7 @@ backend:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: v1.6.0
+      processesworkertag: v1.7.0-alpha
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -749,6 +770,9 @@ backend:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
       identityTypeId: 2
       processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
+    onboardingServiceProvider:
+      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'.
+      encryptionKey: ""
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

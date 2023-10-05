@@ -31,14 +31,14 @@ on:
     inputs:
       node_image:
         description: 'kindest/node image for k8s kind cluster'
-        # k8s version from 3.1 release
-        default: 'kindest/node:v1.24.6'
+        # k8s version to support
+        default: 'kindest/node:v1.26.6'
         required: false
         type: string
       upgrade_from:
         description: 'portal chart version to upgrade from'
-        # portal version from 3.1 release
-        default: '1.3.0'
+        # portal version from 23.09 release
+        default: '1.6.0'
         required: false
         type: string
 
@@ -55,7 +55,7 @@ jobs:
         uses: container-tools/kind-action@v2
         with:
           version: v0.19.0
-          node_image: ${{ github.event.inputs.node_image || 'kindest/node:v1.24.6' }}
+          node_image: ${{ github.event.inputs.node_image || 'kindest/node:v1.26.6' }}
 
       - name: Set up Helm
         uses: azure/setup-helm@v3
@@ -95,7 +95,7 @@ jobs:
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
-          helm install portal tractusx-dev/portal --version ${{ github.event.inputs.upgrade_from || '1.3.0' }} --namespace upgrade --create-namespace
+          helm install portal tractusx-dev/portal --version ${{ github.event.inputs.upgrade_from || '1.6.0' }} --namespace upgrade --create-namespace
           helm dependency update charts/portal
           helm upgrade portal charts/portal --namespace upgrade
         if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'

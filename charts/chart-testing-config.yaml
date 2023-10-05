@@ -20,3 +20,5 @@
 validate-maintainers: false
 chart-repos:
   - bitnami=https://charts.bitnami.com/bitnami
+  - tractusx-dev=https://eclipse-tractusx.github.io/charts/dev
+  - pgadmin4=https://helm.runix.net

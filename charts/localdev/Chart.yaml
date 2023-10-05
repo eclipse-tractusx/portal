@@ -18,19 +18,31 @@
 ###############################################################
 
 apiVersion: v2
-name: portal
+name: localdev-portal-iam
 type: application
-version: 1.7.0-alpha
-appVersion: 1.7.0-alpha
-description: Helm chart for Catena-X Portal
+version: 0.0.1
+description: Setup of CX Portal & IAM for local development
 home: https://github.com/eclipse-tractusx/portal-cd
 sources:
   - https://github.com/eclipse-tractusx/portal-frontend
   - https://github.com/eclipse-tractusx/portal-frontend-registration
   - https://github.com/eclipse-tractusx/portal-assets
   - https://github.com/eclipse-tractusx/portal-backend
+  - https://github.com/eclipse-tractusx/portal-iam
 dependencies:
-  - condition: postgresql.enabled
-    name: postgresql
-    repository: https://charts.bitnami.com/bitnami
-    version: 11.9.13
+  - condition: portal.enabled
+    name: portal
+    repository: https://eclipse-tractusx.github.io/charts/dev
+    version: 1.6.0
+  - condition: centralidp.enabled
+    name: centralidp
+    repository: https://eclipse-tractusx.github.io/charts/dev
+    version: 1.2.0
+  - condition: sharedidp.enabled
+    name: sharedidp
+    repository: https://eclipse-tractusx.github.io/charts/dev
+    version: 1.2.0
+  - condition: pgadmin4.enabled
+    name: pgadmin4
+    repository: https://helm.runix.net
+    version: 1.17.x

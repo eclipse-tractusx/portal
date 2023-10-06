@@ -147,27 +147,17 @@ portal:
 centralidp:
   enabled: true
   keycloak:
+    proxy: edge
     nameOverride: "centralidp"
     replicaCount: 1
     extraEnvVars:
-      - name: KEYCLOAK_ENABLE_TLS
-        value: "true"
-      - name: KEYCLOAK_TLS_KEYSTORE_FILE
-        value: "/opt/bitnami/keycloak/certs/keycloak.keystore.jks"
-      - name: KEYCLOAK_TLS_TRUSTSTORE_FILE
+      - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
         value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
-      - name: KEYCLOAK_TLS_KEYSTORE_PASSWORD
+      - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: centralidp-tls
-            key: tls-keystore-password
-      - name: KEYCLOAK_TLS_TRUSTSTORE_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: centralidp-tls
-            key: tls-truststore-password
-      - name: KEYCLOAK_HTTPS_PORT
-        value: "8443"
+            name: centralidp-spi
+            key: spi-truststore-password
       - name: KEYCLOAK_EXTRA_ARGS
         value: "-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/realms/CX-Central-realm.json -Dkeycloak.migration.strategy=IGNORE_EXISTING"
     extraVolumes:
@@ -192,7 +182,7 @@ centralidp:
         mountPath: "/realms"
     initContainers:
       - name: init-certs
-        image: docker.io/bitnami/keycloak:16.1.1-debian-10-r103
+        image: docker.io/bitnami/keycloak:22.0.3-debian-11-r14
         imagePullPolicy: Always
         command: ["/bin/bash"]
         args:
@@ -200,19 +190,14 @@ centralidp:
           - |-
             keytool -import -file "/certs/tls.crt" \
                     -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
-                    -storepass "${KEYCLOAK_TLS_TRUSTSTORE_PASSWORD}" \
+                    -storepass "${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}" \
                     -noprompt
         env:
-          - name: KEYCLOAK_TLS_KEYSTORE_PASSWORD
+          - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: centralidp-tls
-                key: tls-keystore-password
-          - name: KEYCLOAK_TLS_TRUSTSTORE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: centralidp-tls
-                key: tls-truststore-password
+                name: centralidp-spi
+                key: spi-truststore-password
         volumeMounts:
           - name: certificates
             mountPath: /certs
@@ -257,39 +242,23 @@ centralidp:
       existingSecret:
         # -- Password for the admin username 'admin'. Secret-key 'admin-password'.
         adminpassword: ""
-      tls:
-        keystore: ""
-        truststore: ""
-    postgresql:
-      auth:
-        existingSecret:
-          # -- Password for the user 'kccentral'
-          password: ""
+      spi:
+        truststorePassword: ""
 
 sharedidp:
   enabled: true
   keycloak:
+    proxy: edge
     nameOverride: "sharedidp"
     replicaCount: 1
     extraEnvVars:
-      - name: KEYCLOAK_ENABLE_TLS
-        value: "true"
-      - name: KEYCLOAK_TLS_KEYSTORE_FILE
-        value: "/opt/bitnami/keycloak/certs/keycloak.keystore.jks"
-      - name: KEYCLOAK_TLS_TRUSTSTORE_FILE
+      - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
         value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
-      - name: KEYCLOAK_TLS_KEYSTORE_PASSWORD
+      - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: sharedidp-tls
-            key: tls-keystore-password
-      - name: KEYCLOAK_TLS_TRUSTSTORE_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: sharedidp-tls
-            key: tls-truststore-password
-      - name: KEYCLOAK_HTTPS_PORT
-        value: "8443"
+            name: sharedidp-spi
+            key: spi-truststore-password
       - name: KEYCLOAK_EXTRA_ARGS
         value: "-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/realms -Dkeycloak.migration.strategy=IGNORE_EXISTING"
     extraVolumes:
@@ -323,7 +292,7 @@ sharedidp:
         mountPath: "/secrets"
     initContainers:
       - name: init-certs
-        image: docker.io/bitnami/keycloak:16.1.1-debian-10-r103
+        image: docker.io/bitnami/keycloak:22.0.3-debian-11-r14
         imagePullPolicy: Always
         command: ["/bin/bash"]
         args:
@@ -331,19 +300,14 @@ sharedidp:
           - |-
             keytool -import -file "/certs/tls.crt" \
                     -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
-                    -storepass "${KEYCLOAK_TLS_TRUSTSTORE_PASSWORD}" \
+                    -storepass "${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}" \
                     -noprompt
         env:
-          - name: KEYCLOAK_TLS_KEYSTORE_PASSWORD
+          - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: sharedidp-tls
-                key: tls-keystore-password
-          - name: KEYCLOAK_TLS_TRUSTSTORE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: sharedidp-tls
-                key: tls-truststore-password
+                name: sharedidp-spi
+                key: spi-truststore-password
         volumeMounts:
           - name: certificates
             mountPath: /certs
@@ -397,9 +361,8 @@ sharedidp:
       existingSecret:
         # -- Password for the admin username 'admin'. Secret-key 'admin-password'.
         adminpassword: ""
-      tls:
-        keystore: ""
-        truststore: ""
+      spi:
+        truststorePassword: ""
 
 postgresportal:
 # -- Additional PostgreSQL for backend development;

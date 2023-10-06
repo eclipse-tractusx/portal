@@ -1,10 +1,10 @@
 # Setup of CX Portal & IAM for local development
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-1.6.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-1.2.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-1.2.0/charts/sharedidp/README.md)).
 
-It's intended for the local setup of the those components in order to aid the local development. In order to integrate with the local development adapt the address values in the Values file for [Portal Frontend](./values.yaml#L23) and/or [Portal Backend](./values.yaml#L27).
+It's intended for the local setup of the those components in order to aid the local development. To integrate your local development, adapt the address values in the Values file for [Portal Frontend](./values.yaml#L23) and/or [Portal Backend](./values.yaml#L27).
 
 This chart also sets up an additional [postgresql](https://artifacthub.io/packages/helm/bitnami/postgresql) instance to support the Portal Backend development as well as a [pgadmin4](https://artifacthub.io/packages/helm/runix/pgadmin4) instance for easy access to the deployed Postgres databases which are only available from within the Kubernetes cluster.
 
@@ -18,24 +18,21 @@ The following steps describe how to setup the LocalDev chart into the namespace 
 >
 > In its current state of development, this chart as well as the following installation guide have been tested on Linux and Mac.
 >
-> Please be aware that most of the installed images are only available in amd64 architecture and that the installation on Mac (specifically on Apple Silicon) may come with performance issues or even crashing behavior.
->
-> **Linux** is the **preferred platform** to install this chart on.
-> Very generally speaking, amd64 architecture is quite common with Linux devices and also the network setup with Minikube is very straightforward on Linux.
+> **Linux** is the **preferred platform** to install this chart on as the network setup with Minikube is very straightforward on Linux.
 >
 > We plan to test the chart's reliability also on Windows and to update the installation guide accordingly.
 
 > **Recommendations**
 >
 > Resources for Minikube
->| OS     | CPU(cores) | Memory(GB) |
->| :------| :--------: | :--------: |
->| Linux  |     2      |      6     |
->| Mac    |     4      |      8     |
+> | CPU(cores) | Memory(GB) |
+> | :--------: | :--------: |
+> |     2      |      6     |
 >
-> Use the dashboard provided by Minikube to get an overview about the deployment on the cluster
+> Use the dashboard provided by Minikube to get an overview about the deployed components:
+>
 > ```bash
-> $ minikube dashboard
+> minikube dashboard
 > ```
 
 1. [Prepare self-signed TLS setup](#1-prepare-self-signed-tls-setup)
@@ -107,13 +104,13 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 In order to enable the local access via ingress, use the according addon for Minikube:
 
 ```bash
-$ minikube addons enable ingress
+minikube addons enable ingress
 ```
 
 Make sure that the DNS resolution for the hostnames is in place:
 
 ```bash
-$ minikube addons enable ingress-dns
+minikube addons enable ingress-dns
 ```
 And execute installation step [3 Add the `minikube ip` as a DNS server](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns) for your OS:
 
@@ -128,7 +125,7 @@ Replace 192.168.49.2 with your minikube ip.
 To find out the IP address of your Minikube:
 
 ```bash
-$ minikube ip
+minikube ip
 ```
 
 Additional network setup for Mac only:
@@ -144,14 +141,14 @@ Necessary due to [#7332](https://github.com/kubernetes/minikube/issues/7332).
 Install the chart with the release name 'local':
 
 ```bash
-$ helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
-$ helm install local tractusx-dev/localdev-portal-iam --namespace localdev
+helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
+helm install local tractusx-dev/localdev-portal-iam --namespace localdev
 ```
 
 To set your own configuration and secret values, install the helm chart with your own values file:
 
 ```bash
-$ helm install -f your-values.yaml local tractusx-dev/localdev-portal-iam --namespace localdev
+helm install -f your-values.yaml local tractusx-dev/localdev-portal-iam --namespace localdev
 ```
 
 #### From [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository:
@@ -161,34 +158,34 @@ Make sure to clone the [portal-cd](https://github.com/eclipse-tractusx/portal-cd
 Then change to the chart directory:
 
 ```bash
-$ cd charts/localdev/
+cd charts/localdev/
 ```
 Download the chart dependencies:
 
 ```bash
-$ helm dependency update
+helm dependency update
 ```
 
 Install the chart with the release name 'local':
 
 ```bash
-$ helm install local . --namespace localdev
+helm install local . --namespace localdev
 ```
 
 To set your own configuration and secret values, install the helm chart with your own values file:
 
 ```bash
-$ helm install local -f your-values.yaml . --namespace localdev
+helm install local -f your-values.yaml . --namespace localdev
 ```
 
 ### 4. Perform first login
 
 Make sure to accept the risk of the self-signed certificates for the following hosts using the continue option:
-- [centralidp.example.org/auth](https://centralidp.example.org/auth/)
-- [sharedidp.example.org/auth](https://sharedidp.example.org/auth/)
+- [centralidp.example.org/auth/](https://centralidp.example.org/auth/)
+- [sharedidp.example.org/auth/](https://sharedidp.example.org/auth/)
 - [portal-backend.example.org](https://portal-backend.example.org)
-- [portal.example.org](https://portal.example.org/)
-- [pgadmin4.example.org](https://pgadmin4.example.org/)
+- [portal.example.org](https://portal.example.org)
+- [pgadmin4.example.org](https://pgadmin4.example.org)
 
 Then proceed with the login to [portal.example.org](https://portal.example.org).
 
@@ -207,9 +204,9 @@ cx-operator@cx.com
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
-| https://eclipse-tractusx.github.io/charts/dev | centralidp | 1.2.0 |
-| https://eclipse-tractusx.github.io/charts/dev | portal | 1.6.0 |
-| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 1.2.0 |
+| https://eclipse-tractusx.github.io/charts/dev | centralidp | 2.0.0-alpha |
+| https://eclipse-tractusx.github.io/charts/dev | portal | 1.7.0-alpha |
+| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 2.0.0-alpha |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
 ## Values
@@ -296,24 +293,16 @@ cx-operator@cx.com
 | portal.postgresql.auth.portalPassword | string | `""` | Password for the non-root username 'portal'. Secret-key 'portal-password'. |
 | portal.postgresql.auth.provisioningPassword | string | `""` | Password for the non-root username 'provisioning'. Secret-key 'provisioning-password'. |
 | centralidp.enabled | bool | `true` |  |
+| centralidp.keycloak.proxy | string | `"edge"` |  |
 | centralidp.keycloak.nameOverride | string | `"centralidp"` |  |
 | centralidp.keycloak.replicaCount | int | `1` |  |
-| centralidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_ENABLE_TLS"` |  |
-| centralidp.keycloak.extraEnvVars[0].value | string | `"true"` |  |
-| centralidp.keycloak.extraEnvVars[1].name | string | `"KEYCLOAK_TLS_KEYSTORE_FILE"` |  |
-| centralidp.keycloak.extraEnvVars[1].value | string | `"/opt/bitnami/keycloak/certs/keycloak.keystore.jks"` |  |
-| centralidp.keycloak.extraEnvVars[2].name | string | `"KEYCLOAK_TLS_TRUSTSTORE_FILE"` |  |
-| centralidp.keycloak.extraEnvVars[2].value | string | `"/opt/bitnami/keycloak/certs/keycloak.truststore.jks"` |  |
-| centralidp.keycloak.extraEnvVars[3].name | string | `"KEYCLOAK_TLS_KEYSTORE_PASSWORD"` |  |
-| centralidp.keycloak.extraEnvVars[3].valueFrom.secretKeyRef.name | string | `"centralidp-tls"` |  |
-| centralidp.keycloak.extraEnvVars[3].valueFrom.secretKeyRef.key | string | `"tls-keystore-password"` |  |
-| centralidp.keycloak.extraEnvVars[4].name | string | `"KEYCLOAK_TLS_TRUSTSTORE_PASSWORD"` |  |
-| centralidp.keycloak.extraEnvVars[4].valueFrom.secretKeyRef.name | string | `"centralidp-tls"` |  |
-| centralidp.keycloak.extraEnvVars[4].valueFrom.secretKeyRef.key | string | `"tls-truststore-password"` |  |
-| centralidp.keycloak.extraEnvVars[5].name | string | `"KEYCLOAK_HTTPS_PORT"` |  |
-| centralidp.keycloak.extraEnvVars[5].value | string | `"8443"` |  |
-| centralidp.keycloak.extraEnvVars[6].name | string | `"KEYCLOAK_EXTRA_ARGS"` |  |
-| centralidp.keycloak.extraEnvVars[6].value | string | `"-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/realms/CX-Central-realm.json -Dkeycloak.migration.strategy=IGNORE_EXISTING"` |  |
+| centralidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_FILE"` |  |
+| centralidp.keycloak.extraEnvVars[0].value | string | `"/opt/bitnami/keycloak/certs/keycloak.truststore.jks"` |  |
+| centralidp.keycloak.extraEnvVars[1].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_PASSWORD"` |  |
+| centralidp.keycloak.extraEnvVars[1].valueFrom.secretKeyRef.name | string | `"centralidp-spi"` |  |
+| centralidp.keycloak.extraEnvVars[1].valueFrom.secretKeyRef.key | string | `"spi-truststore-password"` |  |
+| centralidp.keycloak.extraEnvVars[2].name | string | `"KEYCLOAK_EXTRA_ARGS"` |  |
+| centralidp.keycloak.extraEnvVars[2].value | string | `"-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/realms/CX-Central-realm.json -Dkeycloak.migration.strategy=IGNORE_EXISTING"` |  |
 | centralidp.keycloak.extraVolumes[0].name | string | `"certificates"` |  |
 | centralidp.keycloak.extraVolumes[0].secret.secretName | string | `"root-secret"` |  |
 | centralidp.keycloak.extraVolumes[0].secret.defaultMode | int | `420` |  |
@@ -332,17 +321,14 @@ cx-operator@cx.com
 | centralidp.keycloak.extraVolumeMounts[3].name | string | `"realms"` |  |
 | centralidp.keycloak.extraVolumeMounts[3].mountPath | string | `"/realms"` |  |
 | centralidp.keycloak.initContainers[0].name | string | `"init-certs"` |  |
-| centralidp.keycloak.initContainers[0].image | string | `"docker.io/bitnami/keycloak:16.1.1-debian-10-r103"` |  |
+| centralidp.keycloak.initContainers[0].image | string | `"docker.io/bitnami/keycloak:22.0.3-debian-11-r14"` |  |
 | centralidp.keycloak.initContainers[0].imagePullPolicy | string | `"Always"` |  |
 | centralidp.keycloak.initContainers[0].command[0] | string | `"/bin/bash"` |  |
 | centralidp.keycloak.initContainers[0].args[0] | string | `"-ec"` |  |
-| centralidp.keycloak.initContainers[0].args[1] | string | `"keytool -import -file \"/certs/tls.crt\" \\\n        -keystore \"/opt/bitnami/keycloak/certs/keycloak.truststore.jks\" \\\n        -storepass \"${KEYCLOAK_TLS_TRUSTSTORE_PASSWORD}\" \\\n        -noprompt"` |  |
-| centralidp.keycloak.initContainers[0].env[0].name | string | `"KEYCLOAK_TLS_KEYSTORE_PASSWORD"` |  |
-| centralidp.keycloak.initContainers[0].env[0].valueFrom.secretKeyRef.name | string | `"centralidp-tls"` |  |
-| centralidp.keycloak.initContainers[0].env[0].valueFrom.secretKeyRef.key | string | `"tls-keystore-password"` |  |
-| centralidp.keycloak.initContainers[0].env[1].name | string | `"KEYCLOAK_TLS_TRUSTSTORE_PASSWORD"` |  |
-| centralidp.keycloak.initContainers[0].env[1].valueFrom.secretKeyRef.name | string | `"centralidp-tls"` |  |
-| centralidp.keycloak.initContainers[0].env[1].valueFrom.secretKeyRef.key | string | `"tls-truststore-password"` |  |
+| centralidp.keycloak.initContainers[0].args[1] | string | `"keytool -import -file \"/certs/tls.crt\" \\\n        -keystore \"/opt/bitnami/keycloak/certs/keycloak.truststore.jks\" \\\n        -storepass \"${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}\" \\\n        -noprompt"` |  |
+| centralidp.keycloak.initContainers[0].env[0].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_PASSWORD"` |  |
+| centralidp.keycloak.initContainers[0].env[0].valueFrom.secretKeyRef.name | string | `"centralidp-spi"` |  |
+| centralidp.keycloak.initContainers[0].env[0].valueFrom.secretKeyRef.key | string | `"spi-truststore-password"` |  |
 | centralidp.keycloak.initContainers[0].volumeMounts[0].name | string | `"certificates"` |  |
 | centralidp.keycloak.initContainers[0].volumeMounts[0].mountPath | string | `"/certs"` |  |
 | centralidp.keycloak.initContainers[0].volumeMounts[1].name | string | `"shared-certs"` |  |
@@ -372,28 +358,18 @@ cx-operator@cx.com
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | centralidp.keycloak.ingress.tls | bool | `true` |  |
 | centralidp.secrets.auth.existingSecret.adminpassword | string | `""` | Password for the admin username 'admin'. Secret-key 'admin-password'. |
-| centralidp.secrets.auth.tls.keystore | string | `""` |  |
-| centralidp.secrets.auth.tls.truststore | string | `""` |  |
-| centralidp.secrets.postgresql.auth.existingSecret.password | string | `""` | Password for the user 'kccentral' |
+| centralidp.secrets.auth.spi.truststorePassword | string | `""` |  |
 | sharedidp.enabled | bool | `true` |  |
+| sharedidp.keycloak.proxy | string | `"edge"` |  |
 | sharedidp.keycloak.nameOverride | string | `"sharedidp"` |  |
 | sharedidp.keycloak.replicaCount | int | `1` |  |
-| sharedidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_ENABLE_TLS"` |  |
-| sharedidp.keycloak.extraEnvVars[0].value | string | `"true"` |  |
-| sharedidp.keycloak.extraEnvVars[1].name | string | `"KEYCLOAK_TLS_KEYSTORE_FILE"` |  |
-| sharedidp.keycloak.extraEnvVars[1].value | string | `"/opt/bitnami/keycloak/certs/keycloak.keystore.jks"` |  |
-| sharedidp.keycloak.extraEnvVars[2].name | string | `"KEYCLOAK_TLS_TRUSTSTORE_FILE"` |  |
-| sharedidp.keycloak.extraEnvVars[2].value | string | `"/opt/bitnami/keycloak/certs/keycloak.truststore.jks"` |  |
-| sharedidp.keycloak.extraEnvVars[3].name | string | `"KEYCLOAK_TLS_KEYSTORE_PASSWORD"` |  |
-| sharedidp.keycloak.extraEnvVars[3].valueFrom.secretKeyRef.name | string | `"sharedidp-tls"` |  |
-| sharedidp.keycloak.extraEnvVars[3].valueFrom.secretKeyRef.key | string | `"tls-keystore-password"` |  |
-| sharedidp.keycloak.extraEnvVars[4].name | string | `"KEYCLOAK_TLS_TRUSTSTORE_PASSWORD"` |  |
-| sharedidp.keycloak.extraEnvVars[4].valueFrom.secretKeyRef.name | string | `"sharedidp-tls"` |  |
-| sharedidp.keycloak.extraEnvVars[4].valueFrom.secretKeyRef.key | string | `"tls-truststore-password"` |  |
-| sharedidp.keycloak.extraEnvVars[5].name | string | `"KEYCLOAK_HTTPS_PORT"` |  |
-| sharedidp.keycloak.extraEnvVars[5].value | string | `"8443"` |  |
-| sharedidp.keycloak.extraEnvVars[6].name | string | `"KEYCLOAK_EXTRA_ARGS"` |  |
-| sharedidp.keycloak.extraEnvVars[6].value | string | `"-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/realms -Dkeycloak.migration.strategy=IGNORE_EXISTING"` |  |
+| sharedidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_FILE"` |  |
+| sharedidp.keycloak.extraEnvVars[0].value | string | `"/opt/bitnami/keycloak/certs/keycloak.truststore.jks"` |  |
+| sharedidp.keycloak.extraEnvVars[1].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_PASSWORD"` |  |
+| sharedidp.keycloak.extraEnvVars[1].valueFrom.secretKeyRef.name | string | `"sharedidp-spi"` |  |
+| sharedidp.keycloak.extraEnvVars[1].valueFrom.secretKeyRef.key | string | `"spi-truststore-password"` |  |
+| sharedidp.keycloak.extraEnvVars[2].name | string | `"KEYCLOAK_EXTRA_ARGS"` |  |
+| sharedidp.keycloak.extraEnvVars[2].value | string | `"-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/realms -Dkeycloak.migration.strategy=IGNORE_EXISTING"` |  |
 | sharedidp.keycloak.extraVolumes[0].name | string | `"certificates"` |  |
 | sharedidp.keycloak.extraVolumes[0].secret.secretName | string | `"root-secret"` |  |
 | sharedidp.keycloak.extraVolumes[0].secret.defaultMode | int | `420` |  |
@@ -420,17 +396,14 @@ cx-operator@cx.com
 | sharedidp.keycloak.extraVolumeMounts[5].name | string | `"realm-secrets"` |  |
 | sharedidp.keycloak.extraVolumeMounts[5].mountPath | string | `"/secrets"` |  |
 | sharedidp.keycloak.initContainers[0].name | string | `"init-certs"` |  |
-| sharedidp.keycloak.initContainers[0].image | string | `"docker.io/bitnami/keycloak:16.1.1-debian-10-r103"` |  |
+| sharedidp.keycloak.initContainers[0].image | string | `"docker.io/bitnami/keycloak:22.0.3-debian-11-r14"` |  |
 | sharedidp.keycloak.initContainers[0].imagePullPolicy | string | `"Always"` |  |
 | sharedidp.keycloak.initContainers[0].command[0] | string | `"/bin/bash"` |  |
 | sharedidp.keycloak.initContainers[0].args[0] | string | `"-ec"` |  |
-| sharedidp.keycloak.initContainers[0].args[1] | string | `"keytool -import -file \"/certs/tls.crt\" \\\n        -keystore \"/opt/bitnami/keycloak/certs/keycloak.truststore.jks\" \\\n        -storepass \"${KEYCLOAK_TLS_TRUSTSTORE_PASSWORD}\" \\\n        -noprompt"` |  |
-| sharedidp.keycloak.initContainers[0].env[0].name | string | `"KEYCLOAK_TLS_KEYSTORE_PASSWORD"` |  |
-| sharedidp.keycloak.initContainers[0].env[0].valueFrom.secretKeyRef.name | string | `"sharedidp-tls"` |  |
-| sharedidp.keycloak.initContainers[0].env[0].valueFrom.secretKeyRef.key | string | `"tls-keystore-password"` |  |
-| sharedidp.keycloak.initContainers[0].env[1].name | string | `"KEYCLOAK_TLS_TRUSTSTORE_PASSWORD"` |  |
-| sharedidp.keycloak.initContainers[0].env[1].valueFrom.secretKeyRef.name | string | `"sharedidp-tls"` |  |
-| sharedidp.keycloak.initContainers[0].env[1].valueFrom.secretKeyRef.key | string | `"tls-truststore-password"` |  |
+| sharedidp.keycloak.initContainers[0].args[1] | string | `"keytool -import -file \"/certs/tls.crt\" \\\n        -keystore \"/opt/bitnami/keycloak/certs/keycloak.truststore.jks\" \\\n        -storepass \"${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}\" \\\n        -noprompt"` |  |
+| sharedidp.keycloak.initContainers[0].env[0].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_PASSWORD"` |  |
+| sharedidp.keycloak.initContainers[0].env[0].valueFrom.secretKeyRef.name | string | `"sharedidp-spi"` |  |
+| sharedidp.keycloak.initContainers[0].env[0].valueFrom.secretKeyRef.key | string | `"spi-truststore-password"` |  |
 | sharedidp.keycloak.initContainers[0].volumeMounts[0].name | string | `"certificates"` |  |
 | sharedidp.keycloak.initContainers[0].volumeMounts[0].mountPath | string | `"/certs"` |  |
 | sharedidp.keycloak.initContainers[0].volumeMounts[1].name | string | `"shared-certs"` |  |
@@ -464,8 +437,7 @@ cx-operator@cx.com
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | sharedidp.keycloak.ingress.tls | bool | `true` |  |
 | sharedidp.secrets.auth.existingSecret.adminpassword | string | `""` | Password for the admin username 'admin'. Secret-key 'admin-password'. |
-| sharedidp.secrets.auth.tls.keystore | string | `""` |  |
-| sharedidp.secrets.auth.tls.truststore | string | `""` |  |
+| sharedidp.secrets.auth.spi.truststorePassword | string | `""` |  |
 | postgresportal.enabled | bool | `true` | Additional PostgreSQL for backend development; start port forwarding tunnel for database access, e.g.: 'kubectl port-forward local-portal-postgresql-primary-0 5432:5432' |
 | postgresportal.nameOverride | string | `"portal-postgresql"` |  |
 | postgresportal.auth.database | string | `"postgres"` |  |

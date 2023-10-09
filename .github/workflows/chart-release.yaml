@@ -60,6 +60,7 @@ jobs:
         run: |
           cd charts/localdev
           helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
+          helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add pgadmin4 https://helm.runix.net
           helm dependency update
 
@@ -67,3 +68,4 @@ jobs:
         uses: helm/chart-releaser-action@v1.4.1
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          CR_SKIP_EXISTING: "true"

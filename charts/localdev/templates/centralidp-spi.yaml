@@ -21,22 +21,20 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: centralidp-tls
+  name: centralidp-spi
   namespace: {{ .Release.Namespace }}
 type: Opaque
 # use lookup function to check if secret exists
-{{- $secret := (lookup "v1" "Secret" .Release.Namespace "centralidp-tls") }}
+{{- $secret := (lookup "v1" "Secret" .Release.Namespace "centralidp-spi") }}
 {{ if $secret -}}
 data:
   # if secret exists, use value provided from values file (to cover update scenario) or existing value from secret
   # use data map instead of stringData to prevent base64 encoding of already base64-encoded existing value from secret
   # use index function for secret keys with hyphen otherwise '$secret.data.secretKey' works too
-  tls-keystore-password: {{ ( .Values.centralidp.secrets.auth.tls.keystore | b64enc ) | default ( index $secret.data "tls-keystore-password" ) }}
-  tls-truststore-password: {{ ( .Values.centralidp.secrets.auth.tls.truststore | b64enc ) | default ( index $secret.data "tls-truststore-password" ) }}
+  spi-truststore-password: {{ ( .Values.centralidp.secrets.auth.spi.truststorePassword | b64enc ) | default ( index $secret.data "spi-truststore-password" ) | quote }}
 {{ else -}}
 stringData:
   # if secret doesn't exist, use provided value from values file or generate a random one
-  tls-keystore-password: {{ ( .Values.centralidp.secrets.auth.tls.keystore | b64enc ) | default ( randAlphaNum 32 | quote ) }}
-  tls-truststore-password: {{ ( .Values.centralidp.secrets.auth.tls.truststore | b64enc ) | default ( randAlphaNum 32 | quote ) }}
+  spi-truststore-password: {{ ( .Values.centralidp.secrets.auth.spi.truststorePassword | b64enc ) | default ( randAlphaNum 32 | quote ) }}
 {{ end }}
 {{- end -}}

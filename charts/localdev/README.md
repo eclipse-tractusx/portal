@@ -12,7 +12,7 @@ For detailed information about the default configuration values, please have a l
 
 ## Usage
 
-The following steps describe how to setup the LocalDev chart into the namespace 'localdev' of your started [**Minikube**](https://minikube.sigs.k8s.io/docs/start) cluster:
+The following steps describe how to setup the LocalDev chart into the namespace 'localdev' of your started [**Minikube**](https://minikube.sigs.k8s.io/docs/start) cluster.
 
 > **Note**
 >
@@ -28,6 +28,10 @@ The following steps describe how to setup the LocalDev chart into the namespace 
 > | CPU(cores) | Memory(GB) |
 > | :--------: | :--------: |
 > |     2      |      6     |
+>
+>```bash
+>minikube start --cpus=2 --memory 6gb
+>```
 >
 > Use the dashboard provided by Minikube to get an overview about the deployed components:
 >
@@ -130,9 +134,13 @@ minikube ip
 
 Additional network setup for Mac only:
 
-Install and start [docker-mac-net-connect](https://github.com/chipmk/docker-mac-net-connect#installation).
+Install and start [Docker Mac Net Connect](https://github.com/chipmk/docker-mac-net-connect#installation).
 
-Necessary due to [#7332](https://github.com/kubernetes/minikube/issues/7332).
+We also recommend to execute the usage example after install to check proper setup.
+
+If you're having issues with getting 'Docker Mac Net Connect' to work, we recommend to check out this issue: [#21](https://github.com/chipmk/docker-mac-net-connect/issues/21).
+
+The tool is necessary due to [#7332](https://github.com/kubernetes/minikube/issues/7332).
 
 ### 3. Install from released chart or [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository
 
@@ -142,6 +150,9 @@ Install the chart with the release name 'local':
 
 ```bash
 helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
+```
+
+```bash
 helm install local tractusx-dev/localdev-portal-iam --namespace localdev
 ```
 

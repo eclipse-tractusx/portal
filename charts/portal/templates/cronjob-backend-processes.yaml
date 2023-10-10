@@ -231,6 +231,8 @@ spec:
               value: "{{ .Values.backend.clients.registration }}"
             - name: "NETWORKREGISTRATION__INITIALROLES__0__USERROLENAMES__0"
               value: "{{ .Values.backend.provisioning.invitedUserInitialRoles.registration }}"
+            - name: "NETWORKREGISTRATION__BASEPORTALADDRESS"
+              value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
             - name: "MAILINGSERVICE__MAIL__SMTPPORT"
               value: "{{ .Values.backend.mailing.port }}"
             - name: "MAILINGSERVICE__MAIL__SMTPUSER"

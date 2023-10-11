@@ -17,6 +17,8 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
+replicaCount: 0
+
 postgresql:
   fullnameOverride: "portal-backend-upgrade-postgresql"
   auth:

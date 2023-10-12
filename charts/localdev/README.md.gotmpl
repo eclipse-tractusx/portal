@@ -211,6 +211,38 @@ cx-operator@cx.com
 7XSXRwYLAm5kU2H
 ```
 
+```mermaid
+%%{
+  init: {
+    'flowchart': { 'diagramPadding': '10', 'wrappingWidth': '', 'nodeSpacing': '', 'rankSpacing':'', 'titleTopMargin':'10', 'curve':'basis'},
+    'theme': 'base',
+    'themeVariables': {
+      'primaryColor': '#b3cb2d',
+      'primaryBorderColor': '#ffa600',
+      'lineColor': '#ffa600',
+      'tertiaryColor': '#fff'
+    }
+  }
+}%%
+        graph TD
+          classDef stroke stroke-width:2px
+          classDef external fill:#4cb5f5,stroke:#4cb5f5,stroke-width:2px
+          classDef addext fill:#4cb5f5,stroke:#b7b8b6,stroke-width:2px
+          iam1(IAM: centralidp Keycloak):::stroke
+          iam2(IAM: sharedidp Keycloak):::stroke
+          portal(Portal):::stroke
+          ps(Postgres):::external
+          addpgadmin4(pgadmin 4):::addext
+          ps --- iam1 & iam2 & portal
+          ps -.- addpgadmin4
+          subgraph Login Flow
+            iam1 === portal
+            iam1 === iam2
+            end
+          linkStyle 0,1,2 stroke:lightblue
+          linkStyle 3 stroke:lightgrey
+```
+
 {{ template "chart.requirementsSection" . }}
 
 {{ template "chart.valuesSection" . }}

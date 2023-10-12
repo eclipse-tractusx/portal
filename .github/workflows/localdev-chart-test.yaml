@@ -24,9 +24,9 @@ on:
   #   paths:
   #     - 'charts/localdev/**'
   #   branches: [main, dev]
-  pull_request:
-    paths:
-      - 'charts/localdev/**'
+  # pull_request:
+  #   paths:
+  #     - 'charts/localdev/**'
   workflow_dispatch:
     inputs:
       node_image:

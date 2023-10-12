@@ -42,7 +42,7 @@ The following steps describe how to setup the LocalDev chart into the namespace 
 1. [Prepare self-signed TLS setup](#1-prepare-self-signed-tls-setup)
 2. [Prepare network setup](#2-prepare-network-setup)
 3. [Install from released chart or portal-cd repository](#3-install-from-released-chart-or-portal-cd-repository)
-4. [Perform first login](perform-first-login)
+4. [Perform first login](#4-perform-first-login)
 
 ### 1. Prepare self-signed TLS setup
 
@@ -105,13 +105,13 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 
 ### 2. Prepare network setup
 
-In order to enable the local access via ingress, use the according addon for Minikube:
+In order to enable the local access via **ingress**, use the according addon for Minikube:
 
 ```bash
 minikube addons enable ingress
 ```
 
-Make sure that the DNS resolution for the hostnames is in place:
+Make sure that the **DNS** resolution for the hostnames is in place:
 
 ```bash
 minikube addons enable ingress-dns
@@ -132,7 +132,17 @@ To find out the IP address of your Minikube:
 minikube ip
 ```
 
-Additional network setup for Mac only:
+If afterwards at [step 4](#4-perform-first-login) your still facing DNS issues, add the following to your /etc/hosts file:
+
+  192.168.49.2    centralidp.example.org
+  192.168.49.2    sharedidp.example.org
+  192.168.49.2    portal.example.org
+  192.168.49.2    portal-backend.example.org
+  192.168.49.2    pgadmin4.example.org
+
+Replace 192.168.49.2 with your minikube ip.
+
+**Additional network setup** (for Mac only)
 
 Install and start [Docker Mac Net Connect](https://github.com/chipmk/docker-mac-net-connect#installation).
 
@@ -189,6 +199,12 @@ To set your own configuration and secret values, install the helm chart with you
 helm install local -f your-values.yaml . --namespace localdev
 ```
 
+> **Note**
+>
+> It is to be expected that the pods for the **portal-migrations** job will run into an error a couple of times until the portal database is ready to take connections.
+> The job will recreate pods until one run is successful.
+>
+
 ### 4. Perform first login
 
 Make sure to accept the risk of the self-signed certificates for the following hosts using the continue option:
@@ -198,7 +214,7 @@ Make sure to accept the risk of the self-signed certificates for the following h
 - [portal.example.org](https://portal.example.org)
 - [pgadmin4.example.org](https://pgadmin4.example.org)
 
-Then proceed with the login to [portal.example.org](https://portal.example.org).
+Then proceed with the login to the [portal](https://portal.example.org) to verify that everything is setup as expected.
 
 Credentials to log into the initial example realm (CX-Operator):
 

@@ -20,10 +20,10 @@
 name: LocalDev Lint and Test Chart
 
 on:
-  push:
-    paths:
-      - 'charts/localdev/**'
-    branches: [main, dev]
+  # push:
+  #   paths:
+  #     - 'charts/localdev/**'
+  #   branches: [main, dev]
   pull_request:
     paths:
       - 'charts/localdev/**'

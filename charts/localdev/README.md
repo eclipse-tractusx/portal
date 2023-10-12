@@ -30,7 +30,7 @@ The following steps describe how to setup the LocalDev chart into the namespace 
 > |     2      |      6     |
 >
 >```bash
->minikube start --cpus=2 --memory 6gb
+> minikube start --cpus=2 --memory 6gb
 >```
 >
 > Use the dashboard provided by Minikube to get an overview about the deployed components:

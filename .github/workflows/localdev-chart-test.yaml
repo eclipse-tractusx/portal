@@ -20,13 +20,13 @@
 name: LocalDev Lint and Test Chart
 
 on:
-  push:
-    paths:
-      - 'charts/localdev/**'
-    branches: [main, dev]
-  pull_request:
-    paths:
-      - 'charts/localdev/**'
+  # push:
+  #   paths:
+  #     - 'charts/localdev/**'
+  #   branches: [main, dev]
+  # pull_request:
+  #   paths:
+  #     - 'charts/localdev/**'
   workflow_dispatch:
     inputs:
       node_image:

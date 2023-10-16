@@ -52,7 +52,7 @@ jobs:
           fetch-depth: 0
 
       - name: Kubernetes KinD Cluster
-        uses: container-tools/kind-action@v2
+        uses: container-tools/kind-action@v2.0.1
         with:
           version: v0.19.0
           node_image: ${{ github.event.inputs.node_image || 'kindest/node:v1.26.6' }}

@@ -17,20 +17,12 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-apiVersion: v2
-name: portal
-type: application
-version: 1.7.0-alpha
-appVersion: 1.7.0-alpha
-description: Helm chart for Catena-X Portal
-home: https://github.com/eclipse-tractusx/portal-cd
-sources:
-  - https://github.com/eclipse-tractusx/portal-frontend
-  - https://github.com/eclipse-tractusx/portal-frontend-registration
-  - https://github.com/eclipse-tractusx/portal-assets
-  - https://github.com/eclipse-tractusx/portal-backend
-dependencies:
-  - condition: postgresql.enabled
-    name: postgresql
-    repository: https://charts.bitnami.com/bitnami
-    version: 12.12.x
+replicaCount: 0
+
+postgresql:
+  fullnameOverride: "portal-backend-upgrade-postgresql"
+  auth:
+    password: "<path:portal/data/dev/postgres#postgres-password>"
+    replicationPassword: "<path:portal/data/dev/postgres#replication-password>"
+    portalPassword: "<path:portal/data/dev/postgres#portal-password>"
+    provisioningPassword: "<path:portal/data/dev/postgres#provisioning-password>"

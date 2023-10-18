@@ -17,20 +17,22 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-apiVersion: v2
-name: portal
-type: application
-version: 1.7.0-alpha
-appVersion: 1.7.0-alpha
-description: Helm chart for Catena-X Portal
-home: https://github.com/eclipse-tractusx/portal-cd
-sources:
-  - https://github.com/eclipse-tractusx/portal-frontend
-  - https://github.com/eclipse-tractusx/portal-frontend-registration
-  - https://github.com/eclipse-tractusx/portal-assets
-  - https://github.com/eclipse-tractusx/portal-backend
-dependencies:
-  - condition: postgresql.enabled
-    name: postgresql
-    repository: https://charts.bitnami.com/bitnami
-    version: 12.12.x
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: portal-upgrade
+spec:
+  destination:
+    namespace: product-iam
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: charts/portal
+    repoURL: 'https://github.com/eclipse-tractusx/portal-cd.git'
+    targetRevision: chore/upgrade-postgres-subchart
+    plugin:
+      env:
+        - name: AVP_SECRET
+          value: vault-secret
+        - name: helm_args
+          value: '-f values.yaml -f ../../consortia/environments/values-upgrade.yaml'
+  project: project-portal

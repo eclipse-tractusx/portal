@@ -789,7 +789,7 @@ postgresql:
   # Switch to enable or disable the PostgreSQL helm chart
   enabled: true
   # -- FullnameOverride to 'portal-backend-postgresql'.
-  fullnameOverride: "portal-backend-postgresql"
+  fullnameOverride: "portal-backend-upgrade-postgresql"
   auth:
     # -- Database name
     database: "postgres"

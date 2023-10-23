@@ -97,7 +97,7 @@ frontend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 128Mi
       # limits:
       #   cpu: 45m
@@ -111,7 +111,7 @@ frontend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 128Mi
       # limits:
       #   cpu: 45m
@@ -125,7 +125,7 @@ frontend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 128Mi
       # limits:
       #   cpu: 45m
@@ -260,7 +260,7 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 512Mi
       # limits:
       #   cpu: 45m
@@ -301,7 +301,7 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 512Mi
       # limits:
       #   cpu: 45m
@@ -407,7 +407,7 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 512Mi
       # limits:
       #   cpu: 45m
@@ -517,7 +517,7 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 512Mi
       # limits:
       #   cpu: 45m
@@ -543,7 +543,7 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 512Mi
       # limits:
       #   cpu: 45m
@@ -564,7 +564,7 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 512Mi
       # limits:
       #   cpu: 45m
@@ -590,7 +590,7 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 512Mi
       # limits:
       #   cpu: 45m
@@ -663,7 +663,7 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 512Mi
       # limits:
       #   cpu: 45m
@@ -679,7 +679,7 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        cpu: 15m
+        # cpu: 15m
         memory: 512Mi
       # limits:
       #   cpu: 45m

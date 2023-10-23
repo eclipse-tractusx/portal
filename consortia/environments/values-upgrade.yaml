@@ -20,7 +20,6 @@
 replicaCount: 0
 
 postgresql:
-  fullnameOverride: "portal-backend-upgrade-postgresql"
   auth:
     password: "<path:portal/data/dev/postgres#postgres-password>"
     replicationPassword: "<path:portal/data/dev/postgres#replication-password>"

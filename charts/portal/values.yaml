@@ -97,7 +97,7 @@ frontend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
+        cpu: 15m
         memory: 128Mi
       # limits:
       #   cpu: 45m
@@ -111,7 +111,7 @@ frontend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
+        cpu: 15m
         memory: 128Mi
       # limits:
       #   cpu: 45m
@@ -125,7 +125,7 @@ frontend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
+        cpu: 15m
         memory: 128Mi
       # limits:
       #   cpu: 45m
@@ -260,11 +260,11 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
-        memory: 512Mi
+        cpu: 15m
+        # memory: 512Mi
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   # memory: 512Mi
     logging:
       bpdmLibrary: "Information"
       registrationService: "Information"
@@ -301,11 +301,11 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
-        memory: 512Mi
+        cpu: 15m
+        # memory: 512Mi
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   # memory: 512Mi
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
@@ -407,11 +407,11 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
-        memory: 512Mi
+        cpu: 15m
+        # memory: 512Mi
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   # memory: 512Mi
     logging:
       default: "Information"
       offersLibrary: "Information"
@@ -517,11 +517,11 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
-        memory: 512Mi
+        cpu: 15m
+        # memory: 512Mi
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   # memory: 512Mi
     seeding:
       testDataEnvironments: ""
       # -- when changing the testDataPath the processIdentity needs to be adjusted as well,
@@ -543,11 +543,11 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
-        memory: 512Mi
+        cpu: 15m
+        # memory: 512Mi
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   # memory: 512Mi
     processIdentity:
       userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
@@ -564,11 +564,11 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
-        memory: 512Mi
+        cpu: 15m
+        # memory: 512Mi
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   # memory: 512Mi
     # -- Keycloak Healthcheck to be enabled for startupProbe;
     # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
@@ -590,11 +590,11 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
-        memory: 512Mi
+        cpu: 15m
+        # memory: 512Mi
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   # memory: 512Mi
     logging:
       default: "Information"
       offersLibrary: "Information"
@@ -663,11 +663,11 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
-        memory: 512Mi
+        cpu: 15m
+        # memory: 512Mi
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   # memory: 512Mi
     logging:
       default: "Information"
   processesworker:
@@ -679,11 +679,11 @@ backend:
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
       requests:
-        # cpu: 15m
-        memory: 512Mi
+        cpu: 15m
+        # memory: 512Mi
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   # memory: 512Mi
     logging:
       default: "Information"
       processesLibrary: "Information"

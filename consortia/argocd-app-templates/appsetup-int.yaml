@@ -20,7 +20,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: portal
+  name: portal-upgrade
 spec:
   destination:
     namespace: product-portal

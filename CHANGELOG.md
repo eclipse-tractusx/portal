@@ -2,6 +2,23 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.7.0-RC1
+
+### Change
+
+* changed to new container images
+  * portal-assets: v1.7.0-RC1
+  * portal-frontend: v1.7.0-RC1
+  * portal-backend: v1.7.0-RC1
+* changed PostgreSQL version of the subchart by Bitnami from 14.5.0 to 15.4.0 (subchart version updated from 11.9.13 to 12.12.x)
+* portal-backend:
+  * enabled and/or extended config in particular for activeDocumentTypeIds in the app marketplace and for network2network (N2N)
+
+### Technical Support
+
+* disabled upgrade step in helm test: due to major postgres upgrade the step inevitability fails
+
+Please be aware that **this version is still in Release Candidate phase**: especially documentation is still WIP.
 
 ## 1.7.0-alpha
 

@@ -81,7 +81,7 @@ dependencies:
 | frontend.portal.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"c67c2656c2fc177e7f18bd745716b00b05ed2cae"` |  |
+| frontend.registration.image.registrationtag | string | `"v1.5.1"` |  |
 | frontend.registration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
 | frontend.assets.name | string | `"assets"` |  |
 | frontend.assets.image.name | string | `"tractusx/portal-assets"` |  |

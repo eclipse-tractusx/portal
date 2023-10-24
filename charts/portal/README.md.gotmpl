@@ -6,7 +6,7 @@ This helm chart installs the Catena-X Portal application which consists of
 
 * [portal-frontend (v1.7.0-RC1)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.7.0-RC1),
 * [portal-frontend-registration (v1.5.1)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.5.1),
-* [portal-assets (v1.6.1)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.6.1) and
+* [portal-assets (v1.7.0-RC1)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.7.0-RC1) and
 * [portal-backend (v1.7.0-RC1)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.7.0-RC1).
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).

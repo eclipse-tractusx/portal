@@ -20,7 +20,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: portal-upgrade
+  name: portal
 spec:
   destination:
     namespace: product-portal
@@ -34,5 +34,5 @@ spec:
         - name: AVP_SECRET
           value: vault-secret
         - name: helm_args
-          value: '-f values.yaml -f ../../consortia/environments/values-int.yaml'
+          value: '-f values.yaml -f ../../consortia/environments/values-upgrade.yaml'
   project: project-portal

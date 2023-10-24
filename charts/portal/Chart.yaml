@@ -20,8 +20,8 @@
 apiVersion: v2
 name: portal
 type: application
-version: 1.7.0-alpha
-appVersion: 1.7.0-alpha
+version: 1.7.0-RC1
+appVersion: 1.7.0-RC1
 description: Helm chart for Catena-X Portal
 home: https://github.com/eclipse-tractusx/portal-cd
 sources:
@@ -33,4 +33,4 @@ dependencies:
   - condition: postgresql.enabled
     name: postgresql
     repository: https://charts.bitnami.com/bitnami
-    version: 11.9.13
+    version: 12.12.x

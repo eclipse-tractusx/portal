@@ -92,7 +92,7 @@ frontend:
     name: "portal"
     image:
       name: "tractusx/portal-frontend"
-      portaltag: 7fa214aeee494345fa92350dea6fd4b6be0db071
+      portaltag: 4b7cbae54d54879689a64e1a8782138481f3203e
     # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
     # If you do want to specify resources, uncomment the following lines,
     # adjust them as necessary, and remove the curly braces after 'resources:'.

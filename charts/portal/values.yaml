@@ -195,6 +195,10 @@ backend:
     schema: "portal"
     sslMode: "Disable"
   portalHomePath: "/home"
+  portalRegistrationExternalPath: "/?overlay=consent_osp"
+  portalHelpPath: "/documentation"
+  portalIntroductionCompanyRolePath: "/companyroles"
+  portalIntroductionDataspacePath: "/dataspace"
   userManagementPath: "/usermanagement"
   keycloak:
     # -- Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM).
@@ -431,6 +435,8 @@ backend:
         - name: "HEALTHCHECKS__0__TAGS__1"
           value: "portaldb"
     appOverviewPath: "/appoverview"
+    subscriptionPath: "/appsubscription"
+    detailPath: "/appdetail"
     catenaAdminRoles:
       role0: "CX Admin"
     serviceAccountRoles:
@@ -617,7 +623,9 @@ backend:
         #   value: "keycloak"
         - name: "HEALTHCHECKS__0__TAGS__1"
           value: "portaldb"
-    serviceMarketplacePath: "/servicemarketplace"
+    serviceMarketplacePath: "/serviceoverview"
+    subscriptionPath: "/servicesubscription"
+    detailPath: "/servicedetail"
     catenaAdminRoles:
       role0: "CX Admin"
     serviceAccountRoles:
@@ -778,6 +786,11 @@ backend:
     onboardingServiceProvider:
       # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'.
       encryptionKey: ""
+    networkRegistration:
+      loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
+      externalRegistrationPath: "/registration/external"
+       # -- TODO: for now this part is not available in the frontend, but will be implemented in the future
+      closeApplicationPath: "/home/decline"
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

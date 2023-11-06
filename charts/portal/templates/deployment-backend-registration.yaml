@@ -164,6 +164,8 @@ spec:
           value: "{{ .Values.backend.registration.applicationStatusIds.status2 }}"
         - name: "REGISTRATION__BASEPORTALADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.registration.portalRegistrationPath }}"
+        - name: "REGISTRATION__HELPADDRESS"
+          value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHelpPath }}"
         - name: "REGISTRATION__DOCUMENTTYPEIDS__0"
           value: "{{ .Values.backend.registration.documentTypeIds.type0 }}"
         - name: "REGISTRATION__DOCUMENTTYPEIDS__1"

@@ -195,7 +195,6 @@ backend:
     schema: "portal"
     sslMode: "Disable"
   portalHomePath: "/home"
-  portalRegistrationExternalPath: "/?overlay=consent_osp"
   portalHelpPath: "/documentation"
   portalIntroductionCompanyRolePath: "/companyroles"
   portalIntroductionDataspacePath: "/dataspace"
@@ -788,7 +787,7 @@ backend:
       encryptionKey: ""
     networkRegistration:
       loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
-      externalRegistrationPath: "/registration/external"
+      externalRegistrationPath: "/?overlay=consent_osp"
        # -- TODO: for now this part is not available in the frontend, but will be implemented in the future
       closeApplicationPath: "/home/decline"
   clients:

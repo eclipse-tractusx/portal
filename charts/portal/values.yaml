@@ -98,10 +98,10 @@ frontend:
     resources:
       requests:
         cpu: 15m
-        memory: 128Mi
+        memory: 105M
       # limits:
       #   cpu: 45m
-      #   memory: 128Mi
+      #   memory: 105M
   registration:
     name: "registration"
     image:
@@ -112,10 +112,10 @@ frontend:
     resources:
       requests:
         cpu: 15m
-        memory: 128Mi
+        memory: 105M
       # limits:
       #   cpu: 45m
-      #   memory: 128Mi
+      #   memory: 105M
   assets:
     name: "assets"
     image:
@@ -126,10 +126,10 @@ frontend:
     resources:
       requests:
         cpu: 15m
-        memory: 128Mi
+        memory: 105M
       # limits:
       #   cpu: 45m
-      #   memory: 128Mi
+      #   memory: 105M
     path: "/assets"
   centralidpAuthPath: "/auth"
   bpdmPartnersPoolApiPath: "/pool/api"
@@ -261,10 +261,10 @@ backend:
     resources:
       requests:
         cpu: 15m
-        memory: 512Mi
+        memory: 385M
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   memory: 460M
     logging:
       bpdmLibrary: "Information"
       registrationService: "Information"
@@ -302,10 +302,10 @@ backend:
     resources:
       requests:
         cpu: 15m
-        memory: 512Mi
+        memory: 385M
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   memory: 430M
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
@@ -408,10 +408,10 @@ backend:
     resources:
       requests:
         cpu: 15m
-        memory: 512Mi
+        memory: 445M
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   memory: 500M
     logging:
       default: "Information"
       offersLibrary: "Information"
@@ -515,13 +515,13 @@ backend:
       portalmigrationstag: v1.7.0-RC2
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
-    resources: {}
-      # requests:
-      #   cpu: 15m
-      #   memory: 512Mi
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   memory: 105M
     seeding:
       testDataEnvironments: ""
       # -- when changing the testDataPath the processIdentity needs to be adjusted as well,
@@ -541,13 +541,13 @@ backend:
       portalmaintenancetag: v1.7.0-RC2
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
-    resources: {}
-      # requests:
-      #   cpu: 15m
-      #   memory: 512Mi
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   memory: 105M
     processIdentity:
       userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
@@ -565,10 +565,10 @@ backend:
     resources:
       requests:
         cpu: 15m
-        memory: 512Mi
+        memory: 300M
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   memory: 400M
     # -- Keycloak Healthcheck to be enabled for startupProbe;
     # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
@@ -591,10 +591,10 @@ backend:
     resources:
       requests:
         cpu: 15m
-        memory: 512Mi
+        memory: 445M
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   memory: 500M
     logging:
       default: "Information"
       offersLibrary: "Information"
@@ -661,13 +661,13 @@ backend:
       provisioningmigrationstag: v1.7.0-RC2
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
-    resources: {}
-      # requests:
-      #   cpu: 15m
-      #   memory: 512Mi
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   memory: 105M
     logging:
       default: "Information"
   processesworker:
@@ -677,13 +677,13 @@ backend:
       processesworkertag: v1.7.0-RC2
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
-    resources: {}
-      # requests:
-      #   cpu: 15m
-      #   memory: 512Mi
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
       # limits:
       #   cpu: 45m
-      #   memory: 512Mi
+      #   memory: 105M
     logging:
       default: "Information"
       processesLibrary: "Information"

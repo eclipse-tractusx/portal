@@ -39,7 +39,7 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop:
-            - ALL          
+            - ALL
           runAsNonRoot: true
         image: "{{ .Values.backend.registration.image.name }}:{{ .Values.backend.registration.image.registrationservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"

@@ -39,7 +39,7 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop:
-            - ALL          
+            - ALL
           runAsNonRoot: true
         image: "{{ .Values.backend.notification.image.name }}:{{ .Values.backend.notification.image.notificationservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"

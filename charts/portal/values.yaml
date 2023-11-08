@@ -196,7 +196,7 @@ backend:
     sslMode: "Disable"
   portalHomePath: "/home"
   portalHelpPath: "/documentation"
-  # -- TODO: Currently this is not supported by the front- and backend. We will adjust that later on
+  # -- The password resend logic is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
   portalPasswordResendPath: "/home/passwordResend"
   portalIntroductionCompanyRolePath: "/companyroles"
   portalIntroductionDataspacePath: "/dataspace"
@@ -790,7 +790,7 @@ backend:
     networkRegistration:
       loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
       externalRegistrationPath: "/?overlay=consent_osp"
-       # -- TODO: for now this part is not available in the frontend, but will be implemented in the future
+      # -- The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
       closeApplicationPath: "/home/decline"
   clients:
     portal: "Cl2-CX-Portal"

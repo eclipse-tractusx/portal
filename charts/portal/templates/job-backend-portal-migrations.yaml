@@ -37,8 +37,7 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop:
-            - ALL
-          readOnlyRootFilesystem: true
+            - ALL          
           runAsNonRoot: true
         image: "{{ .Values.backend.portalmigrations.image.name }}:{{ .Values.backend.portalmigrations.image.portalmigrationstag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"

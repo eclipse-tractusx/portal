@@ -39,8 +39,7 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop:
-            - ALL
-          readOnlyRootFilesystem: true
+            - ALL          
           runAsNonRoot: true
         image: "{{ .Values.backend.administration.image.name }}:{{ .Values.backend.administration.image.administrationservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"

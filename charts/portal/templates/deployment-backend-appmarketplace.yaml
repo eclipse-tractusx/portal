@@ -39,8 +39,7 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop:
-            - ALL
-          readOnlyRootFilesystem: true
+            - ALL          
           runAsNonRoot: true
         image: "{{ .Values.backend.appmarketplace.image.name }}:{{ .Values.backend.appmarketplace.image.appmarketplaceservicetag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"

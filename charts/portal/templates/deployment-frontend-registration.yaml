@@ -39,8 +39,7 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop:
-            - ALL
-          readOnlyRootFilesystem: true
+            - ALL          
           runAsNonRoot: true
         image: {{ .Values.frontend.registration.image.name }}:{{ .Values.frontend.registration.image.registrationtag | default .Chart.AppVersion }}
         imagePullPolicy: "Always"

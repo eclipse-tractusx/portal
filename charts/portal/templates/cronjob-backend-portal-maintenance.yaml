@@ -34,8 +34,7 @@ spec:
               allowPrivilegeEscalation: false
               capabilities:
                 drop:
-                - ALL
-              readOnlyRootFilesystem: true
+                - ALL              
               runAsNonRoot: true
             image: "{{ .Values.backend.portalmaintenance.image.name }}:{{ .Values.backend.portalmaintenance.image.portalmaintenancetag | default .Chart.AppVersion }}"
             imagePullPolicy: "Always"

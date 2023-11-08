@@ -35,8 +35,7 @@ spec:
               allowPrivilegeEscalation: false
               capabilities:
                 drop:
-                - ALL
-              readOnlyRootFilesystem: true
+                - ALL              
               runAsNonRoot: true
             image: "{{ .Values.backend.processesworker.image.name }}:{{ .Values.backend.processesworker.image.processesworkertag | default .Chart.AppVersion }}"
             imagePullPolicy: "Always"

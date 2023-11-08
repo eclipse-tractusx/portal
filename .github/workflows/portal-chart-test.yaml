@@ -85,6 +85,7 @@ jobs:
 
       - name: Run helm install
         run: |
+          kubectl describe nodes
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
           helm install portal charts/portal --namespace install --create-namespace --debug

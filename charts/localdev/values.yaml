@@ -24,7 +24,7 @@ portal:
   # -- Set your local backend service to integrate into local development.
   # Start port forwarding tunnel for database access, e.g.:
   # 'kubectl port-forward service/portal-backend-postgresql-primary 5432:5432'
-  portalBackendAddress: "https://localhost:5001"
+  portalBackendAddress: "https://portal-backend.example.org"
   replicaCount: 1
   frontend:
     ingress:
@@ -145,7 +145,7 @@ portal:
       provisioningPassword: ""
 
 centralidp:
-  enabled: false
+  enabled: true
   keycloak:
     proxy: edge
     nameOverride: "centralidp"
@@ -246,7 +246,7 @@ centralidp:
         truststorePassword: ""
 
 sharedidp:
-  enabled: false
+  enabled: true
   keycloak:
     proxy: edge
     nameOverride: "sharedidp"

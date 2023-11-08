@@ -196,7 +196,8 @@ backend:
     sslMode: "Disable"
   portalHomePath: "/home"
   portalHelpPath: "/documentation"
-  portalPasswordResendPath: "/home/passwordResend" # -- TODO: Currently this is not supported by the front- and backend. We will adjust that later on
+  # -- TODO: Currently this is not supported by the front- and backend. We will adjust that later on
+  portalPasswordResendPath: "/home/passwordResend"
   portalIntroductionCompanyRolePath: "/companyroles"
   portalIntroductionDataspacePath: "/dataspace"
   userManagementPath: "/usermanagement"

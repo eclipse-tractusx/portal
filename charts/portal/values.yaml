@@ -486,6 +486,25 @@ backend:
       type1: "APP_TECHNICAL_INFORMATION"
       type2: "APP_CONTRACT"
       type3: "ADDITIONAL_DETAILS"
+    deleteActiveAppDocumentTypeIds:
+      type0: "APP_IMAGE"
+      type1: "APP_TECHNICAL_INFORMATION"
+      type2: "APP_CONTRACT"
+      type3: "ADDITIONAL_DETAILS"
+    uploadActiveAppDocumentTypeIds:
+      documentTypeId0: "APP_IMAGE"
+      mediaTypeIds0:
+        mediaTypeId0: "JPEG"
+        mediaTypeId1: "PNG"
+      documentTypeId1: "APP_TECHNICAL_INFORMATION"
+      mediaTypeIds1:
+        mediaTypeId0: "PDF"
+      documentTypeId2: "APP_CONTRACT"
+      mediaTypeIds2:
+        mediaTypeId0: "PDF"
+      documentTypeId3: "ADDITIONAL_DETAILS"
+      mediaTypeIds3:
+        mediaTypeId0: "PDF"
     notificationTypeIds:
       type0: "APP_RELEASE_REQUEST"
     activeAppNotificationTypeIds:

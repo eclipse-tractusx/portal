@@ -192,6 +192,11 @@ backend:
     schema: "portal"
     sslMode: "Disable"
   portalHomePath: "/home"
+  portalHelpPath: "/documentation"
+  # -- The password resend logic is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
+  portalPasswordResendPath: "/home/passwordResend"
+  portalIntroductionCompanyRolePath: "/companyroles"
+  portalIntroductionDataspacePath: "/dataspace"
   userManagementPath: "/usermanagement"
   keycloak:
     # -- Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM).
@@ -425,6 +430,8 @@ backend:
         - name: "HEALTHCHECKS__0__TAGS__1"
           value: "portaldb"
     appOverviewPath: "/appoverview"
+    subscriptionPath: "/appsubscription"
+    detailPath: "/appdetail"
     catenaAdminRoles:
       role0: "CX Admin"
     serviceAccountRoles:
@@ -626,7 +633,9 @@ backend:
         #   value: "keycloak"
         - name: "HEALTHCHECKS__0__TAGS__1"
           value: "portaldb"
-    serviceMarketplacePath: "/servicemarketplace"
+    serviceOverviewPath: "/serviceoverview"
+    subscriptionPath: "/servicesubscription"
+    detailPath: "/servicedetail"
     catenaAdminRoles:
       role0: "CX Admin"
     serviceAccountRoles:
@@ -785,6 +794,11 @@ backend:
     onboardingServiceProvider:
       # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'.
       encryptionKey: ""
+    networkRegistration:
+      loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
+      externalRegistrationPath: "/?overlay=consent_osp"
+      # -- The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
+      closeApplicationPath: "/home/decline"
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

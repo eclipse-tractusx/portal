@@ -92,47 +92,44 @@ frontend:
     name: "portal"
     image:
       name: "tractusx/portal-frontend"
-      portaltag: v1.7.0-RC2
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      portaltag: v1.7.0-RC3
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
       # limits:
-      #   cpu: 100m
-      #   memory: 128Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+      #   cpu: 45m
+      #   memory: 105M
   registration:
     name: "registration"
     image:
       name: "tractusx/portal-frontend-registration"
-      registrationtag: v1.5.1
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      registrationtag: v1.5.2
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
       # limits:
-      #   cpu: 100m
-      #   memory: 128Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+      #   cpu: 45m
+      #   memory: 105M
   assets:
     name: "assets"
     image:
       name: "tractusx/portal-assets"
-      assetstag: v1.7.0-RC2
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      assetstag: v1.7.0-RC3
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
       # limits:
-      #   cpu: 100m
-      #   memory: 128Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 128Mi
+      #   cpu: 45m
+      #   memory: 105M
     path: "/assets"
   centralidpAuthPath: "/auth"
   bpdmPartnersPoolApiPath: "/pool/api"
@@ -195,6 +192,11 @@ backend:
     schema: "portal"
     sslMode: "Disable"
   portalHomePath: "/home"
+  portalHelpPath: "/documentation"
+  # -- The password resend logic is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
+  portalPasswordResendPath: "/home/passwordResend"
+  portalIntroductionCompanyRolePath: "/companyroles"
+  portalIntroductionDataspacePath: "/dataspace"
   userManagementPath: "/usermanagement"
   keycloak:
     # -- Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM).
@@ -258,17 +260,16 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: v1.7.0-RC2
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      registrationservicetag: v1.7.0-RC3
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 385M
       # limits:
-      #   cpu: 250m
-      #   memory: 256Mi
-      # requests:
-      #   cpu: 250m
-      #   memory: 256Mi
+      #   cpu: 45m
+      #   memory: 460M
     logging:
       bpdmLibrary: "Information"
       registrationService: "Information"
@@ -300,17 +301,16 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: v1.7.0-RC2
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      administrationservicetag: v1.7.0-RC3
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 385M
       # limits:
-      #   cpu: 250m
-      #   memory: 256Mi
-      # requests:
-      #   cpu: 250m
-      #   memory: 256Mi
+      #   cpu: 45m
+      #   memory: 430M
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
@@ -407,17 +407,16 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: v1.7.0-RC2
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      appmarketplaceservicetag: v1.7.0-RC3
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 445M
       # limits:
-      #   cpu: 250m
-      #   memory: 256Mi
-      # requests:
-      #   cpu: 250m
-      #   memory: 256Mi
+      #   cpu: 45m
+      #   memory: 500M
     logging:
       default: "Information"
       offersLibrary: "Information"
@@ -431,6 +430,8 @@ backend:
         - name: "HEALTHCHECKS__0__TAGS__1"
           value: "portaldb"
     appOverviewPath: "/appoverview"
+    subscriptionPath: "/appsubscription"
+    detailPath: "/appdetail"
     catenaAdminRoles:
       role0: "CX Admin"
     serviceAccountRoles:
@@ -492,6 +493,25 @@ backend:
       type1: "APP_TECHNICAL_INFORMATION"
       type2: "APP_CONTRACT"
       type3: "ADDITIONAL_DETAILS"
+    deleteActiveAppDocumentTypeIds:
+      type0: "APP_IMAGE"
+      type1: "APP_TECHNICAL_INFORMATION"
+      type2: "APP_CONTRACT"
+      type3: "ADDITIONAL_DETAILS"
+    uploadActiveAppDocumentTypeIds:
+      documentTypeId0: "APP_IMAGE"
+      mediaTypeIds0:
+        mediaTypeId0: "JPEG"
+        mediaTypeId1: "PNG"
+      documentTypeId1: "APP_TECHNICAL_INFORMATION"
+      mediaTypeIds1:
+        mediaTypeId0: "PDF"
+      documentTypeId2: "APP_CONTRACT"
+      mediaTypeIds2:
+        mediaTypeId0: "PDF"
+      documentTypeId3: "ADDITIONAL_DETAILS"
+      mediaTypeIds3:
+        mediaTypeId0: "PDF"
     notificationTypeIds:
       type0: "APP_RELEASE_REQUEST"
     activeAppNotificationTypeIds:
@@ -518,17 +538,16 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: v1.7.0-RC2
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      portalmigrationstag: v1.7.0-RC3
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
       # limits:
-      #   cpu: 250m
-      #   memory: 256Mi
-      # requests:
-      #   cpu: 250m
-      #   memory: 256Mi
+      #   cpu: 45m
+      #   memory: 105M
     seeding:
       testDataEnvironments: ""
       # -- when changing the testDataPath the processIdentity needs to be adjusted as well,
@@ -545,17 +564,16 @@ backend:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: v1.7.0-RC2
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      portalmaintenancetag: v1.7.0-RC3
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
       # limits:
-      #   cpu: 250m
-      #   memory: 256Mi
-      # requests:
-      #   cpu: 250m
-      #   memory: 256Mi
+      #   cpu: 45m
+      #   memory: 105M
     processIdentity:
       userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
@@ -567,17 +585,16 @@ backend:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: v1.7.0-RC2
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      notificationservicetag: v1.7.0-RC3
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 300M
       # limits:
-      #   cpu: 250m
-      #   memory: 256Mi
-      # requests:
-      #   cpu: 250m
-      #   memory: 256Mi
+      #   cpu: 45m
+      #   memory: 400M
     # -- Keycloak Healthcheck to be enabled for startupProbe;
     # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
@@ -594,17 +611,16 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: v1.7.0-RC2
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      servicesservicetag: v1.7.0-RC3
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 445M
       # limits:
-      #   cpu: 250m
-      #   memory: 256Mi
-      # requests:
-      #   cpu: 250m
-      #   memory: 256Mi
+      #   cpu: 45m
+      #   memory: 500M
     logging:
       default: "Information"
       offersLibrary: "Information"
@@ -617,7 +633,9 @@ backend:
         #   value: "keycloak"
         - name: "HEALTHCHECKS__0__TAGS__1"
           value: "portaldb"
-    serviceMarketplacePath: "/servicemarketplace"
+    serviceOverviewPath: "/serviceoverview"
+    subscriptionPath: "/servicesubscription"
+    detailPath: "/servicedetail"
     catenaAdminRoles:
       role0: "CX Admin"
     serviceAccountRoles:
@@ -668,34 +686,32 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v1.7.0-RC2
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      provisioningmigrationstag: v1.7.0-RC3
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
       # limits:
-      #   cpu: 250m
-      #   memory: 256Mi
-      # requests:
-      #   cpu: 250m
-      #   memory: 256Mi
+      #   cpu: 45m
+      #   memory: 105M
     logging:
       default: "Information"
   processesworker:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: v1.7.0-RC2
-    # -- We recommend not to specify default resources and to leave this as a conscious choice for the user.
-    # If you do want to specify resources, uncomment the following lines,
-    # adjust them as necessary, and remove the curly braces after 'resources:'.
-    resources: {}
+      processesworkertag: v1.7.0-RC3
+    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
+    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    resources:
+      requests:
+        cpu: 15m
+        memory: 105M
       # limits:
-      #   cpu: 250m
-      #   memory: 256Mi
-      # requests:
-      #   cpu: 250m
-      #   memory: 256Mi
+      #   cpu: 45m
+      #   memory: 105M
     logging:
       default: "Information"
       processesLibrary: "Information"
@@ -778,6 +794,11 @@ backend:
     onboardingServiceProvider:
       # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'.
       encryptionKey: ""
+    networkRegistration:
+      loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
+      externalRegistrationPath: "/?overlay=consent_osp"
+      # -- The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
+      closeApplicationPath: "/home/decline"
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

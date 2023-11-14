@@ -1,22 +1,22 @@
 # Helm chart for Catena-X Portal
 
-![Version: 1.7.0-RC1](https://img.shields.io/badge/Version-1.7.0--RC1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.7.0-RC1](https://img.shields.io/badge/AppVersion-1.7.0--RC1-informational?style=flat-square)
+![Version: 1.7.0-RC3](https://img.shields.io/badge/Version-1.7.0--RC3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.7.0-RC3](https://img.shields.io/badge/AppVersion-1.7.0--RC3-informational?style=flat-square)
 
 This helm chart installs the Catena-X Portal application which consists of
 
-* [portal-frontend (v1.7.0-RC1)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.7.0-RC1),
-* [portal-frontend-registration (v1.5.1)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.5.1),
-* [portal-assets (v1.7.0-RC1)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.7.0-RC1) and
-* [portal-backend (v1.7.0-RC1)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.7.0-RC1).
+* [portal-frontend (v1.7.0-RC3)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.7.0-RC3),
+* [portal-frontend-registration (v1.5.2)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.5.2),
+* [portal-assets (v1.7.0-RC3)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.7.0-RC3) and
+* [portal-backend (v1.7.0-RC3)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.7.0-RC3).
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
 This version is compatible with the 2.0.0-alpha version of the IAM instances:
 * [Central Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-2.0.0-alpha/charts/centralidp/README.md)
 * [Shared Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-2.0.0-alpha/charts/sharedidp/README.md)
 
-For information on how to upgrade from previous versions please refer to [Version Upgrade](https://github.com/eclipse-tractusx/portal-assets/tree/v1.7.0-RC1/developer/Technical%20Documentation/Version%20Upgrade/portal-upgrade-details.md).
+For information on how to upgrade from previous versions please refer to [Version Upgrade](https://github.com/eclipse-tractusx/portal-assets/tree/v1.7.0-RC3/developer/Technical%20Documentation/Version%20Upgrade/portal-upgrade-details.md).
 
-For further information please refer to [Technical Documentation](https://github.com/eclipse-tractusx/portal-assets/tree/v1.7.0-RC1/developer/Technical%20Documentation).
+For further information please refer to [Technical Documentation](https://github.com/eclipse-tractusx/portal-assets/tree/v1.7.0-RC3/developer/Technical%20Documentation).
 
 The referenced container images are for demonstration purposes only.
 
@@ -41,7 +41,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.7.0-RC1
+    version: 1.7.0-RC3
 ```
 
 ## Requirements
@@ -77,16 +77,16 @@ dependencies:
 | frontend.ingress.hosts[0] | object | `{"host":"portal.example.org","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assetsORdocumentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"tractusx/portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v1.7.0-RC1"` |  |
-| frontend.portal.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| frontend.portal.image.portaltag | string | `"v1.7.0-RC3"` |  |
+| frontend.portal.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"v1.5.1"` |  |
-| frontend.registration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| frontend.registration.image.registrationtag | string | `"v1.5.2"` |  |
+| frontend.registration.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | frontend.assets.name | string | `"assets"` |  |
 | frontend.assets.image.name | string | `"tractusx/portal-assets"` |  |
-| frontend.assets.image.assetstag | string | `"v1.7.0-RC1"` |  |
-| frontend.assets.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| frontend.assets.image.assetstag | string | `"v1.7.0-RC3"` |  |
+| frontend.assets.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | frontend.assets.path | string | `"/assets"` |  |
 | frontend.centralidpAuthPath | string | `"/auth"` |  |
 | frontend.bpdmPartnersPoolApiPath | string | `"/pool/api"` |  |
@@ -104,6 +104,10 @@ dependencies:
 | backend.dbConnection.schema | string | `"portal"` |  |
 | backend.dbConnection.sslMode | string | `"Disable"` |  |
 | backend.portalHomePath | string | `"/home"` |  |
+| backend.portalHelpPath | string | `"/documentation"` |  |
+| backend.portalPasswordResendPath | string | `"/home/passwordResend"` | The password resend logic is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail |
+| backend.portalIntroductionCompanyRolePath | string | `"/companyroles"` |  |
+| backend.portalIntroductionDataspacePath | string | `"/dataspace"` |  |
 | backend.userManagementPath | string | `"/usermanagement"` |  |
 | backend.keycloak.secret | string | `"secret-backend-keycloak"` | Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM). |
 | backend.keycloak.central.clientId | string | `"central-client-id"` | Provide centralidp client-id from CX IAM centralidp. |
@@ -139,8 +143,8 @@ dependencies:
 | backend.healthChecks.readyness.path | string | `"/ready"` |  |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"tractusx/portal-registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v1.7.0-RC1"` |  |
-| backend.registration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| backend.registration.image.registrationservicetag | string | `"v1.7.0-RC3"` |  |
+| backend.registration.resources | object | `{"requests":{"cpu":"15m","memory":"385M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.registration.logging.bpdmLibrary | string | `"Information"` |  |
 | backend.registration.logging.registrationService | string | `"Information"` |  |
 | backend.registration.logging.default | string | `"Information"` |  |
@@ -157,8 +161,8 @@ dependencies:
 | backend.registration.submitDocumentTypeIds.type0 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"tractusx/portal-administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v1.7.0-RC1"` |  |
-| backend.administration.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| backend.administration.image.administrationservicetag | string | `"v1.7.0-RC3"` |  |
+| backend.administration.resources | object | `{"requests":{"cpu":"15m","memory":"385M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.administration.logging.businessLogic | string | `"Information"` |  |
 | backend.administration.logging.sdfactoryLibrary | string | `"Information"` |  |
 | backend.administration.logging.bpdmLibrary | string | `"Information"` |  |
@@ -212,12 +216,14 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"tractusx/portal-marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.7.0-RC1"` |  |
-| backend.appmarketplace.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.7.0-RC3"` |  |
+| backend.appmarketplace.resources | object | `{"requests":{"cpu":"15m","memory":"445M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.appmarketplace.logging.default | string | `"Information"` |  |
 | backend.appmarketplace.logging.offersLibrary | string | `"Information"` |  |
 | backend.appmarketplace.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.appmarketplace.appOverviewPath | string | `"/appoverview"` |  |
+| backend.appmarketplace.subscriptionPath | string | `"/appsubscription"` |  |
+| backend.appmarketplace.detailPath | string | `"/appdetail"` |  |
 | backend.appmarketplace.catenaAdminRoles.role0 | string | `"CX Admin"` |  |
 | backend.appmarketplace.serviceAccountRoles.role0 | string | `"App Tech User"` |  |
 | backend.appmarketplace.salesManagerRoles.role0 | string | `"Sales Manager"` |  |
@@ -260,6 +266,19 @@ dependencies:
 | backend.appmarketplace.activeAppDocumentTypeIds.type1 | string | `"APP_TECHNICAL_INFORMATION"` |  |
 | backend.appmarketplace.activeAppDocumentTypeIds.type2 | string | `"APP_CONTRACT"` |  |
 | backend.appmarketplace.activeAppDocumentTypeIds.type3 | string | `"ADDITIONAL_DETAILS"` |  |
+| backend.appmarketplace.deleteActiveAppDocumentTypeIds.type0 | string | `"APP_IMAGE"` |  |
+| backend.appmarketplace.deleteActiveAppDocumentTypeIds.type1 | string | `"APP_TECHNICAL_INFORMATION"` |  |
+| backend.appmarketplace.deleteActiveAppDocumentTypeIds.type2 | string | `"APP_CONTRACT"` |  |
+| backend.appmarketplace.deleteActiveAppDocumentTypeIds.type3 | string | `"ADDITIONAL_DETAILS"` |  |
+| backend.appmarketplace.uploadActiveAppDocumentTypeIds.documentTypeId0 | string | `"APP_IMAGE"` |  |
+| backend.appmarketplace.uploadActiveAppDocumentTypeIds.mediaTypeIds0.mediaTypeId0 | string | `"JPEG"` |  |
+| backend.appmarketplace.uploadActiveAppDocumentTypeIds.mediaTypeIds0.mediaTypeId1 | string | `"PNG"` |  |
+| backend.appmarketplace.uploadActiveAppDocumentTypeIds.documentTypeId1 | string | `"APP_TECHNICAL_INFORMATION"` |  |
+| backend.appmarketplace.uploadActiveAppDocumentTypeIds.mediaTypeIds1.mediaTypeId0 | string | `"PDF"` |  |
+| backend.appmarketplace.uploadActiveAppDocumentTypeIds.documentTypeId2 | string | `"APP_CONTRACT"` |  |
+| backend.appmarketplace.uploadActiveAppDocumentTypeIds.mediaTypeIds2.mediaTypeId0 | string | `"PDF"` |  |
+| backend.appmarketplace.uploadActiveAppDocumentTypeIds.documentTypeId3 | string | `"ADDITIONAL_DETAILS"` |  |
+| backend.appmarketplace.uploadActiveAppDocumentTypeIds.mediaTypeIds3.mediaTypeId0 | string | `"PDF"` |  |
 | backend.appmarketplace.notificationTypeIds.type0 | string | `"APP_RELEASE_REQUEST"` |  |
 | backend.appmarketplace.activeAppNotificationTypeIds.type0 | string | `"APP_ROLE_ADDED"` |  |
 | backend.appmarketplace.submitAppNotificationTypeIds.type0 | string | `"APP_RELEASE_REQUEST"` |  |
@@ -277,8 +296,8 @@ dependencies:
 | backend.appmarketplace.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"tractusx/portal-portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v1.7.0-RC1"` |  |
-| backend.portalmigrations.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v1.7.0-RC3"` |  |
+| backend.portalmigrations.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmigrations.seeding.testDataPaths | string | `"Seeder/Data"` | when changing the testDataPath the processIdentity needs to be adjusted as well, or it must be ensured that the identity is existing within the files under the new path |
 | backend.portalmigrations.processIdentity.userEntityId | string | `"090c9121-7380-4bb0-bb10-fffd344f930a"` |  |
@@ -288,8 +307,8 @@ dependencies:
 | backend.portalmigrations.logging.default | string | `"Information"` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"tractusx/portal-maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.7.0-RC1"` |  |
-| backend.portalmaintenance.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.7.0-RC3"` |  |
+| backend.portalmaintenance.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.portalmaintenance.processIdentity.userEntityId | string | `"090c9121-7380-4bb0-bb10-fffd344f930a"` |  |
 | backend.portalmaintenance.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
 | backend.portalmaintenance.processIdentity.identityTypeId | int | `2` |  |
@@ -297,19 +316,21 @@ dependencies:
 | backend.portalmaintenance.logging.default | string | `"Information"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"tractusx/portal-notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v1.7.0-RC1"` |  |
-| backend.notification.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| backend.notification.image.notificationservicetag | string | `"v1.7.0-RC3"` |  |
+| backend.notification.resources | object | `{"requests":{"cpu":"15m","memory":"300M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.notification.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.notification.swaggerEnabled | bool | `false` |  |
 | backend.notification.logging.default | string | `"Information"` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"tractusx/portal-services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v1.7.0-RC1"` |  |
-| backend.services.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| backend.services.image.servicesservicetag | string | `"v1.7.0-RC3"` |  |
+| backend.services.resources | object | `{"requests":{"cpu":"15m","memory":"445M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.services.logging.default | string | `"Information"` |  |
 | backend.services.logging.offersLibrary | string | `"Information"` |  |
 | backend.services.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
-| backend.services.serviceMarketplacePath | string | `"/servicemarketplace"` |  |
+| backend.services.serviceOverviewPath | string | `"/serviceoverview"` |  |
+| backend.services.subscriptionPath | string | `"/servicesubscription"` |  |
+| backend.services.detailPath | string | `"/servicedetail"` |  |
 | backend.services.catenaAdminRoles.role0 | string | `"CX Admin"` |  |
 | backend.services.serviceAccountRoles.role0 | string | `"App Tech User"` |  |
 | backend.services.salesManagerRoles.role0 | string | `"Sales Manager"` |  |
@@ -341,13 +362,13 @@ dependencies:
 | backend.services.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"tractusx/portal-provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.7.0-RC1"` |  |
-| backend.provisioningmigrations.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.7.0-RC3"` |  |
+| backend.provisioningmigrations.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.provisioningmigrations.logging.default | string | `"Information"` |  |
 | backend.processesworker.name | string | `"processes-worker"` |  |
 | backend.processesworker.image.name | string | `"tractusx/portal-processes-worker"` |  |
-| backend.processesworker.image.processesworkertag | string | `"v1.7.0-RC1"` |  |
-| backend.processesworker.resources | object | `{}` | We recommend not to specify default resources and to leave this as a conscious choice for the user. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'. |
+| backend.processesworker.image.processesworkertag | string | `"v1.7.0-RC3"` |  |
+| backend.processesworker.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.processesworker.logging.default | string | `"Information"` |  |
 | backend.processesworker.logging.processesLibrary | string | `"Information"` |  |
 | backend.processesworker.logging.bpdmLibrary | string | `"Information"` |  |
@@ -398,6 +419,9 @@ dependencies:
 | backend.processesworker.processIdentity.identityTypeId | int | `2` |  |
 | backend.processesworker.processIdentity.processUserCompanyId | string | `"2dc4249f-b5ca-4d42-bef1-7a7a950a4f87"` |  |
 | backend.processesworker.onboardingServiceProvider.encryptionKey | string | `""` | Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'. |
+| backend.processesworker.networkRegistration.loginDocumentPath | string | `"/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"` |  |
+| backend.processesworker.networkRegistration.externalRegistrationPath | string | `"/?overlay=consent_osp"` |  |
+| backend.processesworker.networkRegistration.closeApplicationPath | string | `"/home/decline"` | The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail |
 | backend.clients.portal | string | `"Cl2-CX-Portal"` |  |
 | backend.clients.registration | string | `"Cl1-CX-Registration"` |  |
 | backend.clients.technicalRolesManagement | string | `"technical_roles_management"` |  |

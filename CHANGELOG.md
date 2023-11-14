@@ -2,6 +2,30 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.7.0-RC3
+
+### Change
+
+* changed to new container images
+  * portal-assets: v1.7.0-RC3
+  * portal-frontend: v1.7.0-RC3
+  * portal-backend: v1.7.0-RC3
+  * portal-frontend-registration: v1.5.2
+* portal-backend:
+  * added delete and upload documentTypeIds config to appmarketplace
+  * adjusted parameter for mail templates
+* set resource requests (based on recommendations from Goldilocks configured on consortia int env)
+
+### Bugfix
+
+* portal-backend: aligned uploadActiveAppDocumentTypeIds config
+
+### Technical Support
+
+* improved helm-test: added debug option at helm install and step to check nodes
+
+Please be aware that **this version is still in Release Candidate phase**: especially documentation is still WIP.
+
 ## 1.7.0-RC2
 
 ### Change

@@ -410,7 +410,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: "{{ .Values.backend.interfaces.secret }}"
-                  key: "mailing-process-encryption-key"
+                  key: "mailing-process-encryption-key0"
             ports:
             - name: http
               containerPort: {{ .Values.portContainer }}

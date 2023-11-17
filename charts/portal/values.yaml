@@ -860,7 +860,7 @@ backend:
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
     mailingProcess:
-      # -- Encryption key for mailing process. Secret-key 'mailing-process-encryption-key'.
+      # -- Encryption key for mailing process. Secret-key 'mailing-process-encryption-key0'.
       encryptionConfigIndex: 0
       encryptionConfigs:
         index0:

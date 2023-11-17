@@ -240,7 +240,7 @@ spec:
                 onboardingServiceProvider:
                   encryptionKey: "<path:portal/data/stable/processes-worker#process-onboardingserviceprovider-encryption-key>"
                 mailingProcess:
-                  encryptionKey: "<path:portal/data/stable/processes-worker#mailing-process-encryption-key>"
+                  encryptionKey: "<path:portal/data/stable/processes-worker#mailing-process-encryption-key0>"
 
             postgresql:
               auth:

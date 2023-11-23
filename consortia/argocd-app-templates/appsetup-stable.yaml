@@ -29,7 +29,7 @@ spec:
   source:
     path: ''
     repoURL: 'https://eclipse-tractusx.github.io/charts/dev'
-    targetRevision: 1.7.0-RC3
+    targetRevision: 1.7.0-RC4
     plugin:
       env:
         - name: HELM_VALUES

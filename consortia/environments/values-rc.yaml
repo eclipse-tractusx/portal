@@ -247,6 +247,10 @@ backend:
       encryptionConfigs:
         index0:
           encryptionKey: "<path:portal/data/dev/processes-worker#dimwalletcreation-encryption-key0>"
+    mailingProcess:
+      encryptionConfigs:
+        index0:
+          encryptionKey: "<path:portal/data/dev/processes-worker#mailing-process-encryption-key0>"
 
 postgresql:
   fullnameOverride: "portal-backend-rc-postgresql"

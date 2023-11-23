@@ -239,6 +239,8 @@ spec:
                   clientSecret: "<path:portal/data/stable/processes-worker#offerprovider-client-secret>"
                 onboardingServiceProvider:
                   encryptionKey: "<path:portal/data/stable/processes-worker#process-onboardingserviceprovider-encryption-key>"
+                mailingProcess:
+                  encryptionKey: "<path:portal/data/stable/processes-worker#mailing-process-encryption-key>"
 
             postgresql:
               auth:

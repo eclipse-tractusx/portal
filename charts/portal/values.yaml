@@ -859,6 +859,17 @@ backend:
           # -- EncryptionKey for dim wallet creation. Secret-key 'process-dimwalletcreation-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
+    mailingProcess:
+      # -- Encryption key for mailing process. Secret-key 'mailing-process-encryption-key'.
+      encryptionConfigIndex: 0
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey to encrypt the mail data creation. Secret-key 'mailing-process-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex.
+          encryptionKey: ""
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

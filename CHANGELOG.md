@@ -2,6 +2,26 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.7.0-RC4
+
+### Change
+
+* changed to new container images
+  * portal-assets: v1.7.0-RC4
+  * portal-frontend: v1.7.0-RC4
+  * portal-backend: v1.7.0-RC4
+  * portal-frontend-registration: v1.5.3
+
+### Bugfix
+
+* portal-backend: adjusted the application activation login link relevant for mailing
+
+### Technical Support
+
+- Trivy scan: changed to no failure on high findings, as it should only fail if there is an error/misconfiguration
+
+Please be aware that **this version is still in Release Candidate phase**: especially documentation is still WIP.
+
 ## 1.7.0-RC3
 
 ### Change

@@ -564,7 +564,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: 2279e00fda1f3754fccc2e88d4500daa16f6ae6f
+      portalmaintenancetag: 2c6c77f3d443b6ee7ce51a760d912a36382cdc8e
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

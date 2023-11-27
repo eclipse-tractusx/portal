@@ -554,10 +554,7 @@ backend:
       # or it must be ensured that the identity is existing within the files under the new path
       testDataPaths: "Seeder/Data"
     processIdentity:
-      userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
-      identityTypeId: 2
-      processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
     logging:
       default: "Information"
   portalmaintenance:
@@ -575,10 +572,7 @@ backend:
       #   cpu: 45m
       #   memory: 105M
     processIdentity:
-      userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
-      identityTypeId: 2
-      processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
     logging:
       default: "Information"
   notification:
@@ -787,10 +781,7 @@ backend:
       # -- Client-secret for offer provider client-id. Secret-key 'offerprovider-client-secret'.
       clientSecret: ""
     processIdentity:
-      userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
-      identityTypeId: 2
-      processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
     onboardingServiceProvider:
       # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'.
       encryptionKey: ""

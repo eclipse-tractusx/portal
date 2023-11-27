@@ -68,14 +68,8 @@ spec:
             value: "{{ .Values.backend.portalmigrations.seeding.testDataPaths }}"
           - name: "SERILOG__MINIMUMLEVEL__Default"
             value: "{{ .Values.backend.portalmigrations.logging.default }}"
-          - name: "PROCESSIDENTITY__USERENTITYID"
-            value: "{{ .Values.backend.portalmigrations.processIdentity.userEntityId }}"
           - name: "PROCESSIDENTITY__PROCESSUSERID"
             value: "{{ .Values.backend.portalmigrations.processIdentity.processUserId }}"
-          - name: "PROCESSIDENTITY__IDENTITYTYPEID"
-            value: "{{ .Values.backend.portalmigrations.processIdentity.identityTypeId }}"
-          - name: "PROCESSIDENTITY__PROCESSUSERCOMPANYID"
-            value: "{{ .Values.backend.portalmigrations.processIdentity.processUserCompanyId }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

@@ -300,19 +300,13 @@ dependencies:
 | backend.portalmigrations.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmigrations.seeding.testDataPaths | string | `"Seeder/Data"` | when changing the testDataPath the processIdentity needs to be adjusted as well, or it must be ensured that the identity is existing within the files under the new path |
-| backend.portalmigrations.processIdentity.userEntityId | string | `"090c9121-7380-4bb0-bb10-fffd344f930a"` |  |
 | backend.portalmigrations.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
-| backend.portalmigrations.processIdentity.identityTypeId | int | `2` |  |
-| backend.portalmigrations.processIdentity.processUserCompanyId | string | `"2dc4249f-b5ca-4d42-bef1-7a7a950a4f87"` |  |
 | backend.portalmigrations.logging.default | string | `"Information"` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"tractusx/portal-maintenance-service"` |  |
 | backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.7.0-RC3"` |  |
 | backend.portalmaintenance.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
-| backend.portalmaintenance.processIdentity.userEntityId | string | `"090c9121-7380-4bb0-bb10-fffd344f930a"` |  |
 | backend.portalmaintenance.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
-| backend.portalmaintenance.processIdentity.identityTypeId | int | `2` |  |
-| backend.portalmaintenance.processIdentity.processUserCompanyId | string | `"2dc4249f-b5ca-4d42-bef1-7a7a950a4f87"` |  |
 | backend.portalmaintenance.logging.default | string | `"Information"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"tractusx/portal-notification-service"` |  |
@@ -414,10 +408,7 @@ dependencies:
 | backend.processesworker.offerprovider.grantType | string | `"client_credentials"` |  |
 | backend.processesworker.offerprovider.clientId | string | `"offerprovider-client-id"` | Provide offerprovider client-id from CX IAM centralidp. |
 | backend.processesworker.offerprovider.clientSecret | string | `""` | Client-secret for offer provider client-id. Secret-key 'offerprovider-client-secret'. |
-| backend.processesworker.processIdentity.userEntityId | string | `"090c9121-7380-4bb0-bb10-fffd344f930a"` |  |
 | backend.processesworker.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
-| backend.processesworker.processIdentity.identityTypeId | int | `2` |  |
-| backend.processesworker.processIdentity.processUserCompanyId | string | `"2dc4249f-b5ca-4d42-bef1-7a7a950a4f87"` |  |
 | backend.processesworker.onboardingServiceProvider.encryptionKey | string | `""` | Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'. |
 | backend.processesworker.networkRegistration.loginDocumentPath | string | `"/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"` |  |
 | backend.processesworker.networkRegistration.externalRegistrationPath | string | `"/?overlay=consent_osp"` |  |

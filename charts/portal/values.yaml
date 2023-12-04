@@ -538,7 +538,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: 43448916112e2f2d9f6b6d0b118594bedcbf489c
+      portalmigrationstag: e4a9057e46d830ead876e28bb1c7f255533e3e96
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

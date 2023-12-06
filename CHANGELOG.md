@@ -2,76 +2,29 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 1.7.0-RC3
+## 1.7.0
 
 ### Change
 
 * changed to new container images
-  * portal-assets: v1.7.0-RC3
-  * portal-frontend: v1.7.0-RC3
-  * portal-backend: v1.7.0-RC3
-  * portal-frontend-registration: v1.5.2
-* portal-backend:
-  * added delete and upload documentTypeIds config to appmarketplace
-  * adjusted parameter for mail templates
-* set resource requests (based on recommendations from Goldilocks configured on consortia int env)
-
-### Bugfix
-
-* portal-backend: aligned uploadActiveAppDocumentTypeIds config
-
-### Technical Support
-
-* improved helm-test: added debug option at helm install and step to check nodes
-
-Please be aware that **this version is still in Release Candidate phase**: especially documentation is still WIP.
-
-## 1.7.0-RC2
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.7.0-RC2
-  * portal-frontend: v1.7.0-RC2
-  * portal-backend: v1.7.0-RC2
-
-Please be aware that **this version is still in Release Candidate phase**: especially documentation is still WIP.
-
-## 1.7.0-RC1
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.7.0-RC1
-  * portal-frontend: v1.7.0-RC1
-  * portal-backend: v1.7.0-RC1
+  * portal-assets: v1.7.0
+  * portal-frontend: v1.7.0
+  * portal-frontend-registration: v1.5.4
+  * portal-backend: v1.7.0
 * changed PostgreSQL version of the subchart by Bitnami from 14.5.0 to 15.4.0 (subchart version updated from 11.9.13 to 12.12.x)
+* set resource requests (based on recommendations from Goldilocks configured on consortia int env)
+* removed deprecated ingress annotation 'kubernetes.io/ingress.class' and changed to ingress.ClassName
 * portal-backend:
-  * enabled and/or extended config in particular for activeDocumentTypeIds in the app marketplace and for network2network (N2N)
-
-### Technical Support
-
-* disabled upgrade step in helm test: due to major postgres upgrade the step inevitability fails
-
-Please be aware that **this version is still in Release Candidate phase**: especially documentation is still WIP.
-
-## 1.7.0-alpha
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.6.1
-  * portal-frontend: v1.7.0-alpha
-  * portal-frontend-registration: v1.5.1
-  * portal-backend: v1.7.0-alpha
-* remove deprecated ingress annotation 'kubernetes.io/ingress.class' and changed to ingress.ClassName
-
-* portal-backend:
-  * enabled and/or extended config in particular for network2network (N2N) and onboarding service provider (OSP)
+  * enabled and extended config in particular for network2network (N2N) and onboarding service provider (OSP)
   * updated bpdm api path
   * enabled config of DOTNET_ENVIRONMENT
   * enabled config of JWTBEAREROPTIONS_REQUIREHTTPSMETADATA
   * set database healthchecks in default values file
+  * enabled and/or extended config in particular for activeDocumentTypeIds in the app marketplace and for network2network (N2N)
+  * aligned uploadActiveAppDocumentTypeIds config
+  * added delete and upload documentTypeIds config to appmarketplace
+  * adjusted parameter for mail templates
+  * adjusted the application activation login link relevant for mailing
 
 ### Bugfix
 
@@ -81,6 +34,10 @@ Please be aware that **this version is still in Release Candidate phase**: espec
 
 * updated k8s version and version to upgrade from for helm test workflow
 * updated Security.md
+* disabled upgrade step in helm test: due to major postgres upgrade the step inevitability fails
+* improved helm-test: added debug option at helm install and step to check nodes
+* Trivy scan: changed to no failure on high findings, as it should only fail if there is an error/misconfiguration
+* added pull request linting
 
 ## 1.6.0
 

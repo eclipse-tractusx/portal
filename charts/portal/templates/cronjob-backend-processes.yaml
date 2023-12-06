@@ -98,7 +98,7 @@ spec:
               value: "{{ .Values.backend.processesworker.applicationActivation.welcomeNotificationTypeIds.type4 }}"
             - name: "APPLICATIONACTIVATION__LOGINTHEME"
               value: "{{ .Values.backend.processesworker.applicationActivation.loginTheme }}"
-            - name: "APPLICATIONACTIVATION__HOMEADDRESS"
+            - name: "APPLICATIONACTIVATION__PORTALHOMEADDRESS"
               value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
             - name: "APPLICATIONACTIVATION__PASSWORDRESENDADDRESS"
               value: "{{ .Values.portalAddress }}{{ .Values.backend.portalPasswordResendPath }}"

@@ -260,7 +260,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: 70c919be9e22b975a56c7251d3e7a97de335f9aa
+      registrationservicetag: f73c0f72e59d9e3115e82c15cc77a1ecedd3785a
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

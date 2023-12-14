@@ -407,7 +407,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: fb41bc470a6aaac4b6329d02b5588190e2e2b6cb
+      appmarketplaceservicetag: ff5705a4f038a6bbc561df37e4ee578208ad5cdd
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

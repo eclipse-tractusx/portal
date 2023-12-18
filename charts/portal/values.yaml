@@ -289,6 +289,13 @@ backend:
       status0: "SUBMITTED"
       status1: "DECLINED"
       status2: "CONFIRMED"
+    applicationDeclineStatusIds:
+      status0: "CREATED"
+      status1: "ADD_COMPANY_DATA"
+      status2: "INVITE_USER"
+      status3: "SELECT_COMPANY_DATA"
+      status4: "UPLOAD_DOCUMENTS"
+      status5: "VERIFY"
     documentTypeIds:
       type0: "CX_FRAME_CONTRACT"
       type1: "COMMERCIAL_REGISTER_EXTRACT"

@@ -612,7 +612,7 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: fb5b9a3d59744576d0332d98984d9038023d8c04
+      servicesservicetag: 2d9993829375bcfaadf17457ef8b5b55d07a69f8
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

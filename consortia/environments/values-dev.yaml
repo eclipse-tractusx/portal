@@ -236,6 +236,10 @@ backend:
     onboardingServiceProvider:
       encryptionKey: "<path:portal/data/dev/processes-worker#process-onboardingserviceprovider-encryption-key>"
 
+  credential:
+    logging:
+      default: "Debug"
+
 postgresql:
   auth:
     password: "<path:portal/data/dev/postgres#postgres-password>"

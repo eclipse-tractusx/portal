@@ -665,6 +665,9 @@ backend:
         mediaTypeId0: "JPEG"
         mediaTypeId1: "PNG"
         mediaTypeId2: "SVG"
+      documentTypeId2: "CONFORMITY_APPROVAL_SERVICES"
+      mediaTypeIds2:
+        mediaTypeId0: "PDF"
     submitServiceNotificationTypeIds:
       type0: "SERVICE_RELEASE_REQUEST"
     approveServiceNotificationTypeIds:

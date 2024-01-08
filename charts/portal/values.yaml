@@ -308,7 +308,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: dd687109772e3ef6b9e3e1d2c304bf4910c5eab4
+      administrationservicetag: 7790690bbab9a96d95d727f450382c0e41d1b895
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

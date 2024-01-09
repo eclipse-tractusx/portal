@@ -176,7 +176,7 @@ spec:
           value: "{{ .Values.backend.services.uploadServiceDocumentTypeIds.mediaTypeIds1.mediaTypeId2 }}"
         - name: "SERVICES__UPLOADSERVICEDOCUMENTTYPEIDS__2__DOCUMENTTYPEID"
           value: "{{ .Values.backend.services.uploadServiceDocumentTypeIds.documentTypeId2 }}"
-          name: "SERVICES__UPLOADSERVICEDOCUMENTTYPEIDS__2__MEDIATYPES__0"
+        - name: "SERVICES__UPLOADSERVICEDOCUMENTTYPEIDS__2__MEDIATYPES__0"
           value: "{{ .Values.backend.services.uploadServiceDocumentTypeIds.mediaTypeIds2.mediaTypeId0 }}"
         - name: "SERVICES__ITADMINROLES__0__CLIENTID"
           value: "{{ .Values.backend.clients.portal }}"

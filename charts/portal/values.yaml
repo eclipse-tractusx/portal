@@ -706,7 +706,7 @@ backend:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: 2813346884f0d5b8ac103647ff1971f18e6cc16c
+      processesworkertag: b772237a123f1c88a5abb41b71863ca54ba59091
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

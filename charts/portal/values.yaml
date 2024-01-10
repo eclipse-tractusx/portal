@@ -690,7 +690,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: b9ce9220ff4f34ac2139bdbf8f178071ae4868bd
+      provisioningmigrationstag: b772237a123f1c88a5abb41b71863ca54ba59091
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

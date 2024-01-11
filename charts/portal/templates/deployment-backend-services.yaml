@@ -226,6 +226,8 @@ spec:
           value: "{{ .Values.backend.services.deleteDocumentTypeIds.type0 }}"
         - name: "SERVICES__DELETEDOCUMENTTYPEIDS__1"
           value: "{{ .Values.backend.services.deleteDocumentTypeIds.type1 }}"
+        - name: "SERVICES__DELETEDOCUMENTTYPEIDS__2"
+          value: "{{ .Values.backend.services.deleteDocumentTypeIds.type2 }}"
         - name: "SERVICES__TECHNICALUSERPROFILECLIENT"
           value: "{{ .Values.backend.services.technicalUserProfileClient }}"
         - name: "SERVICES__COMPANYADMINROLES__0__CLIENTID"

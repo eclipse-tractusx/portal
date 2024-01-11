@@ -683,6 +683,7 @@ backend:
     deleteDocumentTypeIds:
       type0: "SERVICE_LEADIMAGE"
       type1: "ADDITIONAL_DETAILS"
+      type2: "CONFORMITY_APPROVAL_SERVICES"
     technicalUserProfileClient: "technical_roles_management"
     companyAdminRoles:
       role0: "Company Admin"

@@ -586,7 +586,7 @@ backend:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: ae17b4156e024a080e8ed794cd403c54ce94dbc1
+      notificationservicetag: 4405f947de419b876903cfe3b051fe98b8c11d93
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

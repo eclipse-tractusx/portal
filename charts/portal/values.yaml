@@ -106,7 +106,7 @@ frontend:
     name: "registration"
     image:
       name: "tractusx/portal-frontend-registration"
-      registrationtag: f17d3be3a80c1e25a137022900694a9e3353ebdc
+      registrationtag: 73b8eaccc765d363ba5ca1d308a2f7c4853ab159
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

@@ -120,7 +120,7 @@ frontend:
     name: "assets"
     image:
       name: "tractusx/portal-assets"
-      assetstag: a2bd154a607b8fa50ca5e73b3dd2c962878bfa5b
+      assetstag: aa48707de0e28e73fbada181036823625f5604ff
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

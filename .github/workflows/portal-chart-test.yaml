@@ -37,8 +37,8 @@ on:
         type: string
       upgrade_from:
         description: 'portal chart version to upgrade from'
-        # portal version from 23.09 release
-        default: '1.6.0'
+        # portal version from 23.12 release
+        default: '1.7.0'
         required: false
         type: string
 
@@ -95,11 +95,11 @@ jobs:
         if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'
 
         # Upgrade the released portal chart version with the locally available chart
-      # - name: Run helm upgrade
-      #   run: |
-      #     helm repo add bitnami https://charts.bitnami.com/bitnami
-      #     helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
-      #     helm install portal tractusx-dev/portal --version ${{ github.event.inputs.upgrade_from || '1.6.0' }} --namespace upgrade --create-namespace
-      #     helm dependency update charts/portal
-      #     helm upgrade portal charts/portal --namespace upgrade
-      #   if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'
+      - name: Run helm upgrade
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
+          helm install portal tractusx-dev/portal --version ${{ github.event.inputs.upgrade_from || '1.7.0' }} --namespace upgrade --create-namespace
+          helm dependency update charts/portal
+          helm upgrade portal charts/portal --namespace upgrade
+        if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'

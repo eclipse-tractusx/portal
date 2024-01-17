@@ -320,14 +320,8 @@ spec:
               value: "{{ .Values.backend.processesworker.offerprovider.scope }}"
             - name: "OFFERPROVIDER__USERNAME"
               value: "{{ .Values.backend.placeholder }}"
-            - name: "PROCESSIDENTITY__USERENTITYID"
-              value: "{{ .Values.backend.processesworker.processIdentity.userEntityId }}"
             - name: "PROCESSIDENTITY__PROCESSUSERID"
               value: "{{ .Values.backend.processesworker.processIdentity.processUserId }}"
-            - name: "PROCESSIDENTITY__IDENTITYTYPEID"
-              value: "{{ .Values.backend.processesworker.processIdentity.identityTypeId }}"
-            - name: "PROCESSIDENTITY__PROCESSUSERCOMPANYID"
-              value: "{{ .Values.backend.processesworker.processIdentity.processUserCompanyId }}"
             - name: "ONBOARDINGSERVICEPROVIDER__ENCYRPTIONKEY"
               valueFrom:
                 secretKeyRef:

@@ -92,7 +92,7 @@ frontend:
     name: "portal"
     image:
       name: "tractusx/portal-frontend"
-      portaltag: v1.7.0
+      portaltag: v1.8.0-RC1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -106,7 +106,7 @@ frontend:
     name: "registration"
     image:
       name: "tractusx/portal-frontend-registration"
-      registrationtag: v1.5.4
+      registrationtag: v1.6.0-RC1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -120,7 +120,7 @@ frontend:
     name: "assets"
     image:
       name: "tractusx/portal-assets"
-      assetstag: v1.7.0
+      assetstag: v1.8.0-RC1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -260,7 +260,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: v1.7.0
+      registrationservicetag: v1.8.0-RC1.1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -289,6 +289,13 @@ backend:
       status0: "SUBMITTED"
       status1: "DECLINED"
       status2: "CONFIRMED"
+    applicationDeclineStatusIds:
+      status0: "CREATED"
+      status1: "ADD_COMPANY_DATA"
+      status2: "INVITE_USER"
+      status3: "SELECT_COMPANY_ROLE"
+      status4: "UPLOAD_DOCUMENTS"
+      status5: "VERIFY"
     documentTypeIds:
       type0: "CX_FRAME_CONTRACT"
       type1: "COMMERCIAL_REGISTER_EXTRACT"
@@ -301,7 +308,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: v1.7.0
+      administrationservicetag: v1.8.0-RC1.1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -407,7 +414,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: v1.7.0
+      appmarketplaceservicetag: v1.8.0-RC1.1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -538,7 +545,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: v1.7.0
+      portalmigrationstag: v1.8.0-RC1.1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -554,17 +561,14 @@ backend:
       # or it must be ensured that the identity is existing within the files under the new path
       testDataPaths: "Seeder/Data"
     processIdentity:
-      userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
-      identityTypeId: 2
-      processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
     logging:
       default: "Information"
   portalmaintenance:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: v1.7.0
+      portalmaintenancetag: v1.8.0-RC1.1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -575,17 +579,14 @@ backend:
       #   cpu: 45m
       #   memory: 105M
     processIdentity:
-      userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
-      identityTypeId: 2
-      processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
     logging:
       default: "Information"
   notification:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: v1.7.0
+      notificationservicetag: v1.8.0-RC1.1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -611,7 +612,7 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: v1.7.0
+      servicesservicetag: v1.8.0-RC1.1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -664,6 +665,9 @@ backend:
         mediaTypeId0: "JPEG"
         mediaTypeId1: "PNG"
         mediaTypeId2: "SVG"
+      documentTypeId2: "CONFORMITY_APPROVAL_SERVICES"
+      mediaTypeIds2:
+        mediaTypeId0: "PDF"
     submitServiceNotificationTypeIds:
       type0: "SERVICE_RELEASE_REQUEST"
     approveServiceNotificationTypeIds:
@@ -679,6 +683,7 @@ backend:
     deleteDocumentTypeIds:
       type0: "SERVICE_LEADIMAGE"
       type1: "ADDITIONAL_DETAILS"
+      type2: "CONFORMITY_APPROVAL_SERVICES"
     technicalUserProfileClient: "technical_roles_management"
     companyAdminRoles:
       role0: "Company Admin"
@@ -686,7 +691,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v1.7.0
+      provisioningmigrationstag: v1.8.0-RC1.1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -702,7 +707,7 @@ backend:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: v1.7.0
+      processesworkertag: v1.8.0-RC1.1
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -787,10 +792,7 @@ backend:
       # -- Client-secret for offer provider client-id. Secret-key 'offerprovider-client-secret'.
       clientSecret: ""
     processIdentity:
-      userEntityId: 090c9121-7380-4bb0-bb10-fffd344f930a
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
-      identityTypeId: 2
-      processUserCompanyId: 2dc4249f-b5ca-4d42-bef1-7a7a950a4f87
     onboardingServiceProvider:
       # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'.
       encryptionKey: ""

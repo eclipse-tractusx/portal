@@ -1,22 +1,22 @@
 # Helm chart for Catena-X Portal
 
-![Version: 1.7.0](https://img.shields.io/badge/Version-1.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.7.0](https://img.shields.io/badge/AppVersion-1.7.0-informational?style=flat-square)
+![Version: 1.8.0-RC1](https://img.shields.io/badge/Version-1.8.0--RC1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.8.0-RC1](https://img.shields.io/badge/AppVersion-1.8.0--RC1-informational?style=flat-square)
 
 This helm chart installs the Catena-X Portal application which consists of
 
-* [portal-frontend (v1.7.0)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.7.0),
-* [portal-frontend-registration (v1.5.4)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.5.4),
-* [portal-assets (v1.7.0)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.7.0) and
-* [portal-backend (v1.7.0)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.7.0).
+* [portal-frontend (v1.8.0-RC1)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.8.0-RC1),
+* [portal-frontend-registration (v1.6.0-RC1)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.6.0-RC1),
+* [portal-assets (v1.8.0-RC1)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.8.0-RC1) and
+* [portal-backend (v1.8.0-RC1.1)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.8.0-RC1.1).
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
-This version is compatible with the 2.0.0 version of the IAM instances:
-* [Central Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-2.0.0/charts/centralidp/README.md)
-* [Shared Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-2.0.0/charts/sharedidp/README.md)
+This version is compatible with the 2.1.0-RC1 version of the IAM instances:
+* [Central Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-2.1.0-RC1/charts/centralidp/README.md)
+* [Shared Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-2.1.0-RC1/charts/sharedidp/README.md)
 
-For information on how to upgrade from previous versions please refer to [Version Upgrade](https://github.com/eclipse-tractusx/portal-assets/tree/v1.7.0/developer/Technical%20Documentation/Version%20Upgrade/portal-upgrade-details.md).
+For information on how to upgrade from previous versions please refer to [Version Upgrade](https://github.com/eclipse-tractusx/portal-assets/tree/v1.8.0-RC1/developer/Technical%20Documentation/Version%20Upgrade/portal-upgrade-details.md).
 
-For further information please refer to [Technical Documentation](https://github.com/eclipse-tractusx/portal-assets/tree/v1.7.0/developer/Technical%20Documentation).
+For further information please refer to [Technical Documentation](https://github.com/eclipse-tractusx/portal-assets/tree/v1.8.0-RC1/developer/Technical%20Documentation).
 
 The referenced container images are for demonstration purposes only.
 
@@ -41,7 +41,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.7.0
+    version: 1.8.0-RC1
 ```
 
 ## Requirements
@@ -77,15 +77,15 @@ dependencies:
 | frontend.ingress.hosts[0] | object | `{"host":"portal.example.org","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assetsORdocumentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"tractusx/portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v1.7.0"` |  |
+| frontend.portal.image.portaltag | string | `"v1.8.0-RC1"` |  |
 | frontend.portal.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"v1.5.4"` |  |
+| frontend.registration.image.registrationtag | string | `"v1.6.0-RC1"` |  |
 | frontend.registration.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | frontend.assets.name | string | `"assets"` |  |
 | frontend.assets.image.name | string | `"tractusx/portal-assets"` |  |
-| frontend.assets.image.assetstag | string | `"v1.7.0"` |  |
+| frontend.assets.image.assetstag | string | `"v1.8.0-RC1"` |  |
 | frontend.assets.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | frontend.assets.path | string | `"/assets"` |  |
 | frontend.centralidpAuthPath | string | `"/auth"` |  |
@@ -143,7 +143,7 @@ dependencies:
 | backend.healthChecks.readyness.path | string | `"/ready"` |  |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"tractusx/portal-registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v1.7.0"` |  |
+| backend.registration.image.registrationservicetag | string | `"v1.8.0-RC1.1"` |  |
 | backend.registration.resources | object | `{"requests":{"cpu":"15m","memory":"385M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.registration.logging.bpdmLibrary | string | `"Information"` |  |
 | backend.registration.logging.registrationService | string | `"Information"` |  |
@@ -154,6 +154,12 @@ dependencies:
 | backend.registration.applicationStatusIds.status0 | string | `"SUBMITTED"` |  |
 | backend.registration.applicationStatusIds.status1 | string | `"DECLINED"` |  |
 | backend.registration.applicationStatusIds.status2 | string | `"CONFIRMED"` |  |
+| backend.registration.applicationDeclineStatusIds.status0 | string | `"CREATED"` |  |
+| backend.registration.applicationDeclineStatusIds.status1 | string | `"ADD_COMPANY_DATA"` |  |
+| backend.registration.applicationDeclineStatusIds.status2 | string | `"INVITE_USER"` |  |
+| backend.registration.applicationDeclineStatusIds.status3 | string | `"SELECT_COMPANY_ROLE"` |  |
+| backend.registration.applicationDeclineStatusIds.status4 | string | `"UPLOAD_DOCUMENTS"` |  |
+| backend.registration.applicationDeclineStatusIds.status5 | string | `"VERIFY"` |  |
 | backend.registration.documentTypeIds.type0 | string | `"CX_FRAME_CONTRACT"` |  |
 | backend.registration.documentTypeIds.type1 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.registration.swaggerEnabled | bool | `false` |  |
@@ -161,7 +167,7 @@ dependencies:
 | backend.registration.submitDocumentTypeIds.type0 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"tractusx/portal-administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v1.7.0"` |  |
+| backend.administration.image.administrationservicetag | string | `"v1.8.0-RC1.1"` |  |
 | backend.administration.resources | object | `{"requests":{"cpu":"15m","memory":"385M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.administration.logging.businessLogic | string | `"Information"` |  |
 | backend.administration.logging.sdfactoryLibrary | string | `"Information"` |  |
@@ -216,7 +222,7 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"tractusx/portal-marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.7.0"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.8.0-RC1.1"` |  |
 | backend.appmarketplace.resources | object | `{"requests":{"cpu":"15m","memory":"445M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.appmarketplace.logging.default | string | `"Information"` |  |
 | backend.appmarketplace.logging.offersLibrary | string | `"Information"` |  |
@@ -296,34 +302,28 @@ dependencies:
 | backend.appmarketplace.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"tractusx/portal-portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v1.7.0"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v1.8.0-RC1.1"` |  |
 | backend.portalmigrations.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmigrations.seeding.testDataPaths | string | `"Seeder/Data"` | when changing the testDataPath the processIdentity needs to be adjusted as well, or it must be ensured that the identity is existing within the files under the new path |
-| backend.portalmigrations.processIdentity.userEntityId | string | `"090c9121-7380-4bb0-bb10-fffd344f930a"` |  |
 | backend.portalmigrations.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
-| backend.portalmigrations.processIdentity.identityTypeId | int | `2` |  |
-| backend.portalmigrations.processIdentity.processUserCompanyId | string | `"2dc4249f-b5ca-4d42-bef1-7a7a950a4f87"` |  |
 | backend.portalmigrations.logging.default | string | `"Information"` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"tractusx/portal-maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.7.0"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.8.0-RC1.1"` |  |
 | backend.portalmaintenance.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
-| backend.portalmaintenance.processIdentity.userEntityId | string | `"090c9121-7380-4bb0-bb10-fffd344f930a"` |  |
 | backend.portalmaintenance.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
-| backend.portalmaintenance.processIdentity.identityTypeId | int | `2` |  |
-| backend.portalmaintenance.processIdentity.processUserCompanyId | string | `"2dc4249f-b5ca-4d42-bef1-7a7a950a4f87"` |  |
 | backend.portalmaintenance.logging.default | string | `"Information"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"tractusx/portal-notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v1.7.0"` |  |
+| backend.notification.image.notificationservicetag | string | `"v1.8.0-RC1.1"` |  |
 | backend.notification.resources | object | `{"requests":{"cpu":"15m","memory":"300M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.notification.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.notification.swaggerEnabled | bool | `false` |  |
 | backend.notification.logging.default | string | `"Information"` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"tractusx/portal-services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v1.7.0"` |  |
+| backend.services.image.servicesservicetag | string | `"v1.8.0-RC1.1"` |  |
 | backend.services.resources | object | `{"requests":{"cpu":"15m","memory":"445M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.services.logging.default | string | `"Information"` |  |
 | backend.services.logging.offersLibrary | string | `"Information"` |  |
@@ -348,6 +348,8 @@ dependencies:
 | backend.services.uploadServiceDocumentTypeIds.mediaTypeIds1.mediaTypeId0 | string | `"JPEG"` |  |
 | backend.services.uploadServiceDocumentTypeIds.mediaTypeIds1.mediaTypeId1 | string | `"PNG"` |  |
 | backend.services.uploadServiceDocumentTypeIds.mediaTypeIds1.mediaTypeId2 | string | `"SVG"` |  |
+| backend.services.uploadServiceDocumentTypeIds.documentTypeId2 | string | `"CONFORMITY_APPROVAL_SERVICES"` |  |
+| backend.services.uploadServiceDocumentTypeIds.mediaTypeIds2.mediaTypeId0 | string | `"PDF"` |  |
 | backend.services.submitServiceNotificationTypeIds.type0 | string | `"SERVICE_RELEASE_REQUEST"` |  |
 | backend.services.approveServiceNotificationTypeIds.type0 | string | `"SERVICE_RELEASE_APPROVAL"` |  |
 | backend.services.swaggerEnabled | bool | `false` |  |
@@ -358,16 +360,17 @@ dependencies:
 | backend.services.offerStatusIds.status1 | string | `"ACTIVE"` |  |
 | backend.services.deleteDocumentTypeIds.type0 | string | `"SERVICE_LEADIMAGE"` |  |
 | backend.services.deleteDocumentTypeIds.type1 | string | `"ADDITIONAL_DETAILS"` |  |
+| backend.services.deleteDocumentTypeIds.type2 | string | `"CONFORMITY_APPROVAL_SERVICES"` |  |
 | backend.services.technicalUserProfileClient | string | `"technical_roles_management"` |  |
 | backend.services.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"tractusx/portal-provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.7.0"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.8.0-RC1.1"` |  |
 | backend.provisioningmigrations.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.provisioningmigrations.logging.default | string | `"Information"` |  |
 | backend.processesworker.name | string | `"processes-worker"` |  |
 | backend.processesworker.image.name | string | `"tractusx/portal-processes-worker"` |  |
-| backend.processesworker.image.processesworkertag | string | `"v1.7.0"` |  |
+| backend.processesworker.image.processesworkertag | string | `"v1.8.0-RC1.1"` |  |
 | backend.processesworker.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.processesworker.logging.default | string | `"Information"` |  |
 | backend.processesworker.logging.processesLibrary | string | `"Information"` |  |
@@ -414,10 +417,7 @@ dependencies:
 | backend.processesworker.offerprovider.grantType | string | `"client_credentials"` |  |
 | backend.processesworker.offerprovider.clientId | string | `"offerprovider-client-id"` | Provide offerprovider client-id from CX IAM centralidp. |
 | backend.processesworker.offerprovider.clientSecret | string | `""` | Client-secret for offer provider client-id. Secret-key 'offerprovider-client-secret'. |
-| backend.processesworker.processIdentity.userEntityId | string | `"090c9121-7380-4bb0-bb10-fffd344f930a"` |  |
 | backend.processesworker.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
-| backend.processesworker.processIdentity.identityTypeId | int | `2` |  |
-| backend.processesworker.processIdentity.processUserCompanyId | string | `"2dc4249f-b5ca-4d42-bef1-7a7a950a4f87"` |  |
 | backend.processesworker.onboardingServiceProvider.encryptionKey | string | `""` | Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'. |
 | backend.processesworker.networkRegistration.loginDocumentPath | string | `"/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"` |  |
 | backend.processesworker.networkRegistration.externalRegistrationPath | string | `"/?overlay=consent_osp"` |  |

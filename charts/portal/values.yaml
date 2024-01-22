@@ -361,6 +361,12 @@ backend:
         headerProviderAlias: "ProviderAlias"
         headerProviderUserId: "ProviderUserId"
         headerProviderUserName: "ProviderUserName"
+      deleteIdpRoles:
+        role0: "Company Admin"
+        role1: "IT Admin"
+      deactivateIdpRoles:
+        role0: "Company Admin"
+        role1: "IT Admin"
     invitation:
       invitedUserInitialRoles:
         role0: "Company Admin"

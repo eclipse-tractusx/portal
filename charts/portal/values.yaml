@@ -365,6 +365,7 @@ backend:
       invitedUserInitialRoles:
         role0: "Company Admin"
       initialLoginTheme: "catenax-shared"
+      closeApplicationPath: "/decline"
     registration:
       documentTypeIds:
         type0: "COMMERCIAL_REGISTER_EXTRACT"
@@ -800,7 +801,7 @@ backend:
       loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
       externalRegistrationPath: "/?overlay=consent_osp"
       # -- The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
-      closeApplicationPath: "/home/decline"
+      closeApplicationPath: "/decline"
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

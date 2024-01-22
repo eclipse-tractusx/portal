@@ -234,6 +234,8 @@ spec:
           value: "{{ .Values.portalAddress }}{{ .Values.backend.portalPasswordResendPath }}"
         - name: "INVITATION__INITIALLOGINTHEME"
           value: "{{ .Values.backend.administration.invitation.initialLoginTheme }}"
+        - name: "INVITATION__CLOSEAPPLICATIONADDRESS"
+          value: "{{ .Values.portalAddress }}{{ .Values.backend.administration.invitation.closeApplicationPath }}"
         - name: "JWTBEAREROPTIONS__METADATAADDRESS"
           value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
         - name: "JWTBEAREROPTIONS__REQUIREHTTPSMETADATA"

@@ -239,6 +239,9 @@ spec:
                   clientSecret: "<path:portal/data/stable/processes-worker#offerprovider-client-secret>"
                 onboardingServiceProvider:
                   encryptionKey: "<path:portal/data/stable/processes-worker#process-onboardingserviceprovider-encryption-key>"
+              credential:
+                logging:
+                  default: "Debug"
 
             postgresql:
               auth:

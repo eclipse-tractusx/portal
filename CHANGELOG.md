@@ -2,13 +2,22 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.8.0-RC3
+
+### Change
+
+* changed to new container images
+  * portal-assets: v1.8.0-RC2
+  * portal-frontend: v1.8.0-RC2
+  * portal-backend: v1.8.0-RC3
+* portal-backend:
+  * added configuration for decline url in the invitation e-mail
+
 ## 1.8.0-RC2
 
 ### Change
 
 * changed to new container images
-  * portal-assets: v1.8.0-RC1
-  * portal-frontend: v1.8.0-RC1
   * portal-frontend-registration: v1.6.0-RC2
   * portal-backend: v1.8.0-RC2
 

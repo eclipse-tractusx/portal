@@ -21,6 +21,7 @@ apiVersion: v2
 name: localdev-portal-iam
 type: application
 version: 0.2.0
+appVersion: 0.2.0
 description: Setup of CX Portal & IAM for local development
 home: https://github.com/eclipse-tractusx/portal-cd
 sources:

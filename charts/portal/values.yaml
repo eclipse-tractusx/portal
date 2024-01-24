@@ -361,10 +361,17 @@ backend:
         headerProviderAlias: "ProviderAlias"
         headerProviderUserId: "ProviderUserId"
         headerProviderUserName: "ProviderUserName"
+      deleteIdpRoles:
+        role0: "Company Admin"
+        role1: "IT Admin"
+      deactivateIdpRoles:
+        role0: "Company Admin"
+        role1: "IT Admin"
     invitation:
       invitedUserInitialRoles:
         role0: "Company Admin"
       initialLoginTheme: "catenax-shared"
+      closeApplicationPath: "/decline"
     registration:
       documentTypeIds:
         type0: "COMMERCIAL_REGISTER_EXTRACT"
@@ -691,7 +698,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v1.8.0-RC2
+      provisioningmigrationstag: v1.8.0-RC3
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -800,7 +807,7 @@ backend:
       loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
       externalRegistrationPath: "/?overlay=consent_osp"
       # -- The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
-      closeApplicationPath: "/home/decline"
+      closeApplicationPath: "/decline"
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

@@ -246,6 +246,8 @@ backend:
     user: "smtp-user"
     # -- Password for the smtp username. Secret-key 'password'.
     password: ""
+    # -- The email which is set as a sender
+    senderEmail: "email@example.org"
   interfaces:
     # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse, offer provider and onboarding service provider.
     secret: "secret-backend-interfaces"

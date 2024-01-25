@@ -148,6 +148,8 @@ spec:
           value: "{{ .Values.backend.mailing.port }}"
         - name: "MAILINGSERVICE__MAIL__SMTPUSER"
           value: "{{ .Values.backend.mailing.user }}"
+        - name: "MAILINGSERVICE__MAIL__SENDEREMAIL"
+          value: "{{ .Values.backend.mailing.senderEmail }}"
         - name: "PROVISIONING__CENTRALREALM"
           value: "{{ .Values.backend.provisioning.centralRealm }}"
         - name: "PROVISIONING__INVITEDUSERINITIALROLES__0__CLIENTID"

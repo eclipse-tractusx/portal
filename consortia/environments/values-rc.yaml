@@ -113,6 +113,8 @@ backend:
     shared:
       clientId: "<path:portal/data/keycloak#shared-client-id>"
       clientSecret: "<path:portal/data/dev/keycloak#shared-client-secret>"
+    claims:
+      clientId: "clientId"
 
   mailing:
     host: "<path:portal/data/mailing#host>"

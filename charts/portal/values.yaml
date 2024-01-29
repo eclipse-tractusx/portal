@@ -235,6 +235,9 @@ backend:
       authRealm: "master"
       # -- Flag if the api should be used with an leading /auth path
       useAuthTrail: true
+    claims:
+      # -- identifier how to resolve the client_id claim
+      clientId: ""
   mailing:
     # -- Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm.
     secret: "secret-backend-mailing"

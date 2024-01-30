@@ -260,7 +260,7 @@ backend:
     name: "registration-service"
     image:
       name: "tractusx/portal-registration-service"
-      registrationservicetag: 4cfb46fe277e266ade0c64588297367d065c1ace
+      registrationservicetag: e0bf03f4102fd196b4c92c034061fbc83882599e
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -308,7 +308,7 @@ backend:
     name: "administration-service"
     image:
       name: "tractusx/portal-administration-service"
-      administrationservicetag: 4cfb46fe277e266ade0c64588297367d065c1ace
+      administrationservicetag: e0bf03f4102fd196b4c92c034061fbc83882599e
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -421,7 +421,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: 4cfb46fe277e266ade0c64588297367d065c1ace
+      appmarketplaceservicetag: e0bf03f4102fd196b4c92c034061fbc83882599e
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -552,7 +552,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: 4cfb46fe277e266ade0c64588297367d065c1ace
+      portalmigrationstag: e0bf03f4102fd196b4c92c034061fbc83882599e
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -575,7 +575,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: 4cfb46fe277e266ade0c64588297367d065c1ace
+      portalmaintenancetag: e0bf03f4102fd196b4c92c034061fbc83882599e
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -593,7 +593,7 @@ backend:
     name: "notification-service"
     image:
       name: "tractusx/portal-notification-service"
-      notificationservicetag: 4cfb46fe277e266ade0c64588297367d065c1ace
+      notificationservicetag: e0bf03f4102fd196b4c92c034061fbc83882599e
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -619,7 +619,7 @@ backend:
     name: "services-service"
     image:
       name: "tractusx/portal-services-service"
-      servicesservicetag: 4cfb46fe277e266ade0c64588297367d065c1ace
+      servicesservicetag: e0bf03f4102fd196b4c92c034061fbc83882599e
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -698,7 +698,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: 4cfb46fe277e266ade0c64588297367d065c1ace
+      provisioningmigrationstag: e0bf03f4102fd196b4c92c034061fbc83882599e
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -714,7 +714,7 @@ backend:
     name: "processes-worker"
     image:
       name: "tractusx/portal-processes-worker"
-      processesworkertag: 4cfb46fe277e266ade0c64588297367d065c1ace
+      processesworkertag: e0bf03f4102fd196b4c92c034061fbc83882599e
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

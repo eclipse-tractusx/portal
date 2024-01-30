@@ -235,6 +235,14 @@ backend:
       authRealm: "master"
       # -- Flag if the api should be used with an leading /auth path
       useAuthTrail: true
+    shareddelete:
+      # -- Provide the delete sharedidp client-id from CX IAM sharedidp.
+      clientId: "shareddelete-client-id"
+      # -- Client-secret for the delete sharedidp client-id. Secret-key 'shareddelete-client-secret'.
+      clientSecret: ""
+      authRealm: "master"
+      # -- Flag if the api should be used with an leading /auth path
+      useAuthTrail: true
   mailing:
     # -- Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm.
     secret: "secret-backend-mailing"

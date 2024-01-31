@@ -40,6 +40,7 @@ spec:
           capabilities:
             drop:
             - ALL
+          readOnlyRootFilesystem: true
           runAsNonRoot: true
         image: {{ .Values.frontend.portal.image.name }}:{{ .Values.frontend.portal.image.portaltag | default .Chart.AppVersion }}
         imagePullPolicy: "Always"

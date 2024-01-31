@@ -38,6 +38,7 @@ spec:
           capabilities:
             drop:
             - ALL
+          readOnlyRootFilesystem: true
           runAsNonRoot: true
         image: "{{ .Values.backend.provisioningmigrations.image.name }}:{{ .Values.backend.provisioningmigrations.image.provisioningmigrationstag | default .Chart.AppVersion }}"
         imagePullPolicy: "Always"

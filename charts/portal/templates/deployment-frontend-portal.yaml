@@ -43,7 +43,7 @@ spec:
           readOnlyRootFilesystem: true
           runAsNonRoot: true
         image: {{ .Values.frontend.portal.image.name }}:{{ .Values.frontend.portal.image.portaltag | default .Chart.AppVersion }}
-        imagePullPolicy: "Always"
+        imagePullPolicy: "{{ .Values.frontend.portal.image.pullPolicy }}"
         env:
           - name: PORTAL_ASSETS_URL
             value: "{{ .Values.portalAddress }}{{ .Values.frontend.assets.path }}"

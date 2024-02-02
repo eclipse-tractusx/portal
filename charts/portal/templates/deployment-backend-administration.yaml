@@ -43,7 +43,7 @@ spec:
           readOnlyRootFilesystem: true
           runAsNonRoot: true
         image: "{{ .Values.backend.administration.image.name }}:{{ .Values.backend.administration.image.administrationservicetag | default .Chart.AppVersion }}"
-        imagePullPolicy: "Always"
+        imagePullPolicy: "{{ .Values.backend.administration.image.pullPolicy }}"
         env:
         - name: DOTNET_ENVIRONMENT
           value: "{{ .Values.backend.dotnetEnvironment }}"

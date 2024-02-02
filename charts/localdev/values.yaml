@@ -377,6 +377,7 @@ postgresportal:
     password: ""
     replicationPassword: ""
     portalUser: "portal"
+    portalPassword: ""
     provisioningUser: "provisioning"
     provisioningPassword: ""
   architecture: "replication"

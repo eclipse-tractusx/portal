@@ -43,7 +43,7 @@ spec:
           readOnlyRootFilesystem: true
           runAsNonRoot: true
         image: "{{ .Values.backend.appmarketplace.image.name }}:{{ .Values.backend.appmarketplace.image.appmarketplaceservicetag | default .Chart.AppVersion }}"
-        imagePullPolicy: "Always"
+        imagePullPolicy: "{{ .Values.backend.appmarketplace.image.pullPolicy }}"
         env:
         - name: DOTNET_ENVIRONMENT
           value: "{{ .Values.backend.dotnetEnvironment }}"

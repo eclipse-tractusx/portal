@@ -41,7 +41,7 @@ spec:
           readOnlyRootFilesystem: true
           runAsNonRoot: true
         image: "{{ .Values.backend.provisioningmigrations.image.name }}:{{ .Values.backend.provisioningmigrations.image.provisioningmigrationstag | default .Chart.AppVersion }}"
-        imagePullPolicy: "Always"
+        imagePullPolicy: "{{ .Values.backend.provisioningmigrations.image.pullPolicy }}"
         env:
           - name: DOTNET_ENVIRONMENT
             value: "{{ .Values.backend.dotnetEnvironment }}"

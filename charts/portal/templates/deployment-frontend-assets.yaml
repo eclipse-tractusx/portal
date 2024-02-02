@@ -43,7 +43,7 @@ spec:
           readOnlyRootFilesystem: true
           runAsNonRoot: true
         image: {{ .Values.frontend.assets.image.name }}:{{ .Values.frontend.assets.image.assetstag | default .Chart.AppVersion }}
-        imagePullPolicy: "Always"
+        imagePullPolicy: "{{ .Values.frontend.assets.image.pullPolicy }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

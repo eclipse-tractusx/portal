@@ -340,7 +340,7 @@ backend:
         type0: "PDF"
       ssiCertificateMediaTypes:
         type0: "PDF"
-      comapnyCertificateMediaTypes:
+      companyCertificateMediaTypes:
         type0: "PDF"
     connectors:
       validCertificationContentTypes:

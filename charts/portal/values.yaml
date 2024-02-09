@@ -92,7 +92,7 @@ frontend:
     name: "portal"
     image:
       name: "tractusx/portal-frontend"
-      portaltag: d577d05facab4e24847dddb619245f6fb9e6aca1
+      portaltag: c2f6c22e1e889032b1a9cec963adf64f9734b586
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

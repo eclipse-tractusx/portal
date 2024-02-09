@@ -1,13 +1,13 @@
 # Helm chart for Catena-X Portal
 
-![Version: 1.8.0-RC4](https://img.shields.io/badge/Version-1.8.0--RC4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.8.0-RC4](https://img.shields.io/badge/AppVersion-1.8.0--RC4-informational?style=flat-square)
+![Version: 1.8.0-RC5](https://img.shields.io/badge/Version-1.8.0--RC5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.8.0-RC5](https://img.shields.io/badge/AppVersion-1.8.0--RC5-informational?style=flat-square)
 
 This helm chart installs the Catena-X Portal application which consists of
 
-* [portal-frontend (v1.8.0-RC3)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.8.0-RC3),
-* [portal-frontend-registration (v1.6.0-RC3)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.6.0-RC3),
+* [portal-frontend (v1.8.0-RC4)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.8.0-RC4),
+* [portal-frontend-registration (v1.6.0-RC4)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.6.0-RC4),
 * [portal-assets (v1.8.0-RC3)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.8.0-RC3) and
-* [portal-backend (v1.8.0-RC4)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.8.0-RC4).
+* [portal-backend (v1.8.0-RC5)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.8.0-RC5).
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
 This version is compatible with the 2.1.0-RC1 version of the IAM instances:
@@ -41,7 +41,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.8.0-RC4
+    version: 1.8.0-RC5
 ```
 
 ## Requirements
@@ -76,16 +76,19 @@ dependencies:
 | frontend.ingress.tls[0].hosts | list | `[""]` | Provide host for tls secret. |
 | frontend.ingress.hosts[0] | object | `{"host":"portal.example.org","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assetsORdocumentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
-| frontend.portal.image.name | string | `"tractusx/portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v1.8.0-RC3"` |  |
+| frontend.portal.image.name | string | `"docker.io/tractusx/portal-frontend"` |  |
+| frontend.portal.image.portaltag | string | `"v1.8.0-RC4"` |  |
+| frontend.portal.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.portal.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | frontend.registration.name | string | `"registration"` |  |
-| frontend.registration.image.name | string | `"tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"v1.6.0-RC3"` |  |
+| frontend.registration.image.name | string | `"docker.io/tractusx/portal-frontend-registration"` |  |
+| frontend.registration.image.registrationtag | string | `"v1.6.0-RC4"` |  |
+| frontend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.registration.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | frontend.assets.name | string | `"assets"` |  |
-| frontend.assets.image.name | string | `"tractusx/portal-assets"` |  |
+| frontend.assets.image.name | string | `"docker.io/tractusx/portal-assets"` |  |
 | frontend.assets.image.assetstag | string | `"v1.8.0-RC3"` |  |
+| frontend.assets.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.assets.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | frontend.assets.path | string | `"/assets"` |  |
 | frontend.centralidpAuthPath | string | `"/auth"` |  |
@@ -132,24 +135,30 @@ dependencies:
 | backend.keycloak.shared.clientSecret | string | `""` | Client-secret for sharedidp client-id. Secret-key 'shared-client-secret'. |
 | backend.keycloak.shared.authRealm | string | `"master"` |  |
 | backend.keycloak.shared.useAuthTrail | bool | `true` | Flag if the api should be used with an leading /auth path |
+| backend.keycloak.shareddelete.clientId | string | `"shareddelete-client-id"` | Provide the delete sharedidp client-id from CX IAM sharedidp. |
+| backend.keycloak.shareddelete.clientSecret | string | `""` | Client-secret for the delete sharedidp client-id. Secret-key 'shareddelete-client-secret'. |
+| backend.keycloak.shareddelete.authRealm | string | `"master"` |  |
+| backend.keycloak.shareddelete.useAuthTrail | bool | `true` | Flag if the api should be used with an leading /auth path |
 | backend.mailing.secret | string | `"secret-backend-mailing"` | Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm. |
 | backend.mailing.host | string | `"smtp.example.org"` | Provide host. |
 | backend.mailing.port | string | `"587"` | Provide port. |
 | backend.mailing.user | string | `"smtp-user"` | Provide user. |
 | backend.mailing.password | string | `""` | Password for the smtp username. Secret-key 'password'. |
+| backend.mailing.senderEmail | string | `"email@example.org"` | The email which is set as a sender |
 | backend.interfaces.secret | string | `"secret-backend-interfaces"` | Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse, offer provider and onboarding service provider. |
 | backend.healthChecks.startup.path | string | `"/health/startup"` |  |
 | backend.healthChecks.liveness.path | string | `"/healthz"` |  |
 | backend.healthChecks.readyness.path | string | `"/ready"` |  |
 | backend.registration.name | string | `"registration-service"` |  |
-| backend.registration.image.name | string | `"tractusx/portal-registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v1.8.0-RC4"` |  |
+| backend.registration.image.name | string | `"docker.io/tractusx/portal-registration-service"` |  |
+| backend.registration.image.registrationservicetag | string | `"v1.8.0-RC5"` |  |
+| backend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.registration.resources | object | `{"requests":{"cpu":"15m","memory":"385M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.registration.logging.bpdmLibrary | string | `"Information"` |  |
 | backend.registration.logging.registrationService | string | `"Information"` |  |
 | backend.registration.logging.default | string | `"Information"` |  |
 | backend.registration.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
-| backend.registration.portalRegistrationPath | string | `"/registration"` |  |
+| backend.registration.portalRegistrationPath | string | `"/registration/"` |  |
 | backend.registration.keycloakClientId | string | `"Cl1-CX-Registration"` |  |
 | backend.registration.applicationStatusIds.status0 | string | `"SUBMITTED"` |  |
 | backend.registration.applicationStatusIds.status1 | string | `"DECLINED"` |  |
@@ -166,8 +175,9 @@ dependencies:
 | backend.registration.registrationDocumentTypeIds.type0 | string | `"CX_FRAME_CONTRACT"` |  |
 | backend.registration.submitDocumentTypeIds.type0 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
-| backend.administration.image.name | string | `"tractusx/portal-administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v1.8.0-RC4"` |  |
+| backend.administration.image.name | string | `"docker.io/tractusx/portal-administration-service"` |  |
+| backend.administration.image.administrationservicetag | string | `"v1.8.0-RC5"` |  |
+| backend.administration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.administration.resources | object | `{"requests":{"cpu":"15m","memory":"385M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.administration.logging.businessLogic | string | `"Information"` |  |
 | backend.administration.logging.sdfactoryLibrary | string | `"Information"` |  |
@@ -226,8 +236,9 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.from | string | `"smtp@example.org"` | Provide from. |
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
-| backend.appmarketplace.image.name | string | `"tractusx/portal-marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.8.0-RC4"` |  |
+| backend.appmarketplace.image.name | string | `"docker.io/tractusx/portal-marketplace-app-service"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.8.0-RC5"` |  |
+| backend.appmarketplace.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.appmarketplace.resources | object | `{"requests":{"cpu":"15m","memory":"445M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.appmarketplace.logging.default | string | `"Information"` |  |
 | backend.appmarketplace.logging.offersLibrary | string | `"Information"` |  |
@@ -306,29 +317,33 @@ dependencies:
 | backend.appmarketplace.technicalUserProfileClient | string | `"technical_roles_management"` |  |
 | backend.appmarketplace.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
-| backend.portalmigrations.image.name | string | `"tractusx/portal-portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v1.8.0-RC4"` |  |
+| backend.portalmigrations.image.name | string | `"docker.io/tractusx/portal-portal-migrations"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v1.8.0-RC5"` |  |
+| backend.portalmigrations.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.portalmigrations.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmigrations.seeding.testDataPaths | string | `"Seeder/Data"` | when changing the testDataPath the processIdentity needs to be adjusted as well, or it must be ensured that the identity is existing within the files under the new path |
 | backend.portalmigrations.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
 | backend.portalmigrations.logging.default | string | `"Information"` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
-| backend.portalmaintenance.image.name | string | `"tractusx/portal-maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.8.0-RC4"` |  |
+| backend.portalmaintenance.image.name | string | `"docker.io/tractusx/portal-maintenance-service"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.8.0-RC5"` |  |
+| backend.portalmaintenance.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.portalmaintenance.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.portalmaintenance.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
 | backend.portalmaintenance.logging.default | string | `"Information"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
-| backend.notification.image.name | string | `"tractusx/portal-notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v1.8.0-RC4"` |  |
+| backend.notification.image.name | string | `"docker.io/tractusx/portal-notification-service"` |  |
+| backend.notification.image.notificationservicetag | string | `"v1.8.0-RC5"` |  |
+| backend.notification.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.notification.resources | object | `{"requests":{"cpu":"15m","memory":"300M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.notification.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.notification.swaggerEnabled | bool | `false` |  |
 | backend.notification.logging.default | string | `"Information"` |  |
 | backend.services.name | string | `"services-service"` |  |
-| backend.services.image.name | string | `"tractusx/portal-services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v1.8.0-RC4"` |  |
+| backend.services.image.name | string | `"docker.io/tractusx/portal-services-service"` |  |
+| backend.services.image.servicesservicetag | string | `"v1.8.0-RC5"` |  |
+| backend.services.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.services.resources | object | `{"requests":{"cpu":"15m","memory":"445M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.services.logging.default | string | `"Information"` |  |
 | backend.services.logging.offersLibrary | string | `"Information"` |  |
@@ -369,13 +384,15 @@ dependencies:
 | backend.services.technicalUserProfileClient | string | `"technical_roles_management"` |  |
 | backend.services.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.name | string | `"tractusx/portal-provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.8.0-RC4"` |  |
+| backend.provisioningmigrations.image.name | string | `"docker.io/tractusx/portal-provisioning-migrations"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.8.0-RC5"` |  |
+| backend.provisioningmigrations.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.provisioningmigrations.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.provisioningmigrations.logging.default | string | `"Information"` |  |
 | backend.processesworker.name | string | `"processes-worker"` |  |
-| backend.processesworker.image.name | string | `"tractusx/portal-processes-worker"` |  |
-| backend.processesworker.image.processesworkertag | string | `"v1.8.0-RC4"` |  |
+| backend.processesworker.image.name | string | `"docker.io/tractusx/portal-processes-worker"` |  |
+| backend.processesworker.image.processesworkertag | string | `"v1.8.0-RC5"` |  |
+| backend.processesworker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.processesworker.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
 | backend.processesworker.logging.default | string | `"Information"` |  |
 | backend.processesworker.logging.processesLibrary | string | `"Information"` |  |

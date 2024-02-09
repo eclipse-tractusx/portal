@@ -91,8 +91,9 @@ frontend:
   portal:
     name: "portal"
     image:
-      name: "tractusx/portal-frontend"
-      portaltag: c2f6c22e1e889032b1a9cec963adf64f9734b586
+      name: "docker.io/tractusx/portal-frontend"
+      portaltag: v1.8.0-RC4
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -105,8 +106,9 @@ frontend:
   registration:
     name: "registration"
     image:
-      name: "tractusx/portal-frontend-registration"
-      registrationtag: 674d73d3c003191329fdac68d25a4b5c89197cca
+      name: "docker.io/tractusx/portal-frontend-registration"
+      registrationtag: v1.6.0-RC4
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -119,8 +121,9 @@ frontend:
   assets:
     name: "assets"
     image:
-      name: "tractusx/portal-assets"
-      assetstag: 4b0dbfe6f4908982fac1c412390df001e08d7e4d
+      name: "docker.io/tractusx/portal-assets"
+      assetstag: v1.8.0-RC3
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -235,6 +238,14 @@ backend:
       authRealm: "master"
       # -- Flag if the api should be used with an leading /auth path
       useAuthTrail: true
+    shareddelete:
+      # -- Provide the delete sharedidp client-id from CX IAM sharedidp.
+      clientId: "shareddelete-client-id"
+      # -- Client-secret for the delete sharedidp client-id. Secret-key 'shareddelete-client-secret'.
+      clientSecret: ""
+      authRealm: "master"
+      # -- Flag if the api should be used with an leading /auth path
+      useAuthTrail: true
   mailing:
     # -- Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm.
     secret: "secret-backend-mailing"
@@ -246,6 +257,8 @@ backend:
     user: "smtp-user"
     # -- Password for the smtp username. Secret-key 'password'.
     password: ""
+    # -- The email which is set as a sender
+    senderEmail: "email@example.org"
   interfaces:
     # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse, offer provider and onboarding service provider.
     secret: "secret-backend-interfaces"
@@ -259,8 +272,9 @@ backend:
   registration:
     name: "registration-service"
     image:
-      name: "tractusx/portal-registration-service"
-      registrationservicetag: fb07a389a6a1f65afe845afe553b1296c72b8235
+      name: "docker.io/tractusx/portal-registration-service"
+      registrationservicetag: v1.8.0-RC5
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -283,7 +297,7 @@ backend:
         #   value: "keycloak"
         - name: "HEALTHCHECKS__0__TAGS__1"
           value: "portaldb"
-    portalRegistrationPath: "/registration"
+    portalRegistrationPath: "/registration/"
     keycloakClientId: "Cl1-CX-Registration"
     applicationStatusIds:
       status0: "SUBMITTED"
@@ -307,8 +321,9 @@ backend:
   administration:
     name: "administration-service"
     image:
-      name: "tractusx/portal-administration-service"
-      administrationservicetag: fb07a389a6a1f65afe845afe553b1296c72b8235
+      name: "docker.io/tractusx/portal-administration-service"
+      administrationservicetag: v1.8.0-RC5
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -420,8 +435,9 @@ backend:
   appmarketplace:
     name: "marketplace-app-service"
     image:
-      name: "tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: fb07a389a6a1f65afe845afe553b1296c72b8235
+      name: "docker.io/tractusx/portal-marketplace-app-service"
+      appmarketplaceservicetag: v1.8.0-RC5
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -551,8 +567,9 @@ backend:
   portalmigrations:
     name: "portal-migrations"
     image:
-      name: "tractusx/portal-portal-migrations"
-      portalmigrationstag: fb07a389a6a1f65afe845afe553b1296c72b8235
+      name: "docker.io/tractusx/portal-portal-migrations"
+      portalmigrationstag: v1.8.0-RC5
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -574,8 +591,9 @@ backend:
   portalmaintenance:
     name: "portal-maintenance"
     image:
-      name: "tractusx/portal-maintenance-service"
-      portalmaintenancetag: fb07a389a6a1f65afe845afe553b1296c72b8235
+      name: "docker.io/tractusx/portal-maintenance-service"
+      portalmaintenancetag: v1.8.0-RC5
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -592,8 +610,9 @@ backend:
   notification:
     name: "notification-service"
     image:
-      name: "tractusx/portal-notification-service"
-      notificationservicetag: fb07a389a6a1f65afe845afe553b1296c72b8235
+      name: "docker.io/tractusx/portal-notification-service"
+      notificationservicetag: v1.8.0-RC5
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -618,8 +637,9 @@ backend:
   services:
     name: "services-service"
     image:
-      name: "tractusx/portal-services-service"
-      servicesservicetag: fb07a389a6a1f65afe845afe553b1296c72b8235
+      name: "docker.io/tractusx/portal-services-service"
+      servicesservicetag: v1.8.0-RC5
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -697,8 +717,9 @@ backend:
   provisioningmigrations:
     name: "provisioning-migrations"
     image:
-      name: "tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: fb07a389a6a1f65afe845afe553b1296c72b8235
+      name: "docker.io/tractusx/portal-provisioning-migrations"
+      provisioningmigrationstag: v1.8.0-RC5
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:
@@ -713,8 +734,9 @@ backend:
   processesworker:
     name: "processes-worker"
     image:
-      name: "tractusx/portal-processes-worker"
-      processesworkertag: fb07a389a6a1f65afe845afe553b1296c72b8235
+      name: "docker.io/tractusx/portal-processes-worker"
+      processesworkertag: v1.8.0-RC5
+      pullPolicy: "IfNotPresent"
     # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
     # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
     resources:

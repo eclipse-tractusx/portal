@@ -113,12 +113,16 @@ backend:
     shared:
       clientId: "<path:portal/data/keycloak#shared-client-id>"
       clientSecret: "<path:portal/data/dev/keycloak#shared-client-secret>"
+    shareddelete:
+      clientId: "<path:portal/data/keycloak#shareddelete-client-id>"
+      clientSecret: "<path:portal/data/dev/keycloak#shareddelete-client-secret>"
 
   mailing:
     host: "<path:portal/data/mailing#host>"
     port: "<path:portal/data/mailing#port>"
     user: "<path:portal/data/mailing#user>"
     password: "<path:portal/data/mailing#password>"
+    senderEmail: "Notifications@catena-x.net"
 
   registration:
     logging:

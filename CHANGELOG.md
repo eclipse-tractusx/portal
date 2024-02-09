@@ -2,13 +2,17 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 1.8.0-RC5 (unreleased)
+## 1.8.0-RC5
 
 ### Change
 
-- enabled readOnlyRootFilesystem in containers (TRG-4.07)
-- made imagePullPolicy configurable, default set to IfNotPresent
-- added registry for image name
+* changed to new container images
+  * portal-frontend: v1.8.0-RC4
+  * portal-frontend-registration: v1.6.0-RC4
+  * portal-backend: v1.8.0-RC5
+* enabled readOnlyRootFilesystem in containers (TRG-4.07)
+* made imagePullPolicy configurable, default set to IfNotPresent
+* added registry for image name
 
 ## 1.8.0-RC4
 

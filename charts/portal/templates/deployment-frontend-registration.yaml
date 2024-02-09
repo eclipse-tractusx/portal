@@ -40,9 +40,10 @@ spec:
           capabilities:
             drop:
             - ALL
+          readOnlyRootFilesystem: true
           runAsNonRoot: true
         image: {{ .Values.frontend.registration.image.name }}:{{ .Values.frontend.registration.image.registrationtag | default .Chart.AppVersion }}
-        imagePullPolicy: "Always"
+        imagePullPolicy: "{{ .Values.frontend.registration.image.pullPolicy }}"
         env:
           - name: PORTAL_ASSETS_URL
             value: "{{ .Values.portalAddress }}{{ .Values.frontend.assets.path }}"
@@ -77,6 +78,12 @@ spec:
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         resources:
           {{- toYaml .Values.frontend.registration.resources | nindent 10 }}
+        volumeMounts:
+        - mountPath: /tmp
+          name: tmp
+      volumes:
+      - emptyDir: {}
+        name: tmp
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

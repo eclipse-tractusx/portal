@@ -36,9 +36,10 @@ spec:
               capabilities:
                 drop:
                 - ALL
+              readOnlyRootFilesystem: true
               runAsNonRoot: true
             image: "{{ .Values.backend.processesworker.image.name }}:{{ .Values.backend.processesworker.image.processesworkertag | default .Chart.AppVersion }}"
-            imagePullPolicy: "Always"
+            imagePullPolicy: "{{ .Values.backend.processesworker.image.pullPolicy }}"
             env:
             - name: DOTNET_ENVIRONMENT
               value: "{{ .Values.backend.dotnetEnvironment }}"
@@ -251,6 +252,8 @@ spec:
               value: "{{ .Values.backend.mailing.port }}"
             - name: "MAILINGSERVICE__MAIL__SMTPUSER"
               value: "{{ .Values.backend.mailing.user }}"
+            - name: "MAILINGSERVICE__MAIL__SENDEREMAIL"
+              value: "{{ .Values.backend.mailing.senderEmail }}"
             - name: "PROCESSES__LOCKEXPIRYSECONDS"
               value: "{{ .Values.backend.processesworker.processes.lockExpirySeconds }}"
             - name: "PROVISIONING__CENTRALIDENTITYPROVIDER__CONFIG__CLIENTID"

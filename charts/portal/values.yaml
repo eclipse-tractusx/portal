@@ -297,7 +297,7 @@ backend:
         #   value: "keycloak"
         - name: "HEALTHCHECKS__0__TAGS__1"
           value: "portaldb"
-    portalRegistrationPath: "/registration"
+    portalRegistrationPath: "/registration/"
     keycloakClientId: "Cl1-CX-Registration"
     applicationStatusIds:
       status0: "SUBMITTED"

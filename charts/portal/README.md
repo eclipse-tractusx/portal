@@ -187,6 +187,7 @@ dependencies:
 | backend.administration.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"},{"name":"HEALTHCHECKS__0__TAGS__2","value":"provisioningdb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.administration.companyData.useCaseParticipationMediaTypes.type0 | string | `"PDF"` |  |
 | backend.administration.companyData.ssiCertificateMediaTypes.type0 | string | `"PDF"` |  |
+| backend.administration.companyData.companyCertificateMediaTypes.type0 | string | `"PDF"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type0 | string | `"application/x-pem-file"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type1 | string | `"application/x-x509-ca-cert"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type2 | string | `"application/pkix-cert"` |  |

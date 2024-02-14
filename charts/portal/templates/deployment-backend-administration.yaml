@@ -182,6 +182,8 @@ spec:
           value: "{{ .Values.backend.administration.companyData.useCaseParticipationMediaTypes.type0 }}"
         - name: "COMPANYDATA__SSICERTIFICATEMEDIATYPES__0"
           value: "{{ .Values.backend.administration.companyData.ssiCertificateMediaTypes.type0 }}"
+        - name: "COMPANYDATA__COMPANYCERTIFICATEMEDIATYPES__0"
+          value: "{{ .Values.backend.administration.companyData.companyCertificateMediaTypes.type0 }}"
         - name: "CONNECTORS__VALIDCERTIFICATIONCONTENTTYPES__0"
           value: "{{ .Values.backend.administration.connectors.validCertificationContentTypes.type0 }}"
         - name: "CONNECTORS__VALIDCERTIFICATIONCONTENTTYPES__1"

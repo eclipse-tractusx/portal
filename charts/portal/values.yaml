@@ -357,6 +357,8 @@ backend:
         type0: "PDF"
       ssiCertificateMediaTypes:
         type0: "PDF"
+      companyCertificateMediaTypes:
+        type0: "PDF"
     connectors:
       validCertificationContentTypes:
         type0: "application/x-pem-file"

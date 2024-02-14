@@ -47,6 +47,8 @@ spec:
         env:
         - name: DOTNET_ENVIRONMENT
           value: "{{ .Values.backend.dotnetEnvironment }}"
+        - name: TMPDIR
+          value: "/mnt/tmp"
         {{- if .Values.postgresql.enabled }}
         - name: "PORTAL_PASSWORD"
           valueFrom:
@@ -151,6 +153,8 @@ spec:
           value: "{{ .Values.backend.mailing.user }}"
         - name: "MAILINGSERVICE__MAIL__SENDEREMAIL"
           value: "{{ .Values.backend.mailing.senderEmail }}"
+        - name: "MVC_ROUTING_BASEPATH"
+          value: "{{ .Values.backend.registration.basePath }}"
         - name: "PROVISIONING__CENTRALREALM"
           value: "{{ .Values.backend.provisioning.centralRealm }}"
         - name: "PROVISIONING__INVITEDUSERINITIALROLES__0__CLIENTID"
@@ -193,7 +197,6 @@ spec:
           value: "{{ .Values.backend.registration.registrationDocumentTypeIds.type0 }}"
         - name: "REGISTRATION__SUBMITDOCUMENTTYPEIDS__0"
           value: "{{ .Values.backend.registration.submitDocumentTypeIds.type0 }}"
-
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}
@@ -230,6 +233,12 @@ spec:
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         resources:
           {{- toYaml .Values.backend.registration.resources | nindent 10 }}
+        volumeMounts:
+        - mountPath: /mnt/tmp
+          name: tmp
+      volumes:
+      - emptyDir: {}
+        name: tmp
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

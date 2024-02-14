@@ -284,6 +284,7 @@ backend:
       # limits:
       #   cpu: 45m
       #   memory: 460M
+    basePath: "api/registration"
     logging:
       bpdmLibrary: "Information"
       registrationService: "Information"
@@ -333,6 +334,7 @@ backend:
       # limits:
       #   cpu: 45m
       #   memory: 430M
+    basePath: "api/administration"
     logging:
       businessLogic: "Information"
       sdfactoryLibrary: "Information"
@@ -354,6 +356,8 @@ backend:
       useCaseParticipationMediaTypes:
         type0: "PDF"
       ssiCertificateMediaTypes:
+        type0: "PDF"
+      companyCertificateMediaTypes:
         type0: "PDF"
     connectors:
       validCertificationContentTypes:
@@ -447,6 +451,7 @@ backend:
       # limits:
       #   cpu: 45m
       #   memory: 500M
+    basePath: "api/apps"
     logging:
       default: "Information"
       offersLibrary: "Information"
@@ -622,6 +627,7 @@ backend:
       # limits:
       #   cpu: 45m
       #   memory: 400M
+    basePath: "api/notification"
     # -- Keycloak Healthcheck to be enabled for startupProbe;
     # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
     healthChecks:
@@ -649,6 +655,7 @@ backend:
       # limits:
       #   cpu: 45m
       #   memory: 500M
+    basePath: "api/services"
     logging:
       default: "Information"
       offersLibrary: "Information"

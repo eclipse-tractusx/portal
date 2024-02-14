@@ -2,6 +2,24 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.8.0-RC6
+
+### Change
+
+* changed to new container images
+  * portal-assets: v1.8.0-RC4
+  * portal-frontend: v1.8.0-RC5
+  * portal-frontend-registration: v1.6.0-RC5
+  * portal-backend: v1.8.0-RC6
+* portal-backend:
+  * added configuration for company certificate
+
+### Bugfix
+
+* portal-backend:
+  * adjusted token auth address configuration for external services
+  * mounted tmp directory to enable file upload with readOnlyRootFilesystem
+
 ## 1.8.0-RC5
 
 ### Change

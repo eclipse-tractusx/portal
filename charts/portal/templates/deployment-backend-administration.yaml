@@ -47,6 +47,8 @@ spec:
         env:
         - name: DOTNET_ENVIRONMENT
           value: "{{ .Values.backend.dotnetEnvironment }}"
+        - name: TMPDIR
+          value: "/mnt/tmp"
         {{- if .Values.postgresql.enabled }}
         - name: "PORTAL_PASSWORD"
           valueFrom:
@@ -83,6 +85,8 @@ spec:
         - name: "DATABASEACCESS__PORTAL__CONNECTIONSTRING"
           value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};;"
         {{- end }}
+        - name: "MVC_ROUTING_BASEPATH"
+          value: "{{ .Values.backend.administration.basePath }}"
         - name: "DATABASEACCESS__PORTAL__DATABASESCHEMA"
           value: "{{ .Values.backend.dbConnection.schema }}"
         - name: "KEYCLOAK_CENTRAL_PASSWORD"
@@ -105,7 +109,7 @@ spec:
               key: "bpdm-client-secret"
         - name: "APPLICATIONCHECKLIST__BPDM__GRANTTYPE"
           value: "{{ .Values.backend.processesworker.bpdm.grantType }}"
-        - name: "APPLICATIONCHECKLIST__BPDM__KEYCLOAKTOKENADDRESS"
+        - name: "APPLICATIONCHECKLIST__BPDM__TOKENADDRESS"
           value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.tokenPath }}"
         - name: "APPLICATIONCHECKLIST__BPDM__PASSWORD"
           value: "{{ .Values.backend.placeholder }}"
@@ -124,7 +128,7 @@ spec:
               key: "clearinghouse-client-secret"
         - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__GRANTTYPE"
           value: "{{ .Values.backend.processesworker.clearinghouse.grantType }}"
-        - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__KEYCLOAKTOKENADDRESS"
+        - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__TOKENADDRESS"
           value: "{{ .Values.clearinghouseTokenAddress }}"
         - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__PASSWORD"
           value: "{{ .Values.backend.placeholder }}"
@@ -147,7 +151,7 @@ spec:
               key: "custodian-client-secret"
         - name: "APPLICATIONCHECKLIST__CUSTODIAN__GRANTTYPE"
           value: "{{ .Values.backend.processesworker.custodian.grantType }}"
-        - name: "APPLICATIONCHECKLIST__CUSTODIAN__KEYCLOAKTOKENADDRESS"
+        - name: "APPLICATIONCHECKLIST__CUSTODIAN__TOKENADDRESS"
           value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.tokenPath }}"
         - name: "APPLICATIONCHECKLIST__CUSTODIAN__PASSWORD"
           value: "{{ .Values.backend.placeholder }}"
@@ -164,7 +168,7 @@ spec:
               key: "sdfactory-client-secret"
         - name: "APPLICATIONCHECKLIST__SDFACTORY__GRANTTYPE"
           value: "{{ .Values.backend.processesworker.sdfactory.grantType }}"
-        - name: "APPLICATIONCHECKLIST__SDFACTORY__KEYCLOAKTOKENADDRESS"
+        - name: "APPLICATIONCHECKLIST__SDFACTORY__TOKENADDRESS"
           value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.tokenPath }}"
         - name: "APPLICATIONCHECKLIST__SDFACTORY__PASSWORD"
           value: "{{ .Values.backend.placeholder }}"
@@ -180,6 +184,8 @@ spec:
           value: "{{ .Values.backend.administration.companyData.useCaseParticipationMediaTypes.type0 }}"
         - name: "COMPANYDATA__SSICERTIFICATEMEDIATYPES__0"
           value: "{{ .Values.backend.administration.companyData.ssiCertificateMediaTypes.type0 }}"
+        - name: "COMPANYDATA__COMPANYCERTIFICATEMEDIATYPES__0"
+          value: "{{ .Values.backend.administration.companyData.companyCertificateMediaTypes.type0 }}"
         - name: "CONNECTORS__VALIDCERTIFICATIONCONTENTTYPES__0"
           value: "{{ .Values.backend.administration.connectors.validCertificationContentTypes.type0 }}"
         - name: "CONNECTORS__VALIDCERTIFICATIONCONTENTTYPES__1"
@@ -424,6 +430,12 @@ spec:
           failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
         resources:
           {{- toYaml .Values.backend.administration.resources | nindent 10 }}
+        volumeMounts:
+        - mountPath: /mnt/tmp
+          name: tmp
+      volumes:
+      - emptyDir: {}
+        name: tmp
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

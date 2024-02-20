@@ -876,7 +876,7 @@ postgresql:
     # -- Extended PostgreSQL Primary configuration (increase of max_connections recommended - default is 100)
     extendedConfiguration: ""
     initdb:
-      scriptsConfigMap: "configmap-postgres-init"
+      scriptsConfigMap: "{{ .Release.Name }}-portal-cm-postgres"
     extraEnvVars:
       - name: "PORTAL_PASSWORD"
         valueFrom:

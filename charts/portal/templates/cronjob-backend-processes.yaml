@@ -28,6 +28,9 @@ spec:
   schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
+    metadata:
+      labels:
+        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       template:
         spec:

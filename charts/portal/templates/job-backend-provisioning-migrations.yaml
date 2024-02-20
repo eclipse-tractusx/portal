@@ -31,7 +31,8 @@ metadata:
 spec:
   template:
     metadata:
-      name: {{ include "portal.fullname" . }}-{{ .Values.backend.provisioningmigrations.name }}
+      labels:
+        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       restartPolicy: Never
       containers:

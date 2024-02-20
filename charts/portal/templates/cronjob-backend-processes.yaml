@@ -21,6 +21,9 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ .Values.backend.processesworker.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
 spec:
   schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid

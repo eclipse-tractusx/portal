@@ -23,6 +23,8 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.postgresql.primary.initdb.scriptsConfigMap }}
   namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
 data:
   01-init-db-user.sh: |
     postgresql_create_portal_user() {

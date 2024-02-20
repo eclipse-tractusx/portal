@@ -20,7 +20,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Values.backend.portalmigrations.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.backend.portalmigrations.name }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "portal.labels" . | nindent 4 }}
@@ -31,11 +31,11 @@ metadata:
 spec:
   template:
     metadata:
-      name: {{ .Values.backend.portalmigrations.name }}
+      name: {{ include "portal.fullname" . }}-{{ .Values.backend.portalmigrations.name }}
     spec:
       restartPolicy: Never
       containers:
-      - name: {{ .Values.backend.portalmigrations.name }}
+      - name: {{ include "portal.fullname" . }}-{{ .Values.backend.portalmigrations.name }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:

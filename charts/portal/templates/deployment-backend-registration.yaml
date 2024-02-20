@@ -20,7 +20,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.backend.registration.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.backend.registration.name }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "portal.labels" . | nindent 4 }}
@@ -37,7 +37,7 @@ spec:
         app: {{ .Values.backend.registration.name }}
     spec:
       containers:
-      - name: {{ .Values.backend.registration.name }}
+      - name: {{ include "portal.fullname" . }}-{{ .Values.backend.registration.name }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:

@@ -20,7 +20,10 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: {{ .Values.backend.provisioningmigrations.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.backend.provisioningmigrations.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
   annotations:
     batch.kubernetes.io/job-tracking: "true"
     "helm.sh/hook": post-install,post-upgrade
@@ -28,11 +31,12 @@ metadata:
 spec:
   template:
     metadata:
-      name: {{ .Values.backend.provisioningmigrations.name }}
+      labels:
+        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       restartPolicy: Never
       containers:
-      - name: {{ .Values.backend.provisioningmigrations.name }}
+      - name: {{ include "portal.fullname" . }}-{{ .Values.backend.provisioningmigrations.name }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:

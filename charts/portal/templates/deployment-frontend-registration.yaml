@@ -20,21 +20,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.frontend.registration.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.frontend.registration.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
-      app: {{ .Values.frontend.registration.name }}
+      {{- include "portal.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Values.frontend.registration.name }}
+        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: {{ .Values.frontend.registration.name }}
+      - name: {{ include "portal.fullname" . }}-{{ .Values.frontend.registration.name }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:

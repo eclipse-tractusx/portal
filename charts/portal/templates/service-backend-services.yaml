@@ -20,11 +20,14 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.backend.services.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.backend.services.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
 spec:
   type: ClusterIP
   ports:
   - port: {{ .Values.portService }}
     targetPort: {{ .Values.portContainer }}
   selector:
-    app: {{ .Values.backend.services.name }}
+    {{- include "portal.selectorLabels" . | nindent 4 }}

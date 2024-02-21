@@ -20,16 +20,22 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ .Values.backend.portalmaintenance.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.backend.portalmaintenance.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
 spec:
   schedule: "0 0 * * *"
   jobTemplate:
+    metadata:
+      labels:
+        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       template:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: {{ .Values.backend.portalmaintenance.name }}
+          - name: {{ include "portal.fullname" . }}-{{ .Values.backend.portalmaintenance.name }}
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:

@@ -20,24 +20,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "portal.fullname" . }}-{{ .Values.backend.notification.name }}
-  namespace: {{ .Release.Namespace }}
-  labels:
-    {{- include "portal.labels" . | nindent 4 }}
+  name: {{ .Values.backend.notification.name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
-      {{- include "portal.selectorLabels" . | nindent 6 }}
+      app: {{ .Values.backend.notification.name }}
   template:
     metadata:
       labels:
-        {{- include "portal.selectorLabels" . | nindent 8 }}
+        app: {{ .Values.backend.notification.name }}
     spec:
       containers:
-      - name: {{ include "portal.fullname" . }}-{{ .Values.backend.notification.name }}
+      - name: {{ .Values.backend.notification.name }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:

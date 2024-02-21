@@ -18,7 +18,7 @@
 */}}
 
 {{- if .Values.frontend.ingress.enabled -}}
-{{- $fullName := include "portal.fullname" . -}}
+{{- $fullName := .Values.name -}}
 {{- $svcPort := .Values.portService -}}
 {{- if and .Values.frontend.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.frontend.ingress.annotations "kubernetes.io/ingress.class") }}
@@ -34,10 +34,9 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}-{{ .Values.frontend.ingress.name }}
-  namespace: {{ .Release.Namespace }}
+  name: {{ $fullName }}
   labels:
-    {{- include "portal.labels" . | nindent 4 }}
+    {{- include "chart.labels" . | nindent 4 }}
   {{- with .Values.frontend.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -69,11 +68,11 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: {{ $fullName }}-{{ .backend.service }}
+                name: {{ .backend.service }}
                 port:
                   number: {{ $svcPort }}
               {{- else }}
-              serviceName: {{ $fullName }}-{{ .backend.service }}
+              serviceName: {{ .backend.service }}
               servicePort: {{ .backend.port }}
               {{- end }}
           {{- end }}

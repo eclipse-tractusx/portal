@@ -20,23 +20,17 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: {{ include "portal.fullname" . }}-{{ .Values.backend.processesworker.name }}
-  namespace: {{ .Release.Namespace }}
-  labels:
-    {{- include "portal.labels" . | nindent 4 }}
+  name: {{ .Values.backend.processesworker.name }}
 spec:
   schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid
   jobTemplate:
-    metadata:
-      labels:
-        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       template:
         spec:
           restartPolicy: OnFailure
           containers:
-          - name: {{ include "portal.fullname" . }}-{{ .Values.backend.processesworker.name }}
+          - name: {{ .Values.backend.processesworker.name }}
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:

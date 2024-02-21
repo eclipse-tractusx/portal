@@ -17,6 +17,8 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
+name: "portal"
+
 # -- Provide portal base address.
 portalAddress: "https://portal.example.org"
 
@@ -54,7 +56,6 @@ frontend:
   # -- Portal frontend ingress parameters,
     # enable ingress record generation for portal frontend.
     enabled: false
-    name: "frontend"
     className: "nginx"
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: "/$1"
@@ -141,7 +142,7 @@ backend:
   # -- Portal-backend ingress parameters,
     # enable ingress record generation for portal-backend.
     enabled: false
-    name: "backend"
+    name: "portal-backend"
     className: "nginx"
     annotations:
       nginx.ingress.kubernetes.io/use-regex: "true"
@@ -875,7 +876,7 @@ postgresql:
     # -- Extended PostgreSQL Primary configuration (increase of max_connections recommended - default is 100)
     extendedConfiguration: ""
     initdb:
-      scriptsConfigMap: "{{ .Release.Name }}-portal-cm-postgres"
+      scriptsConfigMap: "configmap-postgres-init"
     extraEnvVars:
       - name: "PORTAL_PASSWORD"
         valueFrom:

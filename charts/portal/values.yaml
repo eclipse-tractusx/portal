@@ -17,8 +17,6 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-name: "portal"
-
 # -- Provide portal base address.
 portalAddress: "https://portal.example.org"
 
@@ -56,6 +54,7 @@ frontend:
   # -- Portal frontend ingress parameters,
     # enable ingress record generation for portal frontend.
     enabled: false
+    name: "frontend"
     className: "nginx"
     annotations:
       nginx.ingress.kubernetes.io/rewrite-target: "/$1"
@@ -142,7 +141,7 @@ backend:
   # -- Portal-backend ingress parameters,
     # enable ingress record generation for portal-backend.
     enabled: false
-    name: "portal-backend"
+    name: "backend"
     className: "nginx"
     annotations:
       nginx.ingress.kubernetes.io/use-regex: "true"

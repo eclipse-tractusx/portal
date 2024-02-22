@@ -29,8 +29,7 @@ spec:
   concurrencyPolicy: Forbid
   jobTemplate:
     metadata:
-      labels:
-        {{- include "portal.selectorLabels" . | nindent 8 }}
+      name: {{ include "portal.fullname" . }}-{{ .Values.backend.processesworker.name }}
     spec:
       template:
         spec:

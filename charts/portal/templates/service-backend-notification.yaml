@@ -30,4 +30,5 @@ spec:
   - port: {{ .Values.portService }}
     targetPort: {{ .Values.portContainer }}
   selector:
+    app: {{ include "portal.fullname" . }}-{{ .Values.backend.notification.name }}
     {{- include "portal.selectorLabels" . | nindent 4 }}

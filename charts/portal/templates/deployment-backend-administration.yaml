@@ -30,10 +30,12 @@ spec:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
+      app: {{ include "portal.fullname" . }}-{{ .Values.backend.administration.name }}
       {{- include "portal.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
+        app: {{ include "portal.fullname" . }}-{{ .Values.backend.administration.name }}
         {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       containers:

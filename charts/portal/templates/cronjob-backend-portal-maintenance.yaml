@@ -28,8 +28,7 @@ spec:
   schedule: "0 0 * * *"
   jobTemplate:
     metadata:
-      labels:
-        {{- include "portal.selectorLabels" . | nindent 8 }}
+      name: {{ include "portal.fullname" . }}-{{ .Values.backend.portalmaintenance.name }}
     spec:
       template:
         spec:

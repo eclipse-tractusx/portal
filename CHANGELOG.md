@@ -2,6 +2,19 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.8.0-RC7
+
+### Change
+
+* changed to new container images
+  * portal-assets: v1.8.0-RC5
+  * portal-frontend: v1.8.0-RC6
+  * portal-backend: v1.8.0-RC7
+
+### Bugfix
+
+* portal-backend: removed configuration for deletion of realm in sharedIdP (not needed anymore)
+
 ## 1.8.0-RC6
 
 ### Change

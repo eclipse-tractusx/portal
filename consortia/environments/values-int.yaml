@@ -113,9 +113,6 @@ backend:
     shared:
       clientId: "<path:portal/data/keycloak#shared-client-id>"
       clientSecret: "<path:portal/data/int/keycloak#shared-client-secret>"
-    shareddelete:
-      clientId: "<path:portal/data/keycloak#shareddelete-client-id>"
-      clientSecret: "<path:portal/data/int/keycloak#shareddelete-client-secret>"
 
   mailing:
     host: "<path:portal/data/mailing#host>"

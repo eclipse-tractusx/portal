@@ -2,6 +2,14 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 1.8.0-RC8
+
+### Change
+
+* defined unique "portal" templates
+* enabled templates for database access to postgresql dependency
+* changed template for labels in ingresses
+
 ## 1.8.0-RC7
 
 ### Change

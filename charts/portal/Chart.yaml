@@ -23,7 +23,7 @@ type: application
 version: 1.8.0-RC8
 appVersion: 1.8.0-RC8
 description: Helm chart for Catena-X Portal
-home: https://github.com/eclipse-tractusx/portal-cd
+home: https://github.com/eclipse-tractusx/portal
 sources:
   - https://github.com/eclipse-tractusx/portal-frontend
   - https://github.com/eclipse-tractusx/portal-frontend-registration

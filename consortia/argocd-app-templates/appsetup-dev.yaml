@@ -27,7 +27,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: charts/portal
-    repoURL: 'https://github.com/eclipse-tractusx/portal-cd.git'
+    repoURL: 'https://github.com/eclipse-tractusx/portal.git'
     targetRevision: dev
     plugin:
       env:

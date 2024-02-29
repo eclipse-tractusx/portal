@@ -18,7 +18,7 @@
 ###############################################################
 
 product: "portal"
-leadingRepository: "https://github.com/eclipse-tractusx/portal-cd"
+leadingRepository: "https://github.com/eclipse-tractusx/portal"
 repositories:
   - name: "portal-frontend"
     usage: "frontend code for the portal"

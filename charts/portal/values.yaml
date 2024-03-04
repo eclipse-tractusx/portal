@@ -399,8 +399,20 @@ backend:
     frameDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"
     onboardingServiceProvider:
-      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key'.
-      encryptionKey: ""
+      encryptionConfigIndex: 1
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "ECB"
+          paddingMode: "PKCS7"
+          # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key0'.
+          encryptionKey: ""
+        index1:
+          index: 1
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key1'.
+          encryptionKey: ""
   provisioning:
     centralRealm: "CX-Central"
     centralRealmId: "CX-Central"
@@ -822,8 +834,20 @@ backend:
     processIdentity:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
     onboardingServiceProvider:
-      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'.
-      encryptionKey: ""
+      encryptionConfigIndex: 1
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "ECB"
+          paddingMode: "PKCS7"
+          # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key0'.
+          encryptionKey: ""
+        index1:
+          index: 1
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key1'.
+          encryptionKey: ""
     networkRegistration:
       loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
       externalRegistrationPath: "/?overlay=consent_osp"

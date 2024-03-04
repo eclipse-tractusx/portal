@@ -325,11 +325,30 @@ spec:
               value: "{{ .Values.backend.placeholder }}"
             - name: "PROCESSIDENTITY__PROCESSUSERID"
               value: "{{ .Values.backend.processesworker.processIdentity.processUserId }}"
-            - name: "ONBOARDINGSERVICEPROVIDER__ENCYRPTIONKEY"
+            - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIG__ENCRYPTIONCONFIGINDEX"
+              value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigIndex }}"
+            - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__0__INDEX"
+              value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.index}}"
+            - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__0__CIPHERMODE"
+              value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.cipherMode}}"
+            - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__0__PADDINGMODE"
+              value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.paddingMode}}"
+            - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__0__ENCRYPTIONKEY"
               valueFrom:
                 secretKeyRef:
                   name: "{{ .Values.backend.interfaces.secret }}"
-                  key: "process-onboardingserviceprovider-encryption-key"
+                  key: "process-onboardingserviceprovider-encryption-key0"
+            - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__1__INDEX"
+              value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.index}}"
+            - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__1__CIPHERMODE"
+              value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.cipherMode}}"
+            - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__1__PADDINGMODE"
+              value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.paddingMode}}"
+            - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__1__ENCRYPTIONKEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.interfaces.secret }}"
+                  key: "process-onboardingserviceprovider-encryption-key1"
             ports:
             - name: http
               containerPort: {{ .Values.portContainer }}

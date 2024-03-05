@@ -406,12 +406,14 @@ backend:
           cipherMode: "ECB"
           paddingMode: "PKCS7"
           # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key0'.
+          # -- expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
         index1:
           index: 1
           cipherMode: "CBC"
           paddingMode: "PKCS7"
           # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key1'.
+          # -- expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
   provisioning:
     centralRealm: "CX-Central"

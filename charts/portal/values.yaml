@@ -398,8 +398,22 @@ backend:
     frameDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"
     onboardingServiceProvider:
-      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key'.
-      encryptionKey: ""
+      encryptionConfigIndex: 1
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "ECB"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for onboardingserviceprovider. Secret-key 'onboardingserviceprovider-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex. When upgrading from v1.8.0 please read document portal-upgrade-details.md
+          encryptionKey: ""
+        index1:
+          index: 1
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key1'.
+          # Expected format is 256 bit (64 digits) hex. When upgrading from v1.8.0 please read document portal-upgrade-details.md
+          encryptionKey: ""
   provisioning:
     centralRealm: "CX-Central"
     centralRealmId: "CX-Central"
@@ -821,8 +835,22 @@ backend:
     processIdentity:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
     onboardingServiceProvider:
-      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'.
-      encryptionKey: ""
+      encryptionConfigIndex: 1
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "ECB"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for onboardingserviceprovider. Secret-key 'process-onboardingserviceprovider-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex. When upgrading from v1.8.0 please read document portal-upgrade-details.md
+          encryptionKey: ""
+        index1:
+          index: 1
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for onboardingserviceprovider. Secret-key 'process-onboardingserviceprovider-encryption-key1'.
+          # Expected format is 256 bit (64 digits) hex. When upgrading from v1.8.0 please read document portal-upgrade-details.md
+          encryptionKey: ""
     networkRegistration:
       loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
       externalRegistrationPath: "/?overlay=consent_osp"

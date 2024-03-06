@@ -2,105 +2,33 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 1.8.0-RC8
-
-### Change
-
-* defined unique "portal" templates
-* enabled templates for database access to postgresql dependency
-* changed template for labels in ingresses
-
-## 1.8.0-RC7
+## 1.8.0
 
 ### Change
 
 * changed to new container images
-  * portal-assets: v1.8.0-RC5
-  * portal-frontend: v1.8.0-RC6
-  * portal-backend: v1.8.0-RC7
-
-### Bugfix
-
-* portal-backend: removed configuration for deletion of realm in sharedIdP (not needed anymore)
-
-## 1.8.0-RC6
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.8.0-RC4
-  * portal-frontend: v1.8.0-RC5
-  * portal-frontend-registration: v1.6.0-RC5
-  * portal-backend: v1.8.0-RC6
-* portal-backend:
-  * added configuration for company certificate
-
-### Bugfix
-
-* portal-backend:
-  * adjusted token auth address configuration for external services
-  * mounted tmp directory to enable file upload with readOnlyRootFilesystem
-
-## 1.8.0-RC5
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v1.8.0-RC4
-  * portal-frontend-registration: v1.6.0-RC4
-  * portal-backend: v1.8.0-RC5
+  * portal-assets: v1.8.0
+  * portal-frontend: v1.8.0
+  * portal-frontend-registration: v1.6.0
+  * portal-backend: v1.8.0
 * enabled readOnlyRootFilesystem in containers (TRG-4.07)
 * made imagePullPolicy configurable, default set to IfNotPresent
-* added registry for image name
-
-## 1.8.0-RC4
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.8.0-RC3
-  * portal-frontend: v1.8.0-RC3
-  * portal-frontend-registration: v1.6.0-RC3
-  * portal-backend: v1.8.0-RC4
-
-## 1.8.0-RC3
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.8.0-RC2
-  * portal-frontend: v1.8.0-RC2
-  * portal-backend: v1.8.0-RC3
-* portal-backend:
-  * added configuration for decline url in the invitation e-mail
-
-## 1.8.0-RC2
-
-### Change
-
-* changed to new container images
-  * portal-frontend-registration: v1.6.0-RC2
-  * portal-backend: v1.8.0-RC2
-
-## 1.8.0-RC1
-
-### Change
-
-* changed to new container images
-  * portal-assets: v1.8.0-RC1
-  * portal-frontend: v1.8.0-RC1
-  * portal-frontend-registration: v1.6.0-RC1
-  * portal-backend: v1.8.0-RC1.1
+* added container registry (docker.io) to images
+* defined unique "portal" template functions
+* enabled template functions for database access to postgresql dependency
 * portal-backend:
   * streamlined process identity config
   * added configuration for decline registration endpoint
   * enabled service conformity configuration
+  * added configuration for decline url in the invitation e-mail
+  * added configuration for company certificate
 
 ### Technical Support
 
 * re-enable helm upgrade in the chart-testing workflow: the step was disabled due to major postgres upgrade in subchart in the previous version
-
-Please be aware that **this version is still in Release Candidate phase**: especially documentation is still WIP.
+* changed portal-cd references to portal due to repository renaming
+* updated README.md
+  * mentioned `docs` folder in portal-assets repository
 
 ## 1.7.0
 

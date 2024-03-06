@@ -1,5 +1,5 @@
 ###############################################################
-# Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation
+# Copyright (c) 2021, 2024 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -27,7 +27,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: charts/portal
-    repoURL: 'https://github.com/eclipse-tractusx/portal-cd.git'
+    repoURL: 'https://github.com/eclipse-tractusx/portal.git'
     targetRevision: dev
     plugin:
       env:

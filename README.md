@@ -1,25 +1,27 @@
-# Catena-X Portal: Helm charts
+![LeadingRepository](https://img.shields.io/badge/Leading_Repository-blue)
 
-![Tag](https://img.shields.io/static/v1?label=&message=LeadingRepository&color=green&style=flat)
+# Portal: Helm charts
 
 This repository contains the following helm charts:
 
 ##  Portal
 
-This helm chart installs the Catena-X Portal application which consists of
+This helm chart installs the Portal application which consists of
 
 * [portal-frontend](https://github.com/eclipse-tractusx/portal-frontend),
 * [portal-frontend-registration](https://github.com/eclipse-tractusx/portal-frontend-registration),
 * [portal-assets](https://github.com/eclipse-tractusx/portal-assets) and
 * [portal-backend](https://github.com/eclipse-tractusx/portal-backend).
 
-The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
+The Portal is designed to work with the [IAM](https://github.com/eclipse-tractusx/portal-iam).
 
-For detailed information please refer to the chart specific **[README](./charts/portal/README.md)**.
+For **installation** details and further information, please refer to the chart specific [README](./charts/portal/README.md).
 
-##  LocalDev Portal & CX IAM
+Please refer to the `docs` directory of the [portal-assets](https://github.com/eclipse-tractusx/portal-assets) repository for the overarching user and developer documentation of the Portal application.
 
-This umbrella chart installs the CX Portal and the CX IAM Keycloak instances.
+##  LocalDev Portal & IAM
+
+This umbrella chart installs the Portal and the IAM Keycloak instances.
 
 It's intended for the local setup of the those components in order to aid the local development.
 

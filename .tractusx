@@ -1,5 +1,5 @@
 ###############################################################
-# Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation
+# Copyright (c) 2021, 2024 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -18,7 +18,7 @@
 ###############################################################
 
 product: "portal"
-leadingRepository: "https://github.com/eclipse-tractusx/portal-cd"
+leadingRepository: "https://github.com/eclipse-tractusx/portal"
 repositories:
   - name: "portal-frontend"
     usage: "frontend code for the portal"

@@ -1,5 +1,5 @@
 ###############################################################
-# Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation
+# Copyright (c) 2021, 2024 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -27,8 +27,8 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: charts/portal
-    repoURL: 'https://github.com/eclipse-tractusx/portal-cd.git'
-    targetRevision: portal-1.8.0-RC8
+    repoURL: 'https://github.com/eclipse-tractusx/portal.git'
+    targetRevision: portal-1.8.0
     plugin:
       env:
         - name: AVP_SECRET

@@ -151,12 +151,6 @@ backend:
           value: "portaldb"
         - name: "HEALTHCHECKS__0__TAGS__2"
           value: "provisioningdb"
-    onboardingServiceProvider:
-      encryptionConfigs:
-        index0:
-          encryptionKey: "<path:portal/data/beta/administration#onboardingserviceprovider-encryption-key0>"
-        index1:
-          encryptionKey: "<path:portal/data/beta/administration#onboardingserviceprovider-encryption-key1>"
     swaggerEnabled: true
 
   provisioning:
@@ -241,9 +235,18 @@ backend:
     onboardingServiceProvider:
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/beta/processes-worker#process-onboardingserviceprovider-encryption-key0>"
+          encryptionKey: "<path:portal/data/beta/processes-worker#onboardingserviceprovider-encryption-key0>"
         index1:
-          encryptionKey: "<path:portal/data/beta/processes-worker#process-onboardingserviceprovider-encryption-key1>"
+          encryptionKey: "<path:portal/data/beta/processes-worker#onboardingserviceprovider-encryption-key1>"
+    dim:
+      clientId: "<path:portal/data/processes-worker#dim-client-id>"
+      clientSecret: "<path:portal/data/beta/processes-worker#dim-client-secret>"
+      baseAddress: ""
+      universalResolverAddress: ""
+      didDocumentBaseLocation: ""
+      encryptionConfigs:
+        index0:
+          encryptionKey: "<path:portal/data/beta/processes-worker#dimwalletcreation-encryption-key0>"
 
 postgresql:
   auth:

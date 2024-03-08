@@ -397,23 +397,6 @@ backend:
     swaggerEnabled: false
     frameDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"
-    onboardingServiceProvider:
-      encryptionConfigIndex: 1
-      encryptionConfigs:
-        index0:
-          index: 0
-          cipherMode: "ECB"
-          paddingMode: "PKCS7"
-          # -- EncryptionKey for onboardingserviceprovider. Secret-key 'onboardingserviceprovider-encryption-key0'.
-          # Expected format is 256 bit (64 digits) hex. When upgrading from v1.8.0 please read document portal-upgrade-details.md
-          encryptionKey: ""
-        index1:
-          index: 1
-          cipherMode: "CBC"
-          paddingMode: "PKCS7"
-          # -- EncryptionKey for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key1'.
-          # Expected format is 256 bit (64 digits) hex. When upgrading from v1.8.0 please read document portal-upgrade-details.md
-          encryptionKey: ""
   provisioning:
     centralRealm: "CX-Central"
     centralRealmId: "CX-Central"
@@ -841,14 +824,14 @@ backend:
           index: 0
           cipherMode: "ECB"
           paddingMode: "PKCS7"
-          # -- EncryptionKey for onboardingserviceprovider. Secret-key 'process-onboardingserviceprovider-encryption-key0'.
+          # -- EncryptionKey for onboardingserviceprovider. Secret-key 'onboardingserviceprovider-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex. When upgrading from v1.8.0 please read document portal-upgrade-details.md
           encryptionKey: ""
         index1:
           index: 1
           cipherMode: "CBC"
           paddingMode: "PKCS7"
-          # -- EncryptionKey for onboardingserviceprovider. Secret-key 'process-onboardingserviceprovider-encryption-key1'.
+          # -- EncryptionKey for onboardingserviceprovider. Secret-key 'onboardingserviceprovider-encryption-key1'.
           # Expected format is 256 bit (64 digits) hex. When upgrading from v1.8.0 please read document portal-upgrade-details.md
           encryptionKey: ""
     networkRegistration:
@@ -856,6 +839,26 @@ backend:
       externalRegistrationPath: "/?overlay=consent_osp"
       # -- The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
       closeApplicationPath: "/decline"
+    dim:
+      # -- Provide dim client-id from CX IAM centralidp.
+      clientId: ""
+      # -- Client-secret for dim client-id. Secret-key 'dim-client-secret'.
+      clientSecret: ""
+      grantType: "client_credentials"
+      scope: "openid"
+      baseAddress: ""
+      universalResolverAddress: ""
+      didDocumentBaseLocation: ""
+      maxValidationTimeInDays: 7
+      encryptionConfigIndex: 0
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for dim wallet creation. Secret-key 'process-dimwalletcreation-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex.
+          encryptionKey: ""
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"

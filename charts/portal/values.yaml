@@ -202,7 +202,7 @@ backend:
   userManagementPath: "/usermanagement"
   keycloak:
     # -- Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM).
-    secret: "secret-backend-keycloak"
+    secret: "portal-backend-keycloak"
     central:
       # -- Provide centralidp client-id from CX IAM centralidp.
       clientId: "central-client-id"
@@ -239,7 +239,7 @@ backend:
       useAuthTrail: true
   mailing:
     # -- Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm.
-    secret: "secret-backend-mailing"
+    secret: "portal-backend-mailing"
     # -- Provide host.
     host: "smtp.example.org"
     # -- Provide port.
@@ -252,7 +252,7 @@ backend:
     senderEmail: "email@example.org"
   interfaces:
     # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse, offer provider and onboarding service provider.
-    secret: "secret-backend-interfaces"
+    secret: "portal-backend-interfaces"
   healthChecks:
     startup:
       path: "/health/startup"
@@ -878,7 +878,7 @@ postgresql:
     # -- Database port number
     port: 5432
     # -- Secret containing the passwords for root usernames postgres and non-root usernames repl_user, portal and provisioning.
-    existingSecret: "secret-postgres-init"
+    existingSecret: "portal-postgres"
     # -- Password for the root username 'postgres'. Secret-key 'postgres-password'.
     password: ""
     # -- Password for the non-root username 'repl_user'. Secret-key 'replication-password'.
@@ -926,7 +926,7 @@ externalDatabase:
   # -- Database port number
   port: 5432
   # -- Secret containing the passwords non-root usernames portal and provisioning.
-  secret: "secret-postgres-external-db"
+  secret: "portal-postgres-external-db"
   # -- Non-root username for portal.
   portalUser: "portal"
   # -- Non-root username for provisioning.

@@ -101,5 +101,5 @@ jobs:
           helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
           helm install portal tractusx-dev/portal --version ${{ github.event.inputs.upgrade_from || '1.7.0' }} --namespace upgrade --create-namespace
           helm dependency update charts/portal
-          helm upgrade portal charts/portal --namespace upgrade
+          helm upgrade portal charts/portal --namespace upgrade -f charts/values-test.yaml
         if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'

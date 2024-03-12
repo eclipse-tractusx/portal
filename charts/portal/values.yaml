@@ -869,6 +869,9 @@ postgresql:
 # -- PostgreSQL chart configuration
   # Switch to enable or disable the PostgreSQL helm chart
   enabled: true
+  # -- Setting image tag to major to get latest minor updates
+  image:
+    tag: "15"
   # -- FullnameOverride to 'portal-backend-postgresql'.
   fullnameOverride: "portal-backend-postgresql"
   auth:

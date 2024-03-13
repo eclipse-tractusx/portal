@@ -871,7 +871,7 @@ postgresql:
   enabled: true
   # -- Setting image tag to major to get latest minor updates
   image:
-    tag: "15"
+    tag: "15-debian-11"
   auth:
     # -- Database name
     database: "postgres"

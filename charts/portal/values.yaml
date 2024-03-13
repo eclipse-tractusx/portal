@@ -377,11 +377,6 @@ backend:
       deactivateIdpRoles:
         role0: "Company Admin"
         role1: "IT Admin"
-    invitation:
-      invitedUserInitialRoles:
-        role0: "Company Admin"
-      initialLoginTheme: "catenax-shared"
-      closeApplicationPath: "/decline"
     registration:
       documentTypeIds:
         type0: "COMMERCIAL_REGISTER_EXTRACT"
@@ -856,18 +851,21 @@ backend:
           index: 0
           cipherMode: "CBC"
           paddingMode: "PKCS7"
-          # -- EncryptionKey for dim wallet creation. Secret-key 'process-dimwalletcreation-encryption-key0'.
+          # -- EncryptionKey for dim wallet creation. Secret-key 'dim-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
-    mailingProcess:
-      # -- Encryption key for mailing process. Secret-key 'mailing-process-encryption-key0'.
+    invitation:
+      invitedUserInitialRoles:
+        role0: "Company Admin"
+      initialLoginTheme: "catenax-shared"
+      closeApplicationPath: "/decline"
       encryptionConfigIndex: 0
       encryptionConfigs:
         index0:
           index: 0
           cipherMode: "CBC"
           paddingMode: "PKCS7"
-          # -- EncryptionKey to encrypt the mail data creation. Secret-key 'mailing-process-encryption-key0'.
+          # -- EncryptionKey to encrypt the invitation password. Secret-key 'invitation-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
   clients:

@@ -246,11 +246,11 @@ backend:
       didDocumentBaseLocation: "dummy"
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/dev/processes-worker#dimwalletcreation-encryption-key0>"
-    mailingProcess:
+          encryptionKey: "<path:portal/data/dev/processes-worker#dim-encryption-key0>"
+    invitation:
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/dev/processes-worker#mailing-process-encryption-key0>"
+          encryptionKey: "<path:portal/data/dev/processes-worker#invitation-encryption-key0>"
 
 postgresql:
   auth:

@@ -391,7 +391,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: "{{ .Values.backend.interfaces.secret }}"
-                  key: "process-onboardingserviceprovider-encryption-key1"
+                  key: "onboardingserviceprovider-encryption-key1"
             ports:
             - name: http
               containerPort: {{ .Values.portContainer }}

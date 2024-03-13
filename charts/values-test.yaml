@@ -1,5 +1,5 @@
 ###############################################################
-# Copyright (c) 2021, 2024 Contributors to the Eclipse Foundation
+# Copyright (c) 2024 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -17,20 +17,7 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-apiVersion: v2
-name: portal
-type: application
-version: 1.8.0
-appVersion: 1.8.0
-description: Helm chart for Catena-X Portal
-home: https://github.com/eclipse-tractusx/portal
-sources:
-  - https://github.com/eclipse-tractusx/portal-frontend
-  - https://github.com/eclipse-tractusx/portal-frontend-registration
-  - https://github.com/eclipse-tractusx/portal-assets
-  - https://github.com/eclipse-tractusx/portal-backend
-dependencies:
-  - condition: postgresql.enabled
-    name: postgresql
-    repository: https://charts.bitnami.com/bitnami
-    version: 12.x.x
+postgresql:
+  fullnameOverride: "portal-backend-postgresql"
+  auth:
+    existingSecret: "secret-postgres-init"

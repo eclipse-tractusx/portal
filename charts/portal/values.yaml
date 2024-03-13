@@ -872,6 +872,8 @@ postgresql:
   # -- Setting image tag to major to get latest minor updates
   image:
     tag: "15-debian-11"
+  commonLabels:
+    app.kubernetes.io/version: "15"
   auth:
     # -- Database name
     database: "postgres"

@@ -357,7 +357,6 @@ backend:
         type2: "application/pkix-cert"
         type3: "application/octet-stream"
       selfDescriptionDocumentPath: /api/administration/documents/selfDescription
-    keycloakClientId: "Cl2-CX-Portal"
     identityProviderAdmin:
       csvSettings:
         fileName: "identityproviderlinks.csv"

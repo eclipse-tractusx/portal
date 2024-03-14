@@ -442,7 +442,7 @@ spec:
         - name: "USERMANAGEMENT__PORTAL__PASSWORDRESENDADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.portalPasswordResendPath }}"
         - name: "USERMANAGEMENT__PORTAL__KEYCLOAKCLIENTID"
-          value: "{{ .Values.backend.administration.keycloakClientId }}"
+          value: "{{ .Values.backend.clients.portal }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

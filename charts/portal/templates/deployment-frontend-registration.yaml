@@ -56,6 +56,10 @@ spec:
             value: "{{ .Values.portalBackendAddress }}"
           - name: CENTRALIDP_URL
             value: "{{ .Values.centralidpAddress }}{{ .Values.frontend.centralidpAuthPath }}"
+          - name: REALM
+            value: "{{ .Values.authRealm }}{{ .Values.backend.keycloak.authRealm }}"
+          - name: CLIENT_ID_REGISTRATION
+            value: "{{ .Values.clientIdRegistration }}{{ .Values.backend.clients.registration }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

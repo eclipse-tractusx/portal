@@ -862,6 +862,8 @@ backend:
   clients:
     portal: "Cl2-CX-Portal"
     registration: "Cl1-CX-Registration"
+    semantic: "Cl3-CX-Semantic"
+    miw: "Cl5-CX-Custodian"
     technicalRolesManagement: "technical_roles_management"
   placeholder: "empty"
 

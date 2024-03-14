@@ -251,6 +251,10 @@ backend:
       encryptionConfigs:
         index0:
           encryptionKey: "<path:portal/data/dev/processes-worker#invitation-encryption-key0>"
+    mailing:
+      encryptionConfigs:
+        index0:
+          encryptionKey: "<path:portal/data/dev/processes-worker#mailing-encryption-key0>"
 
 postgresql:
   fullnameOverride: "portal-backend-rc-postgresql"

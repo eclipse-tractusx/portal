@@ -135,19 +135,6 @@ spec:
           value: "{{ .Values.backend.services.logging.default }}"
         - name: "SERILOG__MINIMUMLEVEL__OVERRIDE__Org.Eclipse.TractusX.Portal.Backend.Offers.Library.Service"
           value: "{{ .Values.backend.services.logging.offersLibrary }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPHOST"
-          value: "{{ .Values.backend.mailing.host }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPPASSWORD"
-          valueFrom:
-            secretKeyRef:
-              name: "{{ .Values.backend.mailing.secret }}"
-              key: "password"
-        - name: "MAILINGSERVICE__MAIL__SMTPPORT"
-          value: "{{ .Values.backend.mailing.port }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPUSER"
-          value: "{{ .Values.backend.mailing.user }}"
-        - name: "MAILINGSERVICE__MAIL__SENDEREMAIL"
-          value: "{{ .Values.backend.mailing.senderEmail }}"
         - name: "MVC_ROUTING_BASEPATH"
           value: "{{ .Values.backend.services.basePath }}"
         - name: "PROVISIONING__CENTRALREALM"
@@ -246,6 +233,19 @@ spec:
           value: "{{ .Values.backend.clients.portal }}"
         - name: "SERVICES__COMPANYADMINROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.services.companyAdminRoles.role0 }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGINDEX"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigIndex }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__INDEX"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.index }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__ENCRYPTIONKEY"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "mailing-encryption-key0"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__CIPHERMODE"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.cipherMode }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__PADDINGMODE"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.paddingMode }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

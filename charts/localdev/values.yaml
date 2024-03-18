@@ -204,7 +204,7 @@ centralidp:
           - name: shared-certs
             mountPath: "/opt/bitnami/keycloak/certs"
       - name: import
-        image: tractusx/portal-iam:v2.1.0-RC1
+        image: tractusx/portal-iam:v2.1.0
         imagePullPolicy: Always
         command:
           - sh
@@ -314,7 +314,7 @@ sharedidp:
           - name: shared-certs
             mountPath: "/opt/bitnami/keycloak/certs"
       - name: import
-        image: tractusx/portal-iam:v2.1.0-RC1
+        image: tractusx/portal-iam:v2.1.0
         imagePullPolicy: Always
         command:
           - sh

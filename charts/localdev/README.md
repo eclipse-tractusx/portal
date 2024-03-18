@@ -1,8 +1,8 @@
 # Setup of CX Portal & IAM for local development
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-1.6.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-1.2.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-1.2.0/charts/sharedidp/README.md)).
+This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-1.8.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-2.1.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-2.1.0/charts/sharedidp/README.md)).
 
 It's intended for the local setup of the those components in order to aid the local development. To integrate your local development, adapt the address values in the Values file for [Portal Frontend](./values.yaml#L23) and/or [Portal Backend](./values.yaml#L27).
 
@@ -265,9 +265,9 @@ cx-operator@cx.com
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
-| https://eclipse-tractusx.github.io/charts/dev | centralidp | 2.1.0-RC1 |
-| https://eclipse-tractusx.github.io/charts/dev | portal | 1.8.0-RC4 |
-| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 2.1.0-RC1 |
+| https://eclipse-tractusx.github.io/charts/dev | centralidp | 2.1.0 |
+| https://eclipse-tractusx.github.io/charts/dev | portal | 1.8.0 |
+| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 2.1.0 |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
 ## Values
@@ -395,7 +395,7 @@ cx-operator@cx.com
 | centralidp.keycloak.initContainers[0].volumeMounts[1].name | string | `"shared-certs"` |  |
 | centralidp.keycloak.initContainers[0].volumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | centralidp.keycloak.initContainers[1].name | string | `"import"` |  |
-| centralidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v2.1.0-RC1"` |  |
+| centralidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v2.1.0"` |  |
 | centralidp.keycloak.initContainers[1].imagePullPolicy | string | `"Always"` |  |
 | centralidp.keycloak.initContainers[1].command[0] | string | `"sh"` |  |
 | centralidp.keycloak.initContainers[1].args[0] | string | `"-c"` |  |
@@ -470,7 +470,7 @@ cx-operator@cx.com
 | sharedidp.keycloak.initContainers[0].volumeMounts[1].name | string | `"shared-certs"` |  |
 | sharedidp.keycloak.initContainers[0].volumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | sharedidp.keycloak.initContainers[1].name | string | `"import"` |  |
-| sharedidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v2.1.0-RC1"` |  |
+| sharedidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v2.1.0"` |  |
 | sharedidp.keycloak.initContainers[1].imagePullPolicy | string | `"Always"` |  |
 | sharedidp.keycloak.initContainers[1].command[0] | string | `"sh"` |  |
 | sharedidp.keycloak.initContainers[1].args[0] | string | `"-c"` |  |

@@ -23,7 +23,7 @@ portal:
   portalAddress: "https://portal.example.org"
   # -- Set your local backend service to integrate into local development.
   # Start port forwarding tunnel for database access, e.g.:
-  # 'kubectl port-forward service/portal-backend-postgresql-primary 5432:5432'
+  # 'kubectl port-forward service/portal-backend-postgresql 5432:5432 -n localdev'
   portalBackendAddress: "https://portal-backend.example.org"
   replicaCount: 1
   frontend:
@@ -136,6 +136,7 @@ portal:
           from: "smtp@example.org"
           replyTo: "smtp@example.org"
   postgresql:
+    architecture: standalone
     auth:
       # -- Password for the root username 'postgres'. Secret-key 'postgres-password'.
       password: ""
@@ -222,6 +223,7 @@ centralidp:
           mountPath: "/realms"
     postgresql:
       nameOverride: "centralidp-postgresql"
+      architecture: standalone
     ingress:
       enabled: true
       ingressClassName: "nginx"
@@ -341,6 +343,7 @@ sharedidp:
           mountPath: "/secrets"
     postgresql:
       nameOverride: "sharedidp-postgresql"
+      architecture: standalone
     ingress:
       enabled: true
       ingressClassName: "nginx"
@@ -367,7 +370,7 @@ sharedidp:
 postgresportal:
 # -- Additional PostgreSQL for backend development;
   # start port forwarding tunnel for database access, e.g.:
-  # 'kubectl port-forward local-portal-postgresql-primary-0 5432:5432'
+  # 'kubectl port-forward service/local-portal-postgresql 5432:5432 -n localdev'
   enabled: true
   nameOverride: "portal-postgresql"
   auth:
@@ -380,7 +383,7 @@ postgresportal:
     portalPassword: ""
     provisioningUser: "provisioning"
     provisioningPassword: ""
-  architecture: "replication"
+  architecture: "standalone"
   audit:
     pgAuditLog: "write, ddl"
     logLinePrefix: "%m %u %d "

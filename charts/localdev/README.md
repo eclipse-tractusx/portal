@@ -276,7 +276,7 @@ cx-operator@cx.com
 |-----|------|---------|-------------|
 | portal.enabled | bool | `true` |  |
 | portal.portalAddress | string | `"https://portal.example.org"` | Set your local frontend to integrate into local development. |
-| portal.portalBackendAddress | string | `"https://portal-backend.example.org"` | Set your local backend service to integrate into local development. Start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/portal-backend-postgresql-primary 5432:5432' |
+| portal.portalBackendAddress | string | `"https://portal-backend.example.org"` | Set your local backend service to integrate into local development. Start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/portal-backend-postgresql 5432:5432 -n localdev' |
 | portal.replicaCount | int | `1` |  |
 | portal.frontend.ingress.enabled | bool | `true` |  |
 | portal.frontend.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"my-ca-issuer"` |  |
@@ -350,6 +350,7 @@ cx-operator@cx.com
 | portal.backend.provisioning.sharedRealm.smtpServer.password | string | `""` |  |
 | portal.backend.provisioning.sharedRealm.smtpServer.from | string | `"smtp@example.org"` |  |
 | portal.backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` |  |
+| portal.postgresql.architecture | string | `"standalone"` |  |
 | portal.postgresql.auth.password | string | `""` | Password for the root username 'postgres'. Secret-key 'postgres-password'. |
 | portal.postgresql.auth.portalPassword | string | `""` | Password for the non-root username 'portal'. Secret-key 'portal-password'. |
 | portal.postgresql.auth.provisioningPassword | string | `""` | Password for the non-root username 'provisioning'. Secret-key 'provisioning-password'. |
@@ -405,6 +406,7 @@ cx-operator@cx.com
 | centralidp.keycloak.initContainers[1].volumeMounts[1].name | string | `"realms"` |  |
 | centralidp.keycloak.initContainers[1].volumeMounts[1].mountPath | string | `"/realms"` |  |
 | centralidp.keycloak.postgresql.nameOverride | string | `"centralidp-postgresql"` |  |
+| centralidp.keycloak.postgresql.architecture | string | `"standalone"` |  |
 | centralidp.keycloak.ingress.enabled | bool | `true` |  |
 | centralidp.keycloak.ingress.ingressClassName | string | `"nginx"` |  |
 | centralidp.keycloak.ingress.hostname | string | `"centralidp.example.org"` |  |
@@ -484,6 +486,7 @@ cx-operator@cx.com
 | sharedidp.keycloak.initContainers[1].volumeMounts[3].name | string | `"realm-secrets"` |  |
 | sharedidp.keycloak.initContainers[1].volumeMounts[3].mountPath | string | `"/secrets"` |  |
 | sharedidp.keycloak.postgresql.nameOverride | string | `"sharedidp-postgresql"` |  |
+| sharedidp.keycloak.postgresql.architecture | string | `"standalone"` |  |
 | sharedidp.keycloak.ingress.enabled | bool | `true` |  |
 | sharedidp.keycloak.ingress.ingressClassName | string | `"nginx"` |  |
 | sharedidp.keycloak.ingress.hostname | string | `"sharedidp.example.org"` |  |
@@ -499,7 +502,7 @@ cx-operator@cx.com
 | sharedidp.keycloak.ingress.tls | bool | `true` |  |
 | sharedidp.secrets.auth.existingSecret.adminpassword | string | `""` | Password for the admin username 'admin'. Secret-key 'admin-password'. |
 | sharedidp.secrets.auth.spi.truststorePassword | string | `""` |  |
-| postgresportal.enabled | bool | `true` | Additional PostgreSQL for backend development; start port forwarding tunnel for database access, e.g.: 'kubectl port-forward local-portal-postgresql-primary-0 5432:5432' |
+| postgresportal.enabled | bool | `true` | Additional PostgreSQL for backend development; start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/local-portal-postgresql 5432:5432 -n localdev' |
 | postgresportal.nameOverride | string | `"portal-postgresql"` |  |
 | postgresportal.auth.database | string | `"postgres"` |  |
 | postgresportal.auth.port | int | `5432` |  |
@@ -510,7 +513,7 @@ cx-operator@cx.com
 | postgresportal.auth.portalPassword | string | `""` |  |
 | postgresportal.auth.provisioningUser | string | `"provisioning"` |  |
 | postgresportal.auth.provisioningPassword | string | `""` |  |
-| postgresportal.architecture | string | `"replication"` |  |
+| postgresportal.architecture | string | `"standalone"` |  |
 | postgresportal.audit.pgAuditLog | string | `"write, ddl"` |  |
 | postgresportal.audit.logLinePrefix | string | `"%m %u %d "` |  |
 | postgresportal.primary.initdb.scriptsConfigMap | string | `"configmap-postgres-init-localdev"` |  |

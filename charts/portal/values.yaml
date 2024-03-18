@@ -23,8 +23,17 @@ portalAddress: "https://portal.example.org"
 # -- Provide portal-backend base address.
 portalBackendAddress: "https://portal-backend.example.org"
 
-# -- Provide centralidp base address (CX IAM), without trailing '/auth'.
-centralidpAddress: "https://centralidp.example.org"
+# -- Provide details about centralidp (CX IAM) Keycloak instance.
+centralidp:
+  # -- Provide centralidp base address, without trailing '/auth'.
+  address: "https://centralidp.example.org"
+  realm: "CX-Central"
+  clients:
+    portal: "Cl2-CX-Portal"
+    registration: "Cl1-CX-Registration"
+    semantic: "Cl3-CX-Semantic"
+    miw: "Cl5-CX-Custodian"
+    technicalRolesManagement: "technical_roles_management"
 
 # -- Provide sharedidp address (CX IAM), without trailing '/auth'.
 sharedidpAddress: "https://sharedidp.example.org"
@@ -208,7 +217,6 @@ backend:
       clientId: "central-client-id"
       # -- Client-secret for centralidp client-id. Secret-key 'central-client-secret'.
       clientSecret: ""
-      authRealm: "CX-Central"
       jwtBearerOptions:
         requireHttpsMetadata: "true"
         metadataPath: "/auth/realms/CX-Central/.well-known/openid-configuration"
@@ -357,7 +365,6 @@ backend:
         type2: "application/pkix-cert"
         type3: "application/octet-stream"
       selfDescriptionDocumentPath: /api/administration/documents/selfDescription
-    keycloakClientId: "Cl2-CX-Portal"
     identityProviderAdmin:
       csvSettings:
         fileName: "identityproviderlinks.csv"
@@ -393,7 +400,6 @@ backend:
     frameDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"
   provisioning:
-    centralRealm: "CX-Central"
     centralRealmId: "CX-Central"
     invitedUserInitialRoles:
       registration: "Company Admin"
@@ -878,10 +884,6 @@ backend:
           # -- EncryptionKey to encrypt the parameters of mailing processes. Secret-key 'mailing-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
-  clients:
-    portal: "Cl2-CX-Portal"
-    registration: "Cl1-CX-Registration"
-    technicalRolesManagement: "technical_roles_management"
   placeholder: "empty"
 
 postgresql:

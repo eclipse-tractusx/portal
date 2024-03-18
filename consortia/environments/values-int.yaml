@@ -19,7 +19,8 @@
 
 portalAddress: "https://portal.int.demo.catena-x.net"
 portalBackendAddress: "https://portal-backend.int.demo.catena-x.net"
-centralidpAddress: "https://centralidp.int.demo.catena-x.net"
+centralidp:
+  address: "https://centralidp.int.demo.catena-x.net"
 sharedidpAddress: "https://sharedidp.int.demo.catena-x.net"
 semanticsAddress: "https://semantics.int.demo.catena-x.net"
 bpdmPartnersPoolAddress: "https://business-partners.int.demo.catena-x.net"

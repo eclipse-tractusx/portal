@@ -397,7 +397,7 @@ spec:
                   name: "{{ .Values.backend.interfaces.secret }}"
                   key: "onboardingserviceprovider-encryption-key1"
             - name: "INVITATION__INVITEDUSERINITIALROLES__0__CLIENTID"
-              value: "{{ .Values.backend.clients.registration }}"
+              value: "{{ .Values.centralidp.clients.registration }}"
             - name: "INVITATION__INVITEDUSERINITIALROLES__0__USERROLENAMES__0"
               value: "{{ .Values.backend.processesworker.invitation.invitedUserInitialRoles.role0 }}"
             - name: "INVITATION__REGISTRATIONAPPADDRESS"

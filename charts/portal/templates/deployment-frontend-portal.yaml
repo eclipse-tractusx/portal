@@ -55,7 +55,7 @@ spec:
           - name: PORTAL_BACKEND_URL
             value: "{{ .Values.portalBackendAddress }}"
           - name: CENTRALIDP_URL
-            value: "{{ .Values.centralidpAddress }}{{ .Values.frontend.centralidpAuthPath }}"
+            value: "{{ .Values.centralidp.address }}{{ .Values.frontend.centralidpAuthPath }}"
           - name: BPDM_API_URL
             value: "{{ .Values.bpdmPartnersPoolAddress }}{{ .Values.frontend.bpdmPartnersPoolApiPath }}"
           - name: SEMANTICS_URL
@@ -63,13 +63,13 @@ spec:
           - name: MANAGED_IDENTITY_WALLETS_NEW_URL
             value: "{{ .Values.custodianAddress }}"
           - name: REALM
-            value: "{{ .Values.authRealm }}{{ .Values.backend.keycloak.authRealm }}"
+            value: "{{ .Values.backend.keycloak.authRealm }}"
           - name: CLIENT_ID
-            value: "{{ .Values.clientId }}{{ .Values.backend.clients.portal }}"
+            value: "{{ .Values.centralidp.clients.portal }}"
           - name: CLIENT_ID_SEMANTIC
-            value: "{{ .Values.clientIdSemantic }}{{ .Values.backend.clients.semantic }}"
+            value: "{{ .Values.centralidp.clients.semantic }}"
           - name: CLIENT_ID_MIW
-            value: "{{ .Values.clientIdMiw }}{{ .Values.backend.clients.miw }}"
+            value: "{{ .Values.centralidp.clients.miw }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

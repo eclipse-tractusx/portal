@@ -36,7 +36,8 @@ spec:
           value: |
             portalAddress: "https://portal.stable.demo.catena-x.net"
             portalBackendAddress: "https://portal-backend.stable.demo.catena-x.net"
-            centralidpAddress: "https://centralidp.stable.demo.catena-x.net"
+            centralidp:
+              address: "https://centralidp.stable.demo.catena-x.net"
             sharedidpAddress: "https://sharedidp.stable.demo.catena-x.net"
             semanticsAddress: "https://semantics.stable.demo.catena-x.net"
             bpdmPartnersPoolAddress: "https://business-partners.stable.demo.catena-x.net"

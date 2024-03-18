@@ -55,11 +55,11 @@ spec:
           - name: PORTAL_BACKEND_URL
             value: "{{ .Values.portalBackendAddress }}"
           - name: CENTRALIDP_URL
-            value: "{{ .Values.centralidpAddress }}{{ .Values.frontend.centralidpAuthPath }}"
+            value: "{{ .Values.centralidp.address }}{{ .Values.frontend.centralidpAuthPath }}"
           - name: REALM
-            value: "{{ .Values.authRealm }}{{ .Values.backend.keycloak.authRealm }}"
+            value: "{{ .Values.backend.keycloak.authRealm }}"
           - name: CLIENT_ID_REGISTRATION
-            value: "{{ .Values.clientIdRegistration }}{{ .Values.backend.clients.registration }}"
+            value: "{{ .Values.centralidp.clients.registration }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

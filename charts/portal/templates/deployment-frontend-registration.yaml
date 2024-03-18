@@ -57,7 +57,7 @@ spec:
           - name: CENTRALIDP_URL
             value: "{{ .Values.centralidp.address }}{{ .Values.frontend.centralidpAuthPath }}"
           - name: REALM
-            value: "{{ .Values.backend.keycloak.authRealm }}"
+            value: "{{ .Values.centralidp.realm }}"
           - name: CLIENT_ID_REGISTRATION
             value: "{{ .Values.centralidp.clients.registration }}"
         ports:

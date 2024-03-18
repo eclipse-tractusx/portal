@@ -63,7 +63,7 @@ spec:
           - name: MANAGED_IDENTITY_WALLETS_NEW_URL
             value: "{{ .Values.custodianAddress }}"
           - name: REALM
-            value: "{{ .Values.backend.keycloak.authRealm }}"
+            value: "{{ .Values.centralidp.realm }}"
           - name: CLIENT_ID
             value: "{{ .Values.centralidp.clients.portal }}"
           - name: CLIENT_ID_SEMANTIC

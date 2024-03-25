@@ -103,45 +103,42 @@ frontend:
       name: "docker.io/tractusx/portal-frontend"
       portaltag: c63f57f83ea488168beb7219bfc7c6b5d2c6979b
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 25m
+        memory: 125M
+      limits:
+        cpu: 75m
+        memory: 125M
   registration:
     name: "registration"
     image:
       name: "docker.io/tractusx/portal-frontend-registration"
       registrationtag: 50d3a9d5b68fcdd84ed85cb63fbf91fd9f94ea99
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 25m
+        memory: 100M
+      limits:
+        cpu: 75m
+        memory: 100M
   assets:
     name: "assets"
     image:
       name: "docker.io/tractusx/portal-assets"
       assetstag: 5a8fa80b7772c3255ed5a0ff6625191fa16d115b
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 25m
+        memory: 100M
+      limits:
+        cpu: 45m
+        memory: 100M
     path: "/assets"
   centralidpAuthPath: "/auth"
   bpdmPartnersPoolApiPath: "/pool/api"
@@ -276,15 +273,14 @@ backend:
       name: "docker.io/tractusx/portal-registration-service"
       registrationservicetag: 8912da3c0195fbcb462b50eebd1ca5fcc88f587b
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 385M
-      # limits:
-      #   cpu: 45m
-      #   memory: 460M
+        cpu: 75m
+        memory: 400M
+      limits:
+        cpu: 225m
+        memory: 400M
     basePath: "api/registration"
     logging:
       bpdmLibrary: "Information"
@@ -326,15 +322,14 @@ backend:
       name: "docker.io/tractusx/portal-administration-service"
       administrationservicetag: 8912da3c0195fbcb462b50eebd1ca5fcc88f587b
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 385M
-      # limits:
-      #   cpu: 45m
-      #   memory: 430M
+        cpu: 75m
+        memory: 500M
+      limits:
+        cpu: 225m
+        memory: 500M
     basePath: "api/administration"
     logging:
       businessLogic: "Information"
@@ -433,15 +428,14 @@ backend:
       name: "docker.io/tractusx/portal-marketplace-app-service"
       appmarketplaceservicetag: 8912da3c0195fbcb462b50eebd1ca5fcc88f587b
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 445M
-      # limits:
-      #   cpu: 45m
-      #   memory: 500M
+        cpu: 75m
+        memory: 300M
+      limits:
+        cpu: 225m
+        memory: 300M
     basePath: "api/apps"
     logging:
       default: "Information"
@@ -566,15 +560,14 @@ backend:
       name: "docker.io/tractusx/portal-portal-migrations"
       portalmigrationstag: 0c6aeb228c45c96138fa418d6524987f8843b0da
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 25m
+        memory: 250M
+      limits:
+        cpu: 75m
+        memory: 250M
     seeding:
       testDataEnvironments: ""
       # -- when changing the testDataPath the processIdentity needs to be adjusted as well,
@@ -590,15 +583,14 @@ backend:
       name: "docker.io/tractusx/portal-maintenance-service"
       portalmaintenancetag: 0c6aeb228c45c96138fa418d6524987f8843b0da
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
+        cpu: 25m
         memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+      limits:
+        cpu: 75m
+        memory: 105M
     processIdentity:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
     logging:
@@ -609,15 +601,14 @@ backend:
       name: "docker.io/tractusx/portal-notification-service"
       notificationservicetag: 8912da3c0195fbcb462b50eebd1ca5fcc88f587b
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 300M
-      # limits:
-      #   cpu: 45m
-      #   memory: 400M
+        cpu: 75m
+        memory: 200M
+      limits:
+        cpu: 225m
+        memory: 200M
     basePath: "api/notification"
     # -- Keycloak Healthcheck to be enabled for startupProbe;
     # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
@@ -637,15 +628,14 @@ backend:
       name: "docker.io/tractusx/portal-services-service"
       servicesservicetag: 8912da3c0195fbcb462b50eebd1ca5fcc88f587b
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 445M
-      # limits:
-      #   cpu: 45m
-      #   memory: 500M
+        cpu: 75m
+        memory: 300M
+      limits:
+        cpu: 225m
+        memory: 300M
     basePath: "api/services"
     logging:
       default: "Information"
@@ -718,15 +708,14 @@ backend:
       name: "docker.io/tractusx/portal-provisioning-migrations"
       provisioningmigrationstag: 0c6aeb228c45c96138fa418d6524987f8843b0da
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
+        cpu: 25m
         memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+      limits:
+        cpu: 75m
+        memory: 105M
     logging:
       default: "Information"
   processesworker:
@@ -735,15 +724,14 @@ backend:
       name: "docker.io/tractusx/portal-processes-worker"
       processesworkertag: 55638bcc8ecc3e18400b7feb1c8552f261cc19b3
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 75m
+        memory: 300M
+      limits:
+        cpu: 225m
+        memory: 300M
     logging:
       default: "Information"
       processesLibrary: "Information"

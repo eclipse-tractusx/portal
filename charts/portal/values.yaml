@@ -64,13 +64,14 @@ frontend:
     # enable ingress record generation for portal frontend.
     enabled: false
     name: "frontend"
-    className: "nginx"
-    annotations:
-      nginx.ingress.kubernetes.io/rewrite-target: "/$1"
-      nginx.ingress.kubernetes.io/use-regex: "true"
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      # -- Provide CORS allowed origin.
-      nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
+    # className: "nginx"
+    ## Optional annotations when using the nginx ingress class
+    # annotations:
+    #   nginx.ingress.kubernetes.io/rewrite-target: "/$1"
+    #   nginx.ingress.kubernetes.io/use-regex: "true"
+    #   nginx.ingress.kubernetes.io/enable-cors: "true"
+    #   # -- Provide CORS allowed origin.
+    #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
     tls:
       # -- Provide tls secret.
       - secretName: ""
@@ -79,7 +80,7 @@ frontend:
           - ""
     hosts:
       # -- Provide default path for the ingress record.
-      - host: "portal.example.org"
+      - host: ""
         paths:
           - path: "/(.*)"
             pathType: "Prefix"
@@ -151,13 +152,14 @@ backend:
     # enable ingress record generation for portal-backend.
     enabled: false
     name: "backend"
-    className: "nginx"
-    annotations:
-      nginx.ingress.kubernetes.io/use-regex: "true"
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/proxy-body-size: "8m"
-      # -- Provide CORS allowed origin.
-      nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
+    # className: "nginx"
+    ## Optional annotations when using the nginx ingress class
+    # annotations:
+    #   nginx.ingress.kubernetes.io/use-regex: "true"
+    #   nginx.ingress.kubernetes.io/enable-cors: "true"
+    #   nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+    #   # -- Provide CORS allowed origin.
+    #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
     tls:
       # -- Provide tls secret.
       - secretName: ""

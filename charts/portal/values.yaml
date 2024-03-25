@@ -728,10 +728,10 @@ backend:
     resources:
       requests:
         cpu: 75m
-        memory: 300M
+        memory: 400M
       limits:
         cpu: 225m
-        memory: 300M
+        memory: 400M
     logging:
       default: "Information"
       processesLibrary: "Information"

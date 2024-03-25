@@ -92,6 +92,7 @@ jobs:
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
           helm install portal charts/portal --namespace install --create-namespace --debug
+          helm uninstall portal --namespace install
         if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'
 
         # Upgrade the released portal chart version with the locally available chart

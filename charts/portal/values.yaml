@@ -842,14 +842,17 @@ backend:
       closeApplicationPath: "/decline"
     dim:
       # -- Provide dim client-id from CX IAM centralidp.
-      clientId: ""
+      clientId: "dim-client-id"
       # -- Client-secret for dim client-id. Secret-key 'dim-client-secret'.
       clientSecret: ""
       grantType: "client_credentials"
       scope: "openid"
-      baseAddress: ""
-      universalResolverAddress: ""
-      didDocumentBaseLocation: ""
+      # -- Base address of the DIM Middle Layer
+      baseAddress: "https://dim.example.org"
+      # -- Url of a public available universal resolver to validate the did and did document
+      universalResolverAddress: "https://resolver.example.org/did"
+      # -- path where the did document will be hosted
+      didDocumentPath: "/api/administration/staticdata/did"
       maxValidationTimeInDays: 7
       encryptionConfigIndex: 0
       encryptionConfigs:

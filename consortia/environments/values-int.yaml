@@ -242,9 +242,7 @@ backend:
     dim:
       clientId: "<path:portal/data/processes-worker#dim-client-id>"
       clientSecret: "<path:portal/data/int/processes-worker#dim-client-secret>"
-      baseAddress: ""
-      universalResolverAddress: ""
-      didDocumentBaseLocation: ""
+      universalResolverAddress: "https://dev.uniresolver.io/"
       encryptionConfigs:
         index0:
           encryptionKey: "<path:portal/data/int/processes-worker#dim-encryption-key0>"

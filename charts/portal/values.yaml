@@ -56,22 +56,25 @@ frontend:
   # -- Portal frontend ingress parameters,
     # enable ingress record generation for portal frontend.
     enabled: false
-    className: "nginx"
-    annotations:
-      nginx.ingress.kubernetes.io/rewrite-target: "/$1"
-      nginx.ingress.kubernetes.io/use-regex: "true"
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      # -- Provide CORS allowed origin.
-      nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
-    tls:
-      # -- Provide tls secret.
-      - secretName: ""
-        # -- Provide host for tls secret.
-        hosts:
-          - ""
+    name: "frontend"
+    # className: "nginx"
+    ## Optional annotations when using the nginx ingress class
+    # annotations:
+    #   nginx.ingress.kubernetes.io/rewrite-target: "/$1"
+    #   nginx.ingress.kubernetes.io/use-regex: "true"
+    #   nginx.ingress.kubernetes.io/enable-cors: "true"
+    #   # -- Provide CORS allowed origin.
+    #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
+    # -- Ingress TLS configuration
+    tls: []
+      # # -- Provide tls secret.
+      # - secretName: ""
+      #   # -- Provide host for tls secret.
+      #   hosts:
+      #     - ""
     hosts:
       # -- Provide default path for the ingress record.
-      - host: "portal.example.org"
+      - host: ""
         paths:
           - path: "/(.*)"
             pathType: "Prefix"
@@ -142,20 +145,22 @@ backend:
   # -- Portal-backend ingress parameters,
     # enable ingress record generation for portal-backend.
     enabled: false
-    name: "portal-backend"
-    className: "nginx"
-    annotations:
-      nginx.ingress.kubernetes.io/use-regex: "true"
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/proxy-body-size: "8m"
-      # -- Provide CORS allowed origin.
-      nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
-    tls:
-      # -- Provide tls secret.
-      - secretName: ""
-        # -- Provide host for tls secret.
-        hosts:
-          - ""
+    name: "backend"
+    # className: "nginx"
+    ## Optional annotations when using the nginx ingress class
+    # annotations:
+    #   nginx.ingress.kubernetes.io/use-regex: "true"
+    #   nginx.ingress.kubernetes.io/enable-cors: "true"
+    #   nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+    #   # -- Provide CORS allowed origin.
+    #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
+    # -- Ingress TLS configuration
+    tls: []
+      # # -- Provide tls secret.
+      # - secretName: ""
+      #   # -- Provide host for tls secret.
+      #   hosts:
+      #     - ""
     hosts:
       # -- Provide default path for the ingress record.
       - host: "portal-backend.example.org"

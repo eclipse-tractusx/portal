@@ -208,6 +208,7 @@ backend:
   portalIntroductionCompanyRolePath: "/companyroles"
   portalIntroductionDataspacePath: "/dataspace"
   userManagementPath: "/usermanagement"
+  useDimWallet: false
   keycloak:
     # -- Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM).
     secret: "portal-backend-keycloak"
@@ -851,6 +852,24 @@ backend:
           cipherMode: "CBC"
           paddingMode: "PKCS7"
           # -- EncryptionKey for dim wallet creation. Secret-key 'dim-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex.
+          encryptionKey: ""
+    issuerComponent:
+      # -- Provide dim client-id from CX IAM centralidp.
+      clientId: "issuercomponent-client-id"
+      # -- Client-secret for dim client-id. Secret-key 'issuercomponent-client-secret'.
+      clientSecret: ""
+      grantType: "client_credentials"
+      scope: "openid"
+      # -- Base address of the SSI Credential Issuer
+      baseAddress: "https://issuercomponent.example.org"
+      encryptionConfigIndex: 0
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for the issuer component. Secret-key 'issuercomponent-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
     invitation:

@@ -246,6 +246,12 @@ backend:
       encryptionConfigs:
         index0:
           encryptionKey: "<path:portal/data/dev/processes-worker#dim-encryption-key0>"
+    issuerComponent:
+      clientId: "<path:portal/data/processes-worker#issuercomponent-client-id>"
+      clientSecret: "<path:portal/data/dev/processes-worker#issuercomponent-client-secret>"
+      encryptionConfigs:
+        index0:
+          encryptionKey: "<path:portal/data/dev/processes-worker#issuercomponent-encryption-key0>"
     invitation:
       encryptionConfigs:
         index0:

@@ -426,7 +426,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "docker.io/tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: 08ce465d7554d72df3e98b7cda501e5264003f80
+      appmarketplaceservicetag: feb4ce167fbe52257222ea1f0de7b05a27e15fdb
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

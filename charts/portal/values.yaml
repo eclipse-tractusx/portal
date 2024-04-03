@@ -564,10 +564,10 @@ backend:
     resources:
       requests:
         cpu: 25m
-        memory: 250M
+        memory: 350M
       limits:
         cpu: 75m
-        memory: 250M
+        memory: 350M
     seeding:
       testDataEnvironments: ""
       # -- when changing the testDataPath the processIdentity needs to be adjusted as well,
@@ -587,10 +587,10 @@ backend:
     resources:
       requests:
         cpu: 25m
-        memory: 105M
+        memory: 200M
       limits:
         cpu: 75m
-        memory: 105M
+        memory: 200M
     processIdentity:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
     logging:
@@ -712,10 +712,10 @@ backend:
     resources:
       requests:
         cpu: 25m
-        memory: 105M
+        memory: 200M
       limits:
         cpu: 75m
-        memory: 105M
+        memory: 200M
     logging:
       default: "Information"
   processesworker:

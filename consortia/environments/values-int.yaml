@@ -253,7 +253,7 @@ backend:
     mailing:
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/beta/processes-worker#mailing-encryption-key0>"
+          encryptionKey: "<path:portal/data/int/processes-worker#mailing-encryption-key0>"
 
 postgresql:
   auth:

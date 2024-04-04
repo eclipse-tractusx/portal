@@ -599,7 +599,7 @@ backend:
     name: "notification-service"
     image:
       name: "docker.io/tractusx/portal-notification-service"
-      notificationservicetag: e9fdf5f4c6c3df8a3b491e6d1f44a2d79cfe2e44
+      notificationservicetag: 56ca24f9d957daa612fc4cfc06a4638e574a2f7b
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

@@ -198,6 +198,8 @@ spec:
           value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.cipherMode }}"
         - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__PADDINGMODE"
           value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.paddingMode }}"
+        - name: "APPLICATIONCREATION_USEDIMWALLET"
+          value: "{{ .Values.backend.useDimWallet }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

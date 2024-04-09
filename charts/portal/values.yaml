@@ -57,6 +57,8 @@ sdfactoryAddress: "https://sdfactory.example.org"
 clearinghouseAddress: "https://validation.example.org"
 # -- Provide clearinghouse token address.
 clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
+# -- Provide issuer component base address
+issuerComponentAddress: "https://issuercomponent.example.org"
 
 frontend:
   ingress:
@@ -861,8 +863,6 @@ backend:
       clientSecret: ""
       grantType: "client_credentials"
       scope: "openid"
-      # -- Base address of the SSI Credential Issuer
-      baseAddress: "https://issuercomponent.example.org"
       encryptionConfigIndex: 0
       encryptionConfigs:
         index0:

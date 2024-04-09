@@ -29,6 +29,7 @@ custodianAddress: "https://managed-identity-wallets-pen-new.dev.demo.catena-x.ne
 sdfactoryAddress: "https://sdfactory-pen.dev.demo.catena-x.net"
 clearinghouseAddress: "https://validation.test.dih-cloud.com"
 clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
+issuerComponentAddress: "https://ssi-credential-issuer-pen.dev.demo.catena-x.net"
 
 frontend:
 

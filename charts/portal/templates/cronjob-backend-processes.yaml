@@ -268,6 +268,13 @@ spec:
               value: "{{ .Values.backend.processesworker.issuerComponent.encryptionConfigs.index0.cipherMode }}"
             - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__ENCRYPTIONCONFIGS__0__PADDINGMODE"
               value: "{{ .Values.backend.processesworker.issuerComponent.encryptionConfigs.index0.paddingMode }}"
+            - name: "APPLICATIONCHECKLIST__BPNDIDRESOLVER__BASEADDRESS"
+              value: "{{ .Values.bpnDidResolverAddress }}"
+            - name: "APPLICATIONCHECKLIST__BPNDIDRESOLVER__APIKEY"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.interfaces.secret }}"
+                  key: "bpndidresolver-api-key"
             - name: "KEYCLOAK__CENTRAL__AUTHREALM"
               value: "{{ .Values.centralidp.realm }}"
             - name: "KEYCLOAK__CENTRAL__CLIENTID"

@@ -627,7 +627,7 @@ backend:
     name: "services-service"
     image:
       name: "docker.io/tractusx/portal-services-service"
-      servicesservicetag: 2f9ab332d1f0180b4bda751eddaeb362a65d8d77
+      servicesservicetag: d0c30f40602e2ec3eae79aaf45abda6646fa9f0d
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

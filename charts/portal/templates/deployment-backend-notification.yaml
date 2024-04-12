@@ -20,21 +20,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.backend.notification.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.backend.notification.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
-      app: {{ .Values.backend.notification.name }}
+      app: {{ include "portal.fullname" . }}-{{ .Values.backend.notification.name }}
+      {{- include "portal.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Values.backend.notification.name }}
+        app: {{ include "portal.fullname" . }}-{{ .Values.backend.notification.name }}
+        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: {{ .Values.backend.notification.name }}
+      - name: {{ include "portal.fullname" . }}-{{ .Values.backend.notification.name }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -55,8 +60,6 @@ spec:
               key: "portal-password"
         - name: "CONNECTIONSTRINGS__PORTALDB"
           value: "Server={{ template "portal.postgresql.primary.fullname" . }};Database={{ .Values.postgresql.auth.database }};Port={{ .Values.postgresql.auth.port }};User Id={{ .Values.postgresql.auth.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
-        - name: "DATABASEACCESS__PORTAL__CONNECTIONSTRING"
-          value: "Server={{ template "portal.postgresql.primary.fullname" . }};Database={{ .Values.postgresql.auth.database }};Port={{ .Values.postgresql.auth.port }};User Id={{ .Values.postgresql.auth.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
         {{- end }}
         {{- if not .Values.postgresql.enabled }}
         - name: "PORTAL_PASSWORD"
@@ -73,8 +76,6 @@ spec:
           value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
         - name: "CONNECTIONSTRINGS__PROVISIONINGDB"
           value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.provisioningUser }};Password=$(PROVISIONING_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
-        - name: "DATABASEACCESS__PORTAL__CONNECTIONSTRING"
-          value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};;"
         {{- end }}
         - name: "DATABASEACCESS__PORTAL__DATABASESCHEMA"
           value: "{{ .Values.backend.dbConnection.schema }}"
@@ -97,17 +98,17 @@ spec:
         - name: "HEALTHCHECKS__2__PATH"
           value: "{{ .Values.backend.healthChecks.liveness.path}}"
         - name: "JWTBEAREROPTIONS__METADATAADDRESS"
-          value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
         - name: "JWTBEAREROPTIONS__REQUIREHTTPSMETADATA"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDAUDIENCE"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validAudiencePortal }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDISSUER"
-          value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath }}"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath }}"
         - name: "JWTBEAREROPTIONS__REFRESHINTERVAL"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.refreshInterval }}"
         - name: "KEYCLOAK__CENTRAL__AUTHREALM"
-          value: "{{ .Values.backend.keycloak.central.authRealm }}"
+          value: "{{ .Values.centralidp.realm }}"
         - name: "KEYCLOAK__CENTRAL__CLIENTID"
           value: "{{ .Values.backend.keycloak.central.clientId }}"
         - name: "KEYCLOAK__CENTRAL__CLIENTSECRET"
@@ -116,7 +117,7 @@ spec:
               name: "{{ .Values.backend.keycloak.secret }}"
               key: "central-client-secret"
         - name: "KEYCLOAK__CENTRAL__CONNECTIONSTRING"
-          value: "{{ .Values.centralidpAddress }}"
+          value: "{{ .Values.centralidp.address }}"
         - name: "KEYCLOAK__CENTRAL__USEAUTHTRAIL"
           value: "{{ .Values.backend.keycloak.central.useAuthTrail }}"
         - name: "KEYCLOAK__SHARED__AUTHREALM"

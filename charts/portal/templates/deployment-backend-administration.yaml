@@ -20,21 +20,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.backend.administration.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.backend.administration.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
-      app: {{ .Values.backend.administration.name }}
+      app: {{ include "portal.fullname" . }}-{{ .Values.backend.administration.name }}
+      {{- include "portal.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Values.backend.administration.name }}
+        app: {{ include "portal.fullname" . }}-{{ .Values.backend.administration.name }}
+        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: {{ .Values.backend.administration.name }}
+      - name: {{ include "portal.fullname" . }}-{{ .Values.backend.administration.name }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -64,8 +69,6 @@ spec:
           value: "Server={{ template "portal.postgresql.primary.fullname" . }};Database={{ .Values.postgresql.auth.database }};Port={{ .Values.postgresql.auth.port }};User Id={{ .Values.postgresql.auth.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
         - name: "CONNECTIONSTRINGS__PROVISIONINGDB"
           value: "Server={{ template "portal.postgresql.primary.fullname" . }};Database={{ .Values.postgresql.auth.database }};Port={{ .Values.postgresql.auth.port }};User Id={{ .Values.postgresql.auth.provisioningUser }};Password=$(PROVISIONING_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
-        - name: "DATABASEACCESS__PORTAL__CONNECTIONSTRING"
-          value: "Server={{ template "portal.postgresql.primary.fullname" . }};Database={{ .Values.postgresql.auth.database }};Port={{ .Values.postgresql.auth.port }};User Id={{ .Values.postgresql.auth.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
         {{- end }}
         {{- if not .Values.postgresql.enabled }}
         - name: "PORTAL_PASSWORD"
@@ -82,8 +85,6 @@ spec:
           value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
         - name: "CONNECTIONSTRINGS__PROVISIONINGDB"
           value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.provisioningUser }};Password=$(PROVISIONING_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
-        - name: "DATABASEACCESS__PORTAL__CONNECTIONSTRING"
-          value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};;"
         {{- end }}
         - name: "MVC_ROUTING_BASEPATH"
           value: "{{ .Values.backend.administration.basePath }}"
@@ -110,7 +111,7 @@ spec:
         - name: "APPLICATIONCHECKLIST__BPDM__GRANTTYPE"
           value: "{{ .Values.backend.processesworker.bpdm.grantType }}"
         - name: "APPLICATIONCHECKLIST__BPDM__TOKENADDRESS"
-          value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.tokenPath }}"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
         - name: "APPLICATIONCHECKLIST__BPDM__PASSWORD"
           value: "{{ .Values.backend.placeholder }}"
         - name: "APPLICATIONCHECKLIST__BPDM__SCOPE"
@@ -152,7 +153,7 @@ spec:
         - name: "APPLICATIONCHECKLIST__CUSTODIAN__GRANTTYPE"
           value: "{{ .Values.backend.processesworker.custodian.grantType }}"
         - name: "APPLICATIONCHECKLIST__CUSTODIAN__TOKENADDRESS"
-          value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.tokenPath }}"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
         - name: "APPLICATIONCHECKLIST__CUSTODIAN__PASSWORD"
           value: "{{ .Values.backend.placeholder }}"
         - name: "APPLICATIONCHECKLIST__CUSTODIAN__SCOPE"
@@ -169,7 +170,7 @@ spec:
         - name: "APPLICATIONCHECKLIST__SDFACTORY__GRANTTYPE"
           value: "{{ .Values.backend.processesworker.sdfactory.grantType }}"
         - name: "APPLICATIONCHECKLIST__SDFACTORY__TOKENADDRESS"
-          value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.tokenPath }}"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
         - name: "APPLICATIONCHECKLIST__SDFACTORY__PASSWORD"
           value: "{{ .Values.backend.placeholder }}"
         - name: "APPLICATIONCHECKLIST__SDFACTORY__SCOPE"
@@ -180,6 +181,65 @@ spec:
           value: "{{ .Values.sdfactoryAddress }}{{ .Values.backend.processesworker.sdfactory.selfdescriptionPath }}"
         - name: "APPLICATIONCHECKLIST__SDFACTORY__USERNAME"
           value: "{{ .Values.backend.placeholder }}"
+        - name: "APPLICATIONCHECKLIST__DIM__USERNAME"
+          value: "{{ .Values.backend.placeholder }}"
+        - name: "APPLICATIONCHECKLIST__DIM__PASSWORD"
+          value: "{{ .Values.backend.placeholder }}"
+        - name: "APPLICATIONCHECKLIST__DIM__CLIENTID"
+          value: "{{ .Values.backend.processesworker.dim.clientId }}"
+        - name: "APPLICATIONCHECKLIST__DIM__GRANTTYPE"
+          value: "{{ .Values.backend.processesworker.dim.grantType }}"
+        - name: "APPLICATIONCHECKLIST__DIM__CLIENTSECRET"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "dim-client-secret"
+        - name: "APPLICATIONCHECKLIST__DIM__SCOPE"
+          value: "{{ .Values.backend.processesworker.dim.scope }}"
+        - name: "APPLICATIONCHECKLIST__DIM__TOKENADDRESS"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
+        - name: "APPLICATIONCHECKLIST__DIM__BASEADDRESS"
+          value: "{{ .Values.backend.processesworker.dim.baseAddress }}"
+        - name: "APPLICATIONCHECKLIST__DIM__UNIVERSALRESOLVERADDRESS"
+          value: "{{ .Values.backend.processesworker.dim.universalResolverAddress }}"
+        - name: "APPLICATIONCHECKLIST__DIM__DIDDOCUMENTBASELOCATION"
+          value: "{{ .Values.portalAddress }}{{ .Values.backend.processesworker.dim.didDocumentPath }}"
+        - name: "APPLICATIONCHECKLIST__DIM__MAXVALIDATIONTIMEINDAYS"
+          value: "{{ .Values.backend.processesworker.dim.maxValidationTimeInDays }}"
+        - name: "APPLICATIONCHECKLIST__DIM__ENCRYPTIONCONFIGINDEX"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigIndex }}"
+        - name: "APPLICATIONCHECKLIST__DIM__ENCRYPTIONCONFIGS__0__INDEX"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigs.index0.index }}"
+        - name: "APPLICATIONCHECKLIST__DIM__ENCRYPTIONCONFIGS__0__ENCRYPTIONKEY"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "dim-encryption-key0"
+        - name: "APPLICATIONCHECKLIST__DIM__ENCRYPTIONCONFIGS__0__CIPHERMODE"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigs.index0.cipherMode }}"
+        - name: "APPLICATIONCHECKLIST__DIM__ENCRYPTIONCONFIGS__0__PADDINGMODE"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigs.index0.paddingMode }}"
+        - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__SCOPE"
+          value: "{{ .Values.backend.processesworker.issuerComponent.scope }}"
+        - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__TOKENADDRESS"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
+        - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__BASEADDRESS"
+          value: "{{ .Values.backend.processesworker.issuerComponent.baseAddress }}"
+        - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__CALLBACKURL"
+          value: "{{ .Values.portalBackendAddress }}"
+        - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__ENCRYPTIONCONFIGINDEX"
+          value: "{{ .Values.backend.processesworker.issuerComponent.encryptionConfigIndex }}"
+        - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__ENCRYPTIONCONFIGS__0__INDEX"
+          value: "{{ .Values.backend.processesworker.issuerComponent.encryptionConfigs.index0.index }}"
+        - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__ENCRYPTIONCONFIGS__0__ENCRYPTIONKEY"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "issuercomponent-encryption-key0"
+        - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__ENCRYPTIONCONFIGS__0__CIPHERMODE"
+          value: "{{ .Values.backend.processesworker.issuerComponent.encryptionConfigs.index0.cipherMode }}"
+        - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__ENCRYPTIONCONFIGS__0__PADDINGMODE"
+          value: "{{ .Values.backend.processesworker.issuerComponent.encryptionConfigs.index0.paddingMode }}"
         - name: "COMPANYDATA__USECASEPARTICIPATIONMEDIATYPES__0"
           value: "{{ .Values.backend.administration.companyData.useCaseParticipationMediaTypes.type0 }}"
         - name: "COMPANYDATA__SSICERTIFICATEMEDIATYPES__0"
@@ -196,9 +256,9 @@ spec:
           value: "{{ .Values.backend.administration.connectors.validCertificationContentTypes.type3 }}"
         - name: "CONNECTORS__SELFDESCRIPTIONDOCUMENTURL"
           value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.administration.connectors.selfDescriptionDocumentPath }}"
-        - name: "Document__EnableSeedEndpoint"
+        - name: "DOCUMENT__ENABLESEEDENDPOINT"
           value: "True"
-        - name: "Document__FRAMEDOCUMENTTYPEIDS__0"
+        - name: "DOCUMENT__FRAMEDOCUMENTTYPEIDS__0"
           value: "{{ .Values.backend.administration.frameDocumentTypeIds.type0 }}"
         - name: "HEALTHCHECKS__0__PATH"
           value: "{{ .Values.backend.healthChecks.startup.path}}"
@@ -232,41 +292,29 @@ spec:
         - name: "IDENTITYPROVIDERADMIN__CSVSETTINGS__SEPARATOR"
           value: "{{ .Values.backend.administration.identityProviderAdmin.csvSettings.separator }}"
         - name: "IDENTITYPROVIDERADMIN__DELETEIDPROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "IDENTITYPROVIDERADMIN__DELETEIDPROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.administration.identityProviderAdmin.deleteIdpRoles.role0 }}"
         - name: "IDENTITYPROVIDERADMIN__DELETEIDPROLES__0__USERROLENAMES__1"
           value: "{{ .Values.backend.administration.identityProviderAdmin.deleteIdpRoles.role1 }}"
         - name: "IDENTITYPROVIDERADMIN__DEACTIVATEIDPROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "IDENTITYPROVIDERADMIN__DEACTIVATEIDPROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.administration.identityProviderAdmin.deactivateIdpRoles.role0 }}"
         - name: "IDENTITYPROVIDERADMIN__DEACTIVATEIDPROLES__0__USERROLENAMES__1"
           value: "{{ .Values.backend.administration.identityProviderAdmin.deactivateIdpRoles.role1 }}"
-        - name: "INVITATION__INVITEDUSERINITIALROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.registration }}"
-        - name: "INVITATION__INVITEDUSERINITIALROLES__0__USERROLENAMES__0"
-          value: "{{ .Values.backend.administration.invitation.invitedUserInitialRoles.role0 }}"
-        - name: "INVITATION__REGISTRATIONAPPADDRESS"
-          value: "{{ .Values.portalAddress }}{{ .Values.backend.registration.portalRegistrationPath }}"
-        - name: "INVITATION__PASSWORDRESENDADDRESS"
-          value: "{{ .Values.portalAddress }}{{ .Values.backend.portalPasswordResendPath }}"
-        - name: "INVITATION__INITIALLOGINTHEME"
-          value: "{{ .Values.backend.administration.invitation.initialLoginTheme }}"
-        - name: "INVITATION__CLOSEAPPLICATIONADDRESS"
-          value: "{{ .Values.portalAddress }}{{ .Values.backend.administration.invitation.closeApplicationPath }}"
         - name: "JWTBEAREROPTIONS__METADATAADDRESS"
-          value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
         - name: "JWTBEAREROPTIONS__REQUIREHTTPSMETADATA"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDAUDIENCE"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validAudiencePortal }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDISSUER"
-          value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath }}"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath }}"
         - name: "JWTBEAREROPTIONS__REFRESHINTERVAL"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.refreshInterval }}"
         - name: "KEYCLOAK__CENTRAL__AUTHREALM"
-          value: "{{ .Values.backend.keycloak.central.authRealm }}"
+          value: "{{ .Values.centralidp.realm }}"
         - name: "KEYCLOAK__CENTRAL__CLIENTID"
           value: "{{ .Values.backend.keycloak.central.clientId }}"
         - name: "KEYCLOAK__CENTRAL__CLIENTSECRET"
@@ -275,7 +323,7 @@ spec:
               name: "{{ .Values.backend.keycloak.secret }}"
               key: "central-client-secret"
         - name: "KEYCLOAK__CENTRAL__CONNECTIONSTRING"
-          value: "{{ .Values.centralidpAddress }}"
+          value: "{{ .Values.centralidp.address }}"
         - name: "KEYCLOAK__CENTRAL__USEAUTHTRAIL"
           value: "{{ .Values.backend.keycloak.central.useAuthTrail }}"
         - name: "KEYCLOAK__SHARED__AUTHREALM"
@@ -301,38 +349,42 @@ spec:
           value: "{{ .Values.backend.administration.logging.custodianLibrary }}"
         - name: "SERILOG__MINIMUMLEVEL__OVERRIDE__Org.Eclipse.TractusX.Portal.Backend.Bpdm.Library"
           value: "{{ .Values.backend.administration.logging.bpdmLibrary }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPHOST"
-          value: "{{ .Values.backend.mailing.host }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPPASSWORD"
-          valueFrom:
-            secretKeyRef:
-              name: "{{ .Values.backend.mailing.secret }}"
-              key: "password"
-        - name: "MAILINGSERVICE__MAIL__SMTPPORT"
-          value: "{{ .Values.backend.mailing.port }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPUSER"
-          value: "{{ .Values.backend.mailing.user }}"
-        - name: "MAILINGSERVICE__MAIL__SENDEREMAIL"
-          value: "{{ .Values.backend.mailing.senderEmail }}"
         - name: "NETWORK2NETWORK__INITIALROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.registration }}"
+          value: "{{ .Values.centralidp.clients.registration }}"
         - name: "NETWORK2NETWORK__INITIALROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.provisioning.invitedUserInitialRoles.registration }}"
-        - name: "NETWORK2NETWORK__BASEPORTALADDRESS"
-          value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHomePath }}"
-        - name: "ONBOARDINGSERVICEPROVIDER__ENCYRPTIONKEY"
+        - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGINDEX"
+          value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigIndex }}"
+        - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__0__INDEX"
+          value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.index}}"
+        - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__0__CIPHERMODE"
+          value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.cipherMode}}"
+        - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__0__PADDINGMODE"
+          value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.paddingMode}}"
+        - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__0__ENCRYPTIONKEY"
           valueFrom:
             secretKeyRef:
               name: "{{ .Values.backend.interfaces.secret }}"
-              key: "onboardingserviceprovider-encryption-key"
+              key: "onboardingserviceprovider-encryption-key0"
+        - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__1__INDEX"
+          value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.index}}"
+        - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__1__CIPHERMODE"
+          value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.cipherMode}}"
+        - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__1__PADDINGMODE"
+          value: "{{ .Values.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.paddingMode}}"
+        - name: "ONBOARDINGSERVICEPROVIDER__ENCRYPTIONCONFIGS__1__ENCRYPTIONKEY"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "onboardingserviceprovider-encryption-key1"
         - name: "PROVISIONING__CENTRALIDENTITYPROVIDER__CONFIG__CLIENTID"
           value: "{{ .Values.backend.provisioning.centralIdentityProvider.clientId }}"
         - name: "PROVISIONING__CENTRALREALM"
-          value: "{{ .Values.backend.provisioning.centralRealm }}"
+          value: "{{ .Values.centralidp.realm }}"
         - name: "PROVISIONING__CENTRALREALMID"
           value: "{{ .Values.backend.provisioning.centralRealmId }}"
         - name: "PROVISIONING__INVITEDUSERINITIALROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.registration }}"
+          value: "{{ .Values.centralidp.clients.registration }}"
         # -- if the array is extended please extend NETWORK2NETWORK__INITIALROLES as well
         - name: "PROVISIONING__INVITEDUSERINITIALROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.provisioning.invitedUserInitialRoles.registration }}"
@@ -370,7 +422,7 @@ spec:
         - name: "USERMANAGEMENT__COMPANYUSERSTATUSIDS__1"
           value: "{{ .Values.backend.administration.userManagement.companyUserStatusIds.status1 }}"
         - name: "USERMANAGEMENT__USERADMINROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "USERMANAGEMENT__USERADMINROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.administration.userManagement.userAdminRoles.role0 }}"
         - name: "USERMANAGEMENT__USERADMINROLES__0__USERROLENAMES__1"
@@ -380,7 +432,20 @@ spec:
         - name: "USERMANAGEMENT__PORTAL__PASSWORDRESENDADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.portalPasswordResendPath }}"
         - name: "USERMANAGEMENT__PORTAL__KEYCLOAKCLIENTID"
-          value: "{{ .Values.backend.administration.keycloakClientId }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGINDEX"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigIndex }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__INDEX"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.index }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__ENCRYPTIONKEY"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "mailing-encryption-key0"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__CIPHERMODE"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.cipherMode }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__PADDINGMODE"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.paddingMode }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

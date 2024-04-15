@@ -1,5 +1,5 @@
 ###############################################################
-# Copyright (c) 2021, 2024 Contributors to the Eclipse Foundation
+# Copyright (c) 2024 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -17,22 +17,16 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: portal-upgrade
-spec:
-  destination:
-    namespace: product-portal
-    server: 'https://kubernetes.default.svc'
-  source:
-    path: charts/portal
-    repoURL: 'https://github.com/eclipse-tractusx/portal.git'
-    targetRevision: portal-2.0.0-RC1
-    plugin:
-      env:
-        - name: AVP_SECRET
-          value: vault-secret
-        - name: helm_args
-          value: '-f values.yaml -f ../../consortia/environments/values-int.yaml'
-  project: project-portal
+---
+version: 2
+updates:
+  # Github Actions
+  -
+    package-ecosystem: "github-actions"
+    target-branch: dev
+    directory: /
+    labels:
+      - "dependabot"
+      - "github-actions"
+    schedule:
+      interval: "weekly"

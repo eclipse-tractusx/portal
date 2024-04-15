@@ -817,14 +817,14 @@ backend:
           cipherMode: "ECB"
           paddingMode: "PKCS7"
           # -- EncryptionKey for onboardingserviceprovider. Secret-key 'onboardingserviceprovider-encryption-key0'.
-          # Expected format is 256 bit (64 digits) hex. When upgrading from v1.8.0 please read document portal-upgrade-details.md
+          # Expected format is 256 bit (64 digits) hex. When upgrading from v2.0.0-RC1 please read document portal-upgrade-details.md
           encryptionKey: ""
         index1:
           index: 1
           cipherMode: "CBC"
           paddingMode: "PKCS7"
           # -- EncryptionKey for onboardingserviceprovider. Secret-key 'onboardingserviceprovider-encryption-key1'.
-          # Expected format is 256 bit (64 digits) hex. When upgrading from v1.8.0 please read document portal-upgrade-details.md
+          # Expected format is 256 bit (64 digits) hex. When upgrading from v2.0.0-RC1 please read document portal-upgrade-details.md
           encryptionKey: ""
     networkRegistration:
       loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"

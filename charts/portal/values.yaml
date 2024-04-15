@@ -115,7 +115,7 @@ frontend:
     name: "registration"
     image:
       name: "docker.io/tractusx/portal-frontend-registration"
-      registrationtag: 2f80af3d7d7ed81cd975adf7bba814e0d02fdc65
+      registrationtag: 88be08b4899f47d2c6dff71b14dbc99c31534bb7
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

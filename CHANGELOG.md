@@ -2,6 +2,43 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.0.0-RC1
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.0.0-RC1
+  * portal-frontend-registration: v1.7.0-RC1
+  * portal-backend: v2.0.0-RC1
+* defined unique resource names for deployments, jobs, services and ingresses
+* added labels and namespace if not already set
+* named secrets in a more unique manner
+* improve centralidp configuration for clients, realm and address
+* made realm and clients configurable for frontend deployments (in the backend they were already configurable)
+* changed ingress default settings according to [TRG-5.05](https://eclipse-tractusx.github.io/docs/release/trg-5/trg-5-05)
+* added startup probes to frontend deployments
+* improve portal helm test workflow
+* set default resource limits and increase default resource requests
+* db-dependency:
+  * change setup to get latest minor updates
+  * removed fullnameOverride
+* helm-test: 
+  * was enabled for removal for fullnameOverride and renaming for postgres secret
+  * updated version to upgrade (R24.03) from and k8s version
+* portal-backend:
+  * moved mailing and invitation configuration to processes worker
+  * added new encryption configuration for onboarding service provider (osp)
+  * added configuration for issuer component and dim (digital identity management)
+  * removed obsolete db setting from administration, registration and notification service deployments
+
+### Technical Support
+
+* CONTRIBUTING.md: linked to contribution details
+* upgraded gh actions and change to pinned actions full length commit sha
+* add dependabot.yml file
+
+Please be aware that **this version is still in Release Candidate phase**: especially documentation is still WIP.
+
 ## 1.8.0
 
 ### Change

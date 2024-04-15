@@ -20,21 +20,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.frontend.assets.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.frontend.assets.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
-      app: {{ .Values.frontend.assets.name }}
+      app: {{ include "portal.fullname" . }}-{{ .Values.frontend.assets.name }}
+      {{- include "portal.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Values.frontend.assets.name }}
+        app: {{ include "portal.fullname" . }}-{{ .Values.frontend.assets.name }}
+        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: {{ .Values.frontend.assets.name }}
+      - name: {{ include "portal.fullname" . }}-{{ .Values.frontend.assets.name }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -48,6 +53,16 @@ spec:
         - name: http
           containerPort: {{ .Values.portContainer }}
           protocol: TCP
+        startupProbe:
+          httpGet:
+            path: "/"
+            port: {{ .Values.portContainer }}
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.startupProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.startupProbe.successThreshold }}
+          failureThreshold: {{ .Values.startupProbe.failureThreshold }}
         livenessProbe:
           httpGet:
             path: "/"

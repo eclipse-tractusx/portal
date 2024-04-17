@@ -59,6 +59,8 @@ clearinghouseAddress: "https://validation.example.org"
 clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
 # -- Provide issuer component base address
 issuerComponentAddress: "https://issuercomponent.example.org"
+# -- Base address of the Bpn Did Resolver
+bpnDidResolverAddress: http://bpndidresolver.example.org/
 
 frontend:
   ingress:
@@ -872,6 +874,9 @@ backend:
           # -- EncryptionKey for the issuer component. Secret-key 'issuercomponent-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
+    bpnDidResolver:
+      # -- ApiKey for bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
+      apiKey: ""
     invitation:
       invitedUserInitialRoles:
         role0: "Company Admin"

@@ -27,6 +27,7 @@ bpdm:
   poolAddress: "https://business-partners.int.demo.catena-x.net"
   poolApiPath: "/pool/v6"
   portalGateAddress: "https://business-partners.int.demo.catena-x.net"
+  portalGateApiPath: "/companies/test-company/v6"
 custodianAddress: "https://managed-identity-wallets-new.int.demo.catena-x.net"
 sdfactoryAddress: "https://sdfactory.int.demo.catena-x.net"
 clearinghouseAddress: "https://validation.test.dih-cloud.com"

@@ -49,6 +49,8 @@ bpdm:
   poolApiPath: "/pool/v6"
   # -- Provide bpdm portal gate base address.
   portalGateAddress: "https://business-partners.example.org"
+  # -- Provide bpdm portal gate api path.
+  portalGateApiPath: "/companies/test-company/v6"
 
 # -- Provide custodian base address.
 custodianAddress: "https://managed-identity-wallets.example.org"

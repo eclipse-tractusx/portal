@@ -44,6 +44,7 @@ spec:
               poolAddress: "https://business-partners.stable.demo.catena-x.net"
               poolApiPath: "/pool/v6"
               portalGateAddress: "https://business-partners.stable.demo.catena-x.net"
+              portalGateApiPath: "/companies/test-company/v6"
             custodianAddress: "https://managed-identity-wallets-new.stable.demo.catena-x.net"
             sdfactoryAddress: "https://sdfactory.stable.demo.catena-x.net"
             clearinghouseAddress: "https://validation.test.dih-cloud.com"

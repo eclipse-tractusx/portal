@@ -272,7 +272,7 @@ backend:
     name: "registration-service"
     image:
       name: "docker.io/tractusx/portal-registration-service"
-      registrationservicetag: f23b550bed6e3ec467b2b7729f32c00f847c6d96
+      registrationservicetag: a3b96786104da947fa09a7ac4bd7462ba21dfb2d
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -321,7 +321,7 @@ backend:
     name: "administration-service"
     image:
       name: "docker.io/tractusx/portal-administration-service"
-      administrationservicetag: f23b550bed6e3ec467b2b7729f32c00f847c6d96
+      administrationservicetag: a3b96786104da947fa09a7ac4bd7462ba21dfb2d
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -427,7 +427,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "docker.io/tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: f23b550bed6e3ec467b2b7729f32c00f847c6d96
+      appmarketplaceservicetag: a3b96786104da947fa09a7ac4bd7462ba21dfb2d
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -559,7 +559,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "docker.io/tractusx/portal-portal-migrations"
-      portalmigrationstag: f23b550bed6e3ec467b2b7729f32c00f847c6d96
+      portalmigrationstag: a3b96786104da947fa09a7ac4bd7462ba21dfb2d
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -582,7 +582,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "docker.io/tractusx/portal-maintenance-service"
-      portalmaintenancetag: f23b550bed6e3ec467b2b7729f32c00f847c6d96
+      portalmaintenancetag: a3b96786104da947fa09a7ac4bd7462ba21dfb2d
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -600,7 +600,7 @@ backend:
     name: "notification-service"
     image:
       name: "docker.io/tractusx/portal-notification-service"
-      notificationservicetag: f23b550bed6e3ec467b2b7729f32c00f847c6d96
+      notificationservicetag: a3b96786104da947fa09a7ac4bd7462ba21dfb2d
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -627,7 +627,7 @@ backend:
     name: "services-service"
     image:
       name: "docker.io/tractusx/portal-services-service"
-      servicesservicetag: f23b550bed6e3ec467b2b7729f32c00f847c6d96
+      servicesservicetag: a3b96786104da947fa09a7ac4bd7462ba21dfb2d
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -707,7 +707,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "docker.io/tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: f23b550bed6e3ec467b2b7729f32c00f847c6d96
+      provisioningmigrationstag: a3b96786104da947fa09a7ac4bd7462ba21dfb2d
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -723,7 +723,7 @@ backend:
     name: "processes-worker"
     image:
       name: "docker.io/tractusx/portal-processes-worker"
-      processesworkertag: f23b550bed6e3ec467b2b7729f32c00f847c6d96
+      processesworkertag: a3b96786104da947fa09a7ac4bd7462ba21dfb2d
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

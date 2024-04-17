@@ -41,11 +41,14 @@ sharedidpAddress: "https://sharedidp.example.org"
 # -- Provide semantics base address.
 semanticsAddress: "https://semantics.example.org"
 
-# -- Provide bpdm partners pool base address.
-bpdmPartnersPoolAddress: "https://business-partners.example.org"
-
-# -- Provide bpdm portal gate base address.
-bpdmPortalGateAddress: "https://business-partners.example.org"
+# -- Provide details about business partner data management (BPDM).
+bpdm:
+  # -- Provide bpdm partners pool base address.
+  poolAddress: "https://business-partners.example.org"
+  # -- Provide bpdm pool api path.
+  poolApiPath: "/pool/v6"
+  # -- Provide bpdm portal gate base address.
+  portalGateAddress: "https://business-partners.example.org"
 
 # -- Provide custodian base address.
 custodianAddress: "https://managed-identity-wallets.example.org"
@@ -143,7 +146,6 @@ frontend:
         memory: 100M
     path: "/assets"
   centralidpAuthPath: "/auth"
-  bpdmPartnersPoolApiPath: "/pool/api"
 
 backend:
   ingress:

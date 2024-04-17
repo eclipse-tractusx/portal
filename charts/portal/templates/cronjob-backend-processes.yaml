@@ -80,6 +80,8 @@ spec:
             - name: "CONNECTIONSTRINGS__PROVISIONINGDB"
               value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.provisioningUser }};Password=$(PROVISIONING_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
             {{- end }}
+            - name: "PROVISIONING__SERVICEACCOUNTCLIENTPREFIX"
+              value: "{{ .Values.backend.provisioning.serviceAccountClientPrefix }}"
             - name: "APPLICATIONACTIVATION__APPLICATIONAPPROVALINITIALROLES__0__CLIENTID"
               value: "{{ .Values.centralidp.clients.portal }}"
             - name: "APPLICATIONACTIVATION__APPLICATIONAPPROVALINITIALROLES__0__USERROLENAMES__0"

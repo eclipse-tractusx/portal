@@ -426,6 +426,8 @@ spec:
           value: "{{ .Values.backend.administration.registration.documentTypeIds.type0 }}"
         - name: "REGISTRATION__HELPADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHelpPath }}"
+        - name: "REGISTRATION__USEDIMWALLET"
+          value: "{{ .Values.backend.useDimWallet }}"
         - name: "SERVICEACCOUNT__CLIENTID"
           value: "{{ .Values.backend.administration.serviceAccount.clientId }}"
         - name: "SWAGGERENABLED"

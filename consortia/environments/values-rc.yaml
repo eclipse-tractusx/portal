@@ -110,6 +110,8 @@ backend:
               service: "services-service"
               port: 8080
 
+  useDimWallet: true
+
   keycloak:
     central:
       clientId: "<path:portal/data/keycloak#central-client-id>"

@@ -100,7 +100,7 @@ spec:
         - name: "DATABASEACCESS__KEYCLOAK__DATABASESCHEMA"
           value: "{{ .Values.backend.keycloak.central.dbConnection.schema }}"
         - name: "APPLICATIONCHECKLIST__BPDM__BASEADDRESS"
-          value: "{{ .Values.bpdmPortalGateAddress }}"
+          value: "{{ .Values.bpdm.portalGateAddress }}{{ .Values.bpdm.portalGateApiPath }}"
         - name: "APPLICATIONCHECKLIST__BPDM__CLIENTID"
           value: "{{ .Values.backend.processesworker.bpdm.clientId }}"
         - name: "APPLICATIONCHECKLIST__BPDM__CLIENTSECRET"

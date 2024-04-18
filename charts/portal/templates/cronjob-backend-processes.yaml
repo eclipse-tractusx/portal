@@ -115,7 +115,7 @@ spec:
             - name: "APPLICATIONACTIVATION__DATASPACEADDRESS"
               value: "{{ .Values.portalAddress }}{{ .Values.backend.portalIntroductionDataspacePath }}"
             - name: "APPLICATIONCHECKLIST__BPDM__BASEADDRESS"
-              value: "{{ .Values.bpdmPortalGateAddress }}"
+              value: "{{ .Values.bpdm.portalGateAddress }}{{ .Values.bpdm.portalGateApiPath }}"
             - name: "APPLICATIONCHECKLIST__BPDM__CLIENTID"
               value: "{{ .Values.backend.processesworker.bpdm.clientId }}"
             - name: "APPLICATIONCHECKLIST__BPDM__CLIENTSECRET"

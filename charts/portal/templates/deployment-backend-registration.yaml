@@ -89,7 +89,7 @@ spec:
         - name: "DATABASEACCESS__PORTAL__DATABASESCHEMA"
           value: "{{ .Values.backend.dbConnection.schema }}"
         - name: "BPN_ADDRESS"
-          value: "{{ .Values.bpdmPartnersPoolAddress }}"
+          value: "{{ .Values.bpdm.poolAddress }}{{ .Values.bpdm.poolApiPath }}"
         - name: "HEALTHCHECKS__0__PATH"
           value: "{{ .Values.backend.healthChecks.startup.path}}"
         {{- if .Values.backend.registration.healthChecks.startup.tags }}

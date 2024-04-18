@@ -23,12 +23,16 @@ centralidp:
   address: "https://centralidp.beta.demo.catena-x.net"
 sharedidpAddress: "https://sharedidp.beta.demo.catena-x.net"
 semanticsAddress: "https://semantics.beta.demo.catena-x.net"
-bpdmPartnersPoolAddress: "https://business-partners.beta.demo.catena-x.net"
-bpdmPortalGateAddress: "https://business-partners.beta.demo.catena-x.net"
+bpdm:
+  poolAddress: "https://business-partners.beta.demo.catena-x.net"
+  poolApiPath: "/pool/v6"
+  portalGateAddress: "https://business-partners.beta.demo.catena-x.net"
+  portalGateApiPath: "/companies/test-company/v6"
 custodianAddress: "https://managed-identity-wallets-new.beta.demo.catena-x.net"
 sdfactoryAddress: "https://sdfactory.beta.demo.catena-x.net"
 clearinghouseAddress: "https://validation.test.dih-cloud.com"
 clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
+issuerComponentAddress: "https://ssi-credential-issuer.beta.demo.catena-x.net"
 
 frontend:
 
@@ -252,6 +256,8 @@ backend:
       encryptionConfigs:
         index0:
           encryptionKey: "<path:portal/data/beta/processes-worker#issuercomponent-encryption-key0>"
+    bpnDidResolver:
+      clientSecret: "<path:portal/data/beta/processes-worker#bpndidresolver-api-key>"
     invitation:
       encryptionConfigs:
         index0:

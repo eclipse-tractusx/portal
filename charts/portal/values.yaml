@@ -41,11 +41,16 @@ sharedidpAddress: "https://sharedidp.example.org"
 # -- Provide semantics base address.
 semanticsAddress: "https://semantics.example.org"
 
-# -- Provide bpdm partners pool base address.
-bpdmPartnersPoolAddress: "https://business-partners.example.org"
-
-# -- Provide bpdm portal gate base address.
-bpdmPortalGateAddress: "https://business-partners.example.org"
+# -- Provide details about business partner data management (BPDM).
+bpdm:
+  # -- Provide bpdm partners pool base address.
+  poolAddress: "https://business-partners.example.org"
+  # -- Provide bpdm pool api path.
+  poolApiPath: "/pool/v6"
+  # -- Provide bpdm portal gate base address.
+  portalGateAddress: "https://business-partners.example.org"
+  # -- Provide bpdm portal gate api path.
+  portalGateApiPath: "/companies/test-company/v6"
 
 # -- Provide custodian base address.
 custodianAddress: "https://managed-identity-wallets.example.org"
@@ -57,6 +62,10 @@ sdfactoryAddress: "https://sdfactory.example.org"
 clearinghouseAddress: "https://validation.example.org"
 # -- Provide clearinghouse token address.
 clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
+# -- Provide issuer component base address
+issuerComponentAddress: "https://issuercomponent.example.org"
+# -- Base address of the Bpn Did Resolver
+bpnDidResolverAddress: http://bpndidresolver.example.org/
 
 frontend:
   ingress:
@@ -141,7 +150,6 @@ frontend:
         memory: 100M
     path: "/assets"
   centralidpAuthPath: "/auth"
-  bpdmPartnersPoolApiPath: "/pool/api"
 
 backend:
   ingress:
@@ -707,7 +715,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "docker.io/tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v2.0.0-RC1
+      provisioningmigrationstag: v2.0.0-RC2
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -729,10 +737,10 @@ backend:
     resources:
       requests:
         cpu: 75m
-        memory: 500M
+        memory: 600M
       limits:
         cpu: 225m
-        memory: 500M
+        memory: 600M
     logging:
       default: "Information"
       processesLibrary: "Information"
@@ -861,8 +869,6 @@ backend:
       clientSecret: ""
       grantType: "client_credentials"
       scope: "openid"
-      # -- Base address of the SSI Credential Issuer
-      baseAddress: "https://issuercomponent.example.org"
       encryptionConfigIndex: 0
       encryptionConfigs:
         index0:
@@ -872,6 +878,9 @@ backend:
           # -- EncryptionKey for the issuer component. Secret-key 'issuercomponent-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
+    bpnDidResolver:
+      # -- ApiKey for bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
+      apiKey: ""
     invitation:
       invitedUserInitialRoles:
         role0: "Company Admin"

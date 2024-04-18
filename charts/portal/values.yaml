@@ -41,11 +41,16 @@ sharedidpAddress: "https://sharedidp.example.org"
 # -- Provide semantics base address.
 semanticsAddress: "https://semantics.example.org"
 
-# -- Provide bpdm partners pool base address.
-bpdmPartnersPoolAddress: "https://business-partners.example.org"
-
-# -- Provide bpdm portal gate base address.
-bpdmPortalGateAddress: "https://business-partners.example.org"
+# -- Provide details about business partner data management (BPDM).
+bpdm:
+  # -- Provide bpdm partners pool base address.
+  poolAddress: "https://business-partners.example.org"
+  # -- Provide bpdm pool api path.
+  poolApiPath: "/pool/v6"
+  # -- Provide bpdm portal gate base address.
+  portalGateAddress: "https://business-partners.example.org"
+  # -- Provide bpdm portal gate api path.
+  portalGateApiPath: "/companies/test-company/v6"
 
 # -- Provide custodian base address.
 custodianAddress: "https://managed-identity-wallets.example.org"
@@ -57,6 +62,10 @@ sdfactoryAddress: "https://sdfactory.example.org"
 clearinghouseAddress: "https://validation.example.org"
 # -- Provide clearinghouse token address.
 clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
+# -- Provide issuer component base address
+issuerComponentAddress: "https://issuercomponent.example.org"
+# -- Base address of the Bpn Did Resolver
+bpnDidResolverAddress: http://bpndidresolver.example.org/
 
 frontend:
   ingress:
@@ -115,7 +124,7 @@ frontend:
     name: "registration"
     image:
       name: "docker.io/tractusx/portal-frontend-registration"
-      registrationtag: v1.7.0-RC1
+      registrationtag: v2.0.0-RC1
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -129,7 +138,7 @@ frontend:
     name: "assets"
     image:
       name: "docker.io/tractusx/portal-assets"
-      assetstag: 2433ebaa4f53c82a8dd47b47747faaa990a8a393
+      assetstag: v1.8.0
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -141,7 +150,6 @@ frontend:
         memory: 100M
     path: "/assets"
   centralidpAuthPath: "/auth"
-  bpdmPartnersPoolApiPath: "/pool/api"
 
 backend:
   ingress:
@@ -272,7 +280,7 @@ backend:
     name: "registration-service"
     image:
       name: "docker.io/tractusx/portal-registration-service"
-      registrationservicetag: v2.0.0-RC1
+      registrationservicetag: v2.0.0-RC2
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -321,7 +329,7 @@ backend:
     name: "administration-service"
     image:
       name: "docker.io/tractusx/portal-administration-service"
-      administrationservicetag: v2.0.0-RC1
+      administrationservicetag: v2.0.0-RC2
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -427,7 +435,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "docker.io/tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: v2.0.0-RC1
+      appmarketplaceservicetag: v2.0.0-RC2
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -559,7 +567,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "docker.io/tractusx/portal-portal-migrations"
-      portalmigrationstag: v2.0.0-RC1
+      portalmigrationstag: v2.0.0-RC2
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -582,7 +590,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "docker.io/tractusx/portal-maintenance-service"
-      portalmaintenancetag: v2.0.0-RC1
+      portalmaintenancetag: v2.0.0-RC2
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -600,7 +608,7 @@ backend:
     name: "notification-service"
     image:
       name: "docker.io/tractusx/portal-notification-service"
-      notificationservicetag: v2.0.0-RC1
+      notificationservicetag: v2.0.0-RC2
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -627,7 +635,7 @@ backend:
     name: "services-service"
     image:
       name: "docker.io/tractusx/portal-services-service"
-      servicesservicetag: v2.0.0-RC1
+      servicesservicetag: v2.0.0-RC2
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -707,7 +715,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "docker.io/tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v2.0.0-RC1
+      provisioningmigrationstag: v2.0.0-RC2
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -723,16 +731,16 @@ backend:
     name: "processes-worker"
     image:
       name: "docker.io/tractusx/portal-processes-worker"
-      processesworkertag: v2.0.0-RC1
+      processesworkertag: v2.0.0-RC2
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
         cpu: 75m
-        memory: 500M
+        memory: 600M
       limits:
         cpu: 225m
-        memory: 500M
+        memory: 600M
     logging:
       default: "Information"
       processesLibrary: "Information"
@@ -861,8 +869,6 @@ backend:
       clientSecret: ""
       grantType: "client_credentials"
       scope: "openid"
-      # -- Base address of the SSI Credential Issuer
-      baseAddress: "https://issuercomponent.example.org"
       encryptionConfigIndex: 0
       encryptionConfigs:
         index0:
@@ -872,6 +878,9 @@ backend:
           # -- EncryptionKey for the issuer component. Secret-key 'issuercomponent-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
+    bpnDidResolver:
+      # -- ApiKey for bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
+      apiKey: ""
     invitation:
       invitedUserInitialRoles:
         role0: "Company Admin"

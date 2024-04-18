@@ -29,7 +29,7 @@ spec:
   source:
     path: ''
     repoURL: 'https://eclipse-tractusx.github.io/charts/dev'
-    targetRevision: 2.0.0-RC1
+    targetRevision: 2.0.0-RC2
     plugin:
       env:
         - name: HELM_VALUES
@@ -40,8 +40,11 @@ spec:
               address: "https://centralidp.stable.demo.catena-x.net"
             sharedidpAddress: "https://sharedidp.stable.demo.catena-x.net"
             semanticsAddress: "https://semantics.stable.demo.catena-x.net"
-            bpdmPartnersPoolAddress: "https://business-partners.stable.demo.catena-x.net"
-            bpdmPortalGateAddress: "https://business-partners.stable.demo.catena-x.net"
+            bpdm:
+              poolAddress: "https://business-partners.stable.demo.catena-x.net"
+              poolApiPath: "/pool/v6"
+              portalGateAddress: "https://business-partners.stable.demo.catena-x.net"
+              portalGateApiPath: "/companies/test-company/v6"
             custodianAddress: "https://managed-identity-wallets-new.stable.demo.catena-x.net"
             sdfactoryAddress: "https://sdfactory.stable.demo.catena-x.net"
             clearinghouseAddress: "https://validation.test.dih-cloud.com"

@@ -23,12 +23,17 @@ centralidp:
   address: "https://centralidp-pen.dev.demo.catena-x.net"
 sharedidpAddress: "https://sharedidp-pen.dev.demo.catena-x.net"
 semanticsAddress: "https://semantics-pen.dev.demo.catena-x.net"
-bpdmPartnersPoolAddress: "https://business-partners-pen.dev.demo.catena-x.net"
-bpdmPortalGateAddress: "https://business-partners-pen.dev.demo.catena-x.net"
+bpdm:
+  poolAddress: "https://business-partners-pen.dev.demo.catena-x.net"
+  poolApiPath: "/pool/v6"
+  portalGateAddress: "https://business-partners-pen.dev.demo.catena-x.net"
+  portalGateApiPath: "/companies/test-company/v6"
 custodianAddress: "https://managed-identity-wallets-pen-new.dev.demo.catena-x.net"
 sdfactoryAddress: "https://sdfactory-pen.dev.demo.catena-x.net"
 clearinghouseAddress: "https://validation.test.dih-cloud.com"
 clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
+issuerComponentAddress: "https://ssi-credential-issuer-pen.dev.demo.catena-x.net"
+bpnDidResolverAddress: "http://bpn-did-resolution-service-bdrs-server-memory:8081/api/management"
 
 frontend:
 
@@ -253,6 +258,8 @@ backend:
       encryptionConfigs:
         index0:
           encryptionKey: "<path:portal/data/pen/processes-worker#issuercomponent-encryption-key0>"
+    bpnDidResolver:
+      clientSecret: "<path:portal/data/pen/processes-worker#bpndidresolver-api-key>"
     invitation:
       encryptionConfigs:
         index0:

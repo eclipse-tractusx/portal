@@ -2,7 +2,24 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 2.0.0-RC1
+## 2.0.0-RC2
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.0.0-RC2
+  * portal-frontend-registration: v2.0.0-RC1
+* portal-frontend: changed bdpm pool api path and improve configuration
+* portal-backend:
+  * moved bpdm api paths into config / helm chart
+  * activated dim wallet creation
+  * increased resource limits for processes worker
+  * added configuration for did resolver
+  * adjusted configuration for issuerComponent
+
+### Bugfix
+
+* portal-backend: added serviceAccountClientPrefix for to processes worker
 
 ### Change
 
@@ -22,7 +39,7 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
 * db-dependency:
   * change setup to get latest minor updates
   * removed fullnameOverride
-* helm-test: 
+* helm-test:
   * was enabled for removal for fullnameOverride and renaming for postgres secret
   * updated version to upgrade (R24.03) from and k8s version
 * portal-backend:

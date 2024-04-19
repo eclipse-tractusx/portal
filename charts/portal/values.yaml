@@ -402,6 +402,17 @@ backend:
         role1: "IT Admin"
     serviceAccount:
       clientId: "technical_roles_management"
+      encryptionConfigIndex: 0
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for service account creation. Secret-key 'serviceaccount-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex.
+          encryptionKey: ""
+      dimCreationRoles:
+        role0: "Identity Wallet Management"
     swaggerEnabled: false
     frameDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"

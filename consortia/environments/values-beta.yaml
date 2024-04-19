@@ -35,6 +35,7 @@ clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol
 issuerComponentAddress: "https://ssi-credential-issuer.beta.demo.catena-x.net"
 dimWrapper:
   baseAddress: "https://dim.beta.demo.catena-x.net"
+decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 
 frontend:
 

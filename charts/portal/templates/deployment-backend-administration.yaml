@@ -259,6 +259,8 @@ spec:
           value: "{{ .Values.backend.administration.companyData.ssiCertificateMediaTypes.type0 }}"
         - name: "COMPANYDATA__COMPANYCERTIFICATEMEDIATYPES__0"
           value: "{{ .Values.backend.administration.companyData.companyCertificateMediaTypes.type0 }}"
+        - name: "COMPANYDATA__DECENTRALIDENTITYMANAGEMENTAUTHURL"
+          value: "{{ .Values.decentralIdentityManagementAuthAddress }}"
         - name: "CONNECTORS__VALIDCERTIFICATIONCONTENTTYPES__0"
           value: "{{ .Values.backend.administration.connectors.validCertificationContentTypes.type0 }}"
         - name: "CONNECTORS__VALIDCERTIFICATIONCONTENTTYPES__1"

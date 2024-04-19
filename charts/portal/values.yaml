@@ -72,6 +72,7 @@ dimWrapper:
   baseAddress: "https://dim.example.org"
   # -- Provide the api path
   apiPath: "/api/dim"
+decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 
 frontend:
   ingress:

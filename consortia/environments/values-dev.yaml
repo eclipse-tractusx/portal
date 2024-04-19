@@ -34,6 +34,8 @@ clearinghouseAddress: "https://validation.test.dih-cloud.com"
 clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
 issuerComponentAddress: "https://ssi-credential-issuer.dev.demo.catena-x.net"
 bpnDidResolverAddress: "http://bdrs-bdrs-server:8081/api/management"
+dimWrapper:
+  baseAddress: "https://dim.dev.demo.catena-x.net"
 
 frontend:
 

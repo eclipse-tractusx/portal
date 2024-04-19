@@ -64,8 +64,8 @@ clearinghouseAddress: "https://validation.example.org"
 clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
 # -- Provide issuer component base address
 issuerComponentAddress: "https://issuercomponent.example.org"
-# -- Base address of the Bpn Did Resolver
-bpnDidResolverAddress: http://bpndidresolver.example.org/
+# -- Provide management api address of the BPN DID Resolver Service
+bpnDidResolverAddress: "http://bpn-did-resolution-service-bdrs-server:8081/api/management"
 
 frontend:
   ingress:

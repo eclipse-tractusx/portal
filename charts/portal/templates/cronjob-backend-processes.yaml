@@ -214,7 +214,7 @@ spec:
             - name: "APPLICATIONCHECKLIST__DIM__TOKENADDRESS"
               value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
             - name: "APPLICATIONCHECKLIST__DIM__BASEADDRESS"
-              value: "{{ .Values.backend.processesworker.dim.baseAddress }}"
+              value: "{{ .Values.dimWrapper.baseAddress }}{{ .Values.dimWrapper.apiPath }}"
             - name: "APPLICATIONCHECKLIST__DIM__UNIVERSALRESOLVERADDRESS"
               value: "{{ .Values.backend.processesworker.dim.universalResolverAddress }}"
             - name: "APPLICATIONCHECKLIST__DIM__DIDDOCUMENTBASELOCATION"

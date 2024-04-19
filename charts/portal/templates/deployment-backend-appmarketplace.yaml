@@ -342,7 +342,7 @@ spec:
         - name: "DIM__TOKENADDRESS"
           value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
         - name: "DIM__BASEADDRESS"
-          value: "{{ .Values.backend.processesworker.dim.baseAddress }}"
+          value: "{{ .Values.dimWrapper.baseAddress }}{{ .Values.dimWrapper.apiPath }}"
         - name: "DIM__UNIVERSALRESOLVERADDRESS"
           value: "{{ .Values.backend.processesworker.dim.universalResolverAddress }}"
         - name: "DIM__DIDDOCUMENTBASELOCATION"

@@ -66,6 +66,12 @@ clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol
 issuerComponentAddress: "https://issuercomponent.example.org"
 # -- Provide management api address of the BPN DID Resolver Service
 bpnDidResolverAddress: "http://bpn-did-resolution-service-bdrs-server:8081/api/management"
+# -- Provide the configuration of the dim wrapper address
+dimWrapper:
+# -- Provide the dim base address
+  baseAddress: "https://dim.example.org"
+  # -- Provide the api path
+  apiPath: "/api/dim"
 
 frontend:
   ingress:

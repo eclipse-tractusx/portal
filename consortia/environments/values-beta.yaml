@@ -33,6 +33,8 @@ sdfactoryAddress: "https://sdfactory.beta.demo.catena-x.net"
 clearinghouseAddress: "https://validation.test.dih-cloud.com"
 clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
 issuerComponentAddress: "https://ssi-credential-issuer.beta.demo.catena-x.net"
+dimWrapper:
+  baseAddress: "https://dim.beta.demo.catena-x.net"
 
 frontend:
 

@@ -203,7 +203,7 @@ spec:
         - name: "APPLICATIONCHECKLIST__DIM__UNIVERSALRESOLVERADDRESS"
           value: "{{ .Values.backend.processesworker.dim.universalResolverAddress }}"
         - name: "APPLICATIONCHECKLIST__DIM__DIDDOCUMENTBASELOCATION"
-          value: "{{ .Values.portalAddress }}{{ .Values.backend.processesworker.dim.didDocumentPath }}"
+          value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.processesworker.dim.didDocumentPath }}"
         - name: "APPLICATIONCHECKLIST__DIM__MAXVALIDATIONTIMEINDAYS"
           value: "{{ .Values.backend.processesworker.dim.maxValidationTimeInDays }}"
         - name: "APPLICATIONCHECKLIST__DIM__ENCRYPTIONCONFIGINDEX"

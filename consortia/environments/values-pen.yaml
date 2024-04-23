@@ -266,7 +266,7 @@ backend:
         index0:
           encryptionKey: "<path:portal/data/pen/processes-worker#issuercomponent-encryption-key0>"
     bpnDidResolver:
-      clientSecret: "<path:portal/data/pen/processes-worker#bpndidresolver-api-key>"
+      apiKey: "<path:portal/data/pen/processes-worker#bpndidresolver-api-key>"
     invitation:
       encryptionConfigs:
         index0:

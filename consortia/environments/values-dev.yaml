@@ -33,7 +33,10 @@ sdfactoryAddress: "https://sdfactory.dev.demo.catena-x.net"
 clearinghouseAddress: "https://validation.test.dih-cloud.com"
 clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
 issuerComponentAddress: "https://ssi-credential-issuer.dev.demo.catena-x.net"
-bpnDidResolverAddress: "http://bpn-did-resolution-service-bdrs-server-memory:8081/api/management"
+bpnDidResolverAddress: "http://bdrs-bdrs-server:8081/api/management"
+dimWrapper:
+  baseAddress: "https://dim.dev.demo.catena-x.net"
+decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 
 frontend:
 
@@ -160,6 +163,10 @@ backend:
         - name: "HEALTHCHECKS__0__TAGS__2"
           value: "provisioningdb"
     swaggerEnabled: true
+    serviceAccount:
+      encryptionConfigs:
+        index0:
+          encryptionKey: "<path:portal/data/dev/administration#serviceaccount-encryption-key0>"
 
   provisioning:
     sharedRealm:
@@ -260,7 +267,7 @@ backend:
         index0:
           encryptionKey: "<path:portal/data/dev/processes-worker#issuercomponent-encryption-key0>"
     bpnDidResolver:
-      clientSecret: "<path:portal/data/dev/processes-worker#bpndidresolver-api-key>"
+      apiKey: "<path:portal/data/dev/processes-worker#bpndidresolver-api-key>"
     invitation:
       encryptionConfigs:
         index0:

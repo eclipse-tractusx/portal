@@ -20,8 +20,8 @@
 apiVersion: v2
 name: portal
 type: application
-version: 2.0.0-RC2
-appVersion: 2.0.0-RC2
+version: 2.0.0-RC3
+appVersion: 2.0.0-RC3
 description: Helm chart for Catena-X Portal
 home: https://github.com/eclipse-tractusx/portal
 sources:

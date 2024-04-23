@@ -64,8 +64,15 @@ clearinghouseAddress: "https://validation.example.org"
 clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
 # -- Provide issuer component base address
 issuerComponentAddress: "https://issuercomponent.example.org"
-# -- Base address of the Bpn Did Resolver
-bpnDidResolverAddress: http://bpndidresolver.example.org/
+# -- Provide management api address of the BPN DID Resolver Service
+bpnDidResolverAddress: "http://bpn-did-resolution-service-bdrs-server:8081/api/management"
+# -- Provide the configuration of the dim wrapper address
+dimWrapper:
+# -- Provide the dim base address
+  baseAddress: "https://dim.example.org"
+  # -- Provide the api path
+  apiPath: "/api/dim"
+decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 
 frontend:
   ingress:
@@ -110,7 +117,7 @@ frontend:
     name: "portal"
     image:
       name: "docker.io/tractusx/portal-frontend"
-      portaltag: v2.0.0-RC1
+      portaltag: v2.0.0-RC2
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -280,7 +287,7 @@ backend:
     name: "registration-service"
     image:
       name: "docker.io/tractusx/portal-registration-service"
-      registrationservicetag: v2.0.0-RC2
+      registrationservicetag: v2.0.0-RC3
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -329,7 +336,7 @@ backend:
     name: "administration-service"
     image:
       name: "docker.io/tractusx/portal-administration-service"
-      administrationservicetag: v2.0.0-RC2
+      administrationservicetag: v2.0.0-RC3
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -402,6 +409,17 @@ backend:
         role1: "IT Admin"
     serviceAccount:
       clientId: "technical_roles_management"
+      encryptionConfigIndex: 0
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for service account creation. Secret-key 'serviceaccount-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex.
+          encryptionKey: ""
+      dimCreationRoles:
+        role0: "Identity Wallet Management"
     swaggerEnabled: false
     frameDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"
@@ -435,7 +453,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "docker.io/tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: v2.0.0-RC2
+      appmarketplaceservicetag: v2.0.0-RC3
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -567,7 +585,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "docker.io/tractusx/portal-portal-migrations"
-      portalmigrationstag: v2.0.0-RC2
+      portalmigrationstag: v2.0.0-RC3
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -590,7 +608,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "docker.io/tractusx/portal-maintenance-service"
-      portalmaintenancetag: v2.0.0-RC2
+      portalmaintenancetag: v2.0.0-RC3
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -608,7 +626,7 @@ backend:
     name: "notification-service"
     image:
       name: "docker.io/tractusx/portal-notification-service"
-      notificationservicetag: v2.0.0-RC2
+      notificationservicetag: v2.0.0-RC3
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -635,7 +653,7 @@ backend:
     name: "services-service"
     image:
       name: "docker.io/tractusx/portal-services-service"
-      servicesservicetag: v2.0.0-RC2
+      servicesservicetag: v2.0.0-RC3
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -715,7 +733,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "docker.io/tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v2.0.0-RC2
+      provisioningmigrationstag: v2.0.0-RC3
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -731,7 +749,7 @@ backend:
     name: "processes-worker"
     image:
       name: "docker.io/tractusx/portal-processes-worker"
-      processesworkertag: v2.0.0-RC2
+      processesworkertag: v2.0.0-RC3
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -879,7 +897,7 @@ backend:
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
     bpnDidResolver:
-      # -- ApiKey for bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
+      # -- ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
       apiKey: ""
     invitation:
       invitedUserInitialRoles:

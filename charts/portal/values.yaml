@@ -897,7 +897,7 @@ backend:
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
     bpnDidResolver:
-      # -- ApiKey for bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
+      # -- ApiKey management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
       apiKey: ""
     invitation:
       invitedUserInitialRoles:

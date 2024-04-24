@@ -35,6 +35,9 @@ centralidp:
     miw: "Cl5-CX-Custodian"
     technicalRolesManagement: "technical_roles_management"
 
+# -- Provide ssi credential base address.
+ssiCredentialAddress: "https://ssi-credential-issuer.example.org"
+
 # -- Provide sharedidp address (CX IAM), without trailing '/auth'.
 sharedidpAddress: "https://sharedidp.example.org"
 

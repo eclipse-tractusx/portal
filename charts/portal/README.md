@@ -58,6 +58,7 @@ dependencies:
 | portalBackendAddress | string | `"https://portal-backend.example.org"` | Provide portal-backend base address. |
 | centralidp | object | `{"address":"https://centralidp.example.org","clients":{"miw":"Cl5-CX-Custodian","portal":"Cl2-CX-Portal","registration":"Cl1-CX-Registration","semantic":"Cl3-CX-Semantic","technicalRolesManagement":"technical_roles_management"},"realm":"CX-Central"}` | Provide details about centralidp (CX IAM) Keycloak instance. |
 | centralidp.address | string | `"https://centralidp.example.org"` | Provide centralidp base address, without trailing '/auth'. |
+| ssiCredentialAddress | string | `"https://ssi-credential-issuer.example.org"` | Provide ssi credential base address, without trailing '/auth'. |
 | sharedidpAddress | string | `"https://sharedidp.example.org"` | Provide sharedidp address (CX IAM), without trailing '/auth'. |
 | semanticsAddress | string | `"https://semantics.example.org"` | Provide semantics base address. |
 | bpdm | object | `{"poolAddress":"https://business-partners.example.org","poolApiPath":"/pool/v6","portalGateAddress":"https://business-partners.example.org","portalGateApiPath":"/companies/test-company/v6"}` | Provide details about business partner data management (BPDM). |

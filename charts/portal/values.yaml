@@ -34,6 +34,7 @@ centralidp:
     semantic: "Cl3-CX-Semantic"
     miw: "Cl5-CX-Custodian"
     technicalRolesManagement: "technical_roles_management"
+    issuerComponent: "Cl24-CX-SSI-CredentialIssuer"
 
 # -- Provide sharedidp address (CX IAM), without trailing '/auth'.
 sharedidpAddress: "https://sharedidp.example.org"

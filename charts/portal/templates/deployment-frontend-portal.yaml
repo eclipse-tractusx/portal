@@ -72,6 +72,8 @@ spec:
             value: "{{ .Values.centralidp.clients.semantic }}"
           - name: CLIENT_ID_MIW
             value: "{{ .Values.centralidp.clients.miw }}"
+          - name: CLIENT_ID_SSI_CREDENTIAL
+            value: "{{ .Values.centralidp.clients.issuerComponent }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

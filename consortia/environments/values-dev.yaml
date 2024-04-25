@@ -21,7 +21,6 @@ portalAddress: "https://portal.dev.demo.catena-x.net"
 portalBackendAddress: "https://portal-backend.dev.demo.catena-x.net"
 centralidp:
   address: "https://centralidp.dev.demo.catena-x.net"
-ssiCredentialAddress: "https://ssi-credential-issuer.dev.demo.catena-x.net"
 sharedidpAddress: "https://sharedidp.dev.demo.catena-x.net"
 semanticsAddress: "https://semantics.dev.demo.catena-x.net"
 bpdm:

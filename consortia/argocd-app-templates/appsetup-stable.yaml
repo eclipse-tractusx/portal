@@ -38,7 +38,6 @@ spec:
             portalBackendAddress: "https://portal-backend.stable.demo.catena-x.net"
             centralidp:
               address: "https://centralidp.stable.demo.catena-x.net"
-            ssiCredentialAddress: "https://ssi-credential-issuer.stable.demo.catena-x.net"
             sharedidpAddress: "https://sharedidp.stable.demo.catena-x.net"
             semanticsAddress: "https://semantics.stable.demo.catena-x.net"
             bpdm:

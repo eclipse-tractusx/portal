@@ -57,7 +57,7 @@ spec:
           - name: CENTRALIDP_URL
             value: "{{ .Values.centralidp.address }}{{ .Values.frontend.centralidpAuthPath }}"
           - name: SSI_CREDENTIAL_URL
-            value: "{{ .Values.ssiCredentialAddress }}"
+            value: "{{ .Values.issuerComponentAddress }}"
           - name: BPDM_API_URL
             value: "{{ .Values.bpdm.poolAddress }}{{ .Values.bpdm.poolApiPath }}"
           - name: SEMANTICS_URL

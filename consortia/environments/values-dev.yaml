@@ -33,7 +33,7 @@ sdfactoryAddress: "https://sdfactory.dev.demo.catena-x.net"
 clearinghouseAddress: "https://validation.test.dih-cloud.com"
 clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
 issuerComponentAddress: "https://ssi-credential-issuer.dev.demo.catena-x.net"
-bpnDidResolverAddress: "http://bdrs-bdrs-server:8081/api/management"
+bpnDidResolverAddress: "http://bdrs-bdrs-server:8081"
 dimWrapper:
   baseAddress: "https://dim.dev.demo.catena-x.net"
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"

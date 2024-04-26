@@ -34,6 +34,7 @@ centralidp:
     semantic: "Cl3-CX-Semantic"
     miw: "Cl5-CX-Custodian"
     technicalRolesManagement: "technical_roles_management"
+    issuerComponent: "Cl24-CX-SSI-CredentialIssuer"
 
 # -- Provide sharedidp address (CX IAM), without trailing '/auth'.
 sharedidpAddress: "https://sharedidp.example.org"
@@ -62,10 +63,13 @@ sdfactoryAddress: "https://sdfactory.example.org"
 clearinghouseAddress: "https://validation.example.org"
 # -- Provide clearinghouse token address.
 clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
+
 # -- Provide issuer component base address
-issuerComponentAddress: "https://issuercomponent.example.org"
-# -- Provide management api address of the BPN DID Resolver Service
-bpnDidResolverAddress: "http://bpn-did-resolution-service-bdrs-server:8081/api/management"
+issuerComponentAddress: "https://ssi-credential-issuer.example.org"
+
+# -- Provide BPN DID Resolver Service base address
+bpnDidResolverAddress: "http://bpn-did-resolution-service-bdrs-server:8081"
+
 # -- Provide the configuration of the dim wrapper address
 dimWrapper:
 # -- Provide the dim base address

@@ -446,7 +446,7 @@ spec:
         - name: "SERVICEACCOUNT__ENCRYPTIONCONFIGS__0__PADDINGMODE"
           value: "{{ .Values.backend.administration.serviceAccount.encryptionConfigs.index0.paddingMode }}"
         - name: "SERVICEACCOUNT__DIMCREATIONROLES__0__CLIENTID"
-          value: "{{ .Values.centralidp.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.technicalRolesManagement }}"
         - name: "SERVICEACCOUNT__DIMCREATIONROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.administration.serviceAccount.dimCreationRoles.role0 }}"
         - name: "SWAGGERENABLED"

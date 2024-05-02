@@ -121,7 +121,7 @@ frontend:
     name: "portal"
     image:
       name: "docker.io/tractusx/portal-frontend"
-      portaltag: 4ebd73b908488def77294892f419fc2ceca9737f
+      portaltag: ec31cc2c358d9f0a1a665e49dd29fe8847199af3
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

@@ -271,7 +271,7 @@ spec:
             - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__ENCRYPTIONCONFIGS__0__PADDINGMODE"
               value: "{{ .Values.backend.processesworker.issuerComponent.encryptionConfigs.index0.paddingMode }}"
             - name: "BPNDIDRESOLVER__BASEADDRESS"
-              value: "{{ .Values.bpnDidResolverAddress }}"
+              value: "{{ .Values.bpnDidResolver.managementApiAddress }}"
             - name: "BPNDIDRESOLVER__APIKEY"
               valueFrom:
                 secretKeyRef:

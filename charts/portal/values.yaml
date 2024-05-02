@@ -67,8 +67,12 @@ clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol
 # -- Provide issuer component base address
 issuerComponentAddress: "https://ssi-credential-issuer.example.org"
 
-# -- Provide BPN DID Resolver Service base address
-bpnDidResolverAddress: "http://bpn-did-resolution-service-bdrs-server:8081"
+# -- Provide details about the BPN DID Resolver.
+bpnDidResolver:
+  # -- Provide management api base address
+  managementApiAddress: "http://bpn-did-resolution-service-bdrs-server:8081"
+  # -- Provide directory api address
+  directoryApiAddress: "https://bpn-did-resolution-service.example.org/api/directory"
 
 # -- Provide the configuration of the dim wrapper address
 dimWrapper:
@@ -121,7 +125,7 @@ frontend:
     name: "portal"
     image:
       name: "docker.io/tractusx/portal-frontend"
-      portaltag: v2.0.0-RC4
+      portaltag: v2.0.0-RC6
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -291,7 +295,7 @@ backend:
     name: "registration-service"
     image:
       name: "docker.io/tractusx/portal-registration-service"
-      registrationservicetag: v2.0.0-RC5
+      registrationservicetag: v2.0.0-RC6
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -340,7 +344,7 @@ backend:
     name: "administration-service"
     image:
       name: "docker.io/tractusx/portal-administration-service"
-      administrationservicetag: v2.0.0-RC5
+      administrationservicetag: v2.0.0-RC6
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -375,6 +379,7 @@ backend:
         type0: "PDF"
       companyCertificateMediaTypes:
         type0: "PDF"
+    issuerdid: "did:web:example.org:test123"
     connectors:
       validCertificationContentTypes:
         type0: "application/x-pem-file"
@@ -457,7 +462,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "docker.io/tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: v2.0.0-RC5
+      appmarketplaceservicetag: v2.0.0-RC6
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -589,7 +594,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "docker.io/tractusx/portal-portal-migrations"
-      portalmigrationstag: v2.0.0-RC5
+      portalmigrationstag: v2.0.0-RC6
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -612,7 +617,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "docker.io/tractusx/portal-maintenance-service"
-      portalmaintenancetag: v2.0.0-RC5
+      portalmaintenancetag: v2.0.0-RC6
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -630,7 +635,7 @@ backend:
     name: "notification-service"
     image:
       name: "docker.io/tractusx/portal-notification-service"
-      notificationservicetag: v2.0.0-RC5
+      notificationservicetag: v2.0.0-RC6
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -657,7 +662,7 @@ backend:
     name: "services-service"
     image:
       name: "docker.io/tractusx/portal-services-service"
-      servicesservicetag: v2.0.0-RC5
+      servicesservicetag: v2.0.0-RC6
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -737,7 +742,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "docker.io/tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v2.0.0-RC5
+      provisioningmigrationstag: v2.0.0-RC6
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -753,7 +758,7 @@ backend:
     name: "processes-worker"
     image:
       name: "docker.io/tractusx/portal-processes-worker"
-      processesworkertag: v2.0.0-RC5
+      processesworkertag: v2.0.0-RC6
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

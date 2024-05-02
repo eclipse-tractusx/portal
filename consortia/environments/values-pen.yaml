@@ -35,8 +35,10 @@ clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol
 issuerComponentAddress: "https://ssi-credential-issuer-pen.dev.demo.catena-x.net"
 bpnDidResolverAddress: "http://bdrs-bdrs-server:8081"
 dimWrapper:
-  baseAddress: "https://dim-pen.beta.demo.catena-x.net"
+  baseAddress: "https://dim-pen.dev.demo.catena-x.net"
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
+bpnDidResolver:
+  directoryApiAddress: "https://bpn-did-resolution-service-pen.dev.demo.catena-x.net/api/directory"
 
 frontend:
 
@@ -162,6 +164,7 @@ backend:
         - name: "HEALTHCHECKS__0__TAGS__2"
           value: "provisioningdb"
     swaggerEnabled: true
+    issuerdid: "did:web:dim-static-prod.dis-cloud-prod.cfapps.eu10-004.hana.ondemand.com:dim-hosted:2f45795c-d6cc-4038-96c9-63cedc0cd266:holder-iatp"
     serviceAccount:
       encryptionConfigs:
         index0:

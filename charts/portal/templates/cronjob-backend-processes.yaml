@@ -271,7 +271,7 @@ spec:
             - name: "APPLICATIONCHECKLIST__ISSUERCOMPONENT__ENCRYPTIONCONFIGS__0__PADDINGMODE"
               value: "{{ .Values.backend.processesworker.issuerComponent.encryptionConfigs.index0.paddingMode }}"
             - name: "BPNDIDRESOLVER__BASEADDRESS"
-              value: "{{ .Values.bpnDidResolverAddress }}"
+              value: "{{ .Values.bpnDidResolver.managementApiAddress }}"
             - name: "BPNDIDRESOLVER__APIKEY"
               valueFrom:
                 secretKeyRef:
@@ -391,7 +391,7 @@ spec:
             - name: "OFFERSUBSCRIPTIONPROCESS__ITADMINROLES__0__USERROLENAMES__0"
               value: "{{ .Values.backend.processesworker.offerSubscriptionProcess.itAdminRoles.role0 }}"
             - name: "OFFERSUBSCRIPTIONPROCESS__DIMCREATIONROLES__0__CLIENTID"
-              value: "{{ .Values.centralidp.clients.portal }}"
+              value: "{{ .Values.centralidp.clients.technicalRolesManagement }}"
             - name: "OFFERSUBSCRIPTIONPROCESS__DIMCREATIONROLES__0__USERROLENAMES__0"
               value: "{{ .Values.backend.administration.serviceAccount.dimCreationRoles.role0 }}"
             - name: "OFFERPROVIDER__SERVICEMANAGERROLES__0__CLIENTID"

@@ -2,12 +2,25 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 2.0.0-RC4
+## 2.0.0-RC6
 
 ### Change
 
 * changed to new container images
-  * portal-frontend: v2.0.0-RC6
+  * portal-frontend: v2.0.0-RC5
+  * portal-backend: v2.0.0-RC6
+* portal-backend: added configuration for decentral identity urls
+
+### Bugfix
+
+* portal-backend: fixed clientId for dim creation roles
+
+## 2.0.0-RC5
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.0.0-RC4
   * portal-backend: v2.0.0-RC5
 * portal-frontend: enabled configuration for ssi-credential-issuer integration
 

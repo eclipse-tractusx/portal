@@ -36,6 +36,8 @@ issuerComponentAddress: "https://ssi-credential-issuer.beta.demo.catena-x.net"
 dimWrapper:
   baseAddress: "https://dim.beta.demo.catena-x.net"
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
+bpnDidResolver:
+  directoryApiAddress: "https://bpn-did-resolution-service.beta.demo.catena-x.net/api/directory"
 
 frontend:
 
@@ -159,6 +161,7 @@ backend:
           value: "portaldb"
         - name: "HEALTHCHECKS__0__TAGS__2"
           value: "provisioningdb"
+    issuerdid: "did:web:dim-static-prod.dis-cloud-prod.cfapps.eu10-004.hana.ondemand.com:dim-hosted:2f45795c-d6cc-4038-96c9-63cedc0cd266:holder-iatp"
     swaggerEnabled: true
     serviceAccount:
       encryptionConfigs:

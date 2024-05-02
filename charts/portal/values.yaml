@@ -67,8 +67,12 @@ clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol
 # -- Provide issuer component base address
 issuerComponentAddress: "https://ssi-credential-issuer.example.org"
 
-# -- Provide BPN DID Resolver Service base address
-bpnDidResolverAddress: "http://bpn-did-resolution-service-bdrs-server:8081"
+# -- Provide details about the BPN DID Resolver.
+bpnDidResolver:
+  # -- Provide management api base address
+  managementApiAddress: "http://bpn-did-resolution-service-bdrs-server:8081"
+  # -- Provide directory api address
+  directoryApiAddress: "https://bpn-did-resolution-service.example.org/api/directory"
 
 # -- Provide the configuration of the dim wrapper address
 dimWrapper:
@@ -375,6 +379,7 @@ backend:
         type0: "PDF"
       companyCertificateMediaTypes:
         type0: "PDF"
+    issuerdid: "did:web:example.org:test123"
     connectors:
       validCertificationContentTypes:
         type0: "application/x-pem-file"

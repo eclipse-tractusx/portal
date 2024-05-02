@@ -64,6 +64,8 @@ spec:
             value: "{{ .Values.semanticsAddress }}"
           - name: MANAGED_IDENTITY_WALLETS_NEW_URL
             value: "{{ .Values.custodianAddress }}"
+          - name: BPNDIDRESOLVER_DIRECTORY_URL
+            value: "{{ .Values.bpnDidResolver.directoryApiAddress }}"
           - name: REALM
             value: "{{ .Values.centralidp.realm }}"
           - name: CLIENT_ID

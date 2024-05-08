@@ -1,8 +1,8 @@
 # Setup of CX Portal & IAM for local development
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
-This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-1.6.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-1.2.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-1.2.0/charts/sharedidp/README.md)).
+This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-1.8.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-2.1.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-2.1.0/charts/sharedidp/README.md)).
 
 It's intended for the local setup of the those components in order to aid the local development. To integrate your local development, adapt the address values in the Values file for [Portal Frontend](./values.yaml#L23) and/or [Portal Backend](./values.yaml#L27).
 
@@ -265,9 +265,9 @@ cx-operator@cx.com
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
-| https://eclipse-tractusx.github.io/charts/dev | centralidp | 2.0.0-alpha |
-| https://eclipse-tractusx.github.io/charts/dev | portal | 1.7.0-alpha |
-| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 2.0.0-alpha |
+| https://eclipse-tractusx.github.io/charts/dev | centralidp | 2.1.0 |
+| https://eclipse-tractusx.github.io/charts/dev | portal | 1.8.0 |
+| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 2.1.0 |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
 ## Values
@@ -276,7 +276,7 @@ cx-operator@cx.com
 |-----|------|---------|-------------|
 | portal.enabled | bool | `true` |  |
 | portal.portalAddress | string | `"https://portal.example.org"` | Set your local frontend to integrate into local development. |
-| portal.portalBackendAddress | string | `"https://portal-backend.example.org"` | Set your local backend service to integrate into local development. Start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/portal-backend-postgresql-primary 5432:5432' |
+| portal.portalBackendAddress | string | `"https://portal-backend.example.org"` | Set your local backend service to integrate into local development. Start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/portal-backend-postgresql 5432:5432 -n localdev' |
 | portal.replicaCount | int | `1` |  |
 | portal.frontend.ingress.enabled | bool | `true` |  |
 | portal.frontend.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"my-ca-issuer"` |  |
@@ -350,6 +350,7 @@ cx-operator@cx.com
 | portal.backend.provisioning.sharedRealm.smtpServer.password | string | `""` |  |
 | portal.backend.provisioning.sharedRealm.smtpServer.from | string | `"smtp@example.org"` |  |
 | portal.backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` |  |
+| portal.postgresql.architecture | string | `"standalone"` |  |
 | portal.postgresql.auth.password | string | `""` | Password for the root username 'postgres'. Secret-key 'postgres-password'. |
 | portal.postgresql.auth.portalPassword | string | `""` | Password for the non-root username 'portal'. Secret-key 'portal-password'. |
 | portal.postgresql.auth.provisioningPassword | string | `""` | Password for the non-root username 'provisioning'. Secret-key 'provisioning-password'. |
@@ -395,7 +396,7 @@ cx-operator@cx.com
 | centralidp.keycloak.initContainers[0].volumeMounts[1].name | string | `"shared-certs"` |  |
 | centralidp.keycloak.initContainers[0].volumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | centralidp.keycloak.initContainers[1].name | string | `"import"` |  |
-| centralidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v1.2.0"` |  |
+| centralidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v2.1.0"` |  |
 | centralidp.keycloak.initContainers[1].imagePullPolicy | string | `"Always"` |  |
 | centralidp.keycloak.initContainers[1].command[0] | string | `"sh"` |  |
 | centralidp.keycloak.initContainers[1].args[0] | string | `"-c"` |  |
@@ -405,6 +406,7 @@ cx-operator@cx.com
 | centralidp.keycloak.initContainers[1].volumeMounts[1].name | string | `"realms"` |  |
 | centralidp.keycloak.initContainers[1].volumeMounts[1].mountPath | string | `"/realms"` |  |
 | centralidp.keycloak.postgresql.nameOverride | string | `"centralidp-postgresql"` |  |
+| centralidp.keycloak.postgresql.architecture | string | `"standalone"` |  |
 | centralidp.keycloak.ingress.enabled | bool | `true` |  |
 | centralidp.keycloak.ingress.ingressClassName | string | `"nginx"` |  |
 | centralidp.keycloak.ingress.hostname | string | `"centralidp.example.org"` |  |
@@ -470,7 +472,7 @@ cx-operator@cx.com
 | sharedidp.keycloak.initContainers[0].volumeMounts[1].name | string | `"shared-certs"` |  |
 | sharedidp.keycloak.initContainers[0].volumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | sharedidp.keycloak.initContainers[1].name | string | `"import"` |  |
-| sharedidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v1.2.0"` |  |
+| sharedidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v2.1.0"` |  |
 | sharedidp.keycloak.initContainers[1].imagePullPolicy | string | `"Always"` |  |
 | sharedidp.keycloak.initContainers[1].command[0] | string | `"sh"` |  |
 | sharedidp.keycloak.initContainers[1].args[0] | string | `"-c"` |  |
@@ -484,6 +486,7 @@ cx-operator@cx.com
 | sharedidp.keycloak.initContainers[1].volumeMounts[3].name | string | `"realm-secrets"` |  |
 | sharedidp.keycloak.initContainers[1].volumeMounts[3].mountPath | string | `"/secrets"` |  |
 | sharedidp.keycloak.postgresql.nameOverride | string | `"sharedidp-postgresql"` |  |
+| sharedidp.keycloak.postgresql.architecture | string | `"standalone"` |  |
 | sharedidp.keycloak.ingress.enabled | bool | `true` |  |
 | sharedidp.keycloak.ingress.ingressClassName | string | `"nginx"` |  |
 | sharedidp.keycloak.ingress.hostname | string | `"sharedidp.example.org"` |  |
@@ -499,7 +502,7 @@ cx-operator@cx.com
 | sharedidp.keycloak.ingress.tls | bool | `true` |  |
 | sharedidp.secrets.auth.existingSecret.adminpassword | string | `""` | Password for the admin username 'admin'. Secret-key 'admin-password'. |
 | sharedidp.secrets.auth.spi.truststorePassword | string | `""` |  |
-| postgresportal.enabled | bool | `true` | Additional PostgreSQL for backend development; start port forwarding tunnel for database access, e.g.: 'kubectl port-forward local-portal-postgresql-primary-0 5432:5432' |
+| postgresportal.enabled | bool | `true` | Additional PostgreSQL for backend development; start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/local-portal-postgresql 5432:5432 -n localdev' |
 | postgresportal.nameOverride | string | `"portal-postgresql"` |  |
 | postgresportal.auth.database | string | `"postgres"` |  |
 | postgresportal.auth.port | int | `5432` |  |
@@ -507,9 +510,10 @@ cx-operator@cx.com
 | postgresportal.auth.password | string | `""` |  |
 | postgresportal.auth.replicationPassword | string | `""` |  |
 | postgresportal.auth.portalUser | string | `"portal"` |  |
+| postgresportal.auth.portalPassword | string | `""` |  |
 | postgresportal.auth.provisioningUser | string | `"provisioning"` |  |
 | postgresportal.auth.provisioningPassword | string | `""` |  |
-| postgresportal.architecture | string | `"replication"` |  |
+| postgresportal.architecture | string | `"standalone"` |  |
 | postgresportal.audit.pgAuditLog | string | `"write, ddl"` |  |
 | postgresportal.audit.logLinePrefix | string | `"%m %u %d "` |  |
 | postgresportal.primary.initdb.scriptsConfigMap | string | `"configmap-postgres-init-localdev"` |  |

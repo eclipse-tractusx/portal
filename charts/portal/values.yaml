@@ -17,16 +17,24 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-name: "portal"
-
 # -- Provide portal base address.
 portalAddress: "https://portal.example.org"
 
 # -- Provide portal-backend base address.
 portalBackendAddress: "https://portal-backend.example.org"
 
-# -- Provide centralidp base address (CX IAM), without trailing '/auth'.
-centralidpAddress: "https://centralidp.example.org"
+# -- Provide details about centralidp (CX IAM) Keycloak instance.
+centralidp:
+  # -- Provide centralidp base address, without trailing '/auth'.
+  address: "https://centralidp.example.org"
+  realm: "CX-Central"
+  clients:
+    portal: "Cl2-CX-Portal"
+    registration: "Cl1-CX-Registration"
+    semantic: "Cl3-CX-Semantic"
+    miw: "Cl5-CX-Custodian"
+    technicalRolesManagement: "technical_roles_management"
+    issuerComponent: "Cl24-CX-SSI-CredentialIssuer"
 
 # -- Provide sharedidp address (CX IAM), without trailing '/auth'.
 sharedidpAddress: "https://sharedidp.example.org"
@@ -34,11 +42,16 @@ sharedidpAddress: "https://sharedidp.example.org"
 # -- Provide semantics base address.
 semanticsAddress: "https://semantics.example.org"
 
-# -- Provide bpdm partners pool base address.
-bpdmPartnersPoolAddress: "https://business-partners.example.org"
-
-# -- Provide bpdm portal gate base address.
-bpdmPortalGateAddress: "https://business-partners.example.org"
+# -- Provide details about business partner data management (BPDM).
+bpdm:
+  # -- Provide bpdm partners pool base address.
+  poolAddress: "https://business-partners.example.org"
+  # -- Provide bpdm pool api path.
+  poolApiPath: "/pool/v6"
+  # -- Provide bpdm portal gate base address.
+  portalGateAddress: "https://business-partners.example.org"
+  # -- Provide bpdm portal gate api path.
+  portalGateApiPath: "/companies/test-company/v6"
 
 # -- Provide custodian base address.
 custodianAddress: "https://managed-identity-wallets.example.org"
@@ -50,6 +63,24 @@ sdfactoryAddress: "https://sdfactory.example.org"
 clearinghouseAddress: "https://validation.example.org"
 # -- Provide clearinghouse token address.
 clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
+
+# -- Provide issuer component base address
+issuerComponentAddress: "https://ssi-credential-issuer.example.org"
+
+# -- Provide details about the BPN DID Resolver.
+bpnDidResolver:
+  # -- Provide management api base address
+  managementApiAddress: "http://bpn-did-resolution-service-bdrs-server:8081"
+  # -- Provide directory api address
+  directoryApiAddress: "https://bpn-did-resolution-service.example.org/api/directory"
+
+# -- Provide the configuration of the dim wrapper address
+dimWrapper:
+# -- Provide the dim base address
+  baseAddress: "https://dim.example.org"
+  # -- Provide the api path
+  apiPath: "/api/dim"
+decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 
 frontend:
   ingress:
@@ -95,50 +126,46 @@ frontend:
     name: "portal"
     image:
       name: "docker.io/tractusx/portal-frontend"
-      portaltag: v1.8.0
+      portaltag: b5f642502232fa325e70a0790a4543587fc9e8fd
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 25m
+        memory: 125M
+      limits:
+        cpu: 75m
+        memory: 125M
   registration:
     name: "registration"
     image:
       name: "docker.io/tractusx/portal-frontend-registration"
-      registrationtag: v1.6.0
+      registrationtag: v2.0.0-RC1
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 25m
+        memory: 100M
+      limits:
+        cpu: 75m
+        memory: 100M
   assets:
     name: "assets"
     image:
       name: "docker.io/tractusx/portal-assets"
       assetstag: v1.8.0
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 25m
+        memory: 100M
+      limits:
+        cpu: 45m
+        memory: 100M
     path: "/assets"
   centralidpAuthPath: "/auth"
-  bpdmPartnersPoolApiPath: "/pool/api"
 
 backend:
   ingress:
@@ -206,15 +233,15 @@ backend:
   portalIntroductionCompanyRolePath: "/companyroles"
   portalIntroductionDataspacePath: "/dataspace"
   userManagementPath: "/usermanagement"
+  useDimWallet: false
   keycloak:
     # -- Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM).
-    secret: "secret-backend-keycloak"
+    secret: "portal-backend-keycloak"
     central:
       # -- Provide centralidp client-id from CX IAM centralidp.
       clientId: "central-client-id"
       # -- Client-secret for centralidp client-id. Secret-key 'central-client-secret'.
       clientSecret: ""
-      authRealm: "CX-Central"
       jwtBearerOptions:
         requireHttpsMetadata: "true"
         metadataPath: "/auth/realms/CX-Central/.well-known/openid-configuration"
@@ -245,7 +272,7 @@ backend:
       useAuthTrail: true
   mailing:
     # -- Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm.
-    secret: "secret-backend-mailing"
+    secret: "portal-backend-mailing"
     # -- Provide host.
     host: "smtp.example.org"
     # -- Provide port.
@@ -258,7 +285,7 @@ backend:
     senderEmail: "email@example.org"
   interfaces:
     # -- Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse, offer provider and onboarding service provider.
-    secret: "secret-backend-interfaces"
+    secret: "portal-backend-interfaces"
   healthChecks:
     startup:
       path: "/health/startup"
@@ -270,17 +297,16 @@ backend:
     name: "registration-service"
     image:
       name: "docker.io/tractusx/portal-registration-service"
-      registrationservicetag: v1.8.1
+      registrationservicetag: 67ae0af81584086da632098ac31f745c1e52885c
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 385M
-      # limits:
-      #   cpu: 45m
-      #   memory: 460M
+        cpu: 75m
+        memory: 400M
+      limits:
+        cpu: 225m
+        memory: 400M
     basePath: "api/registration"
     logging:
       bpdmLibrary: "Information"
@@ -320,17 +346,16 @@ backend:
     name: "administration-service"
     image:
       name: "docker.io/tractusx/portal-administration-service"
-      administrationservicetag: v1.8.1
+      administrationservicetag: 67ae0af81584086da632098ac31f745c1e52885c
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 385M
-      # limits:
-      #   cpu: 45m
-      #   memory: 430M
+        cpu: 75m
+        memory: 500M
+      limits:
+        cpu: 225m
+        memory: 500M
     basePath: "api/administration"
     logging:
       businessLogic: "Information"
@@ -356,6 +381,7 @@ backend:
         type0: "PDF"
       companyCertificateMediaTypes:
         type0: "PDF"
+    issuerdid: "did:web:example.org:test123"
     connectors:
       validCertificationContentTypes:
         type0: "application/x-pem-file"
@@ -363,7 +389,6 @@ backend:
         type2: "application/pkix-cert"
         type3: "application/octet-stream"
       selfDescriptionDocumentPath: /api/administration/documents/selfDescription
-    keycloakClientId: "Cl2-CX-Portal"
     identityProviderAdmin:
       csvSettings:
         fileName: "identityproviderlinks.csv"
@@ -383,11 +408,6 @@ backend:
       deactivateIdpRoles:
         role0: "Company Admin"
         role1: "IT Admin"
-    invitation:
-      invitedUserInitialRoles:
-        role0: "Company Admin"
-      initialLoginTheme: "catenax-shared"
-      closeApplicationPath: "/decline"
     registration:
       documentTypeIds:
         type0: "COMMERCIAL_REGISTER_EXTRACT"
@@ -400,14 +420,21 @@ backend:
         role1: "IT Admin"
     serviceAccount:
       clientId: "technical_roles_management"
+      encryptionConfigIndex: 0
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for service account creation. Secret-key 'serviceaccount-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex.
+          encryptionKey: ""
+      dimCreationRoles:
+        role0: "Identity Wallet Management"
     swaggerEnabled: false
     frameDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"
-    onboardingServiceProvider:
-      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key'.
-      encryptionKey: ""
   provisioning:
-    centralRealm: "CX-Central"
     centralRealmId: "CX-Central"
     invitedUserInitialRoles:
       registration: "Company Admin"
@@ -437,17 +464,16 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "docker.io/tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: v1.8.1
+      appmarketplaceservicetag: 67ae0af81584086da632098ac31f745c1e52885c
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 445M
-      # limits:
-      #   cpu: 45m
-      #   memory: 500M
+        cpu: 75m
+        memory: 400M
+      limits:
+        cpu: 225m
+        memory: 400M
     basePath: "api/apps"
     logging:
       default: "Information"
@@ -570,17 +596,16 @@ backend:
     name: "portal-migrations"
     image:
       name: "docker.io/tractusx/portal-portal-migrations"
-      portalmigrationstag: v1.8.1
+      portalmigrationstag: 67ae0af81584086da632098ac31f745c1e52885c
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 25m
+        memory: 350M
+      limits:
+        cpu: 75m
+        memory: 350M
     seeding:
       testDataEnvironments: ""
       # -- when changing the testDataPath the processIdentity needs to be adjusted as well,
@@ -594,17 +619,16 @@ backend:
     name: "portal-maintenance"
     image:
       name: "docker.io/tractusx/portal-maintenance-service"
-      portalmaintenancetag: v1.8.1
+      portalmaintenancetag: 67ae0af81584086da632098ac31f745c1e52885c
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 25m
+        memory: 200M
+      limits:
+        cpu: 75m
+        memory: 200M
     processIdentity:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
     logging:
@@ -613,17 +637,16 @@ backend:
     name: "notification-service"
     image:
       name: "docker.io/tractusx/portal-notification-service"
-      notificationservicetag: v1.8.1
+      notificationservicetag: 67ae0af81584086da632098ac31f745c1e52885c
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 300M
-      # limits:
-      #   cpu: 45m
-      #   memory: 400M
+        cpu: 75m
+        memory: 200M
+      limits:
+        cpu: 225m
+        memory: 200M
     basePath: "api/notification"
     # -- Keycloak Healthcheck to be enabled for startupProbe;
     # once the centralidp Keycloak instance is available, enable healthcheck by uncommenting.
@@ -641,17 +664,16 @@ backend:
     name: "services-service"
     image:
       name: "docker.io/tractusx/portal-services-service"
-      servicesservicetag: v1.8.1
+      servicesservicetag: 67ae0af81584086da632098ac31f745c1e52885c
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 445M
-      # limits:
-      #   cpu: 45m
-      #   memory: 500M
+        cpu: 75m
+        memory: 300M
+      limits:
+        cpu: 225m
+        memory: 300M
     basePath: "api/services"
     logging:
       default: "Information"
@@ -722,34 +744,32 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "docker.io/tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v1.8.1
+      provisioningmigrationstag: 67ae0af81584086da632098ac31f745c1e52885c
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 25m
+        memory: 200M
+      limits:
+        cpu: 75m
+        memory: 200M
     logging:
       default: "Information"
   processesworker:
     name: "processes-worker"
     image:
       name: "docker.io/tractusx/portal-processes-worker"
-      processesworkertag: v1.8.1
+      processesworkertag: 67ae0af81584086da632098ac31f745c1e52885c
       pullPolicy: "IfNotPresent"
-    # -- We recommend not to specify default resource limits and to leave this as a conscious choice for the user.
-    # If you do want to specify resource limits, uncomment the following lines and adjust them as necessary.
+    # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 15m
-        memory: 105M
-      # limits:
-      #   cpu: 45m
-      #   memory: 105M
+        cpu: 75m
+        memory: 600M
+      limits:
+        cpu: 225m
+        memory: 600M
     logging:
       default: "Information"
       processesLibrary: "Information"
@@ -827,32 +847,111 @@ backend:
     processIdentity:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
     onboardingServiceProvider:
-      # -- Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'.
-      encryptionKey: ""
+      encryptionConfigIndex: 1
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "ECB"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for onboardingserviceprovider. Secret-key 'onboardingserviceprovider-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex. When upgrading from v2.0.0-RC1 please read document portal-upgrade-details.md
+          encryptionKey: ""
+        index1:
+          index: 1
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for onboardingserviceprovider. Secret-key 'onboardingserviceprovider-encryption-key1'.
+          # Expected format is 256 bit (64 digits) hex. When upgrading from v2.0.0-RC1 please read document portal-upgrade-details.md
+          encryptionKey: ""
     networkRegistration:
       loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
       externalRegistrationPath: "/?overlay=consent_osp"
       # -- The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
       closeApplicationPath: "/decline"
-  clients:
-    portal: "Cl2-CX-Portal"
-    registration: "Cl1-CX-Registration"
-    technicalRolesManagement: "technical_roles_management"
+    dim:
+      # -- Provide dim client-id from CX IAM centralidp.
+      clientId: "dim-client-id"
+      # -- Client-secret for dim client-id. Secret-key 'dim-client-secret'.
+      clientSecret: ""
+      grantType: "client_credentials"
+      scope: "openid"
+      # -- Base address of the DIM Middle Layer
+      baseAddress: "https://dim.example.org"
+      # -- Url of a public available universal resolver to validate the did and did document
+      universalResolverAddress: "https://resolver.example.org/did"
+      # -- path where the did document will be hosted
+      didDocumentPath: "/api/administration/staticdata/did"
+      maxValidationTimeInDays: 7
+      encryptionConfigIndex: 0
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for dim wallet creation. Secret-key 'dim-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex.
+          encryptionKey: ""
+    issuerComponent:
+      # -- Provide dim client-id from CX IAM centralidp.
+      clientId: "issuercomponent-client-id"
+      # -- Client-secret for dim client-id. Secret-key 'issuercomponent-client-secret'.
+      clientSecret: ""
+      grantType: "client_credentials"
+      scope: "openid"
+      encryptionConfigIndex: 0
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey for the issuer component. Secret-key 'issuercomponent-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex.
+          encryptionKey: ""
+    bpnDidResolver:
+      # -- ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
+      apiKey: ""
+    invitation:
+      invitedUserInitialRoles:
+        role0: "Company Admin"
+      initialLoginTheme: "catenax-shared"
+      closeApplicationPath: "/decline"
+      encryptionConfigIndex: 0
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey to encrypt the company-invitation client-secret. Secret-key 'invitation-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex.
+          encryptionKey: ""
+    mailing:
+      encryptionConfigIndex: 0
+      encryptionConfigs:
+        index0:
+          index: 0
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          # -- EncryptionKey to encrypt the parameters of mailing processes. Secret-key 'mailing-encryption-key0'.
+          # Expected format is 256 bit (64 digits) hex.
+          encryptionKey: ""
   placeholder: "empty"
 
 postgresql:
 # -- PostgreSQL chart configuration
   # Switch to enable or disable the PostgreSQL helm chart
   enabled: true
-  # -- FullnameOverride to 'portal-backend-postgresql'.
-  fullnameOverride: "portal-backend-postgresql"
+  # -- Setting image tag to major to get latest minor updates
+  image:
+    tag: "15-debian-11"
+  commonLabels:
+    app.kubernetes.io/version: "15"
   auth:
     # -- Database name
     database: "postgres"
     # -- Database port number
     port: 5432
     # -- Secret containing the passwords for root usernames postgres and non-root usernames repl_user, portal and provisioning.
-    existingSecret: "secret-postgres-init"
+    existingSecret: "portal-postgres"
     # -- Password for the root username 'postgres'. Secret-key 'postgres-password'.
     password: ""
     # -- Password for the non-root username 'repl_user'. Secret-key 'replication-password'.
@@ -873,7 +972,7 @@ postgresql:
     # -- Extended PostgreSQL Primary configuration (increase of max_connections recommended - default is 100)
     extendedConfiguration: ""
     initdb:
-      scriptsConfigMap: "configmap-postgres-init"
+      scriptsConfigMap: "{{ .Release.Name }}-portal-cm-postgres"
     extraEnvVars:
       - name: "PORTAL_PASSWORD"
         valueFrom:
@@ -900,7 +999,7 @@ externalDatabase:
   # -- Database port number
   port: 5432
   # -- Secret containing the passwords non-root usernames portal and provisioning.
-  secret: "secret-postgres-external-db"
+  secret: "portal-postgres-external-db"
   # -- Non-root username for portal.
   portalUser: "portal"
   # -- Non-root username for provisioning.

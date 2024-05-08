@@ -1,5 +1,5 @@
 ###############################################################
-# Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation
+# Copyright (c) 2024 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -17,18 +17,16 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "portal.fullname" . }}-{{ .Values.backend.registration.name }}
-  namespace: {{ .Release.Namespace }}
-  labels:
-    {{- include "portal.labels" . | nindent 4 }}
-spec:
-  type: ClusterIP
-  ports:
-  - port: {{ .Values.portService }}
-    targetPort: {{ .Values.portContainer }}
-  selector:
-    app: {{ include "portal.fullname" . }}-{{ .Values.backend.registration.name }}
-    {{- include "portal.selectorLabels" . | nindent 4 }}
+---
+version: 2
+updates:
+  # Github Actions
+  -
+    package-ecosystem: "github-actions"
+    target-branch: dev
+    directory: /
+    labels:
+      - "dependabot"
+      - "github-actions"
+    schedule:
+      interval: "weekly"

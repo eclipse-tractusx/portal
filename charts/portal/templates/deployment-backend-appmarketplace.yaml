@@ -20,21 +20,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.backend.appmarketplace.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.backend.appmarketplace.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
-      app: {{ .Values.backend.appmarketplace.name }}
+      app: {{ include "portal.fullname" . }}-{{ .Values.backend.appmarketplace.name }}
+      {{- include "portal.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Values.backend.appmarketplace.name }}
+        app: {{ include "portal.fullname" . }}-{{ .Values.backend.appmarketplace.name }}
+        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: {{ .Values.backend.appmarketplace.name }}
+      - name: {{ include "portal.fullname" . }}-{{ .Values.backend.appmarketplace.name }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -82,7 +87,7 @@ spec:
           value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.provisioningUser }};Password=$(PROVISIONING_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
           {{- end }}
         - name: "APPMARKETPLACE__ACTIVEAPPCOMPANYADMINROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "APPMARKETPLACE__ACTIVEAPPCOMPANYADMINROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.activeAppCompanyAdminRoles.role0 }}"
         - name: "APPMARKETPLACE__ACTIVEAPPCOMPANYADMINROLES__0__USERROLENAMES__1"
@@ -106,7 +111,7 @@ spec:
         - name: "APPMARKETPLACE__APPROVEAPPNOTIFICATIONTYPEIDS__0"
           value: "{{ .Values.backend.appmarketplace.approveAppNotificationTypeIds.type0 }}"
         - name: "APPMARKETPLACE__APPROVEAPPUSERROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "APPMARKETPLACE__APPROVEAPPUSERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.approveAppUserRoles.role0 }}"
         - name: "APPMARKETPLACE__APPROVEAPPUSERROLES__0__USERROLENAMES__1"
@@ -120,7 +125,7 @@ spec:
         - name: "APPMARKETPLACE__USERMANAGEMENTADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.userManagementPath }}"
         - name: "APPMARKETPLACE__CATENAADMINROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "APPMARKETPLACE__CATENAADMINROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.catenaAdminRoles.role0 }}"
         - name: "APPMARKETPLACE__UPLOADAPPDOCUMENTTYPEIDS__0__DOCUMENTTYPEID"
@@ -208,11 +213,11 @@ spec:
         - name: "APPMARKETPLACE__UPLOADACTIVEAPPDOCUMENTTYPEIDS__3__MEDIATYPES__0"
           value: "{{ .Values.backend.appmarketplace.uploadActiveAppDocumentTypeIds.mediaTypeIds3.mediaTypeId0 }}"
         - name: "APPMARKETPLACE__ITADMINROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "APPMARKETPLACE__ITADMINROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.ITAdminRoles.role0 }}"
         - name: "APPMARKETPLACE__ACTIVATIONUSERROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "APPMARKETPLACE__ACTIVATIONUSERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.activationUserRoles.role0 }}"
         - name: "APPMARKETPLACE__ACTIVATIONUSERROLES__0__USERROLENAMES__1"
@@ -224,19 +229,19 @@ spec:
         - name: "APPMARKETPLACE__OFFERSTATUSIDS__1"
           value: "{{ .Values.backend.appmarketplace.offerStatusIds.status1 }}"
         - name: "APPMARKETPLACE__SALESMANAGERROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "APPMARKETPLACE__SALESMANAGERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.salesManagerRoles.role0 }}"
         - name: "APPMARKETPLACE__SERVICEACCOUNTROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.technicalRolesManagement }}"
+          value: "{{ .Values.centralidp.clients.technicalRolesManagement }}"
         - name: "APPMARKETPLACE__SERVICEACCOUNTROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.serviceAccountRoles.role0 }}"
         - name: "APPMARKETPLACE__SERVICEMANAGERROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "APPMARKETPLACE__SERVICEMANAGERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.serviceManagerRoles.role0 }}"
         - name: "APPMARKETPLACE__SUBSCRIPTIONMANAGERROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "APPMARKETPLACE__SUBSCRIPTIONMANAGERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.subscriptionManagerRoles.role0 }}"
         - name: "APPMARKETPLACE__SUBSCRIPTIONMANAGERROLES__0__USERROLENAMES__1"
@@ -246,7 +251,7 @@ spec:
         - name: "APPMARKETPLACE__TECHNICALUSERPROFILECLIENT"
           value: "{{ .Values.backend.appmarketplace.technicalUserProfileClient }}"
         - name: "APPMARKETPLACE__COMPANYADMINROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "APPMARKETPLACE__COMPANYADMINROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.companyAdminRoles.role0 }}"
         - name: "HEALTHCHECKS__0__PATH"
@@ -259,17 +264,17 @@ spec:
         - name: "HEALTHCHECKS__2__PATH"
           value: "{{ .Values.backend.healthChecks.liveness.path}}"
         - name: "JWTBEAREROPTIONS__METADATAADDRESS"
-          value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
         - name: "JWTBEAREROPTIONS__REQUIREHTTPSMETADATA"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDAUDIENCE"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validAudiencePortal }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDISSUER"
-          value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath }}"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath }}"
         - name: "JWTBEAREROPTIONS__REFRESHINTERVAL"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.refreshInterval }}"
         - name: "KEYCLOAK__CENTRAL__AUTHREALM"
-          value: "{{ .Values.backend.keycloak.central.authRealm }}"
+          value: "{{ .Values.centralidp.realm }}"
         - name: "KEYCLOAK__CENTRAL__CLIENTID"
           value: "{{ .Values.backend.keycloak.central.clientId }}"
         - name: "KEYCLOAK__CENTRAL__CLIENTSECRET"
@@ -278,7 +283,7 @@ spec:
               name: "{{ .Values.backend.keycloak.secret }}"
               key: "central-client-secret"
         - name: "KEYCLOAK__CENTRAL__CONNECTIONSTRING"
-          value: "{{ .Values.centralidpAddress }}"
+          value: "{{ .Values.centralidp.address }}"
         - name: "KEYCLOAK__CENTRAL__USEAUTHTRAIL"
           value: "{{ .Values.backend.keycloak.central.useAuthTrail }}"
         - name: "KEYCLOAK__SHARED__AUTHREALM"
@@ -300,25 +305,63 @@ spec:
           value: "{{ .Values.backend.appmarketplace.logging.default }}"
         - name: "SERILOG__MINIMUMLEVEL__OVERRIDE__Org.Eclipse.TractusX.Portal.Backend.Offers.Library.Service"
           value: "{{ .Values.backend.appmarketplace.logging.offersLibrary }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPHOST"
-          value: "{{ .Values.backend.mailing.host }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPPASSWORD"
-          valueFrom:
-            secretKeyRef:
-              name: "{{ .Values.backend.mailing.secret }}"
-              key: "password"
-        - name: "MAILINGSERVICE__MAIL__SMTPPORT"
-          value: "{{ .Values.backend.mailing.port }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPUSER"
-          value: "{{ .Values.backend.mailing.user }}"
-        - name: "MAILINGSERVICE__MAIL__SENDEREMAIL"
-          value: "{{ .Values.backend.mailing.senderEmail }}"
         - name: "PROVISIONING__CENTRALREALM"
-          value: "{{ .Values.backend.provisioning.centralRealm }}"
+          value: "{{ .Values.centralidp.realm }}"
         - name: "PROVISIONING__CENTRALREALMID"
           value: "{{ .Values.backend.provisioning.centralRealmId }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGINDEX"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigIndex }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__INDEX"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.index }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__ENCRYPTIONKEY"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "mailing-encryption-key0"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__CIPHERMODE"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.cipherMode }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__PADDINGMODE"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.paddingMode }}"
         - name: "SWAGGERENABLED"
           value: "{{ .Values.backend.appmarketplace.swaggerEnabled }}"
+        - name: "DIM__USERNAME"
+          value: "{{ .Values.backend.placeholder }}"
+        - name: "DIM__PASSWORD"
+          value: "{{ .Values.backend.placeholder }}"
+        - name: "DIM__CLIENTID"
+          value: "{{ .Values.backend.processesworker.dim.clientId }}"
+        - name: "DIM__GRANTTYPE"
+          value: "{{ .Values.backend.processesworker.dim.grantType }}"
+        - name: "DIM__CLIENTSECRET"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "dim-client-secret"
+        - name: "DIM__SCOPE"
+          value: "{{ .Values.backend.processesworker.dim.scope }}"
+        - name: "DIM__TOKENADDRESS"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
+        - name: "DIM__BASEADDRESS"
+          value: "{{ .Values.dimWrapper.baseAddress }}{{ .Values.dimWrapper.apiPath }}"
+        - name: "DIM__UNIVERSALRESOLVERADDRESS"
+          value: "{{ .Values.backend.processesworker.dim.universalResolverAddress }}"
+        - name: "DIM__DIDDOCUMENTBASELOCATION"
+          value: "{{ .Values.portalAddress }}{{ .Values.backend.processesworker.dim.didDocumentPath }}"
+        - name: "DIM__MAXVALIDATIONTIMEINDAYS"
+          value: "{{ .Values.backend.processesworker.dim.maxValidationTimeInDays }}"
+        - name: "DIM__ENCRYPTIONCONFIGINDEX"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigIndex }}"
+        - name: "DIM__ENCRYPTIONCONFIGS__0__INDEX"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigs.index0.index }}"
+        - name: "DIM__ENCRYPTIONCONFIGS__0__ENCRYPTIONKEY"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "dim-encryption-key0"
+        - name: "DIM__ENCRYPTIONCONFIGS__0__CIPHERMODE"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigs.index0.cipherMode }}"
+        - name: "DIM__ENCRYPTIONCONFIGS__0__PADDINGMODE"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigs.index0.paddingMode }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

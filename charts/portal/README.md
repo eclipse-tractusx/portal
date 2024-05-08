@@ -1,18 +1,18 @@
 # Helm chart for Catena-X Portal
 
-![Version: 1.8.1](https://img.shields.io/badge/Version-1.8.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.8.1](https://img.shields.io/badge/AppVersion-1.8.1-informational?style=flat-square)
+![Version: 2.0.0-RC6](https://img.shields.io/badge/Version-2.0.0--RC6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.0.0-RC6](https://img.shields.io/badge/AppVersion-2.0.0--RC6-informational?style=flat-square)
 
 This helm chart installs the Catena-X Portal application which consists of
 
-* [portal-frontend (v1.8.0)](https://github.com/eclipse-tractusx/portal-frontend/tree/v1.8.0),
-* [portal-frontend-registration (v1.6.0)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v1.6.0),
+* [portal-frontend (v2.0.0-RC4)](https://github.com/eclipse-tractusx/portal-frontend/tree/v2.0.0-RC4),
+* [portal-frontend-registration (v2.0.0-RC1)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v2.0.0-RC1),
 * [portal-assets (v1.8.0)](https://github.com/eclipse-tractusx/portal-assets/tree/v1.8.0) and
-* [portal-backend (v1.8.1)](https://github.com/eclipse-tractusx/portal-backend/tree/v1.8.1).
+* [portal-backend (v2.0.0-RC5)](https://github.com/eclipse-tractusx/portal-backend/tree/v2.0.0-RC5).
 
 The Catena-X Portal is designed to work with the [Catena-X IAM](https://github.com/eclipse-tractusx/portal-iam).
-This version is compatible with the 2.1.0 version of the IAM instances:
-* [Central Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-2.1.0/charts/centralidp/README.md)
-* [Shared Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-2.1.0/charts/sharedidp/README.md)
+This version is compatible with the 3.0.0-rc.3 version of the IAM instances:
+* [Central Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-3.0.0-rc.3/charts/centralidp/README.md)
+* [Shared Keycloak Instance](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-3.0.0-rc.3/charts/sharedidp/README.md)
 
 For information on how to upgrade from previous versions please refer to [Version Upgrade](https://github.com/eclipse-tractusx/portal-assets/tree/v1.8.0/docs/developer/Technical%20Documentation/Version%20Upgrade/portal-upgrade-details.md).
 
@@ -41,53 +41,63 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 1.8.1
+    version: 2.0.0-RC6
 ```
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | postgresql | 12.12.x |
+| https://charts.bitnami.com/bitnami | postgresql | 12.x.x |
 
 ## Values
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| name | string | `"portal"` |  |
 | portalAddress | string | `"https://portal.example.org"` | Provide portal base address. |
 | portalBackendAddress | string | `"https://portal-backend.example.org"` | Provide portal-backend base address. |
-| centralidpAddress | string | `"https://centralidp.example.org"` | Provide centralidp base address (CX IAM), without trailing '/auth'. |
+| centralidp | object | `{"address":"https://centralidp.example.org","clients":{"issuerComponent":"Cl24-CX-SSI-CredentialIssuer","miw":"Cl5-CX-Custodian","portal":"Cl2-CX-Portal","registration":"Cl1-CX-Registration","semantic":"Cl3-CX-Semantic","technicalRolesManagement":"technical_roles_management"},"realm":"CX-Central"}` | Provide details about centralidp (CX IAM) Keycloak instance. |
+| centralidp.address | string | `"https://centralidp.example.org"` | Provide centralidp base address, without trailing '/auth'. |
 | sharedidpAddress | string | `"https://sharedidp.example.org"` | Provide sharedidp address (CX IAM), without trailing '/auth'. |
 | semanticsAddress | string | `"https://semantics.example.org"` | Provide semantics base address. |
-| bpdmPartnersPoolAddress | string | `"https://business-partners.example.org"` | Provide bpdm partners pool base address. |
-| bpdmPortalGateAddress | string | `"https://business-partners.example.org"` | Provide bpdm portal gate base address. |
+| bpdm | object | `{"poolAddress":"https://business-partners.example.org","poolApiPath":"/pool/v6","portalGateAddress":"https://business-partners.example.org","portalGateApiPath":"/companies/test-company/v6"}` | Provide details about business partner data management (BPDM). |
+| bpdm.poolAddress | string | `"https://business-partners.example.org"` | Provide bpdm partners pool base address. |
+| bpdm.poolApiPath | string | `"/pool/v6"` | Provide bpdm pool api path. |
+| bpdm.portalGateAddress | string | `"https://business-partners.example.org"` | Provide bpdm portal gate base address. |
+| bpdm.portalGateApiPath | string | `"/companies/test-company/v6"` | Provide bpdm portal gate api path. |
 | custodianAddress | string | `"https://managed-identity-wallets.example.org"` | Provide custodian base address. |
 | sdfactoryAddress | string | `"https://sdfactory.example.org"` | Provide sdfactory base address. |
 | clearinghouseAddress | string | `"https://validation.example.org"` | Provide clearinghouse base address. |
 | clearinghouseTokenAddress | string | `"https://keycloak.example.org/realms/example/protocol/openid-connect/token"` | Provide clearinghouse token address. |
+| issuerComponentAddress | string | `"https://ssi-credential-issuer.example.org"` | Provide issuer component base address |
+| bpnDidResolver | object | `{"directoryApiAddress":"https://bpn-did-resolution-service.example.org/api/directory","managementApiAddress":"http://bpn-did-resolution-service-bdrs-server:8081"}` | Provide details about the BPN DID Resolver. |
+| bpnDidResolver.managementApiAddress | string | `"http://bpn-did-resolution-service-bdrs-server:8081"` | Provide management api base address |
+| bpnDidResolver.directoryApiAddress | string | `"https://bpn-did-resolution-service.example.org/api/directory"` | Provide directory api address |
+| dimWrapper | object | `{"apiPath":"/api/dim","baseAddress":"https://dim.example.org"}` | Provide the configuration of the dim wrapper address |
+| dimWrapper.baseAddress | string | `"https://dim.example.org"` | Provide the dim base address |
+| dimWrapper.apiPath | string | `"/api/dim"` | Provide the api path |
+| decentralIdentityManagementAuthAddress | string | `"https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"` |  |
 | frontend.ingress.enabled | bool | `false` | Portal frontend ingress parameters, enable ingress record generation for portal frontend. |
 | frontend.ingress.name | string | `"frontend"` |  |
 | frontend.ingress.tls | list | `[]` | Ingress TLS configuration |
 | frontend.ingress.hosts[0] | object | `{"host":"","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assets|documentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"docker.io/tractusx/portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v1.8.0"` |  |
+| frontend.portal.image.portaltag | string | `"v2.0.0-RC6"` |  |
 | frontend.portal.image.pullPolicy | string | `"IfNotPresent"` |  |
-| frontend.portal.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| frontend.portal.resources | object | `{"limits":{"cpu":"75m","memory":"125M"},"requests":{"cpu":"25m","memory":"125M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"docker.io/tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"v1.6.0"` |  |
+| frontend.registration.image.registrationtag | string | `"v2.0.0-RC1"` |  |
 | frontend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
-| frontend.registration.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| frontend.registration.resources | object | `{"limits":{"cpu":"75m","memory":"100M"},"requests":{"cpu":"25m","memory":"100M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | frontend.assets.name | string | `"assets"` |  |
 | frontend.assets.image.name | string | `"docker.io/tractusx/portal-assets"` |  |
 | frontend.assets.image.assetstag | string | `"v1.8.0"` |  |
 | frontend.assets.image.pullPolicy | string | `"IfNotPresent"` |  |
-| frontend.assets.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| frontend.assets.resources | object | `{"limits":{"cpu":"45m","memory":"100M"},"requests":{"cpu":"25m","memory":"100M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | frontend.assets.path | string | `"/assets"` |  |
 | frontend.centralidpAuthPath | string | `"/auth"` |  |
-| frontend.bpdmPartnersPoolApiPath | string | `"/pool/api"` |  |
 | backend.ingress.enabled | bool | `false` | Portal-backend ingress parameters, enable ingress record generation for portal-backend. |
 | backend.ingress.name | string | `"backend"` |  |
 | backend.ingress.tls | list | `[]` | Ingress TLS configuration |
@@ -101,10 +111,10 @@ dependencies:
 | backend.portalIntroductionCompanyRolePath | string | `"/companyroles"` |  |
 | backend.portalIntroductionDataspacePath | string | `"/dataspace"` |  |
 | backend.userManagementPath | string | `"/usermanagement"` |  |
-| backend.keycloak.secret | string | `"secret-backend-keycloak"` | Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM). |
+| backend.useDimWallet | bool | `false` |  |
+| backend.keycloak.secret | string | `"portal-backend-keycloak"` | Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM). |
 | backend.keycloak.central.clientId | string | `"central-client-id"` | Provide centralidp client-id from CX IAM centralidp. |
 | backend.keycloak.central.clientSecret | string | `""` | Client-secret for centralidp client-id. Secret-key 'central-client-secret'. |
-| backend.keycloak.central.authRealm | string | `"CX-Central"` |  |
 | backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata | string | `"true"` |  |
 | backend.keycloak.central.jwtBearerOptions.metadataPath | string | `"/auth/realms/CX-Central/.well-known/openid-configuration"` |  |
 | backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath | string | `"/auth/realms/CX-Central"` |  |
@@ -124,21 +134,21 @@ dependencies:
 | backend.keycloak.shared.clientSecret | string | `""` | Client-secret for sharedidp client-id. Secret-key 'shared-client-secret'. |
 | backend.keycloak.shared.authRealm | string | `"master"` |  |
 | backend.keycloak.shared.useAuthTrail | bool | `true` | Flag if the api should be used with an leading /auth path |
-| backend.mailing.secret | string | `"secret-backend-mailing"` | Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm. |
+| backend.mailing.secret | string | `"portal-backend-mailing"` | Secret containing the passwords for backend.mailing and backend.provisioning.sharedRealm. |
 | backend.mailing.host | string | `"smtp.example.org"` | Provide host. |
 | backend.mailing.port | string | `"587"` | Provide port. |
 | backend.mailing.user | string | `"smtp-user"` | Provide user. |
 | backend.mailing.password | string | `""` | Password for the smtp username. Secret-key 'password'. |
 | backend.mailing.senderEmail | string | `"email@example.org"` | The email which is set as a sender |
-| backend.interfaces.secret | string | `"secret-backend-interfaces"` | Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse, offer provider and onboarding service provider. |
+| backend.interfaces.secret | string | `"portal-backend-interfaces"` | Secret containing the client-secrets for the connection to custodian, bpdm, sdFactory, clearinghouse, offer provider and onboarding service provider. |
 | backend.healthChecks.startup.path | string | `"/health/startup"` |  |
 | backend.healthChecks.liveness.path | string | `"/healthz"` |  |
 | backend.healthChecks.readyness.path | string | `"/ready"` |  |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"docker.io/tractusx/portal-registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v1.8.1"` |  |
+| backend.registration.image.registrationservicetag | string | `"v2.0.0-RC6"` |  |
 | backend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
-| backend.registration.resources | object | `{"requests":{"cpu":"15m","memory":"385M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| backend.registration.resources | object | `{"limits":{"cpu":"225m","memory":"400M"},"requests":{"cpu":"75m","memory":"400M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.registration.basePath | string | `"api/registration"` |  |
 | backend.registration.logging.bpdmLibrary | string | `"Information"` |  |
 | backend.registration.logging.registrationService | string | `"Information"` |  |
@@ -162,9 +172,9 @@ dependencies:
 | backend.registration.submitDocumentTypeIds.type0 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"docker.io/tractusx/portal-administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v1.8.1"` |  |
+| backend.administration.image.administrationservicetag | string | `"v2.0.0-RC6"` |  |
 | backend.administration.image.pullPolicy | string | `"IfNotPresent"` |  |
-| backend.administration.resources | object | `{"requests":{"cpu":"15m","memory":"385M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| backend.administration.resources | object | `{"limits":{"cpu":"225m","memory":"500M"},"requests":{"cpu":"75m","memory":"500M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.administration.basePath | string | `"api/administration"` |  |
 | backend.administration.logging.businessLogic | string | `"Information"` |  |
 | backend.administration.logging.sdfactoryLibrary | string | `"Information"` |  |
@@ -175,12 +185,12 @@ dependencies:
 | backend.administration.companyData.useCaseParticipationMediaTypes.type0 | string | `"PDF"` |  |
 | backend.administration.companyData.ssiCertificateMediaTypes.type0 | string | `"PDF"` |  |
 | backend.administration.companyData.companyCertificateMediaTypes.type0 | string | `"PDF"` |  |
+| backend.administration.issuerdid | string | `"did:web:example.org:test123"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type0 | string | `"application/x-pem-file"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type1 | string | `"application/x-x509-ca-cert"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type2 | string | `"application/pkix-cert"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type3 | string | `"application/octet-stream"` |  |
 | backend.administration.connectors.selfDescriptionDocumentPath | string | `"/api/administration/documents/selfDescription"` |  |
-| backend.administration.keycloakClientId | string | `"Cl2-CX-Portal"` |  |
 | backend.administration.identityProviderAdmin.csvSettings.fileName | string | `"identityproviderlinks.csv"` |  |
 | backend.administration.identityProviderAdmin.csvSettings.contentType | string | `"text/csv"` |  |
 | backend.administration.identityProviderAdmin.csvSettings.charset | string | `"UTF-8"` |  |
@@ -196,19 +206,20 @@ dependencies:
 | backend.administration.identityProviderAdmin.deleteIdpRoles.role1 | string | `"IT Admin"` |  |
 | backend.administration.identityProviderAdmin.deactivateIdpRoles.role0 | string | `"Company Admin"` |  |
 | backend.administration.identityProviderAdmin.deactivateIdpRoles.role1 | string | `"IT Admin"` |  |
-| backend.administration.invitation.invitedUserInitialRoles.role0 | string | `"Company Admin"` |  |
-| backend.administration.invitation.initialLoginTheme | string | `"catenax-shared"` |  |
-| backend.administration.invitation.closeApplicationPath | string | `"/decline"` |  |
 | backend.administration.registration.documentTypeIds.type0 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.administration.userManagement.companyUserStatusIds.status0 | string | `"ACTIVE"` |  |
 | backend.administration.userManagement.companyUserStatusIds.status1 | string | `"INACTIVE"` |  |
 | backend.administration.userManagement.userAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.administration.userManagement.userAdminRoles.role1 | string | `"IT Admin"` |  |
 | backend.administration.serviceAccount.clientId | string | `"technical_roles_management"` |  |
+| backend.administration.serviceAccount.encryptionConfigIndex | int | `0` |  |
+| backend.administration.serviceAccount.encryptionConfigs.index0.index | int | `0` |  |
+| backend.administration.serviceAccount.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
+| backend.administration.serviceAccount.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
+| backend.administration.serviceAccount.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey for service account creation. Secret-key 'serviceaccount-encryption-key0'. Expected format is 256 bit (64 digits) hex. |
+| backend.administration.serviceAccount.dimCreationRoles.role0 | string | `"Identity Wallet Management"` |  |
 | backend.administration.swaggerEnabled | bool | `false` |  |
 | backend.administration.frameDocumentTypeIds.type0 | string | `"CX_FRAME_CONTRACT"` |  |
-| backend.administration.onboardingServiceProvider.encryptionKey | string | `""` | Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'onboardingserviceprovider-encryption-key'. |
-| backend.provisioning.centralRealm | string | `"CX-Central"` |  |
 | backend.provisioning.centralRealmId | string | `"CX-Central"` |  |
 | backend.provisioning.invitedUserInitialRoles.registration | string | `"Company Admin"` |  |
 | backend.provisioning.serviceAccountClientPrefix | string | `"sa"` |  |
@@ -225,9 +236,9 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"docker.io/tractusx/portal-marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v1.8.1"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v2.0.0-RC6"` |  |
 | backend.appmarketplace.image.pullPolicy | string | `"IfNotPresent"` |  |
-| backend.appmarketplace.resources | object | `{"requests":{"cpu":"15m","memory":"445M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| backend.appmarketplace.resources | object | `{"limits":{"cpu":"225m","memory":"400M"},"requests":{"cpu":"75m","memory":"400M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.appmarketplace.basePath | string | `"api/apps"` |  |
 | backend.appmarketplace.logging.default | string | `"Information"` |  |
 | backend.appmarketplace.logging.offersLibrary | string | `"Information"` |  |
@@ -307,34 +318,34 @@ dependencies:
 | backend.appmarketplace.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"docker.io/tractusx/portal-portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v1.8.1"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v2.0.0-RC6"` |  |
 | backend.portalmigrations.image.pullPolicy | string | `"IfNotPresent"` |  |
-| backend.portalmigrations.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| backend.portalmigrations.resources | object | `{"limits":{"cpu":"75m","memory":"350M"},"requests":{"cpu":"25m","memory":"350M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmigrations.seeding.testDataPaths | string | `"Seeder/Data"` | when changing the testDataPath the processIdentity needs to be adjusted as well, or it must be ensured that the identity is existing within the files under the new path |
 | backend.portalmigrations.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
 | backend.portalmigrations.logging.default | string | `"Information"` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"docker.io/tractusx/portal-maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v1.8.1"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v2.0.0-RC6"` |  |
 | backend.portalmaintenance.image.pullPolicy | string | `"IfNotPresent"` |  |
-| backend.portalmaintenance.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| backend.portalmaintenance.resources | object | `{"limits":{"cpu":"75m","memory":"200M"},"requests":{"cpu":"25m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.portalmaintenance.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
 | backend.portalmaintenance.logging.default | string | `"Information"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"docker.io/tractusx/portal-notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v1.8.1"` |  |
+| backend.notification.image.notificationservicetag | string | `"v2.0.0-RC6"` |  |
 | backend.notification.image.pullPolicy | string | `"IfNotPresent"` |  |
-| backend.notification.resources | object | `{"requests":{"cpu":"15m","memory":"300M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| backend.notification.resources | object | `{"limits":{"cpu":"225m","memory":"200M"},"requests":{"cpu":"75m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.notification.basePath | string | `"api/notification"` |  |
 | backend.notification.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.notification.swaggerEnabled | bool | `false` |  |
 | backend.notification.logging.default | string | `"Information"` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"docker.io/tractusx/portal-services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v1.8.1"` |  |
+| backend.services.image.servicesservicetag | string | `"v2.0.0-RC6"` |  |
 | backend.services.image.pullPolicy | string | `"IfNotPresent"` |  |
-| backend.services.resources | object | `{"requests":{"cpu":"15m","memory":"445M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| backend.services.resources | object | `{"limits":{"cpu":"225m","memory":"300M"},"requests":{"cpu":"75m","memory":"300M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.services.basePath | string | `"api/services"` |  |
 | backend.services.logging.default | string | `"Information"` |  |
 | backend.services.logging.offersLibrary | string | `"Information"` |  |
@@ -376,15 +387,15 @@ dependencies:
 | backend.services.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"docker.io/tractusx/portal-provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v1.8.1"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v2.0.0-RC6"` |  |
 | backend.provisioningmigrations.image.pullPolicy | string | `"IfNotPresent"` |  |
-| backend.provisioningmigrations.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| backend.provisioningmigrations.resources | object | `{"limits":{"cpu":"75m","memory":"200M"},"requests":{"cpu":"25m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.provisioningmigrations.logging.default | string | `"Information"` |  |
 | backend.processesworker.name | string | `"processes-worker"` |  |
 | backend.processesworker.image.name | string | `"docker.io/tractusx/portal-processes-worker"` |  |
-| backend.processesworker.image.processesworkertag | string | `"v1.8.1"` |  |
+| backend.processesworker.image.processesworkertag | string | `"v2.0.0-RC6"` |  |
 | backend.processesworker.image.pullPolicy | string | `"IfNotPresent"` |  |
-| backend.processesworker.resources | object | `{"requests":{"cpu":"15m","memory":"105M"}}` | We recommend not to specify default resource limits and to leave this as a conscious choice for the user. If you do want to specify resource limits, uncomment the following lines and adjust them as necessary. |
+| backend.processesworker.resources | object | `{"limits":{"cpu":"225m","memory":"600M"},"requests":{"cpu":"75m","memory":"600M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.processesworker.logging.default | string | `"Information"` |  |
 | backend.processesworker.logging.processesLibrary | string | `"Information"` |  |
 | backend.processesworker.logging.bpdmLibrary | string | `"Information"` |  |
@@ -431,19 +442,61 @@ dependencies:
 | backend.processesworker.offerprovider.clientId | string | `"offerprovider-client-id"` | Provide offerprovider client-id from CX IAM centralidp. |
 | backend.processesworker.offerprovider.clientSecret | string | `""` | Client-secret for offer provider client-id. Secret-key 'offerprovider-client-secret'. |
 | backend.processesworker.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
-| backend.processesworker.onboardingServiceProvider.encryptionKey | string | `""` | Client-secret for onboardingserviceprovider encryptionKey. Secret-key 'process-onboardingserviceprovider-encryption-key'. |
+| backend.processesworker.onboardingServiceProvider.encryptionConfigIndex | int | `1` |  |
+| backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.index | int | `0` |  |
+| backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.cipherMode | string | `"ECB"` |  |
+| backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
+| backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey for onboardingserviceprovider. Secret-key 'onboardingserviceprovider-encryption-key0'. Expected format is 256 bit (64 digits) hex. When upgrading from v2.0.0-RC1 please read document portal-upgrade-details.md |
+| backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.index | int | `1` |  |
+| backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.cipherMode | string | `"CBC"` |  |
+| backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.paddingMode | string | `"PKCS7"` |  |
+| backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.encryptionKey | string | `""` | EncryptionKey for onboardingserviceprovider. Secret-key 'onboardingserviceprovider-encryption-key1'. Expected format is 256 bit (64 digits) hex. When upgrading from v2.0.0-RC1 please read document portal-upgrade-details.md |
 | backend.processesworker.networkRegistration.loginDocumentPath | string | `"/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"` |  |
 | backend.processesworker.networkRegistration.externalRegistrationPath | string | `"/?overlay=consent_osp"` |  |
 | backend.processesworker.networkRegistration.closeApplicationPath | string | `"/decline"` | The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail |
-| backend.clients.portal | string | `"Cl2-CX-Portal"` |  |
-| backend.clients.registration | string | `"Cl1-CX-Registration"` |  |
-| backend.clients.technicalRolesManagement | string | `"technical_roles_management"` |  |
+| backend.processesworker.dim.clientId | string | `"dim-client-id"` | Provide dim client-id from CX IAM centralidp. |
+| backend.processesworker.dim.clientSecret | string | `""` | Client-secret for dim client-id. Secret-key 'dim-client-secret'. |
+| backend.processesworker.dim.grantType | string | `"client_credentials"` |  |
+| backend.processesworker.dim.scope | string | `"openid"` |  |
+| backend.processesworker.dim.baseAddress | string | `"https://dim.example.org"` | Base address of the DIM Middle Layer |
+| backend.processesworker.dim.universalResolverAddress | string | `"https://resolver.example.org/did"` | Url of a public available universal resolver to validate the did and did document |
+| backend.processesworker.dim.didDocumentPath | string | `"/api/administration/staticdata/did"` | path where the did document will be hosted |
+| backend.processesworker.dim.maxValidationTimeInDays | int | `7` |  |
+| backend.processesworker.dim.encryptionConfigIndex | int | `0` |  |
+| backend.processesworker.dim.encryptionConfigs.index0.index | int | `0` |  |
+| backend.processesworker.dim.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
+| backend.processesworker.dim.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
+| backend.processesworker.dim.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey for dim wallet creation. Secret-key 'dim-encryption-key0'. Expected format is 256 bit (64 digits) hex. |
+| backend.processesworker.issuerComponent.clientId | string | `"issuercomponent-client-id"` | Provide dim client-id from CX IAM centralidp. |
+| backend.processesworker.issuerComponent.clientSecret | string | `""` | Client-secret for dim client-id. Secret-key 'issuercomponent-client-secret'. |
+| backend.processesworker.issuerComponent.grantType | string | `"client_credentials"` |  |
+| backend.processesworker.issuerComponent.scope | string | `"openid"` |  |
+| backend.processesworker.issuerComponent.encryptionConfigIndex | int | `0` |  |
+| backend.processesworker.issuerComponent.encryptionConfigs.index0.index | int | `0` |  |
+| backend.processesworker.issuerComponent.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
+| backend.processesworker.issuerComponent.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
+| backend.processesworker.issuerComponent.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey for the issuer component. Secret-key 'issuercomponent-encryption-key0'. Expected format is 256 bit (64 digits) hex. |
+| backend.processesworker.bpnDidResolver.apiKey | string | `""` | ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'. |
+| backend.processesworker.invitation.invitedUserInitialRoles.role0 | string | `"Company Admin"` |  |
+| backend.processesworker.invitation.initialLoginTheme | string | `"catenax-shared"` |  |
+| backend.processesworker.invitation.closeApplicationPath | string | `"/decline"` |  |
+| backend.processesworker.invitation.encryptionConfigIndex | int | `0` |  |
+| backend.processesworker.invitation.encryptionConfigs.index0.index | int | `0` |  |
+| backend.processesworker.invitation.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
+| backend.processesworker.invitation.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
+| backend.processesworker.invitation.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey to encrypt the company-invitation client-secret. Secret-key 'invitation-encryption-key0'. Expected format is 256 bit (64 digits) hex. |
+| backend.processesworker.mailing.encryptionConfigIndex | int | `0` |  |
+| backend.processesworker.mailing.encryptionConfigs.index0.index | int | `0` |  |
+| backend.processesworker.mailing.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
+| backend.processesworker.mailing.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
+| backend.processesworker.mailing.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey to encrypt the parameters of mailing processes. Secret-key 'mailing-encryption-key0'. Expected format is 256 bit (64 digits) hex. |
 | backend.placeholder | string | `"empty"` |  |
 | postgresql.enabled | bool | `true` | PostgreSQL chart configuration Switch to enable or disable the PostgreSQL helm chart |
-| postgresql.fullnameOverride | string | `"portal-backend-postgresql"` | FullnameOverride to 'portal-backend-postgresql'. |
+| postgresql.image | object | `{"tag":"15-debian-11"}` | Setting image tag to major to get latest minor updates |
+| postgresql.commonLabels."app.kubernetes.io/version" | string | `"15"` |  |
 | postgresql.auth.database | string | `"postgres"` | Database name |
 | postgresql.auth.port | int | `5432` | Database port number |
-| postgresql.auth.existingSecret | string | `"secret-postgres-init"` | Secret containing the passwords for root usernames postgres and non-root usernames repl_user, portal and provisioning. |
+| postgresql.auth.existingSecret | string | `"portal-postgres"` | Secret containing the passwords for root usernames postgres and non-root usernames repl_user, portal and provisioning. |
 | postgresql.auth.password | string | `""` | Password for the root username 'postgres'. Secret-key 'postgres-password'. |
 | postgresql.auth.replicationPassword | string | `""` | Password for the non-root username 'repl_user'. Secret-key 'replication-password'. |
 | postgresql.auth.portalUser | string | `"portal"` | Non-root username for portal. |
@@ -454,7 +507,7 @@ dependencies:
 | postgresql.audit.pgAuditLog | string | `"write, ddl"` |  |
 | postgresql.audit.logLinePrefix | string | `"%m %u %d "` |  |
 | postgresql.primary.extendedConfiguration | string | `""` | Extended PostgreSQL Primary configuration (increase of max_connections recommended - default is 100) |
-| postgresql.primary.initdb.scriptsConfigMap | string | `"configmap-postgres-init"` |  |
+| postgresql.primary.initdb.scriptsConfigMap | string | `"{{ .Release.Name }}-portal-cm-postgres"` |  |
 | postgresql.primary.extraEnvVars[0].name | string | `"PORTAL_PASSWORD"` |  |
 | postgresql.primary.extraEnvVars[0].valueFrom.secretKeyRef.name | string | `"{{ .Values.auth.existingSecret }}"` |  |
 | postgresql.primary.extraEnvVars[0].valueFrom.secretKeyRef.key | string | `"portal-password"` |  |
@@ -465,7 +518,7 @@ dependencies:
 | externalDatabase.host | string | `"portal-backend-postgresql-external-db"` | External PostgreSQL configuration IMPORTANT: init scripts (01-init-db-user.sh and 02-init-db.sql) available in templates/configmap-backend-postgres-init.yaml need to be executed beforehand. Database host |
 | externalDatabase.database | string | `"postgres"` | Database name |
 | externalDatabase.port | int | `5432` | Database port number |
-| externalDatabase.secret | string | `"secret-postgres-external-db"` | Secret containing the passwords non-root usernames portal and provisioning. |
+| externalDatabase.secret | string | `"portal-postgres-external-db"` | Secret containing the passwords non-root usernames portal and provisioning. |
 | externalDatabase.portalUser | string | `"portal"` | Non-root username for portal. |
 | externalDatabase.provisioningUser | string | `"provisioning"` | Non-root username for provisioning. |
 | externalDatabase.portalPassword | string | `""` | Password for the non-root username 'portal'. Secret-key 'portal-password'. |

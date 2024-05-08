@@ -20,21 +20,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.frontend.registration.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.frontend.registration.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
-      app: {{ .Values.frontend.registration.name }}
+      app: {{ include "portal.fullname" . }}-{{ .Values.frontend.registration.name }}
+      {{- include "portal.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Values.frontend.registration.name }}
+        app: {{ include "portal.fullname" . }}-{{ .Values.frontend.registration.name }}
+        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: {{ .Values.frontend.registration.name }}
+      - name: {{ include "portal.fullname" . }}-{{ .Values.frontend.registration.name }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -50,11 +55,25 @@ spec:
           - name: PORTAL_BACKEND_URL
             value: "{{ .Values.portalBackendAddress }}"
           - name: CENTRALIDP_URL
-            value: "{{ .Values.centralidpAddress }}{{ .Values.frontend.centralidpAuthPath }}"
+            value: "{{ .Values.centralidp.address }}{{ .Values.frontend.centralidpAuthPath }}"
+          - name: REALM
+            value: "{{ .Values.centralidp.realm }}"
+          - name: CLIENT_ID_REGISTRATION
+            value: "{{ .Values.centralidp.clients.registration }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}
           protocol: TCP
+        startupProbe:
+          httpGet:
+            path: "/"
+            port: {{ .Values.portContainer }}
+            scheme: HTTP
+          initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
+          periodSeconds: {{ .Values.startupProbe.periodSeconds }}
+          timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
+          successThreshold: {{ .Values.startupProbe.successThreshold }}
+          failureThreshold: {{ .Values.startupProbe.failureThreshold }}
         livenessProbe:
           httpGet:
             path: "/"

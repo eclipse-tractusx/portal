@@ -20,21 +20,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.backend.services.name }}
+  name: {{ include "portal.fullname" . }}-{{ .Values.backend.services.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "portal.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     {{- toYaml .Values.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
-      app: {{ .Values.backend.services.name }}
+      app: {{ include "portal.fullname" . }}-{{ .Values.backend.services.name }}
+      {{- include "portal.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        app: {{ .Values.backend.services.name }}
+        app: {{ include "portal.fullname" . }}-{{ .Values.backend.services.name }}
+        {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: {{ .Values.backend.services.name }}
+      - name: {{ include "portal.fullname" . }}-{{ .Values.backend.services.name }}
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -91,17 +96,17 @@ spec:
         - name: "HEALTHCHECKS__2__PATH"
           value: "{{ .Values.backend.healthChecks.liveness.path}}"
         - name: "JWTBEAREROPTIONS__METADATAADDRESS"
-          value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.jwtBearerOptions.metadataPath }}"
         - name: "JWTBEAREROPTIONS__REQUIREHTTPSMETADATA"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDAUDIENCE"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validAudiencePortal }}"
         - name: "JWTBEAREROPTIONS__TOKENVALIDATIONPARAMETERS__VALIDISSUER"
-          value: "{{ .Values.centralidpAddress }}{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath }}"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.jwtBearerOptions.tokenValidationParameters.validIssuerPath }}"
         - name: "JWTBEAREROPTIONS__REFRESHINTERVAL"
           value: "{{ .Values.backend.keycloak.central.jwtBearerOptions.refreshInterval }}"
         - name: "KEYCLOAK__CENTRAL__AUTHREALM"
-          value: "{{ .Values.backend.keycloak.central.authRealm }}"
+          value: "{{ .Values.centralidp.realm }}"
         - name: "KEYCLOAK__CENTRAL__CLIENTID"
           value: "{{ .Values.backend.keycloak.central.clientId }}"
         - name: "KEYCLOAK__CENTRAL__CLIENTSECRET"
@@ -110,7 +115,7 @@ spec:
               name: "{{ .Values.backend.keycloak.secret }}"
               key: "central-client-secret"
         - name: "KEYCLOAK__CENTRAL__CONNECTIONSTRING"
-          value: "{{ .Values.centralidpAddress }}"
+          value: "{{ .Values.centralidp.address }}"
         - name: "KEYCLOAK__CENTRAL__USEAUTHTRAIL"
           value: "{{ .Values.backend.keycloak.central.useAuthTrail }}"
         - name: "KEYCLOAK__SHARED__AUTHREALM"
@@ -130,29 +135,16 @@ spec:
           value: "{{ .Values.backend.services.logging.default }}"
         - name: "SERILOG__MINIMUMLEVEL__OVERRIDE__Org.Eclipse.TractusX.Portal.Backend.Offers.Library.Service"
           value: "{{ .Values.backend.services.logging.offersLibrary }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPHOST"
-          value: "{{ .Values.backend.mailing.host }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPPASSWORD"
-          valueFrom:
-            secretKeyRef:
-              name: "{{ .Values.backend.mailing.secret }}"
-              key: "password"
-        - name: "MAILINGSERVICE__MAIL__SMTPPORT"
-          value: "{{ .Values.backend.mailing.port }}"
-        - name: "MAILINGSERVICE__MAIL__SMTPUSER"
-          value: "{{ .Values.backend.mailing.user }}"
-        - name: "MAILINGSERVICE__MAIL__SENDEREMAIL"
-          value: "{{ .Values.backend.mailing.senderEmail }}"
         - name: "MVC_ROUTING_BASEPATH"
           value: "{{ .Values.backend.services.basePath }}"
         - name: "PROVISIONING__CENTRALREALM"
-          value: "{{ .Values.backend.provisioning.centralRealm }}"
+          value: "{{ .Values.centralidp.realm }}"
         - name: "PROVISIONING__CENTRALREALMID"
           value: "{{ .Values.backend.provisioning.centralRealmId }}"
         - name: "SERVICES__APPROVESERVICENOTIFICATIONTYPEIDS__0"
           value: "{{ .Values.backend.services.approveServiceNotificationTypeIds.type0 }}"
         - name: "SERVICES__APPROVESERVICEUSERROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "SERVICES__APPROVESERVICEUSERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.services.approveServiceUserRoles.role0 }}"
         - name: "SERVICES__APPROVESERVICEUSERROLES__0__USERROLENAMES__1"
@@ -166,7 +158,7 @@ spec:
         - name: "SERVICES__USERMANAGEMENTADDRESS"
           value: "{{ .Values.portalAddress }}{{ .Values.backend.userManagementPath }}"
         - name: "SERVICES__CATENAADMINROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "SERVICES__CATENAADMINROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.services.catenaAdminRoles.role0 }}"
         - name: "SERVICES__UPLOADSERVICEDOCUMENTTYPEIDS__0__DOCUMENTTYPEID"
@@ -186,29 +178,29 @@ spec:
         - name: "SERVICES__UPLOADSERVICEDOCUMENTTYPEIDS__2__MEDIATYPES__0"
           value: "{{ .Values.backend.services.uploadServiceDocumentTypeIds.mediaTypeIds2.mediaTypeId0 }}"
         - name: "SERVICES__ITADMINROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "SERVICES__ITADMINROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.services.ITAdminRoles.role0 }}"
         - name: "SERVICES__ACTIVATIONUSERROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "SERVICES__ACTIVATIONUSERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.services.activationUserRoles.role0 }}"
         - name: "SERVICES__ACTIVATIONUSERROLES__0__USERROLENAMES__1"
           value: "{{ .Values.backend.services.activationUserRoles.role1 }}"
         - name: "SERVICES__SALESMANAGERROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "SERVICES__SALESMANAGERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.services.salesManagerRoles.role0 }}"
         - name: "SERVICES__SERVICEACCOUNTROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.technicalRolesManagement }}"
+          value: "{{ .Values.centralidp.clients.technicalRolesManagement }}"
         - name: "SERVICES__SERVICEACCOUNTROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.services.serviceAccountRoles.role0 }}"
         - name: "SERVICES__SERVICEMANAGERROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "SERVICES__SERVICEMANAGERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.services.serviceManagerRoles.role0 }}"
         - name: "SERVICES__SUBSCRIPTIONMANAGERROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "SERVICES__SUBSCRIPTIONMANAGERROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.services.subscriptionManagerRoles.role0 }}"
         - name: "SERVICES__SUBSCRIPTIONMANAGERROLES__0__USERROLENAMES__1"
@@ -238,9 +230,60 @@ spec:
         - name: "SERVICES__TECHNICALUSERPROFILECLIENT"
           value: "{{ .Values.backend.services.technicalUserProfileClient }}"
         - name: "SERVICES__COMPANYADMINROLES__0__CLIENTID"
-          value: "{{ .Values.backend.clients.portal }}"
+          value: "{{ .Values.centralidp.clients.portal }}"
         - name: "SERVICES__COMPANYADMINROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.services.companyAdminRoles.role0 }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGINDEX"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigIndex }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__INDEX"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.index }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__ENCRYPTIONKEY"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "mailing-encryption-key0"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__CIPHERMODE"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.cipherMode }}"
+        - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__PADDINGMODE"
+          value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.paddingMode }}"
+        - name: "DIM__USERNAME"
+          value: "{{ .Values.backend.placeholder }}"
+        - name: "DIM__PASSWORD"
+          value: "{{ .Values.backend.placeholder }}"
+        - name: "DIM__CLIENTID"
+          value: "{{ .Values.backend.processesworker.dim.clientId }}"
+        - name: "DIM__GRANTTYPE"
+          value: "{{ .Values.backend.processesworker.dim.grantType }}"
+        - name: "DIM__CLIENTSECRET"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "dim-client-secret"
+        - name: "DIM__SCOPE"
+          value: "{{ .Values.backend.processesworker.dim.scope }}"
+        - name: "DIM__TOKENADDRESS"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
+        - name: "DIM__BASEADDRESS"
+          value: "{{ .Values.dimWrapper.baseAddress }}{{ .Values.dimWrapper.apiPath }}"
+        - name: "DIM__UNIVERSALRESOLVERADDRESS"
+          value: "{{ .Values.backend.processesworker.dim.universalResolverAddress }}"
+        - name: "DIM__DIDDOCUMENTBASELOCATION"
+          value: "{{ .Values.portalAddress }}{{ .Values.backend.processesworker.dim.didDocumentPath }}"
+        - name: "DIM__MAXVALIDATIONTIMEINDAYS"
+          value: "{{ .Values.backend.processesworker.dim.maxValidationTimeInDays }}"
+        - name: "DIM__ENCRYPTIONCONFIGINDEX"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigIndex }}"
+        - name: "DIM__ENCRYPTIONCONFIGS__0__INDEX"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigs.index0.index }}"
+        - name: "DIM__ENCRYPTIONCONFIGS__0__ENCRYPTIONKEY"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "dim-encryption-key0"
+        - name: "DIM__ENCRYPTIONCONFIGS__0__CIPHERMODE"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigs.index0.cipherMode }}"
+        - name: "DIM__ENCRYPTIONCONFIGS__0__PADDINGMODE"
+          value: "{{ .Values.backend.processesworker.dim.encryptionConfigs.index0.paddingMode }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

@@ -29,18 +29,22 @@ spec:
   source:
     path: ''
     repoURL: 'https://eclipse-tractusx.github.io/charts/dev'
-    targetRevision: 1.8.1
+    targetRevision: 2.0.0-RC6
     plugin:
       env:
         - name: HELM_VALUES
           value: |
             portalAddress: "https://portal.stable.demo.catena-x.net"
             portalBackendAddress: "https://portal-backend.stable.demo.catena-x.net"
-            centralidpAddress: "https://centralidp.stable.demo.catena-x.net"
+            centralidp:
+              address: "https://centralidp.stable.demo.catena-x.net"
             sharedidpAddress: "https://sharedidp.stable.demo.catena-x.net"
             semanticsAddress: "https://semantics.stable.demo.catena-x.net"
-            bpdmPartnersPoolAddress: "https://business-partners.stable.demo.catena-x.net"
-            bpdmPortalGateAddress: "https://business-partners.stable.demo.catena-x.net"
+            bpdm:
+              poolAddress: "https://business-partners.stable.demo.catena-x.net"
+              poolApiPath: "/pool/v6"
+              portalGateAddress: "https://business-partners.stable.demo.catena-x.net"
+              portalGateApiPath: "/companies/test-company/v6"
             custodianAddress: "https://managed-identity-wallets-new.stable.demo.catena-x.net"
             sdfactoryAddress: "https://sdfactory.stable.demo.catena-x.net"
             clearinghouseAddress: "https://validation.test.dih-cloud.com"
@@ -238,7 +242,29 @@ spec:
                   clientId: "<path:portal/data/processes-worker#offerprovider-client-id>"
                   clientSecret: "<path:portal/data/stable/processes-worker#offerprovider-client-secret>"
                 onboardingServiceProvider:
-                  encryptionKey: "<path:portal/data/stable/processes-worker#process-onboardingserviceprovider-encryption-key>"
+                  encryptionConfigs:
+                    index0:
+                      encryptionKey: "<path:portal/data/stable/processes-worker#onboardingserviceprovider-encryption-key0>"
+                    index1:
+                      encryptionKey: "<path:portal/data/stable/processes-worker#onboardingserviceprovider-encryption-key1>"
+                dim:
+                  encryptionConfigs:
+                    index0:
+                      encryptionKey: "<path:portal/data/stable/processes-worker#dim-encryption-key0>"
+                issuerComponent:
+                  clientId: "<path:portal/data/processes-worker#issuercomponent-client-id>"
+                  clientSecret: "<path:portal/data/stable/processes-worker#issuercomponent-client-secret>"
+                  encryptionConfigs:
+                    index0:
+                      encryptionKey: "<path:portal/data/stable/processes-worker#issuercomponent-encryption-key0>"
+                invitation:
+                  encryptionConfigs:
+                    index0:
+                      encryptionKey: "<path:portal/data/stable/processes-worker#invitation-encryption-key0>"
+                mailing:
+                  encryptionConfigs:
+                    index0:
+                      encryptionKey: "<path:portal/data/stable/processes-worker#mailing-encryption-key0>"
 
             postgresql:
               auth:

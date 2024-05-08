@@ -58,8 +58,10 @@ spec:
             value: "{{ .Values.centralidp.address }}{{ .Values.frontend.centralidpAuthPath }}"
           - name: SSI_CREDENTIAL_URL
             value: "{{ .Values.issuerComponentAddress }}"
-          - name: BPDM_API_URL
+          - name: BPDM_POOL_API_URL
             value: "{{ .Values.bpdm.poolAddress }}{{ .Values.bpdm.poolApiPath }}"
+          - name: BPDM_GATE_API_URL
+            value: "{{ .Values.bpdm.portalGateAddress }}{{ .Values.bpdm.portalGateApiPath }}"
           - name: SEMANTICS_URL
             value: "{{ .Values.semanticsAddress }}"
           - name: MANAGED_IDENTITY_WALLETS_NEW_URL

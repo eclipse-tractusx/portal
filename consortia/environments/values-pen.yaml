@@ -38,6 +38,7 @@ dimWrapper:
   baseAddress: "https://dim-pen.dev.demo.catena-x.net"
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 bpnDidResolver:
+  managementApiAddress: "http://bdrs-bdrs-server:8081"
   directoryApiAddress: "https://bpn-did-resolution-service-pen.dev.demo.catena-x.net/api/directory"
 
 frontend:

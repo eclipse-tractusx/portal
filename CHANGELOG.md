@@ -108,6 +108,13 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
 
 Please be aware that **this version is still in Release Candidate phase**: especially documentation is still WIP.
 
+## 1.8.1
+
+### Bugfix
+
+* changed to new container image for portal-backend: v1.8.1
+* changed ingress to work without tls enabled and to comply with TRG-5.04
+
 ## 1.8.0
 
 ### Change

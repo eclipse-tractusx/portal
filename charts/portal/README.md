@@ -79,8 +79,7 @@ dependencies:
 | decentralIdentityManagementAuthAddress | string | `"https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"` |  |
 | frontend.ingress.enabled | bool | `false` | Portal frontend ingress parameters, enable ingress record generation for portal frontend. |
 | frontend.ingress.name | string | `"frontend"` |  |
-| frontend.ingress.tls[0] | object | `{"hosts":[""],"secretName":""}` | Provide tls secret. |
-| frontend.ingress.tls[0].hosts | list | `[""]` | Provide host for tls secret. |
+| frontend.ingress.tls | list | `[]` | Ingress TLS configuration |
 | frontend.ingress.hosts[0] | object | `{"host":"","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assets|documentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"docker.io/tractusx/portal-frontend"` |  |
@@ -101,8 +100,7 @@ dependencies:
 | frontend.centralidpAuthPath | string | `"/auth"` |  |
 | backend.ingress.enabled | bool | `false` | Portal-backend ingress parameters, enable ingress record generation for portal-backend. |
 | backend.ingress.name | string | `"backend"` |  |
-| backend.ingress.tls[0] | object | `{"hosts":[""],"secretName":""}` | Provide tls secret. |
-| backend.ingress.tls[0].hosts | list | `[""]` | Provide host for tls secret. |
+| backend.ingress.tls | list | `[]` | Ingress TLS configuration |
 | backend.ingress.hosts[0] | object | `{"host":"portal-backend.example.org","paths":[{"backend":{"port":8080,"service":"registration-service"},"path":"/api/registration","pathType":"Prefix"},{"backend":{"port":8080,"service":"administration-service"},"path":"/api/administration","pathType":"Prefix"},{"backend":{"port":8080,"service":"notification-service"},"path":"/api/notification","pathType":"Prefix"},{"backend":{"port":8080,"service":"provisioning-service"},"path":"/api/provisioning","pathType":"Prefix"},{"backend":{"port":8080,"service":"marketplace-app-service"},"path":"/api/apps","pathType":"Prefix"},{"backend":{"port":8080,"service":"services-service"},"path":"/api/services","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | backend.dotnetEnvironment | string | `"Production"` |  |
 | backend.dbConnection.schema | string | `"portal"` |  |

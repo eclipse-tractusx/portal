@@ -451,6 +451,8 @@ spec:
               value: "{{ .Values.portalAddress }}{{ .Values.backend.registration.portalRegistrationPath }}"
             - name: "INVITATION__PASSWORDRESENDADDRESS"
               value: "{{ .Values.portalAddress }}{{ .Values.backend.portalPasswordResendPath }}"
+            - name: "INVITATION__CLOSEAPPLICATIONADDRESS"
+              value: "{{ .Values.portalAddress }}{{ .Values.backend.processesworker.invitation.closeApplicationPath }}"
             - name: "INVITATION__INITIALLOGINTHEME"
               value: "{{ .Values.backend.processesworker.invitation.initialLoginTheme }}"
             - name: "INVITATION__ENCRYPTIONCONFIGINDEX"

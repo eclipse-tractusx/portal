@@ -2,6 +2,16 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.0.0-RC7
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.0.0-RC6
+  * portal-backend: v2.0.0-RC7
+* portal-backend:
+  * adjusted clearinghouse configuration: added useWallet flag
+
 ## 2.0.0-RC6
 
 ### Change
@@ -107,6 +117,13 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
 * add dependabot.yml file
 
 Please be aware that **this version is still in Release Candidate phase**: especially documentation is still WIP.
+
+## 1.8.1
+
+### Bugfix
+
+* changed to new container image for portal-backend: v1.8.1
+* changed ingress to work without tls enabled and to comply with TRG-5.04
 
 ## 1.8.0
 

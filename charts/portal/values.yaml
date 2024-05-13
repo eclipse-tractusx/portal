@@ -96,12 +96,13 @@ frontend:
     #   nginx.ingress.kubernetes.io/enable-cors: "true"
     #   # -- Provide CORS allowed origin.
     #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
-    tls:
-      # -- Provide tls secret.
-      - secretName: ""
-        # -- Provide host for tls secret.
-        hosts:
-          - ""
+    # -- Ingress TLS configuration
+    tls: []
+      # # -- Provide tls secret.
+      # - secretName: ""
+      #   # -- Provide host for tls secret.
+      #   hosts:
+      #     - ""
     hosts:
       # -- Provide default path for the ingress record.
       - host: ""
@@ -180,12 +181,13 @@ backend:
     #   nginx.ingress.kubernetes.io/proxy-body-size: "8m"
     #   # -- Provide CORS allowed origin.
     #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
-    tls:
-      # -- Provide tls secret.
-      - secretName: ""
-        # -- Provide host for tls secret.
-        hosts:
-          - ""
+    # -- Ingress TLS configuration
+    tls: []
+      # # -- Provide tls secret.
+      # - secretName: ""
+      #   # -- Provide host for tls secret.
+      #   hosts:
+      #     - ""
     hosts:
       # -- Provide default path for the ingress record.
       - host: "portal-backend.example.org"
@@ -295,7 +297,7 @@ backend:
     name: "registration-service"
     image:
       name: "docker.io/tractusx/portal-registration-service"
-      registrationservicetag: v2.0.0-RC6
+      registrationservicetag: v2.0.0-RC7
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -344,7 +346,7 @@ backend:
     name: "administration-service"
     image:
       name: "docker.io/tractusx/portal-administration-service"
-      administrationservicetag: v2.0.0-RC6
+      administrationservicetag: v2.0.0-RC7
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -462,7 +464,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "docker.io/tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: v2.0.0-RC6
+      appmarketplaceservicetag: v2.0.0-RC7
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -594,7 +596,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "docker.io/tractusx/portal-portal-migrations"
-      portalmigrationstag: v2.0.0-RC6
+      portalmigrationstag: v2.0.0-RC7
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -617,7 +619,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "docker.io/tractusx/portal-maintenance-service"
-      portalmaintenancetag: v2.0.0-RC6
+      portalmaintenancetag: v2.0.0-RC7
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -635,7 +637,7 @@ backend:
     name: "notification-service"
     image:
       name: "docker.io/tractusx/portal-notification-service"
-      notificationservicetag: v2.0.0-RC6
+      notificationservicetag: v2.0.0-RC7
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -662,7 +664,7 @@ backend:
     name: "services-service"
     image:
       name: "docker.io/tractusx/portal-services-service"
-      servicesservicetag: v2.0.0-RC6
+      servicesservicetag: v2.0.0-RC7
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -742,7 +744,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "docker.io/tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v2.0.0-RC6
+      provisioningmigrationstag: v2.0.0-RC7
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
@@ -758,7 +760,7 @@ backend:
     name: "processes-worker"
     image:
       name: "docker.io/tractusx/portal-processes-worker"
-      processesworkertag: v2.0.0-RC6
+      processesworkertag: v2.0.0-RC7
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

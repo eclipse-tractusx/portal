@@ -742,7 +742,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "docker.io/tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: f43a1ee5fdae0a5a3575c3756050a5a652745218
+      provisioningmigrationstag: f1822e33a1f880d0586e13061f997551fc61a152
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

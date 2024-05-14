@@ -758,7 +758,7 @@ backend:
     name: "processes-worker"
     image:
       name: "docker.io/tractusx/portal-processes-worker"
-      processesworkertag: abdb344a0781511de60f67f7f7535fed97380d4c
+      processesworkertag: f1822e33a1f880d0586e13061f997551fc61a152
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

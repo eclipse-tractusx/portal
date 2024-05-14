@@ -82,6 +82,10 @@ spec:
             {{- end }}
             - name: "PROVISIONING__SERVICEACCOUNTCLIENTPREFIX"
               value: "{{ .Values.backend.provisioning.serviceAccountClientPrefix }}"
+            - name: "PROVISIONING__DIMUSERROLES__0__CLIENTID"
+              value: "{{ .Values.centralidp.clients.technicalRolesManagement }}"
+            - name: "PROVISIONING__DIMUSERROLES__0__USERROLENAMES__0"
+              value: "{{ .Values.backend.administration.serviceAccount.dimCreationRoles.role0 }}"
             - name: "APPLICATIONACTIVATION__APPLICATIONAPPROVALINITIALROLES__0__CLIENTID"
               value: "{{ .Values.centralidp.clients.portal }}"
             - name: "APPLICATIONACTIVATION__APPLICATIONAPPROVALINITIALROLES__0__USERROLENAMES__0"

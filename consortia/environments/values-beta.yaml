@@ -1,5 +1,5 @@
 ###############################################################
-# Copyright (c) 2021, 2024 Contributors to the Eclipse Foundation
+# Copyright (c) 2023 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -37,6 +37,7 @@ dimWrapper:
   baseAddress: "https://dim.beta.demo.catena-x.net"
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 bpnDidResolver:
+  managementApiAddress: "http://bdrs-bdrs-server:8081"
   directoryApiAddress: "https://bpn-did-resolution-service.beta.demo.catena-x.net/api/directory"
 
 frontend:

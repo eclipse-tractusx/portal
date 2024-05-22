@@ -2,6 +2,21 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.0.0-RC9
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.0.0-RC8
+  * portal-backend: v2.0.0-RC9
+  * portal-assets: v2.0.0-RC2
+  * portal-frontend-registration: v2.0.0-RC2
+* portal-frontend:
+  * made https url patterns configurable
+* portal-backend:
+  * added decline url for invite process
+  * added parameter clockSkew to jwtBearerOptions for token lifetime
+
 ## 2.0.0-RC8
 
 ### Change

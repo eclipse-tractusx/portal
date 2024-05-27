@@ -2,6 +2,16 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.0.0-RC10
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.0.0-RC9
+  * portal-backend: v2.0.0-RC10
+  * portal-assets: v2.0.0-RC3
+  * portal-frontend-registration: v2.0.0
+
 ## 2.0.0-RC9
 
 ### Change

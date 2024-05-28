@@ -28,7 +28,7 @@ spec:
   source:
     path: charts/portal
     repoURL: 'https://github.com/eclipse-tractusx/portal.git'
-    targetRevision: portal-2.0.0-RC10
+    targetRevision: portal-2.0.0
     plugin:
       env:
         - name: AVP_SECRET

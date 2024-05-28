@@ -154,7 +154,7 @@ frontend:
     name: "assets"
     image:
       name: "docker.io/tractusx/portal-assets"
-      assetstag: a7a563274e509e9c91651e6b381776b73258af8b
+      assetstag: 066c63767887d3d7a3739c076c11b45765aa67f9
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

@@ -2,158 +2,54 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 2.0.0-RC10
+## 2.0.0
 
 ### Change
 
 * changed to new container images
-  * portal-frontend: v2.0.0-RC9
-  * portal-backend: v2.0.0-RC10
-  * portal-assets: v2.0.0-RC3
+  * portal-frontend: v2.0.0
+  * portal-backend: v2.0.0
+  * portal-assets: v2.0.0
   * portal-frontend-registration: v2.0.0
-
-## 2.0.0-RC9
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.0.0-RC8
-  * portal-backend: v2.0.0-RC9
-  * portal-assets: v2.0.0-RC2
-  * portal-frontend-registration: v2.0.0-RC2
 * portal-frontend:
+  * made realm and clients configurable for frontend deployments (in the backend they were already configurable)
+  * changed bdpm pool api path and improve configuration
   * made https url patterns configurable
-* portal-backend:
-  * added decline url for invite process
-  * added parameter clockSkew to jwtBearerOptions for token lifetime
-
-## 2.0.0-RC8
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.0.0-RC7
-  * portal-backend: v2.0.0-RC8
-  * portal-assets: v2.0.0-RC1
-* reworked year in file header
-* portal-backend:
-  * added dimUserRoles to configuration
-
-## 2.0.0-RC7
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.0.0-RC6
-  * portal-backend: v2.0.0-RC7
-* portal-backend:
-  * adjusted clearinghouse configuration: added useWallet flag
-
-## 2.0.0-RC6
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.0.0-RC5
-  * portal-backend: v2.0.0-RC6
-* portal-backend: added configuration for decentral identity urls
-
-### Bugfix
-
-* portal-backend: fixed clientId for dim creation roles
-
-## 2.0.0-RC5
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.0.0-RC4
-  * portal-backend: v2.0.0-RC5
-* portal-frontend: enabled configuration for ssi-credential-issuer integration
-
-### Bugfix
-
-* portal-backend:
-  * changed bpnDidResolverAddress: removed api/management as trailing path (managed in portal-backend code)
-
-## 2.0.0-RC4
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.0.0-RC3
-  * portal-backend: v2.0.0-RC4
-
-## 2.0.0-RC3
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.0.0-RC2
-  * portal-backend: v2.0.0-RC3
-* portal-backend:
-  * added additional dim management configuration
-
-### Bugfix
-
-* portal-backend:
-  * fixed configuration for bpn did resolver
-  * fixed configuration for did
-  * fixed configuration for did management
-
-## 2.0.0-RC2
-
-### Change
-
-* changed to new container images
-  * portal-backend: v2.0.0-RC2
-  * portal-frontend-registration: v2.0.0-RC1
-* portal-frontend: changed bdpm pool api path and improve configuration
-* portal-backend:
-  * moved bpdm api paths into config / helm chart
-  * activated dim wallet creation
-  * increased resource limits for processes worker
-  * added configuration for bpn did resolver
-  * adjusted configuration for issuerComponent
-
-### Bugfix
-
-* portal-backend: added serviceAccountClientPrefix for to processes worker
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.0.0-RC1
-  * portal-frontend-registration: v1.7.0-RC1
-  * portal-backend: v2.0.0-RC1
-* defined unique resource names for deployments, jobs, services and ingresses
-* added labels and namespace if not already set
-* named secrets in a more unique manner
-* improve centralidp configuration for clients, realm and address
-* made realm and clients configurable for frontend deployments (in the backend they were already configurable)
-* changed ingress default settings according to [TRG-5.05](https://eclipse-tractusx.github.io/docs/release/trg-5/trg-5-05)
-* added startup probes to frontend deployments
-* improve portal helm test workflow
-* set default resource limits and increase default resource requests
-* db-dependency:
-  * change setup to get latest minor updates
-  * removed fullnameOverride
-* helm-test:
-  * was enabled for removal for fullnameOverride and renaming for postgres secret
-  * updated version to upgrade (R24.03) from and k8s version
 * portal-backend:
   * moved mailing and invitation configuration to processes worker
   * added new encryption configuration for onboarding service provider (osp)
   * added configuration for issuer component and dim (digital identity management)
   * removed obsolete db setting from administration, registration and notification service deployments
+  * moved bpdm api paths into config / helm chart
+  * activated dim wallet creation
+  * added configuration for bpn did resolver
+  * enabled configuration for ssi-credential-issuer integration
+  * added configuration for decentral identity urls
+  * adjusted clearinghouse configuration: added useWallet flag
+  * added dimUserRoles to configuration
+  * added decline url for invite process
+  * added parameter clockSkew to jwtBearerOptions for token lifetime
+* defined unique resource names for deployments, jobs, services and ingresses
+* added labels and namespace if not already set
+* named secrets in a more unique manner
+* improved centralidp configuration for clients, realm and address
+* changed ingress default settings according to [TRG-5.05](https://eclipse-tractusx.github.io/docs/release/trg-5/trg-5-05)
+* added startup probes to frontend deployments
+* set default resource limits and increase default resource requests
+* db-dependency:
+  * change setup to get latest minor updates
+  * removed fullnameOverride
 
 ### Technical Support
 
-* CONTRIBUTING.md: linked to contribution details
-* upgraded gh actions and change to pinned actions full length commit sha
+* helm-test:
+  * improved workflow
+  * got enabled for removal for fullnameOverride and renaming for postgres secret in the case of upgrade
+  * updated version to upgrade (R24.03) from and k8s version
 * add dependabot.yml file
-
-Please be aware that **this version is still in Release Candidate phase**: especially documentation is still WIP.
+* upgraded gh actions and change to pinned actions full length commit sha
+* reworked year in file header
+* CONTRIBUTING.md: linked to contribution details
 
 ## 1.8.1
 

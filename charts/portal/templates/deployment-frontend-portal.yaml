@@ -50,6 +50,8 @@ spec:
         image: {{ .Values.frontend.portal.image.name }}:{{ .Values.frontend.portal.image.portaltag | default .Chart.AppVersion }}
         imagePullPolicy: "{{ .Values.frontend.portal.image.pullPolicy }}"
         env:
+          - name: REQUIRE_HTTPS_URL_PATTERN
+            value: "{{ .Values.frontend.portal.requireHttpsUrlPattern }}"
           - name: PORTAL_ASSETS_URL
             value: "{{ .Values.portalAddress }}{{ .Values.frontend.assets.path }}"
           - name: PORTAL_BACKEND_URL

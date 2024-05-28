@@ -136,6 +136,7 @@ frontend:
       limits:
         cpu: 75m
         memory: 125M
+    requireHttpsUrlPattern: true
   registration:
     name: "registration"
     image:
@@ -249,6 +250,7 @@ backend:
           validIssuerPath: "/auth/realms/CX-Central"
           validAudiencePortal: "Cl2-CX-Portal"
           validAudienceRegistration: "Cl1-CX-Registration"
+          clockSkew: "00:05:00"
         refreshInterval: "00:00:30"
       tokenPath: "/auth/realms/CX-Central/protocol/openid-connect/token"
       dbConnection:

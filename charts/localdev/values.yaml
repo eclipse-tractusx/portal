@@ -62,7 +62,6 @@ portal:
   backend:
     ingress:
       enabled: true
-      name: "portal-backend"
       annotations:
         cert-manager.io/cluster-issuer: "my-ca-issuer"
         nginx.ingress.kubernetes.io/use-regex: "true"
@@ -183,8 +182,8 @@ centralidp:
         mountPath: "/realms"
     initContainers:
       - name: init-certs
-        image: docker.io/bitnami/keycloak:22.0.3-debian-11-r14
-        imagePullPolicy: Always
+        image: docker.io/bitnami/keycloak:23.0.7-debian-12-r1
+        imagePullPolicy: IfNotPresent
         command: ["/bin/bash"]
         args:
           - -ec
@@ -205,8 +204,8 @@ centralidp:
           - name: shared-certs
             mountPath: "/opt/bitnami/keycloak/certs"
       - name: import
-        image: tractusx/portal-iam:v2.1.0
-        imagePullPolicy: Always
+        image: tractusx/portal-iam:v3.0.0
+        imagePullPolicy: IfNotPresent
         command:
           - sh
         args:
@@ -294,8 +293,8 @@ sharedidp:
         mountPath: "/secrets"
     initContainers:
       - name: init-certs
-        image: docker.io/bitnami/keycloak:22.0.3-debian-11-r14
-        imagePullPolicy: Always
+        image: docker.io/bitnami/keycloak:23.0.7-debian-12-r1
+        imagePullPolicy: IfNotPresent
         command: ["/bin/bash"]
         args:
           - -ec
@@ -316,8 +315,8 @@ sharedidp:
           - name: shared-certs
             mountPath: "/opt/bitnami/keycloak/certs"
       - name: import
-        image: tractusx/portal-iam:v2.1.0
-        imagePullPolicy: Always
+        image: tractusx/portal-iam:v3.0.0
+        imagePullPolicy: IfNotPresent
         command:
           - sh
         args:

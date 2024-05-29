@@ -1,6 +1,6 @@
 # Setup of CX Portal & IAM for local development
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-1.8.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-2.1.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-2.1.0/charts/sharedidp/README.md)).
 
@@ -265,9 +265,9 @@ cx-operator@cx.com
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
-| https://eclipse-tractusx.github.io/charts/dev | centralidp | 2.1.0 |
-| https://eclipse-tractusx.github.io/charts/dev | portal | 1.8.0 |
-| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 2.1.0 |
+| https://eclipse-tractusx.github.io/charts/dev | centralidp | 3.0.0 |
+| https://eclipse-tractusx.github.io/charts/dev | portal | 2.0.0 |
+| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 3.0.0 |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
 ## Values
@@ -300,7 +300,6 @@ cx-operator@cx.com
 | portal.frontend.ingress.hosts[0].paths[2].backend.service | string | `"assets"` |  |
 | portal.frontend.ingress.hosts[0].paths[2].backend.port | int | `8080` |  |
 | portal.backend.ingress.enabled | bool | `true` |  |
-| portal.backend.ingress.name | string | `"portal-backend"` |  |
 | portal.backend.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"my-ca-issuer"` |  |
 | portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | portal.backend.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -383,8 +382,8 @@ cx-operator@cx.com
 | centralidp.keycloak.extraVolumeMounts[3].name | string | `"realms"` |  |
 | centralidp.keycloak.extraVolumeMounts[3].mountPath | string | `"/realms"` |  |
 | centralidp.keycloak.initContainers[0].name | string | `"init-certs"` |  |
-| centralidp.keycloak.initContainers[0].image | string | `"docker.io/bitnami/keycloak:22.0.3-debian-11-r14"` |  |
-| centralidp.keycloak.initContainers[0].imagePullPolicy | string | `"Always"` |  |
+| centralidp.keycloak.initContainers[0].image | string | `"docker.io/bitnami/keycloak:23.0.7-debian-12-r1"` |  |
+| centralidp.keycloak.initContainers[0].imagePullPolicy | string | `"IfNotPresent"` |  |
 | centralidp.keycloak.initContainers[0].command[0] | string | `"/bin/bash"` |  |
 | centralidp.keycloak.initContainers[0].args[0] | string | `"-ec"` |  |
 | centralidp.keycloak.initContainers[0].args[1] | string | `"keytool -import -file \"/certs/tls.crt\" \\\n        -keystore \"/opt/bitnami/keycloak/certs/keycloak.truststore.jks\" \\\n        -storepass \"${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}\" \\\n        -noprompt"` |  |
@@ -396,8 +395,8 @@ cx-operator@cx.com
 | centralidp.keycloak.initContainers[0].volumeMounts[1].name | string | `"shared-certs"` |  |
 | centralidp.keycloak.initContainers[0].volumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | centralidp.keycloak.initContainers[1].name | string | `"import"` |  |
-| centralidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v2.1.0"` |  |
-| centralidp.keycloak.initContainers[1].imagePullPolicy | string | `"Always"` |  |
+| centralidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v3.0.0"` |  |
+| centralidp.keycloak.initContainers[1].imagePullPolicy | string | `"IfNotPresent"` |  |
 | centralidp.keycloak.initContainers[1].command[0] | string | `"sh"` |  |
 | centralidp.keycloak.initContainers[1].args[0] | string | `"-c"` |  |
 | centralidp.keycloak.initContainers[1].args[1] | string | `"echo \"Copying themes...\"\ncp -R /import/themes/catenax-central/* /themes\necho \"Copying realms...\"\ncp -R /import/catenax-central/realms/* /realms\n"` |  |
@@ -459,8 +458,8 @@ cx-operator@cx.com
 | sharedidp.keycloak.extraVolumeMounts[5].name | string | `"realm-secrets"` |  |
 | sharedidp.keycloak.extraVolumeMounts[5].mountPath | string | `"/secrets"` |  |
 | sharedidp.keycloak.initContainers[0].name | string | `"init-certs"` |  |
-| sharedidp.keycloak.initContainers[0].image | string | `"docker.io/bitnami/keycloak:22.0.3-debian-11-r14"` |  |
-| sharedidp.keycloak.initContainers[0].imagePullPolicy | string | `"Always"` |  |
+| sharedidp.keycloak.initContainers[0].image | string | `"docker.io/bitnami/keycloak:23.0.7-debian-12-r1"` |  |
+| sharedidp.keycloak.initContainers[0].imagePullPolicy | string | `"IfNotPresent"` |  |
 | sharedidp.keycloak.initContainers[0].command[0] | string | `"/bin/bash"` |  |
 | sharedidp.keycloak.initContainers[0].args[0] | string | `"-ec"` |  |
 | sharedidp.keycloak.initContainers[0].args[1] | string | `"keytool -import -file \"/certs/tls.crt\" \\\n        -keystore \"/opt/bitnami/keycloak/certs/keycloak.truststore.jks\" \\\n        -storepass \"${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}\" \\\n        -noprompt"` |  |
@@ -472,8 +471,8 @@ cx-operator@cx.com
 | sharedidp.keycloak.initContainers[0].volumeMounts[1].name | string | `"shared-certs"` |  |
 | sharedidp.keycloak.initContainers[0].volumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | sharedidp.keycloak.initContainers[1].name | string | `"import"` |  |
-| sharedidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v2.1.0"` |  |
-| sharedidp.keycloak.initContainers[1].imagePullPolicy | string | `"Always"` |  |
+| sharedidp.keycloak.initContainers[1].image | string | `"tractusx/portal-iam:v3.0.0"` |  |
+| sharedidp.keycloak.initContainers[1].imagePullPolicy | string | `"IfNotPresent"` |  |
 | sharedidp.keycloak.initContainers[1].command[0] | string | `"sh"` |  |
 | sharedidp.keycloak.initContainers[1].args[0] | string | `"-c"` |  |
 | sharedidp.keycloak.initContainers[1].args[1] | string | `"echo \"Copying themes-catenax-shared...\"\ncp -R /import/themes/catenax-shared/* /themes-catenax-shared\necho \"Copying themes-catenax-shared-portal...\"\ncp -R /import/themes/catenax-shared-portal/* /themes-catenax-shared-portal\necho \"Copying realm...\"\ncp -R /import/catenax-shared/realms/CX-Operator-realm.json /realms\ncp -R /import/catenax-shared/realms/master-realm.json /realms\necho \"Copying realm-secret...\"\ncp /secrets/CX-Operator-users-0.json /realms\n"` |  |

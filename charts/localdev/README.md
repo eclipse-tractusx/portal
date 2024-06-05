@@ -125,8 +125,6 @@ If you're having issues with getting 'Docker Mac Net Connect' to work, we recomm
 
 The tool is necessary due to [#7332](https://github.com/kubernetes/minikube/issues/7332).
 
-### Install from released chart or [portal](https://github.com/eclipse-tractusx/portal) repository
-
 ## Install
 
 ### Use released chart
@@ -154,7 +152,7 @@ Make sure to clone the [portal](https://github.com/eclipse-tractusx/portal) repo
 Then change to the chart directory:
 
 ```bash
-cd charts/umbrella/
+cd charts/localdev/
 ```
 Download the chart dependencies:
 

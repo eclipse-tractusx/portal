@@ -179,13 +179,7 @@ helm install local -f your-values.yaml . --namespace umbrella --create-namespace
 
 ## Perform first login
 
-Make sure to accept the risk of the self-signed certificates for the following hosts using the continue option:
-- [centralidp.tx.test/auth/](http://centralidp.tx.test/auth/)
-- [sharedidp.tx.test/auth/](http://sharedidp.tx.test/auth/)
-- [portal-backend.tx.test](http://portal-backend.tx.test)
-- [portal.tx.test](http://portal.tx.test)
-
-Then proceed with the login to the [portal](http://portal.tx.test) to verify that everything is setup as expected.
+Then proceed with the login to the <http://portal.tx.test> to verify that everything is setup as expected.
 
 Credentials to log into the initial example realm (CX-Operator):
 
@@ -228,6 +222,20 @@ tractusx-umbr3lla!
           linkStyle 0,1,2 stroke:lightblue
           linkStyle 3 stroke:lightgrey
 ```
+
+The relevant hosts are the following:
+
+- <http://centralidp.tx.test/auth/>
+- <http://sharedidp.tx.test/auth/>
+- <http://portal-backend.tx.test>
+- <http://portal.tx.test>
+
+In case that you have TLS enabled (see [Prepare self-signed TLS setup (Optional)](#1-prepare-self-signed-tls-setup-optional)), make sure to accept the risk of the self-signed certificates for all the hosts before performing the first login:
+
+- <https://centralidp.tx.test/auth/>
+- <https://sharedidp.tx.test/auth/>
+- <https://portal-backend.tx.test>
+- <https://portal.tx.test>
 
 ## Database Access
 
@@ -475,7 +483,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.frontend.ingress.hosts[0].paths[2].backend.service | string | `"assets"` |  |
 | portal.frontend.ingress.hosts[0].paths[2].backend.port | int | `8080` |  |
 | portal.backend.dotnetEnvironment | string | `"Development"` |  |
-| portal.backend.useDimWallet | bool | `false` |  |
+| portal.backend.useDimWallet | bool | `true` |  |
 | portal.backend.keycloak.central.clientId | string | `"sa-cl1-reg-2"` |  |
 | portal.backend.keycloak.central.clientSecret | string | `"aEoUADDw2aNPa0WAaKGAyKfC80n8sKxJ"` |  |
 | portal.backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata | string | `"false"` |  |
@@ -490,6 +498,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.administration.logging.sdfactoryLibrary | string | `"Debug"` |  |
 | portal.backend.administration.logging.bpdmLibrary | string | `"Debug"` |  |
 | portal.backend.administration.logging.custodianLibrary | string | `"Debug"` |  |
+| portal.backend.administration.serviceAccount.encryptionConfigs.index0.encryptionKey | string | `"deb8261ec7b89c344f1c5ef5a11606e305f14e0d231b1357d90ad0180c5081d3"` |  |
 | portal.backend.administration.issuerdid | string | `"did:web:tx.test:test123"` |  |
 | portal.backend.administration.swaggerEnabled | bool | `true` |  |
 | portal.backend.appmarketplace.logging.default | string | `"Debug"` |  |
@@ -519,9 +528,17 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.processesworker.dim.clientId | string | `"dim-client-id"` |  |
 | portal.backend.processesworker.dim.clientSecret | string | `""` |  |
 | portal.backend.processesworker.dim.universalResolverAddress | string | `"https://dev.uniresolver.io/"` |  |
+| portal.backend.processesworker.dim.encryptionConfigs.index0.encryptionKey | string | `"6cbaf47ee30c778088e6faa44e2f0eed98beda86db06c7d2e37e32ab78e14b33"` |  |
 | portal.backend.processesworker.issuerComponent.clientId | string | `"sa-cl2-04"` |  |
 | portal.backend.processesworker.issuerComponent.clientSecret | string | `"c0gFPfWWUpeOr7MP6DIqdRPhUfaX4GRC"` |  |
+| portal.backend.processesworker.issuerComponent.encryptionConfigs.index0.encryptionKey | string | `"39ffab76f99ece1e4ac72f973d5c703737324a75c6445e84fa317a7833476a15"` |  |
 | portal.backend.processesworker.bpnDidResolver.apiKey | string | `""` | ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'. |
+| portal.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
+| portal.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
+| portal.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.encryptionKey | string | `"f7bc3d99f1ace73e7a75b794affbbc26206ab29909821a102aaccb2e95e45f7c"` |  |
+| portal.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.encryptionKey | string | `"8027152fe7a869c88acc86981760acd70ff1d660c2bd129eece94edef933caf7"` |  |
+| portal.backend.processesworker.invitation.encryptionConfigs.index0.encryptionKey | string | `"d84fea29d6eac0fa51e36682b164e7d61693cd4202ed04306d2d9c5d46655e2c"` |  |
+| portal.backend.processesworker.mailing.encryptionConfigs.index0.encryptionKey | string | `"d2e27d71b018cb36029184852f1baa3e26891be94718f77de4c7cc6c882fe317"` |  |
 | portal.backend.mailing.host | string | `"smtp.tx.test"` |  |
 | portal.backend.mailing.port | string | `"587"` |  |
 | portal.backend.mailing.user | string | `"smtp-user"` |  |

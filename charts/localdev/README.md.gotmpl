@@ -179,13 +179,7 @@ helm install local -f your-values.yaml . --namespace umbrella --create-namespace
 
 ## Perform first login
 
-Make sure to accept the risk of the self-signed certificates for the following hosts using the continue option:
-- [centralidp.tx.test/auth/](http://centralidp.tx.test/auth/)
-- [sharedidp.tx.test/auth/](http://sharedidp.tx.test/auth/)
-- [portal-backend.tx.test](http://portal-backend.tx.test)
-- [portal.tx.test](http://portal.tx.test)
-
-Then proceed with the login to the [portal](http://portal.tx.test) to verify that everything is setup as expected.
+Then proceed with the login to the <http://portal.tx.test> to verify that everything is setup as expected.
 
 Credentials to log into the initial example realm (CX-Operator):
 
@@ -228,6 +222,20 @@ tractusx-umbr3lla!
           linkStyle 0,1,2 stroke:lightblue
           linkStyle 3 stroke:lightgrey
 ```
+
+The relevant hosts are the following:
+
+- <http://centralidp.tx.test/auth/>
+- <http://sharedidp.tx.test/auth/>
+- <http://portal-backend.tx.test>
+- <http://portal.tx.test>
+
+In case that you have TLS enabled (see [Prepare self-signed TLS setup (Optional)](#1-prepare-self-signed-tls-setup-optional)), make sure to accept the risk of the self-signed certificates for all the hosts before performing the first login:
+
+- <https://centralidp.tx.test/auth/>
+- <https://sharedidp.tx.test/auth/>
+- <https://portal-backend.tx.test>
+- <https://portal.tx.test>
 
 ## Database Access
 

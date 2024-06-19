@@ -936,6 +936,7 @@ backend:
           # -- EncryptionKey to encrypt the parameters of mailing processes. Secret-key 'mailing-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
+    clearinghouseConnectDisabled: false
   placeholder: "empty"
 
 postgresql:

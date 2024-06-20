@@ -23,7 +23,7 @@ on:
   push:
     paths:
       - 'charts/portal/**'
-    branches: [main, dev, release-candidate]
+    branches: [main,release-candidate]
   pull_request:
     paths:
       - 'charts/portal/**'

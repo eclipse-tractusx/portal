@@ -23,7 +23,7 @@ on:
   # push:
   #   paths:
   #     - 'charts/localdev/**'
-  #   branches: [main, dev]
+  #   branches: [main]
   # pull_request:
   #   paths:
   #     - 'charts/localdev/**'

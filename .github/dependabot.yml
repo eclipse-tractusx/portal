@@ -23,7 +23,6 @@ updates:
   # Github Actions
   -
     package-ecosystem: "github-actions"
-    target-branch: dev
     directory: /
     labels:
       - "dependabot"

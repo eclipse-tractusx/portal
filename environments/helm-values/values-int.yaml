@@ -281,12 +281,15 @@ backend:
         index0:
           encryptionKey: "<path:portal/data/int/encryption-keys#mailing-encryption-key0>"
 
+replicaCount: 2
+
 postgresql:
   auth:
     password: "<path:portal/data/int/postgres#postgres-password>"
     replicationPassword: "<path:portal/data/int/postgres#replication-password>"
     portalPassword: "<path:portal/data/int/postgres#portal-password>"
     provisioningPassword: "<path:portal/data/int/postgres#provisioning-password>"
+  architecture: "standalone"
   primary:
     extendedConfiguration: |
       max_connections = 200

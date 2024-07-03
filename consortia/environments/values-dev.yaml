@@ -122,8 +122,6 @@ backend:
     central:
       clientId: "<path:portal/data/keycloak#central-client-id>"
       clientSecret: "<path:portal/data/dev/keycloak#central-client-secret>"
-      dbConnection:
-        password: "<path:portal/data/dev/keycloak#central-db-password>"
     shared:
       clientId: "<path:portal/data/keycloak#shared-client-id>"
       clientSecret: "<path:portal/data/dev/keycloak#shared-client-secret>"

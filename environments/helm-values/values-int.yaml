@@ -263,7 +263,7 @@ backend:
       universalResolverAddress: "https://dev.uniresolver.io/"
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/int/iam/centraidp-client-secrets#dim-encryption-key0>"
+          encryptionKey: "<path:portal/data/int/encryption-keys#dim-encryption-key0>"
     issuerComponent:
       clientId: "<path:portal/data/portal-iam-clientIds#issuercomponent-client-id>"
       clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#portal-issuer-sa>"
@@ -271,7 +271,7 @@ backend:
         index0:
           encryptionKey: "<path:portal/data/int/encryption-keys#issuercomponent-encryption-key0>"
     bpnDidResolver:
-      apiKey: "<path:portal/data/int/iam/centraidp-client-secrets#bpndidresolver-api-key>"
+      apiKey: "<path:portal/data/int/bdrs#api-key>"
     invitation:
       encryptionConfigs:
         index0:

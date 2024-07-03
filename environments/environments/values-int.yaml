@@ -1,0 +1,295 @@
+###############################################################
+# Copyright (c) 2024 Contributors to the Eclipse Foundation
+#
+# See the NOTICE file(s) distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Apache License, Version 2.0 which is available at
+# https://www.apache.org/licenses/LICENSE-2.0.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+###############################################################
+
+portalAddress: "https://portal.int.catena-x.net"
+portalBackendAddress: "https://portal-backend.int.catena-x.net"
+centralidp:
+  address: "https://centralidp.int.catena-x.net"
+sharedidpAddress: "https://sharedidp.int.catena-x.net"
+semanticsAddress: "https://semantics.int.catena-x.net"
+bpdm:
+  poolAddress: "https://business-partners.int.catena-x.net"
+  poolApiPath: "/pool/v6"
+  portalGateAddress: "https://business-partners.int.catena-x.net"
+  portalGateApiPath: "/companies/test-company/v6"
+custodianAddress: "https://managed-identity-wallets-new.int.catena-x.net"
+sdfactoryAddress: "https://sdfactory.int.catena-x.net"
+clearinghouseAddress: "https://validation.test.dih-cloud.com"
+clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
+issuerComponentAddress: "https://ssi-credential-issuer.int.catena-x.net"
+bpnDidResolverAddress: "http://bdrs-bdrs-server:8081"
+dimWrapper:
+  baseAddress: "https://dim.int.catena-x.net"
+decentralIdentityManagementAuthAddress: ""
+bpnDidResolver:
+  managementApiAddress: "http://bdrs-bdrs-server:8081"
+  directoryApiAddress: "https://bpn-did-resolution-service.int.catena-x.net/api/directory"
+
+frontend:
+
+  ingress:
+    enabled: true
+    className: "nginx"
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      nginx.ingress.kubernetes.io/rewrite-target: "/$1"
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.int.catena-x.net"
+    tls:
+      - secretName: "portal.int.catena-x.net-tls"
+        hosts:
+          - "portal.int.catena-x.net"
+    hosts:
+      - host: "portal.int.catena-x.net"
+        paths:
+          - path: "/(.*)"
+            pathType: "Prefix"
+            backend:
+              service: "portal"
+              port: 8080
+          - path: "/registration/(.*)"
+            pathType: "Prefix"
+            backend:
+              service: "registration"
+              port: 8080
+          - path: "/((assets|documentation)/.*)"
+            pathType: "Prefix"
+            backend:
+              service: "assets"
+              port: 8080
+
+backend:
+  ingress:
+    enabled: true
+    className: "nginx"
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      nginx.ingress.kubernetes.io/enable-cors: "true"
+      nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+      nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.int.catena-x.net"
+    tls:
+      - secretName: "portal-backend.int.catena-x.net-tls"
+        hosts:
+          - "portal-backend.int.catena-x.net"
+    hosts:
+      - host: "portal-backend.int.catena-x.net"
+        paths:
+          - path: "/api/registration"
+            pathType: "Prefix"
+            backend:
+              service: "registration-service"
+              port: 8080
+          - path: "/api/administration"
+            pathType: "Prefix"
+            backend:
+              service: "administration-service"
+              port: 8080
+          - path: "/api/notification"
+            pathType: "Prefix"
+            backend:
+              service: "notification-service"
+              port: 8080
+          - path: "/api/apps"
+            pathType: "Prefix"
+            backend:
+              service: "marketplace-app-service"
+              port: 8080
+          - path: "/api/services"
+            pathType: "Prefix"
+            backend:
+              service: "services-service"
+              port: 8080
+
+  keycloak:
+    central:
+      clientId: "<path:portal/data/portal-iam-clientIds#central-client-id>"
+      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#reg-central-sa>"
+    shared:
+      clientId: "<path:portal/data/portal-iam-clientIds#shared-client-id>"
+      clientSecret: "<path:portal/data/int/iam/sharedidp-client-secrets#reg-shared-sa>"
+
+  useDimWallet: true
+
+  mailing:
+    host: "<path:portal/data/mailing#host>"
+    port: "<path:portal/data/mailing#port>"
+    user: "<path:portal/data/mailing#user>"
+    password: "<path:portal/data/mailing#password>"
+    senderEmail: "Notifications@catena-x.net"
+
+  registration:
+    logging:
+      default: "Debug"
+      bpdmLibrary: "Debug"
+      registrationService: "Debug"
+    healthChecks:
+      startup:
+        tags:
+        - name: "HEALTHCHECKS__0__TAGS__0"
+          value: "keycloak"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
+    swaggerEnabled: true
+
+  administration:
+    logging:
+      default: "Debug"
+      businessLogic: "Debug"
+      sdfactoryLibrary: "Debug"
+      bpdmLibrary: "Debug"
+      custodianLibrary: "Debug"
+    healthChecks:
+      startup:
+        tags:
+        - name: "HEALTHCHECKS__0__TAGS__0"
+          value: "keycloak"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
+        - name: "HEALTHCHECKS__0__TAGS__2"
+          value: "provisioningdb"
+    swaggerEnabled: true
+    issuerdid: "did:web:tbd"
+    serviceAccount:
+      encryptionConfigs:
+        index0:
+          encryptionKey: "<path:portal/data/int/encryption-keys#serviceaccount-encryption-key0>"
+
+  provisioning:
+    sharedRealm:
+      smtpServer:
+        host: "<path:portal/data/mailing#host>"
+        port: "<path:portal/data/mailing#port>"
+        user: "<path:portal/data/mailing#user>"
+        password: "<path:portal/data/mailing#password>"
+        from: "<path:portal/data/mailing#from>"
+        replyTo: "<path:portal/data/mailing#replyto>"
+
+  appmarketplace:
+    logging:
+      default: "Debug"
+      offersLibrary: "Debug"
+    healthChecks:
+      startup:
+        tags:
+        - name: "HEALTHCHECKS__0__TAGS__0"
+          value: "keycloak"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
+    swaggerEnabled: true
+
+  portalmigrations:
+    logging:
+      default: "Debug"
+
+  notification:
+    logging:
+      default: "Debug"
+    healthChecks:
+      startup:
+        tags:
+        - name: "HEALTHCHECKS__0__TAGS__0"
+          value: "keycloak"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
+    swaggerEnabled: true
+
+  services:
+    logging:
+      default: "Debug"
+      offersLibrary: "Debug"
+    healthChecks:
+      startup:
+        tags:
+        - name: "HEALTHCHECKS__0__TAGS__0"
+          value: "keycloak"
+        - name: "HEALTHCHECKS__0__TAGS__1"
+          value: "portaldb"
+    swaggerEnabled: true
+
+  processesworker:
+    logging:
+      default: "Debug"
+      processesLibrary: "Debug"
+      bpdmLibrary: "Debug"
+      clearinghouseLibrary: "Debug"
+      custodianLibrary: "Debug"
+      sdfactoryLibrary: "Debug"
+      offerProvider: "Debug"
+    bpdm:
+      clientId: "<path:portal/data/portal-iam-clientIds#bpdm-client-id>"
+      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#portal-bpdm-sa>"
+    clearinghouse:
+      clientId: "<path:portal/data/int/clearinghouse#client-id>"
+      clientSecret: "<path:portal/data/int/clearinghouse#client-secret>"
+    custodian:
+      clientId: "<path:portal/data/portal-iam-clientIds#custodian-client-id>"
+      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#custodian-sa>"
+    sdfactory:
+      issuerBpn: "BPNL00000003CRHK"
+      clientId: "<path:portal/data/portal-iam-clientIds#sdfactory-client-id>"
+      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#portal-sdfactory-sa>"
+    offerprovider:
+      clientId: "<path:portal/data/portal-iam-clientIds#offerprovider-client-id>"
+      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#offerprovider-sa>"
+    onboardingServiceProvider:
+      encryptionConfigs:
+        index0:
+          cipherMode: "CBC"
+          paddingMode: "PKCS7"
+          encryptionKey: "<path:portal/data/int/encryption-keys#onboardingserviceprovider-encryption-key0>"
+        index1:
+          encryptionKey: "<path:portal/data/int/encryption-keys#onboardingserviceprovider-encryption-key1>"
+    dim:
+      clientId: "<path:portal/data/int/dim-iam#client-id>"
+      clientSecret: "<path:portal/data/int/dim-iam#client-secret>"
+      universalResolverAddress: "https://dev.uniresolver.io/"
+      encryptionConfigs:
+        index0:
+          encryptionKey: "<path:portal/data/int/iam/centraidp-client-secrets#dim-encryption-key0>"
+    issuerComponent:
+      clientId: "<path:portal/data/portal-iam-clientIds#issuercomponent-client-id>"
+      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#portal-issuer-sa>"
+      encryptionConfigs:
+        index0:
+          encryptionKey: "<path:portal/data/int/encryption-keys#issuercomponent-encryption-key0>"
+    bpnDidResolver:
+      apiKey: "<path:portal/data/int/iam/centraidp-client-secrets#bpndidresolver-api-key>"
+    invitation:
+      encryptionConfigs:
+        index0:
+          encryptionKey: "<path:portal/data/int/encryption-keys#invitation-encryption-key0>"
+    mailing:
+      encryptionConfigs:
+        index0:
+          encryptionKey: "<path:portal/data/int/encryption-keys#mailing-encryption-key0>"
+
+postgresql:
+  auth:
+    password: "<path:portal/data/int/postgres#postgres-password>"
+    replicationPassword: "<path:portal/data/int/postgres#replication-password>"
+    portalPassword: "<path:portal/data/int/postgres#portal-password>"
+    provisioningPassword: "<path:portal/data/int/postgres#provisioning-password>"
+  primary:
+    extendedConfiguration: |
+      max_connections = 200
+  readReplicas:
+    extendedConfiguration: |
+      max_connections = 200

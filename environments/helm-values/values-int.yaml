@@ -121,7 +121,7 @@ backend:
   keycloak:
     central:
       clientId: "<path:portal/data/portal-iam-clientIds#central-client-id>"
-      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#reg-central-sa>"
+      clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#reg-central-sa>"
     shared:
       clientId: "<path:portal/data/portal-iam-clientIds#shared-client-id>"
       clientSecret: "<path:portal/data/int/iam/sharedidp-client-secrets#reg-shared-sa>"
@@ -235,20 +235,20 @@ backend:
       offerProvider: "Debug"
     bpdm:
       clientId: "<path:portal/data/portal-iam-clientIds#bpdm-client-id>"
-      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#portal-bpdm-sa>"
+      clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#portal-bpdm-sa>"
     clearinghouse:
       clientId: "<path:portal/data/int/clearinghouse#client-id>"
       clientSecret: "<path:portal/data/int/clearinghouse#client-secret>"
     custodian:
       clientId: "<path:portal/data/portal-iam-clientIds#custodian-client-id>"
-      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#custodian-sa>"
+      clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#custodian-sa>"
     sdfactory:
       issuerBpn: "BPNL00000003CRHK"
       clientId: "<path:portal/data/portal-iam-clientIds#sdfactory-client-id>"
-      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#portal-sdfactory-sa>"
+      clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#portal-sdfactory-sa>"
     offerprovider:
       clientId: "<path:portal/data/portal-iam-clientIds#offerprovider-client-id>"
-      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#offerprovider-sa>"
+      clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#offerprovider-sa>"
     onboardingServiceProvider:
       encryptionConfigs:
         index0:
@@ -266,7 +266,7 @@ backend:
           encryptionKey: "<path:portal/data/int/encryption-keys#dim-encryption-key0>"
     issuerComponent:
       clientId: "<path:portal/data/portal-iam-clientIds#issuercomponent-client-id>"
-      clientSecret: "<path:portal/data/int/iam/centraidp-client-secrets#portal-issuer-sa>"
+      clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#portal-issuer-sa>"
       encryptionConfigs:
         index0:
           encryptionKey: "<path:portal/data/int/encryption-keys#issuercomponent-encryption-key0>"

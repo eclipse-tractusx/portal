@@ -271,7 +271,7 @@ backend:
         index0:
           encryptionKey: "<path:portal/data/int/encryption-keys#issuercomponent-encryption-key0>"
     bpnDidResolver:
-      apiKey: "<path:portal/data/int/bdrs#api-key>"
+      apiKey: "<path:portal/data/bdrs-mgmt-api-key#content>"
     invitation:
       encryptionConfigs:
         index0:

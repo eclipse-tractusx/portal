@@ -120,9 +120,6 @@ backend:
     central:
       clientId: "<path:portal/data/keycloak#central-client-id>"
       clientSecret: "<path:portal/data/pen/keycloak#central-client-secret>"
-      dbConnection:
-        host: "centralidp-pen-postgresql-primary"
-        password: "<path:portal/data/pen/keycloak#central-db-password>"
     shared:
       clientId: "<path:portal/data/keycloak#shared-client-id>"
       clientSecret: "<path:portal/data/pen/keycloak#shared-client-secret>"

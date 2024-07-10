@@ -253,15 +253,6 @@ backend:
           clockSkew: "00:05:00"
         refreshInterval: "00:00:30"
       tokenPath: "/auth/realms/CX-Central/protocol/openid-connect/token"
-      dbConnection:
-        host: "centralidp-postgresql-primary"
-        port: 5432
-        user: "kccentral"
-        database: "iamcentralidp"
-        # -- Password for the kccentral username. Secret-key 'central-db-password'.
-        password: ""
-        schema: "public"
-        sslMode: "Disable"
       # -- Flag if the api should be used with an leading /auth path
       useAuthTrail: true
     shared:

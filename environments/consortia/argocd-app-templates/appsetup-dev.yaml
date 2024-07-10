@@ -34,7 +34,7 @@ spec:
         - name: AVP_SECRET
           value: vault-secret
         - name: helm_args
-          value: '-f values.yaml -f ../../consortia/environments/values-dev.yaml'
+          value: '-f values.yaml -f ../../environments/consortia/helm-values/values-dev.yaml'
   project: project-portal
   syncPolicy:
     automated:

@@ -69,14 +69,30 @@ spec:
           - name: "SEEDING__TESTDATAENVIRONMENTS__0"
             value: "{{ .Values.backend.portalmigrations.seeding.testDataEnvironments }}"
           - name: "SEEDING__DATAPATHS__0"
-            value: "{{ .Values.backend.portalmigrations.seeding.testDataPaths }}"
+            value: "Seeder/Data"
           - name: "SERILOG__MINIMUMLEVEL__Default"
             value: "{{ .Values.backend.portalmigrations.logging.default }}"
           - name: "PROCESSIDENTITY__PROCESSUSERID"
-            value: "{{ .Values.backend.portalmigrations.processIdentity.processUserId }}"
+            value: "d21d2e8a-fe35-483c-b2b8-4100ed7f0953"
+          {{- if and (.Values.backend.portalmigrations.seeding.testData.configMap) (.Values.backend.portalmigrations.seeding.testData.filename) }}
+          - name: "SEEDING__DATAPATHS__1"
+            value: "Seeder/Data/import"
+          - name: "SEEDING__TESTDATAENVIRONMENTS__1"
+            value: "{{ .Values.backend.portalmigrations.seeding.testData.filename }}"
+          {{- end }}
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}
           protocol: TCP
         resources:
           {{- toYaml .Values.backend.portalmigrations.resources | nindent 10 }}
+      {{- if and (.Values.backend.portalmigrations.seeding.testData.configMap) (.Values.backend.portalmigrations.seeding.testData.filename) }}
+        volumeMounts:
+          - name: test-data
+            mountPath: /migrations/Seeder/Data/import
+      volumes:
+        - name: test-data
+          configMap:
+            name: "{{ .Values.backend.portalmigrations.seeding.testData.configMap }}"
+            optional: true
+      {{- end }}

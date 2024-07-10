@@ -601,11 +601,12 @@ backend:
         memory: 350M
     seeding:
       testDataEnvironments: ""
-      # -- when changing the testDataPath the processIdentity needs to be adjusted as well,
-      # or it must be ensured that the identity is existing within the files under the new path
-      testDataPaths: "Seeder/Data"
-    processIdentity:
-      processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
+      # -- Option to seed test data provided in a configMap
+      testData:
+        # -- ConfigMap containing json files for the tables to seed, e.g. companies.test.json, addresses.test.json, etc.
+        configMap: ""
+        # -- Filename identifying the test data files e.g. for companies.test.json the value would be "test"
+        filename: ""
     logging:
       default: "Information"
   portalmaintenance:

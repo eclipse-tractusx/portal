@@ -133,7 +133,7 @@ backend:
     port: "<path:portal/data/mailing#port>"
     user: "<path:portal/data/mailing#user>"
     password: "<path:portal/data/mailing#password>"
-    senderEmail: "Notifications@catena-x.net"
+    senderEmail: "<path:portal/data/mailing#senderMail>"
 
   registration:
     logging:

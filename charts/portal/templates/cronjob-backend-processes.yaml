@@ -139,6 +139,8 @@ spec:
               value: "{{ .Values.backend.processesworker.bpdm.scope }}"
             - name: "APPLICATIONCHECKLIST__BPDM__USERNAME"
               value: "{{ .Values.backend.placeholder }}"
+            - name: "APPLICATIONCHECKLIST__BPDM__USEDIMWALLET"
+              value: "{{ .Values.backend.useDimWallet }}"
             - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__BASEADDRESS"
               value: "{{ .Values.clearinghouseAddress }}"
             - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__CLIENTID"

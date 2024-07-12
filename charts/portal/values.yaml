@@ -234,6 +234,7 @@ backend:
   portalIntroductionCompanyRolePath: "/companyroles"
   portalIntroductionDataspacePath: "/dataspace"
   userManagementPath: "/usermanagement"
+  # -- Enable for using Decentral Identity Management (DIM) instead of Managed Identity Wallet (MIW) as wallet
   useDimWallet: false
   keycloak:
     # -- Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM).

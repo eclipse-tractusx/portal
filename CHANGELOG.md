@@ -2,6 +2,13 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## unreleased
+
+### Bugfix
+
+* portal-cd:
+  * set correct path for consent osp url
+
 ## 2.1.0-RC1
 
 ### Change

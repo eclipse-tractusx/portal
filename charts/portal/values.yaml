@@ -860,7 +860,7 @@ backend:
           encryptionKey: ""
     networkRegistration:
       loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
-      externalRegistrationPath: "/?overlay=consent_osp"
+      externalRegistrationPath: "/consent_osp"
       # -- The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
       closeApplicationPath: "/decline"
     dim:

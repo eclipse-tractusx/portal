@@ -2,6 +2,13 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## unreleased
+
+### Bugfix
+
+* portal-cd:
+  * set correct path for consent osp url
+
 ## 2.1.0-RC1
 
 ### Change
@@ -31,7 +38,6 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
   * removed obsolete centralidp database configuration [#355](https://github.com/eclipse-tractusx/portal/pull/355)
   * changed to directoryApiAddress of bpn did resolver in administration service configuration [#364](https://github.com/eclipse-tractusx/portal/pull/364)
   * increased memory for services service [#359](https://github.com/eclipse-tractusx/portal/pull/359)
-  * set correct value for consent_osp
 
 ## 2.0.0
 

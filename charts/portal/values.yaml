@@ -234,6 +234,7 @@ backend:
   portalIntroductionCompanyRolePath: "/companyroles"
   portalIntroductionDataspacePath: "/dataspace"
   userManagementPath: "/usermanagement"
+  # -- Enable for using Decentral Identity Management (DIM) instead of Managed Identity Wallet (MIW) as wallet
   useDimWallet: false
   keycloak:
     # -- Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM).
@@ -253,15 +254,6 @@ backend:
           clockSkew: "00:05:00"
         refreshInterval: "00:00:30"
       tokenPath: "/auth/realms/CX-Central/protocol/openid-connect/token"
-      dbConnection:
-        host: "centralidp-postgresql-primary"
-        port: 5432
-        user: "kccentral"
-        database: "iamcentralidp"
-        # -- Password for the kccentral username. Secret-key 'central-db-password'.
-        password: ""
-        schema: "public"
-        sslMode: "Disable"
       # -- Flag if the api should be used with an leading /auth path
       useAuthTrail: true
     shared:
@@ -610,11 +602,12 @@ backend:
         memory: 350M
     seeding:
       testDataEnvironments: ""
-      # -- when changing the testDataPath the processIdentity needs to be adjusted as well,
-      # or it must be ensured that the identity is existing within the files under the new path
-      testDataPaths: "Seeder/Data"
-    processIdentity:
-      processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
+      # -- Option to seed test data provided in a configMap
+      testData:
+        # -- ConfigMap containing json files for the tables to seed, e.g. companies.test.json, addresses.test.json, etc.
+        configMap: ""
+        # -- Filename identifying the test data files e.g. for companies.test.json the value would be "test"
+        filename: ""
     logging:
       default: "Information"
   portalmaintenance:
@@ -672,10 +665,10 @@ backend:
     resources:
       requests:
         cpu: 75m
-        memory: 300M
+        memory: 400M
       limits:
         cpu: 225m
-        memory: 300M
+        memory: 400M
     basePath: "api/services"
     logging:
       default: "Information"
@@ -936,6 +929,7 @@ backend:
           # -- EncryptionKey to encrypt the parameters of mailing processes. Secret-key 'mailing-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
+    clearinghouseConnectDisabled: false
   placeholder: "empty"
 
 postgresql:

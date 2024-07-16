@@ -1,5 +1,5 @@
 ###############################################################
-# Copyright (c) 2023 Contributors to the Eclipse Foundation
+# Copyright (c) 2024 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -20,19 +20,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: portal-rc
+  name: portal
 spec:
   destination:
-    namespace: product-iam
+    namespace: product-portal
     server: 'https://kubernetes.default.svc'
   source:
     path: charts/portal
     repoURL: 'https://github.com/eclipse-tractusx/portal.git'
-    targetRevision: release-candidate
+    targetRevision: portal-2.1.0-RC1
     plugin:
       env:
         - name: AVP_SECRET
           value: vault-secret
         - name: helm_args
-          value: '-f values.yaml -f ../../consortia/environments/values-rc.yaml'
+          value: '-f values.yaml -f ../../environments/helm-values/values-int.yaml'
   project: project-portal

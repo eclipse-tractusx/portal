@@ -20,19 +20,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: portal-upgrade
+  name: portal
 spec:
   destination:
-    namespace: product-portal
+    namespace: product-iam
     server: 'https://kubernetes.default.svc'
   source:
     path: charts/portal
     repoURL: 'https://github.com/eclipse-tractusx/portal.git'
-    targetRevision: portal-2.0.0
+    targetRevision: main
     plugin:
       env:
         - name: AVP_SECRET
           value: vault-secret
         - name: helm_args
-          value: '-f values.yaml -f ../../consortia/environments/values-int.yaml'
+          value: '-f values.yaml -f ../../environments/consortia/helm-values/values-dev.yaml'
   project: project-portal
+  syncPolicy:
+    automated:
+      prune: true

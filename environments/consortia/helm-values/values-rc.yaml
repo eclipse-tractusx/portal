@@ -17,29 +17,29 @@
 # SPDX-License-Identifier: Apache-2.0
 ###############################################################
 
-portalAddress: "https://portal-pen.dev.demo.catena-x.net"
-portalBackendAddress: "https://portal-backend-pen.dev.demo.catena-x.net"
+portalAddress: "https://portal-rc.dev.demo.catena-x.net"
+portalBackendAddress: "https://portal-backend-rc.dev.demo.catena-x.net"
 centralidp:
-  address: "https://centralidp-pen.dev.demo.catena-x.net"
-sharedidpAddress: "https://sharedidp-pen.dev.demo.catena-x.net"
-semanticsAddress: "https://semantics-pen.dev.demo.catena-x.net"
+  address: "https://centralidp-rc.dev.demo.catena-x.net"
+sharedidpAddress: "https://sharedidp-rc.dev.demo.catena-x.net"
+semanticsAddress: "https://semantics.dev.demo.catena-x.net"
 bpdm:
-  poolAddress: "https://business-partners-pen.dev.demo.catena-x.net"
+  poolAddress: "https://business-partners.dev.demo.catena-x.net"
   poolApiPath: "/pool/v6"
-  portalGateAddress: "https://business-partners-pen.dev.demo.catena-x.net"
+  portalGateAddress: "https://business-partners.dev.demo.catena-x.net"
   portalGateApiPath: "/companies/test-company/v6"
-custodianAddress: "https://managed-identity-wallets-pen-new.dev.demo.catena-x.net"
-sdfactoryAddress: "https://sdfactory-pen.dev.demo.catena-x.net"
+custodianAddress: "https://managed-identity-wallets-new.dev.demo.catena-x.net"
+sdfactoryAddress: "https://sdfactory.dev.demo.catena-x.net"
 clearinghouseAddress: "https://validation.test.dih-cloud.com"
 clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
-issuerComponentAddress: "https://ssi-credential-issuer-pen.dev.demo.catena-x.net"
+issuerComponentAddress: "https://ssi-credential-issuer-rc.dev.demo.catena-x.net"
 bpnDidResolverAddress: "http://bdrs-bdrs-server:8081"
 dimWrapper:
-  baseAddress: "https://dim-pen.dev.demo.catena-x.net"
+  baseAddress: "https://dim-rc.dev.demo.catena-x.net"
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 bpnDidResolver:
   managementApiAddress: "http://bdrs-bdrs-server:8081"
-  directoryApiAddress: "https://bpn-did-resolution-service-pen.dev.demo.catena-x.net/api/directory"
+  directoryApiAddress: "https://bpn-did-resolution-service-rc.dev.demo.catena-x.net/api/directory"
 
 frontend:
 
@@ -54,9 +54,9 @@ frontend:
     tls:
       - secretName: "tls-secret"
         hosts:
-          - "portal-pen.dev.demo.catena-x.net"
+          - "portal-rc.dev.demo.catena-x.net"
     hosts:
-      - host: "portal-pen.dev.demo.catena-x.net"
+      - host: "portal-rc.dev.demo.catena-x.net"
         paths:
           - path: "/(.*)"
             pathType: "Prefix"
@@ -86,9 +86,9 @@ backend:
     tls:
       - secretName: "tls-secret"
         hosts:
-          - "portal-backend-pen.dev.demo.catena-x.net"
+          - "portal-backend-rc.dev.demo.catena-x.net"
     hosts:
-      - host: "portal-backend-pen.dev.demo.catena-x.net"
+      - host: "portal-backend-rc.dev.demo.catena-x.net"
         paths:
           - path: "/api/registration"
             pathType: "Prefix"
@@ -116,16 +116,15 @@ backend:
               service: "services-service"
               port: 8080
 
+  useDimWallet: true
+
   keycloak:
     central:
       clientId: "<path:portal/data/keycloak#central-client-id>"
-      clientSecret: "<path:portal/data/pen/keycloak#central-client-secret>"
-      dbConnection:
-        host: "centralidp-pen-postgresql-primary"
-        password: "<path:portal/data/pen/keycloak#central-db-password>"
+      clientSecret: "<path:portal/data/dev/keycloak#central-client-secret>"
     shared:
       clientId: "<path:portal/data/keycloak#shared-client-id>"
-      clientSecret: "<path:portal/data/pen/keycloak#shared-client-secret>"
+      clientSecret: "<path:portal/data/dev/keycloak#shared-client-secret>"
 
   mailing:
     host: "<path:portal/data/mailing#host>"
@@ -169,7 +168,7 @@ backend:
     serviceAccount:
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/pen/administration#serviceaccount-encryption-key0>"
+          encryptionKey: "<path:portal/data/dev/administration#serviceaccount-encryption-key0>"
 
   provisioning:
     sharedRealm:
@@ -201,8 +200,6 @@ backend:
       testDataEnvironments: "consortia"
 
   notification:
-    logging:
-      default: "Debug"
     healthChecks:
       startup:
         tags:
@@ -210,6 +207,8 @@ backend:
           value: "keycloak"
         - name: "HEALTHCHECKS__0__TAGS__1"
           value: "portaldb"
+    logging:
+      default: "Debug"
     swaggerEnabled: true
 
   services:
@@ -236,56 +235,57 @@ backend:
       offerProvider: "Debug"
     bpdm:
       clientId: "<path:portal/data/processes-worker#bpdm-client-id>"
-      clientSecret: "<path:portal/data/pen/processes-worker#bpdm-client-secret>"
+      clientSecret: "<path:portal/data/dev/processes-worker#bpdm-client-secret>"
     clearinghouse:
-      clientId: "<path:portal/data/pen/processes-worker#clearinghouse-client-id>"
-      clientSecret: "<path:portal/data/pen/processes-worker#clearinghouse-client-secret>"
+      clientId: "<path:portal/data/dev/processes-worker#clearinghouse-client-id>"
+      clientSecret: "<path:portal/data/dev/processes-worker#clearinghouse-client-secret>"
     custodian:
       clientId: "<path:portal/data/processes-worker#custodian-client-id>"
-      clientSecret: "<path:portal/data/pen/processes-worker#custodian-client-secret>"
+      clientSecret: "<path:portal/data/dev/processes-worker#custodian-client-secret>"
     sdfactory:
       issuerBpn: "BPNL00000003CRHK"
       clientId: "<path:portal/data/processes-worker#sdfactory-client-id>"
-      clientSecret: "<path:portal/data/pen/processes-worker#sdfactory-client-secret>"
+      clientSecret: "<path:portal/data/dev/processes-worker#sdfactory-client-secret>"
     offerprovider:
       clientId: "<path:portal/data/processes-worker#offerprovider-client-id>"
-      clientSecret: "<path:portal/data/pen/processes-worker#offerprovider-client-secret>"
+      clientSecret: "<path:portal/data/dev/processes-worker#offerprovider-client-secret>"
     onboardingServiceProvider:
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/pen/processes-worker#onboardingserviceprovider-encryption-key0>"
+          encryptionKey: "<path:portal/data/dev/processes-worker#onboardingserviceprovider-encryption-key0>"
         index1:
-          encryptionKey: "<path:portal/data/pen/processes-worker#onboardingserviceprovider-encryption-key1>"
+          encryptionKey: "<path:portal/data/dev/processes-worker#onboardingserviceprovider-encryption-key1>"
     dim:
       clientId: "<path:portal/data/processes-worker#dim-client-id>"
-      clientSecret: "<path:portal/data/pen/processes-worker#dim-client-secret>"
+      clientSecret: "<path:portal/data/dev/processes-worker#dim-client-secret>"
       universalResolverAddress: "https://dev.uniresolver.io/"
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/pen/processes-worker#dim-encryption-key0>"
+          encryptionKey: "<path:portal/data/dev/processes-worker#dim-encryption-key0>"
     issuerComponent:
       clientId: "<path:portal/data/processes-worker#issuercomponent-client-id>"
-      clientSecret: "<path:portal/data/pen/processes-worker#issuercomponent-client-secret>"
+      clientSecret: "<path:portal/data/dev/processes-worker#issuercomponent-client-secret>"
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/pen/processes-worker#issuercomponent-encryption-key0>"
+          encryptionKey: "<path:portal/data/dev/processes-worker#issuercomponent-encryption-key0>"
     bpnDidResolver:
-      apiKey: "<path:portal/data/pen/processes-worker#bpndidresolver-api-key>"
+      apiKey: "<path:portal/data/dev/processes-worker#bpndidresolver-api-key>"
     invitation:
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/pen/processes-worker#invitation-encryption-key0>"
+          encryptionKey: "<path:portal/data/dev/processes-worker#invitation-encryption-key0>"
     mailing:
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/pen/processes-worker#mailing-encryption-key0>"
+          encryptionKey: "<path:portal/data/dev/processes-worker#mailing-encryption-key0>"
 
 postgresql:
+  fullnameOverride: "portal-backend-rc-postgresql"
   auth:
-    password: "<path:portal/data/pen/postgres#postgres-password>"
-    replicationPassword: "<path:portal/data/pen/postgres#replication-password>"
-    portalPassword: "<path:portal/data/pen/postgres#portal-password>"
-    provisioningPassword: "<path:portal/data/pen/postgres#provisioning-password>"
+    password: "<path:portal/data/dev/postgres#postgres-password>"
+    replicationPassword: "<path:portal/data/dev/postgres#replication-password>"
+    portalPassword: "<path:portal/data/dev/postgres#portal-password>"
+    provisioningPassword: "<path:portal/data/dev/postgres#provisioning-password>"
   primary:
     extendedConfiguration: |
       max_connections = 200

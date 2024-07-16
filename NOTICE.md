@@ -45,6 +45,10 @@ This project depends on the following Helm chart from Bitnami:
 - Licence Path: https://artifacthub.io/packages/helm/bitnami/postgresql#license
 - Source URL: https://artifacthub.io/packages/helm/bitnami/postgresql
 
+## Test Environments
+
+The project contains deployment configuration specific to hosted test environments and needed for end-to-end testing. This configuration is maintained within the [environments](/environments) directory.
+
 ## Cryptography
 
 Content may contain encryption software. The country in which you are currently

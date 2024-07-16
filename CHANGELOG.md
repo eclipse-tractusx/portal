@@ -2,6 +2,36 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.1.0-RC1
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.1.0-RC1
+  * portal-backend: v2.1.0-RC1
+  * portal-frontend-registration: v2.0.1-RC1
+* portal frontend: enabled bpdm pool and company api urls [#317](https://github.com/eclipse-tractusx/portal/pull/317)
+* portal-backend:
+  * clearinghouse: added feature toggle for sd connectivity [#344](https://github.com/eclipse-tractusx/portal/pull/344)
+  * portalmigrations: enabled seeding of test data with configmap and moved processidentity userid into job [#356](https://github.com/eclipse-tractusx/portal/pull/356)
+
+### Technical Support
+
+* updated deployment configuration [#354](https://github.com/eclipse-tractusx/portal/pull/354)
+  * added config for association environment
+  * moved config into environments directory
+  * removed obsolete config
+  * added information about config in notice file
+* added install comment to useDimWallet value [361](https://github.com/eclipse-tractusx/portal/pull/361)
+
+### Bugfix
+
+* portal-backend:
+  * added environment variable to use dim in application checklist bpdm of the processes worker job [361](https://github.com/eclipse-tractusx/portal/pull/361)
+  * removed obsolete centralidp database configuration [#355](https://github.com/eclipse-tractusx/portal/pull/355)
+  * changed to directoryApiAddress of bpn did resolver in administration service configuration [#364](https://github.com/eclipse-tractusx/portal/pull/364)
+  * increased memory for services service [#359](https://github.com/eclipse-tractusx/portal/pull/359)
+
 ## 2.0.0
 
 ### Change

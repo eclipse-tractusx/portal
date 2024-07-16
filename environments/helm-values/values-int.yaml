@@ -267,9 +267,6 @@ backend:
     issuerComponent:
       clientId: "<path:portal/data/portal-iam-clientIds#issuercomponent-client-id>"
       clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#portal-issuer-sa>"
-      encryptionConfigs:
-        index0:
-          encryptionKey: "<path:portal/data/int/encryption-keys#issuercomponent-encryption-key0>"
     bpnDidResolver:
       apiKey: "<path:portal/data/bdrs-mgmt-api-key#content>"
     invitation:

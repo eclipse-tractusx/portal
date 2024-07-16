@@ -893,15 +893,6 @@ backend:
       clientSecret: ""
       grantType: "client_credentials"
       scope: "openid"
-      encryptionConfigIndex: 0
-      encryptionConfigs:
-        index0:
-          index: 0
-          cipherMode: "CBC"
-          paddingMode: "PKCS7"
-          # -- EncryptionKey for the issuer component. Secret-key 'issuercomponent-encryption-key0'.
-          # Expected format is 256 bit (64 digits) hex.
-          encryptionKey: ""
     bpnDidResolver:
       # -- ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
       apiKey: ""

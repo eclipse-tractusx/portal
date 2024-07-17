@@ -500,7 +500,7 @@ backend:
       role1: "Company Admin"
     approveAppUserRoles:
       role0: "Sales Manager"
-      role1: "Service Manager"
+      role1: "App Manager"
     activationUserRoles:
       role0: "Sales Manager"
       role1: "App Manager"
@@ -860,7 +860,7 @@ backend:
           encryptionKey: ""
     networkRegistration:
       loginDocumentPath: "/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"
-      externalRegistrationPath: "/?overlay=consent_osp"
+      externalRegistrationPath: "/consent_osp"
       # -- The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail
       closeApplicationPath: "/decline"
     dim:
@@ -893,15 +893,6 @@ backend:
       clientSecret: ""
       grantType: "client_credentials"
       scope: "openid"
-      encryptionConfigIndex: 0
-      encryptionConfigs:
-        index0:
-          index: 0
-          cipherMode: "CBC"
-          paddingMode: "PKCS7"
-          # -- EncryptionKey for the issuer component. Secret-key 'issuercomponent-encryption-key0'.
-          # Expected format is 256 bit (64 digits) hex.
-          encryptionKey: ""
     bpnDidResolver:
       # -- ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
       apiKey: ""

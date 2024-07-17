@@ -2,6 +2,21 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.1.0-RC2
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.1.0-RC2
+  * portal-frontend-registration: v2.0.1-RC2
+
+### Bugfix
+
+* portal-backend:
+  * set correct path for consent osp link in mail notification [#371](https://github.com/eclipse-tractusx/portal/pull/371)
+  * update role name for app approval notifications [#372](https://github.com/eclipse-tractusx/portal/pull/372)
+  aligned dim and issuerComponent encryption key config [#368](https://github.com/eclipse-tractusx/portal/pull/368)
+
 ## 2.1.0-RC1
 
 ### Change

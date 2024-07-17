@@ -20,29 +20,53 @@
 portal:
   enabled: true
   # -- Set your local frontend to integrate into local development.
-  portalAddress: "https://portal.example.org"
+  portalAddress: "http://portal.tx.test"
   # -- Set your local backend service to integrate into local development.
   # Start port forwarding tunnel for database access, e.g.:
-  # 'kubectl port-forward service/portal-backend-postgresql 5432:5432 -n localdev'
-  portalBackendAddress: "https://portal-backend.example.org"
+  # 'kubectl port-forward service/local-portal-backend-postgresql 5432:5432 -n umbrella'
+  portalBackendAddress: "http://portal-backend.tx.test"
+  centralidp:
+    address: "http://centralidp.tx.test"
+  sharedidpAddress: "http://sharedidp.tx.test"
+  semanticsAddress: "http://semantics.tx.test"
+  bpdm:
+    poolAddress: "http://business-partners.tx.test"
+    portalGateAddress: "http://business-partners.tx.test"
+  custodianAddress: "http://managed-identity-wallets.tx.test"
+  sdfactoryAddress: "http://sdfactory.tx.test"
+  clearinghouseAddress: "http://validation.tx.test"
+  clearinghouseTokenAddress: "http://keycloak.tx.test/realms/example/protocol/openid-connect/token"
+  issuerComponentAddress: "http://ssi-credential-issuer.tx.test"
+  bpnDidResolver:
+    managementApiAddress: "http://bpn-did-resolution-service-bdrs-server:8081"
+    directoryApiAddress: "http://bpn-did-resolution-service.tx.test/api/directory"
+  dimWrapper:
+    baseAddress: "http://dim-wrapper.tx.test"
+  decentralIdentityManagementAuthAddress: "http://dim.tx.test"
   replicaCount: 1
+  readinessProbes:
+    initialDelaySeconds: 200
   frontend:
+    portal:
+      requireHttpsUrlPattern: false
     ingress:
       enabled: true
       annotations:
-        cert-manager.io/cluster-issuer: "my-ca-issuer"
+        # uncomment the following line for tls
+        # cert-manager.io/cluster-issuer: "my-ca-issuer"
         nginx.ingress.kubernetes.io/rewrite-target: "/$1"
         nginx.ingress.kubernetes.io/use-regex: "true"
         nginx.ingress.kubernetes.io/enable-cors: "true"
-        nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
-      tls:
-        # -- Provide tls secret.
-        - secretName: "portal.example.org-tls"
-          # -- Provide host for tls secret.
-          hosts:
-            - "portal.example.org"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "http://*.tx.test"
+      # uncomment the following lines for tls
+      # tls:
+      #   # -- Provide tls secret.
+      #   - secretName: "portal.tx.test-tls"
+      #     # -- Provide host for tls secret.
+      #     hosts:
+      #       - "portal.tx.test"
       hosts:
-        - host: "portal.example.org"
+        - host: "portal.tx.test"
           paths:
             - path: "/(.*)"
               pathType: "ImplementationSpecific"
@@ -60,23 +84,172 @@ portal:
                 service: "assets"
                 port: 8080
   backend:
+    dotnetEnvironment: "Development"
+    useDimWallet: true
+    keycloak:
+      central:
+        clientId: "sa-cl1-reg-2"
+        clientSecret: "aEoUADDw2aNPa0WAaKGAyKfC80n8sKxJ"
+        jwtBearerOptions:
+          requireHttpsMetadata: "false"
+      shared:
+        clientId: "sa-cl1-reg-1"
+        clientSecret: "YPA1t6BMQtPtaG3fpH8Sa8Ac6KYbPUM7"
+    registration:
+      logging:
+        default: "Debug"
+        bpdmLibrary: "Debug"
+        registrationService: "Debug"
+      swaggerEnabled: true
+    administration:
+      logging:
+        default: "Debug"
+        businessLogic: "Debug"
+        sdfactoryLibrary: "Debug"
+        bpdmLibrary: "Debug"
+        custodianLibrary: "Debug"
+      serviceAccount:
+        encryptionConfigs:
+          index0:
+            encryptionKey: "deb8261ec7b89c344f1c5ef5a11606e305f14e0d231b1357d90ad0180c5081d3"
+      issuerdid: "did:web:tx.test:test123"
+      swaggerEnabled: true
+    appmarketplace:
+      logging:
+        default: "Debug"
+        offersLibrary: "Debug"
+      swaggerEnabled: true
+      resources:
+        # requests:
+        #   cpu: 15m
+        #   memory: 445M
+        limits:
+          memory: 600M
+    services:
+      logging:
+        default: "Debug"
+        offersLibrary: "Debug"
+      swaggerEnabled: true
+    notification:
+      logging:
+        default: "Debug"
+      swaggerEnabled: true
+      # resources:
+      #   requests:
+      #     cpu: 15m
+      #     memory: 300M
+      #   limits:
+      #     memory: 300M
+    processesworker:
+      logging:
+        default: "Debug"
+        processesLibrary: "Debug"
+        bpdmLibrary: "Debug"
+        clearinghouseLibrary: "Debug"
+        custodianLibrary: "Debug"
+        sdfactoryLibrary: "Debug"
+        offerProvider: "Debug"
+      bpdm:
+        clientId: "sa-cl7-cx-5"
+        clientSecret: "bWSck103qNJ0jZ1LVtG9mUAlcL7R5RLg"
+      # -- no configuration for clearinghouse because it's an external component
+      # clientId and clientSecret aren't in the centralidp Keycloak
+      # clearinghouse:
+      #   clientId: "clearinghouse-client-id"
+      #   clientSecret: ""
+      custodian:
+        clientId: "sa-cl5-custodian-2"
+        clientSecret: "UIqawwoohsvZ6AZOd1llLhnsUTKMWe4D"
+      sdfactory:
+        issuerBpn: "BPNL00000003CRHK"
+        clientId: "sa-cl8-cx-1"
+        clientSecret: "clbQOPHcVKY9tUUd068vyf8CrsPZ8BgZ"
+      offerprovider:
+        clientId: "sa-cl2-03"
+        clientSecret: "wyNYzSnyu4iGvj17XgLSl0aQxAPjTjmI"
+      dim:
+        clientId: "dim-client-id"
+        clientSecret: ""
+        universalResolverAddress: "https://dev.uniresolver.io/"
+        encryptionConfigs:
+          index0:
+            encryptionKey: "6cbaf47ee30c778088e6faa44e2f0eed98beda86db06c7d2e37e32ab78e14b33"
+      issuerComponent:
+        clientId: "sa-cl2-04"
+        clientSecret: "c0gFPfWWUpeOr7MP6DIqdRPhUfaX4GRC"
+        encryptionConfigs:
+          index0:
+            encryptionKey: "39ffab76f99ece1e4ac72f973d5c703737324a75c6445e84fa317a7833476a15"
+      bpnDidResolver:
+        # -- ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
+        apiKey: ""
+      onboardingServiceProvider:
+        encryptionConfigs:
+          index0:
+            cipherMode: "CBC"
+            paddingMode: "PKCS7"
+            encryptionKey: "f7bc3d99f1ace73e7a75b794affbbc26206ab29909821a102aaccb2e95e45f7c"
+          index1:
+            encryptionKey: "8027152fe7a869c88acc86981760acd70ff1d660c2bd129eece94edef933caf7"
+      invitation:
+        encryptionConfigs:
+          index0:
+            encryptionKey: "d84fea29d6eac0fa51e36682b164e7d61693cd4202ed04306d2d9c5d46655e2c"
+      mailing:
+        encryptionConfigs:
+          index0:
+            encryptionKey: "d2e27d71b018cb36029184852f1baa3e26891be94718f77de4c7cc6c882fe317"
+    mailing:
+      host: "smtp.tx.test"
+      port: "587"
+      user: "smtp-user"
+      senderEmail: "smtp@tx.test"
+      password: ""
+    portalmigrations:
+      logging:
+        default: "Debug"
+      resources:
+        limits:
+          cpu: 200m
+    provisioningmigrations:
+      logging:
+        default: "Debug"
+      resources:
+        limits:
+          cpu: 150m
+    provisioning:
+      sharedRealm:
+        smtpServer:
+          host: "smtp.tx.test"
+          port: "587"
+          user: "smtp-user"
+          password: ""
+          from: "smtp@tx.test"
+          replyTo: "smtp@tx.test"
+    # -- docs: http://portal-backend.tx.test/api/administration/swagger/index.html
+    # http://portal-backend.tx.test/api/registration/swagger/index.html
+    # http://portal-backend.tx.test/api/apps/swagger/index.html
+    # http://portal-backend.tx.test/api/services/swagger/index.html
+    # http://portal-backend.tx.test/api/notification/swagger/index.html
     ingress:
       enabled: true
       name: "portal-backend"
       annotations:
-        cert-manager.io/cluster-issuer: "my-ca-issuer"
+        # uncomment the following line for tls
+        # cert-manager.io/cluster-issuer: "my-ca-issuer"
         nginx.ingress.kubernetes.io/use-regex: "true"
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: "8m"
-        nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, https://*.example.org"
-      tls:
-        # -- Provide tls secret.
-        - secretName: "portal-backend.example.org-tls"
-          # -- Provide host for tls secret.
-          hosts:
-            - "portal-backend.example.org"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, http://*.tx.test"
+      # uncomment the following lines for tls
+      # tls:
+      #   # -- Provide tls secret.
+      #   - secretName: "portal-backend.tx.test-tls"
+      #     # -- Provide host for tls secret.
+      #     hosts:
+      #       - "portal-backend.tx.test"
       hosts:
-        - host: "portal-backend.example.org"
+        - host: "portal-backend.tx.test"
           paths:
             - path: "/api/registration"
               pathType: "Prefix"
@@ -108,105 +281,40 @@ portal:
               backend:
                 service: "services-service"
                 port: 8080
-    dotnetEnvironment: "Development"
-    keycloak:
-      central:
-        clientId: "central-client-id"
-        clientSecret: ""
-        jwtBearerOptions:
-          requireHttpsMetadata: "false"
-        # -- Password for the user 'kccentral', defined at centralidp.secrets.postgresql.auth.existingSecret.password
-        dbConnection:
-          password: ""
-      shared:
-        clientId: "shared-client-id"
-        clientSecret: ""
-    mailing:
-      host: "smtp.example.org"
-      port: "587"
-      user: "smtp-user"
-      password: ""
-    provisioning:
-      sharedRealm:
-        smtpServer:
-          host: "smtp.example.org"
-          port: "587"
-          user: "smtp-user"
-          password: ""
-          from: "smtp@example.org"
-          replyTo: "smtp@example.org"
   postgresql:
+    nameOverride: "portal-backend-postgresql"
     architecture: standalone
     auth:
-      # -- Password for the root username 'postgres'. Secret-key 'postgres-password'.
-      password: ""
-      # -- Password for the non-root username 'portal'. Secret-key 'portal-password'.
-      portalPassword: ""
-      # -- Password for the non-root username 'provisioning'. Secret-key 'provisioning-password'.
-      provisioningPassword: ""
+      password: "dbpasswordportal"
+      portalPassword: "dbpasswordportal"
+      provisioningPassword: "dbpasswordportal"
 
 centralidp:
   enabled: true
   keycloak:
-    proxy: edge
     nameOverride: "centralidp"
     replicaCount: 1
-    extraEnvVars:
-      - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
-        value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
-      - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: centralidp-spi
-            key: spi-truststore-password
-      - name: KEYCLOAK_EXTRA_ARGS
-        value: "-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/realms/CX-Central-realm.json -Dkeycloak.migration.strategy=IGNORE_EXISTING"
-    extraVolumes:
-      - name: certificates
-        secret:
-          secretName: root-secret
-          defaultMode: 420
-      - name: shared-certs
-        emptyDir: {}
-      - name: themes
-        emptyDir: {}
-      - name: realms
-        emptyDir: {}
-    extraVolumeMounts:
-      - name: certificates
-        mountPath: /certs
-      - name: shared-certs
-        mountPath: "/opt/bitnami/keycloak/certs"
-      - name: themes
-        mountPath: "/opt/bitnami/keycloak/themes/catenax-central"
-      - name: realms
-        mountPath: "/realms"
+    postgresql:
+      nameOverride: "centralidp-postgresql"
+      architecture: standalone
+    proxy: edge
     initContainers:
-      - name: init-certs
-        image: docker.io/bitnami/keycloak:22.0.3-debian-11-r14
-        imagePullPolicy: Always
-        command: ["/bin/bash"]
+      - name: realm-import
+        image: docker.io/tractusx/umbrella-init-container:0.1.0-init
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
         args:
-          - -ec
-          - |-
-            keytool -import -file "/certs/tls.crt" \
-                    -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
-                    -storepass "${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}" \
-                    -noprompt
-        env:
-          - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: centralidp-spi
-                key: spi-truststore-password
+          - -c
+          - |
+            echo "Copying realms..."
+            cp -R /import/catenax-central/R2405/realms/* /realms
         volumeMounts:
-          - name: certificates
-            mountPath: /certs
-          - name: shared-certs
-            mountPath: "/opt/bitnami/keycloak/certs"
-      - name: import
-        image: tractusx/portal-iam:v2.1.0
-        imagePullPolicy: Always
+        - name: realms
+          mountPath: "/realms"
+      - name: theme-import
+        image: docker.io/tractusx/portal-iam:v3.0.0
+        imagePullPolicy: IfNotPresent
         command:
           - sh
         args:
@@ -214,110 +322,113 @@ centralidp:
           - |
             echo "Copying themes..."
             cp -R /import/themes/catenax-central/* /themes
-            echo "Copying realms..."
-            cp -R /import/catenax-central/realms/* /realms
         volumeMounts:
         - name: themes
           mountPath: "/themes"
-        - name: realms
-          mountPath: "/realms"
-    postgresql:
-      nameOverride: "centralidp-postgresql"
-      architecture: standalone
+      # uncomment the following line for tls
+      # - name: init-certs
+      #   image: docker.io/bitnami/keycloak:23.0.7-debian-12-r1
+      #   imagePullPolicy: IfNotPresent
+      #   command: ["/bin/bash"]
+      #   args:
+      #     - -ec
+      #     - |-
+      #       keytool -import -file "/certs/tls.crt" \
+      #               -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
+      #               -storepass "${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}" \
+      #               -noprompt
+      #   env:
+      #     - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
+      #       value: "changeit"
+      #   volumeMounts:
+      #     - name: certificates
+      #       mountPath: /certs
+      #     - name: shared-certs
+      #       mountPath: "/opt/bitnami/keycloak/certs"
+    extraEnvVars:
+      - name: KEYCLOAK_EXTRA_ARGS
+        value: "-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/realms/CX-Central-realm.json -Dkeycloak.migration.strategy=IGNORE_EXISTING"
+      # uncomment the following line for tls
+      # - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
+      #   value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
+      # - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
+      #   value: "changeit"
+    extraVolumes:
+      - name: realms
+        emptyDir: {}
+      - name: themes
+        emptyDir: {}
+      # uncomment the following line for tls
+      # - name: certificates
+      #   secret:
+      #     secretName: root-secret
+      #     defaultMode: 420
+      # - name: shared-certs
+      #   emptyDir: {}
+    extraVolumeMounts:
+      - name: realms
+        mountPath: "/realms"
+      - name: themes
+        mountPath: "/opt/bitnami/keycloak/themes/catenax-central"
+      # uncomment the following line for tls
+      # - name: certificates
+      #   mountPath: /certs
+      # - name: shared-certs
+      #   mountPath: "/opt/bitnami/keycloak/certs"
     ingress:
       enabled: true
       ingressClassName: "nginx"
-      hostname: "centralidp.example.org"
+      hostname: "centralidp.tx.test"
       annotations:
-        cert-manager.io/cluster-issuer: "my-ca-issuer"
+        # uncomment the following line for tls
+        # cert-manager.io/cluster-issuer: "my-ca-issuer"
         nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
         nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
-        nginx.ingress.kubernetes.io/cors-allow-origin: "https://centralidp.example.org"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "http://centralidp.tx.test"
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
         nginx.ingress.kubernetes.io/proxy-buffering: "on"
         nginx.ingress.kubernetes.io/proxy-buffers-number: "20"
         nginx.ingress.kubernetes.io/use-regex: "true"
-      tls: true
+      tls: false
   secrets:
+    postgresql:
+      auth:
+        existingSecret:
+          postgrespassword: "dbpasswordcentralidp"
+          password: "dbpasswordcentralidp"
+          replicationPassword: "dbpasswordcentralidp"
     auth:
       existingSecret:
         # -- Password for the admin username 'admin'. Secret-key 'admin-password'.
-        adminpassword: ""
-      spi:
-        truststorePassword: ""
+        adminpassword: "adminconsolepwcentralidp"
 
 sharedidp:
   enabled: true
   keycloak:
-    proxy: edge
     nameOverride: "sharedidp"
     replicaCount: 1
-    extraEnvVars:
-      - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
-        value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
-      - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: sharedidp-spi
-            key: spi-truststore-password
-      - name: KEYCLOAK_EXTRA_ARGS
-        value: "-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/realms -Dkeycloak.migration.strategy=IGNORE_EXISTING"
-    extraVolumes:
-      - name: certificates
-        secret:
-          secretName: root-secret
-          defaultMode: 420
-      - name: shared-certs
-        emptyDir: {}
-      - name: themes-catenax-shared
-        emptyDir: {}
-      - name: themes-catenax-shared-portal
-        emptyDir: {}
-      - name: realms
-        emptyDir: {}
-      - name: realm-secrets
-        secret:
-          secretName: secret-sharedidp-example-realm
-    extraVolumeMounts:
-      - name: certificates
-        mountPath: /certs
-      - name: shared-certs
-        mountPath: "/opt/bitnami/keycloak/certs"
-      - name: themes-catenax-shared
-        mountPath: "/opt/bitnami/keycloak/themes/catenax-shared"
-      - name: themes-catenax-shared-portal
-        mountPath: "/opt/bitnami/keycloak/themes/catenax-shared-portal"
-      - name: realms
-        mountPath: "/realms"
-      - name: realm-secrets
-        mountPath: "/secrets"
+    postgresql:
+      nameOverride: "sharedidp-postgresql"
+      architecture: standalone
+    proxy: edge
     initContainers:
-      - name: init-certs
-        image: docker.io/bitnami/keycloak:22.0.3-debian-11-r14
-        imagePullPolicy: Always
-        command: ["/bin/bash"]
+      - name: realm-import
+        image: docker.io/tractusx/umbrella-init-container:0.1.0-init
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
         args:
-          - -ec
-          - |-
-            keytool -import -file "/certs/tls.crt" \
-                    -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
-                    -storepass "${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}" \
-                    -noprompt
-        env:
-          - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: sharedidp-spi
-                key: spi-truststore-password
+          - -c
+          - |
+            echo "Copying realms..."
+            cp -R /import/catenax-shared/realms/* /realms
         volumeMounts:
-          - name: certificates
-            mountPath: /certs
-          - name: shared-certs
-            mountPath: "/opt/bitnami/keycloak/certs"
-      - name: import
-        image: tractusx/portal-iam:v2.1.0
-        imagePullPolicy: Always
+        - name: realms
+          mountPath: "/realms"
+      - name: theme-import
+        image: docker.io/tractusx/portal-iam:v3.0.0
+        imagePullPolicy: IfNotPresent
         command:
           - sh
         args:
@@ -327,62 +438,108 @@ sharedidp:
             cp -R /import/themes/catenax-shared/* /themes-catenax-shared
             echo "Copying themes-catenax-shared-portal..."
             cp -R /import/themes/catenax-shared-portal/* /themes-catenax-shared-portal
-            echo "Copying realm..."
-            cp -R /import/catenax-shared/realms/CX-Operator-realm.json /realms
-            cp -R /import/catenax-shared/realms/master-realm.json /realms
-            echo "Copying realm-secret..."
-            cp /secrets/CX-Operator-users-0.json /realms
         volumeMounts:
         - name: themes-catenax-shared
           mountPath: "/themes-catenax-shared"
         - name: themes-catenax-shared-portal
           mountPath: "/themes-catenax-shared-portal"
-        - name: realms
-          mountPath: "/realms"
-        - name: realm-secrets
-          mountPath: "/secrets"
-    postgresql:
-      nameOverride: "sharedidp-postgresql"
-      architecture: standalone
+      # uncomment the following line for tls
+      # - name: init-certs
+      #   image: docker.io/bitnami/keycloak:23.0.7-debian-12-r1
+      #   imagePullPolicy: IfNotPresent
+      #   command: ["/bin/bash"]
+      #   args:
+      #     - -ec
+      #     - |-
+      #       keytool -import -file "/certs/tls.crt" \
+      #               -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
+      #               -storepass "${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}" \
+      #               -noprompt
+      #   env:
+      #     - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
+      #       value: "changeit"
+      #   volumeMounts:
+      #     - name: certificates
+      #       mountPath: /certs
+      #     - name: shared-certs
+      #       mountPath: "/opt/bitnami/keycloak/certs"
+    extraEnvVars:
+      - name: KEYCLOAK_EXTRA_ARGS
+        value: "-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/realms -Dkeycloak.migration.strategy=IGNORE_EXISTING"
+      # uncomment the following line for tls
+      # - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
+      #   value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
+      # - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
+      #   value: "changeit"
+    extraVolumes:
+      - name: realms
+        emptyDir: {}
+      - name: themes-catenax-shared
+        emptyDir: {}
+      - name: themes-catenax-shared-portal
+        emptyDir: {}
+      # uncomment the following line for tls
+      # - name: certificates
+      #   secret:
+      #     secretName: root-secret
+      #     defaultMode: 420
+      # - name: shared-certs
+      #   emptyDir: {}
+    extraVolumeMounts:
+      - name: realms
+        mountPath: "/realms"
+      - name: themes-catenax-shared
+        mountPath: "/opt/bitnami/keycloak/themes/catenax-shared"
+      - name: themes-catenax-shared-portal
+        mountPath: "/opt/bitnami/keycloak/themes/catenax-shared-portal"
+      # uncomment the following line for tls
+      # - name: certificates
+      #   mountPath: /certs
+      # - name: shared-certs
+      #   mountPath: "/opt/bitnami/keycloak/certs"
     ingress:
       enabled: true
       ingressClassName: "nginx"
-      hostname: "sharedidp.example.org"
+      hostname: "sharedidp.tx.test"
       annotations:
-        cert-manager.io/cluster-issuer: "my-ca-issuer"
+        # uncomment the following line for tls
+        # cert-manager.io/cluster-issuer: "my-ca-issuer"
         nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
         nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
-        nginx.ingress.kubernetes.io/cors-allow-origin: "https://sharedidp.example.org"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "http://sharedidp.tx.test"
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
         nginx.ingress.kubernetes.io/proxy-buffering: "on"
         nginx.ingress.kubernetes.io/proxy-buffers-number: "20"
         nginx.ingress.kubernetes.io/use-regex: "true"
-      tls: true
+      tls: false
   secrets:
+    postgresql:
+      auth:
+        existingSecret:
+          postgrespassword: "dbpasswordsharedidp"
+          password: "dbpasswordsharedidp"
+          replicationPassword: "dbpasswordsharedidp"
     auth:
       existingSecret:
         # -- Password for the admin username 'admin'. Secret-key 'admin-password'.
-        adminpassword: ""
-      spi:
-        truststorePassword: ""
+        adminpassword: "adminconsolepwsharedidp"
 
 postgresportal:
 # -- Additional PostgreSQL for backend development;
   # start port forwarding tunnel for database access, e.g.:
-  # 'kubectl port-forward service/local-portal-postgresql 5432:5432 -n localdev'
+  # 'kubectl port-forward service/local-portal-postgresql 5432:5432 -n umbrella'
   enabled: true
   nameOverride: "portal-postgresql"
   auth:
     database: "postgres"
     port: 5432
     existingSecret: "secret-postgres-init-localdev"
-    password: ""
-    replicationPassword: ""
     portalUser: "portal"
-    portalPassword: ""
     provisioningUser: "provisioning"
-    provisioningPassword: ""
+    password: "dbpasswordadditional"
+    portalPassword: "dbpasswordadditional"
+    provisioningPassword: "dbpasswordadditional"
   architecture: "standalone"
   audit:
     pgAuditLog: "write, ddl"
@@ -404,22 +561,14 @@ postgresportal:
 
 pgadmin4:
   enabled: true
-#   secret:
-#     password: ""
   env:
-    email: local@example.org
-#   existingSecret: secret-pgadmin4
+    email: pgadmin4@txtest.org
+    password: tractusxpgdamin4
   ingress:
     enabled: true
     ingressClassName: "nginx"
-    annotations:
-      cert-manager.io/cluster-issuer: "my-ca-issuer"
     hosts:
-      - host: pgadmin4.example.org
+      - host: pgadmin4.tx.test
         paths:
         - path: /
           pathType: Prefix
-    tls:
-      - hosts:
-        - pgadmin4.example.org
-        secretName: pgadmin4.example.org-tls

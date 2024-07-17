@@ -1,11 +1,11 @@
 # Helm chart for Catena-X Portal
 
-![Version: 2.1.0-RC1](https://img.shields.io/badge/Version-2.1.0--RC1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.1.0-RC1](https://img.shields.io/badge/AppVersion-2.1.0--RC1-informational?style=flat-square)
+![Version: 2.1.0-RC2](https://img.shields.io/badge/Version-2.1.0--RC2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.1.0-RC2](https://img.shields.io/badge/AppVersion-2.1.0--RC2-informational?style=flat-square)
 
 This helm chart installs the Catena-X Portal application which consists of
 
-* [portal-frontend (v2.1.0-RC1)](https://github.com/eclipse-tractusx/portal-frontend/tree/v2.1.0-RC1),
-* [portal-frontend-registration (v2.0.1-RC1)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v2.0.1-RC1),
+* [portal-frontend (v2.1.0-RC2)](https://github.com/eclipse-tractusx/portal-frontend/tree/v2.1.0-RC2),
+* [portal-frontend-registration (v2.0.1-RC2)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v2.0.1-RC2),
 * [portal-assets (v2.0.0)](https://github.com/eclipse-tractusx/portal-assets/tree/v2.0.0) and
 * [portal-backend (v2.1.0-RC1)](https://github.com/eclipse-tractusx/portal-backend/tree/v2.1.0-RC1).
 
@@ -41,7 +41,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 2.1.0-RC1
+    version: 2.1.0-RC2
 ```
 
 ## Requirements
@@ -83,13 +83,13 @@ dependencies:
 | frontend.ingress.hosts[0] | object | `{"host":"","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assets|documentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"docker.io/tractusx/portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v2.1.0-RC1"` |  |
+| frontend.portal.image.portaltag | string | `"v2.1.0-RC2"` |  |
 | frontend.portal.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.portal.resources | object | `{"limits":{"cpu":"75m","memory":"125M"},"requests":{"cpu":"25m","memory":"125M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | frontend.portal.requireHttpsUrlPattern | bool | `true` |  |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"docker.io/tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"v2.0.1-RC1"` |  |
+| frontend.registration.image.registrationtag | string | `"v2.0.1-RC2"` |  |
 | frontend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.registration.resources | object | `{"limits":{"cpu":"75m","memory":"100M"},"requests":{"cpu":"25m","memory":"100M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | frontend.assets.name | string | `"assets"` |  |
@@ -250,7 +250,7 @@ dependencies:
 | backend.appmarketplace.activeAppCompanyAdminRoles.role0 | string | `"IT Admin"` |  |
 | backend.appmarketplace.activeAppCompanyAdminRoles.role1 | string | `"Company Admin"` |  |
 | backend.appmarketplace.approveAppUserRoles.role0 | string | `"Sales Manager"` |  |
-| backend.appmarketplace.approveAppUserRoles.role1 | string | `"Service Manager"` |  |
+| backend.appmarketplace.approveAppUserRoles.role1 | string | `"App Manager"` |  |
 | backend.appmarketplace.activationUserRoles.role0 | string | `"Sales Manager"` |  |
 | backend.appmarketplace.activationUserRoles.role1 | string | `"App Manager"` |  |
 | backend.appmarketplace.ITAdminRoles.role0 | string | `"IT Admin"` |  |
@@ -467,11 +467,6 @@ dependencies:
 | backend.processesworker.issuerComponent.clientSecret | string | `""` | Client-secret for dim client-id. Secret-key 'issuercomponent-client-secret'. |
 | backend.processesworker.issuerComponent.grantType | string | `"client_credentials"` |  |
 | backend.processesworker.issuerComponent.scope | string | `"openid"` |  |
-| backend.processesworker.dim.encryptionConfigIndex | int | `0` |  |
-| backend.processesworker.dim.encryptionConfigs.index0.index | int | `0` |  |
-| backend.processesworker.dim.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
-| backend.processesworker.dim.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
-| backend.processesworker.dim.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey for the issuer component. Secret-key 'issuercomponent-encryption-key0'. Expected format is 256 bit (64 digits) hex. |
 | backend.processesworker.bpnDidResolver.apiKey | string | `""` | ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'. |
 | backend.processesworker.invitation.invitedUserInitialRoles.role0 | string | `"Company Admin"` |  |
 | backend.processesworker.invitation.initialLoginTheme | string | `"catenax-shared"` |  |

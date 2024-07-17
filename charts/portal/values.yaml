@@ -500,7 +500,7 @@ backend:
       role1: "Company Admin"
     approveAppUserRoles:
       role0: "Sales Manager"
-      role1: "Service Manager"
+      role1: "App Manager"
     activationUserRoles:
       role0: "Sales Manager"
       role1: "App Manager"

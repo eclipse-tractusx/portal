@@ -166,7 +166,7 @@ backend:
         - name: "HEALTHCHECKS__0__TAGS__2"
           value: "provisioningdb"
     swaggerEnabled: true
-    issuerdid: "did:web:tbd"
+    issuerdid: "did:web:portal-backend.int.catena-x.net:api:administration:staticdata:did:BPNL00000003CRHK"
     serviceAccount:
       encryptionConfigs:
         index0:

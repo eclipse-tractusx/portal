@@ -90,11 +90,6 @@ spec:
           value: "{{ .Values.backend.administration.basePath }}"
         - name: "DATABASEACCESS__PORTAL__DATABASESCHEMA"
           value: "{{ .Values.backend.dbConnection.schema }}"
-        - name: "KEYCLOAK_CENTRAL_PASSWORD"
-          valueFrom:
-            secretKeyRef:
-              name: "{{ .Values.backend.keycloak.secret }}"
-              key: "central-db-password"
         - name: "APPLICATIONCHECKLIST__BPDM__BASEADDRESS"
           value: "{{ .Values.bpdm.portalGateAddress }}{{ .Values.bpdm.portalGateApiPath }}"
         - name: "APPLICATIONCHECKLIST__BPDM__CLIENTID"

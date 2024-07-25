@@ -254,6 +254,12 @@ spec:
           value: "{{ .Values.centralidp.clients.portal }}"
         - name: "APPMARKETPLACE__COMPANYADMINROLES__0__USERROLENAMES__0"
           value: "{{ .Values.backend.appmarketplace.companyAdminRoles.role0 }}"
+        - name: "APPMARKETPLACE__DECENTRALIDENTITYMANAGEMENTAUTHURL"
+          value: "{{ .Values.decentralIdentityManagementAuthAddress }}"
+        - name: "APPMARKETPLACE__ISSUERDID"
+          value: "{{ .Values.backend.administration.issuerdid }}"
+        - name: "APPMARKETPLACE__BPNDIDRESOLVERURL"
+          value: "{{ .Values.bpnDidResolver.directoryApiAddress }}"
         - name: "HEALTHCHECKS__0__PATH"
           value: "{{ .Values.backend.healthChecks.startup.path}}"
         {{- if .Values.backend.appmarketplace.healthChecks.startup.tags }}

@@ -920,6 +920,7 @@ backend:
           # -- EncryptionKey to encrypt the parameters of mailing processes. Secret-key 'mailing-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
+    # -- if set to true the self description document creation will be skipped for company registrations as well as connector registrations
     clearinghouseConnectDisabled: false
   placeholder: "empty"
 

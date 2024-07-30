@@ -2,7 +2,7 @@
 
 {{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
 
-This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-1.8.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-2.1.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-2.1.0/charts/sharedidp/README.md)).
+This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-2.0.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-3.0.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-3.0.0/charts/sharedidp/README.md)).
 
 It's intended for the local setup of the those components in order to aid the local development. To integrate your local development, adapt the address values in the Values file for [Portal Frontend](./values.yaml#L23) and/or [Portal Backend](./values.yaml#L27).
 
@@ -10,9 +10,21 @@ This chart also sets up an additional [postgresql](https://artifacthub.io/packag
 
 For detailed information about the default configuration values, please have a look at the [Values table](#values) and/or [Values file](./values.yaml).
 
+- [Usage](#usage)
+- [Cluster setup](#cluster-setup)
+- [Prepare network setup](#prepare-network-setup)
+- [Install](#install)
+  - [Use released chart](#use-released-chart)
+  - [Use local repository](#use-local-repository)
+- [Perform first login](#perform-first-login)
+- [Database Access](#database-access)
+- [Keycloak Admin Console](#keycloak-admin-console)
+- [Uninstall](#uninstall)
+- [Prepare self-signed TLS setup (Optional)](#1-prepare-self-signed-tls-setup-optional)
+
 ## Usage
 
-The following steps describe how to setup the LocalDev chart into the namespace 'localdev' of your started [**Minikube**](https://minikube.sigs.k8s.io/docs/start) cluster.
+The following steps describe how to setup the umbrella chart into the namespace 'umbrella' of your started [**Minikube**](https://minikube.sigs.k8s.io/docs/start) cluster.
 
 > **Note**
 >
@@ -20,91 +32,49 @@ The following steps describe how to setup the LocalDev chart into the namespace 
 >
 > **Linux** is the **preferred platform** to install this chart on as the network setup with Minikube is very straightforward on Linux.
 >
-> We plan to test the chart's reliability also on Windows and to update the installation guide accordingly.
+> We are working on testing the chart's reliability on Windows as well and updating the installation guide accordingly.
 
 > **Recommendations**
 >
 > Resources for Minikube
 > | CPU(cores) | Memory(GB) |
 > | :--------: | :--------: |
-> |     2      |      6     |
->
->```bash
-> minikube start --cpus=2 --memory 6gb
->```
->
+> |     4      |      6     |
+
 > Use the dashboard provided by Minikube to get an overview about the deployed components:
 >
-> ```bash 
+> ```bash
 > minikube dashboard
 > ```
 
+## Cluster Setup
 
-1. [Prepare self-signed TLS setup](#1-prepare-self-signed-tls-setup)
-2. [Prepare network setup](#2-prepare-network-setup)
-3. [Install from released chart or portal-cd repository](#3-install-from-released-chart-or-portal-cd-repository)
-4. [Perform first login](#4-perform-first-login)
-
-### 1. Prepare self-signed TLS setup
+### Linux & Mac
 
 ```bash
-helm repo add jetstack https://charts.jetstack.io
-helm repo update
-```
-```bash
-helm install \
-  cert-manager jetstack/cert-manager \
-  --namespace localdev \
-  --create-namespace \
-  --version v1.13.0 \
-  --set installCRDs=true
+minikube start --cpus=4 --memory 6gb
 ```
 
-```bash
-kubectl apply -f - <<EOF
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: selfsigned-issuer
-spec:
-  selfSigned: {}
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: my-selfsigned-ca
-  namespace: localdev
-spec:
-  isCA: true
-  commonName: cx.local
-  secretName: root-secret
-  privateKey:
-    algorithm: RSA
-    size: 2048
-  issuerRef:
-    name: selfsigned-issuer
-    kind: ClusterIssuer
-    group: cert-manager.io
-  subject:
-    organizations:
-      - CX
-    countries:
-      - DE
-    provinces:
-      - Some-State
----
-apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
-metadata:
-  name: my-ca-issuer
-spec:
-  ca:
-    secretName: root-secret
-EOF
-```
-See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsigned) for reference.
+### Windows
 
-### 2. Prepare network setup
+For DNS resolution to work you need to either use `--driver=hyperv` option which requires administrator privileges:
+
+```bash
+minikube start --cpus=4 --memory 6gb --driver=hyperv
+```
+
+or use the native Kubernetes Cluster in *Docker Desktop* as well with a manual ingress setup:
+
+```bash
+# 1. Enable Kubernetes under Settings > Kubernetes > Enable Kubernetes
+# 2. Install an NGINX Ingress Controller
+helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
+# 3. Skip the minikube addons and assume 127.0.0.1 for Cluster IP 
+```
+
+> :warning: The rest of the tutorial assumes a minikube cluster, however.
+
+## Prepare network setup
 
 In order to enable the local access via **ingress**, use the according addon for Minikube:
 
@@ -120,7 +90,7 @@ minikube addons enable ingress-dns
 And execute installation step [3 Add the `minikube ip` as a DNS server](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns) for your OS:
 
 ```
-domain example.org
+domain tx.test
 nameserver 192.168.49.2
 search_order 1
 timeout 5
@@ -129,18 +99,18 @@ Replace 192.168.49.2 with your minikube ip.
 
 To find out the IP address of your Minikube:
 
-```bash 
+```bash
 minikube ip
 ```
 
-If afterwards at [step 4](#4-perform-first-login) your still facing DNS issues, add the following to your /etc/hosts file:
+If while [performing the first login](#perform-first-login) your still facing DNS issues, add the following to your /etc/hosts file:
 
 ```
-192.168.49.2    centralidp.example.org
-192.168.49.2    sharedidp.example.org
-192.168.49.2    portal.example.org
-192.168.49.2    portal-backend.example.org
-192.168.49.2    pgadmin4.example.org
+192.168.49.2    centralidp.tx.test
+192.168.49.2    sharedidp.tx.test
+192.168.49.2    portal.tx.test
+192.168.49.2    portal-backend.tx.test
+192.168.49.2    pgadmin4.tx.test
 ```
 
 Replace 192.168.49.2 with your minikube ip.
@@ -155,9 +125,9 @@ If you're having issues with getting 'Docker Mac Net Connect' to work, we recomm
 
 The tool is necessary due to [#7332](https://github.com/kubernetes/minikube/issues/7332).
 
-### 3. Install from released chart or [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository
+## Install
 
-#### From the released chart
+### Use released chart
 
 Install the chart with the release name 'local':
 
@@ -166,18 +136,18 @@ helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
 ```
 
 ```bash
-helm install local tractusx-dev/{{ template "chart.name" . }} --namespace localdev
+helm install local tractusx-dev/{{ template "chart.name" . }} --namespace umbrella --create-namespace
 ```
 
 To set your own configuration and secret values, install the helm chart with your own values file:
 
 ```bash
-helm install -f your-values.yaml local tractusx-dev/{{ template "chart.name" . }} --namespace localdev
+helm install -f your-values.yaml local tractusx-dev/{{ template "chart.name" . }} --namespace umbrella --create-namespace
 ```
 
-#### From [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository:
+#### Use local repository
 
-Make sure to clone the [portal-cd](https://github.com/eclipse-tractusx/portal-cd) repository beforehand.
+Make sure to clone the [portal](https://github.com/eclipse-tractusx/portal) repository beforehand.
 
 Then change to the chart directory:
 
@@ -193,40 +163,32 @@ helm dependency update
 Install the chart with the release name 'local':
 
 ```bash
-helm install local . --namespace localdev
+helm install local . --namespace umbrella --create-namespace
 ```
 
 To set your own configuration and secret values, install the helm chart with your own values file:
 
 ```bash
-helm install local -f your-values.yaml . --namespace localdev
+helm install local -f your-values.yaml . --namespace umbrella --create-namespace
 ```
 
-> **Note**
+> :warning: **Note**
 >
-> It is to be expected that the pods for the **portal-migrations** job will run into an error a couple of times until the portal database is ready to take connections.
-> The job will recreate pods until one run is successful.
->
+> It is to be expected that some pods - which run as post-install hooks, like for instance the **portal-migrations job - will run into errors until another component**, like for instance a database, is ready to take connections.
+> Those jobs will recreate pods until one run is successful.
 
-### 4. Perform first login
+## Perform first login
 
-Make sure to accept the risk of the self-signed certificates for the following hosts using the continue option:
-- [centralidp.example.org/auth/](https://centralidp.example.org/auth/)
-- [sharedidp.example.org/auth/](https://sharedidp.example.org/auth/)
-- [portal-backend.example.org](https://portal-backend.example.org)
-- [portal.example.org](https://portal.example.org)
-- [pgadmin4.example.org](https://pgadmin4.example.org)
-
-Then proceed with the login to the [portal](https://portal.example.org) to verify that everything is setup as expected.
+Then proceed with the login to the <http://portal.tx.test> to verify that everything is setup as expected.
 
 Credentials to log into the initial example realm (CX-Operator):
 
 ```
-cx-operator@cx.com
+cx-operator@tx.test
 ```
 
 ```
-7XSXRwYLAm5kU2H
+tractusx-umbr3lla!
 ```
 
 ```mermaid
@@ -260,6 +222,213 @@ cx-operator@cx.com
           linkStyle 0,1,2 stroke:lightblue
           linkStyle 3 stroke:lightgrey
 ```
+
+The relevant hosts are the following:
+
+- <http://centralidp.tx.test/auth/>
+- <http://sharedidp.tx.test/auth/>
+- <http://portal-backend.tx.test>
+- <http://portal.tx.test>
+
+In case that you have TLS enabled (see [Prepare self-signed TLS setup (Optional)](#1-prepare-self-signed-tls-setup-optional)), make sure to accept the risk of the self-signed certificates for all the hosts before performing the first login:
+
+- <https://centralidp.tx.test/auth/>
+- <https://sharedidp.tx.test/auth/>
+- <https://portal-backend.tx.test>
+- <https://portal.tx.test>
+
+## Database Access
+
+This chart also contains a pgadmin4 instance for easy access to the deployed Postgres databases which are only available from within the Kubernetes cluster.
+
+pgadmin4 is by default enabled with in the predefined subsets for data exchange and portal.
+
+Address: [pgadmin4.tx.test](http://pgadmin4.tx.test)
+
+Credentials to login into pgadmin4:
+
+```
+pgadmin4@txtest.org
+```
+
+```
+tractusxpgdamin4
+```
+
+**The database server connections need to be added manually to pgadmin4.**
+
+Default username for all connections:
+
+```
+postgres
+```
+
+Default port for all connections:
+
+```
+5432
+```
+
+In the following some of the available connections:
+
+- portal db
+
+Host:
+
+```
+local-portal-backend-postgresql
+```
+
+Password:
+
+```
+dbpasswordportal
+```
+
+- centralidp db
+
+Host:
+
+```
+local-centralidp-postgresql
+```
+
+Password:
+
+```
+dbpasswordcentralidp
+```
+
+- sharedidp db
+
+Host:
+
+```
+local-sharedidp-postgresql
+```
+
+Password:
+
+```
+dbpasswordsharedidp
+```
+
+- additional portal db
+
+Host:
+
+```
+local-portal-postgresql
+```
+
+Password:
+
+```
+dbpasswordadditional
+```
+
+## Keycloak Admin Console
+
+Access to admin consoles:
+
+- http://centralidp.tx.test/auth/
+- http://sharedidp.tx.test/auth/
+
+Default username for centralidp and sharedidp:
+
+```
+admin
+```
+
+Password centralidp:
+
+```
+adminconsolepwcentralidp
+```
+
+Password sharedidp:
+
+```
+adminconsolepwsharedidp
+```
+
+## Uninstall
+
+To teardown your setup, run:
+
+```shell
+helm delete local --namespace umbrella
+```
+
+> :warning:
+>
+> If persistance for one or more components is enabled, the persistent volume claims (PVCs) and connected persistent volumes (PVs) need to be removed manually even if you deleted the release from the cluster.
+>
+
+## Prepare self-signed TLS setup (Optional)
+
+The components are prepared to be configured with TLS enabled (see "uncomment the following line for tls" comments in [values.yaml](./values.yaml)).
+
+If you'd like to make use of that, make sure to to execute this step beforehand.
+
+Install cert-manager chart in the same namespace where the localdev chart will be located.
+
+```bash
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+```
+```bash
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace umbrella \
+  --create-namespace \
+  --version v1.13.0 \
+  --set installCRDs=true
+```
+
+```bash
+kubectl apply -f - <<EOF
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: my-selfsigned-ca
+  namespace: umbrella
+spec:
+  isCA: true
+  commonName: cx.local
+  secretName: root-secret
+  privateKey:
+    algorithm: RSA
+    size: 2048
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+    group: cert-manager.io
+  subject:
+    organizations:
+      - CX
+    countries:
+      - DE
+    provinces:
+      - Some-State
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: my-ca-issuer
+spec:
+  ca:
+    secretName: root-secret
+EOF
+```
+See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsigned) for reference.
 
 {{ template "chart.requirementsSection" . }}
 

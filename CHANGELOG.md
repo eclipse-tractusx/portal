@@ -2,50 +2,20 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 2.1.0-RC3
+## 2.1.0
 
 ### Change
 
 * changed to new container images
-  * portal-frontend: v2.1.0-RC3
-  * portal-backend: v2.1.0-RC2
-  * portal-assets: v2.0.1-RC1
-* portal-backend:
-  * added configuration values for external service information [#385](https://github.com/eclipse-tractusx/portal/pull/385)
-
-### Bugfix
-
-* portal-backend:
-  * added information for the clearinghouseConnectDisabled flag [#387](https://github.com/eclipse-tractusx/portal/pull/387)
-  * removed unused secret [#383](https://github.com/eclipse-tractusx/portal/pull/383)
-
-## 2.1.0-RC2
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.1.0-RC2
-  * portal-frontend-registration: v2.0.1-RC2
-
-### Bugfix
-
-* portal-backend:
-  * set correct path for consent osp link in mail notification [#371](https://github.com/eclipse-tractusx/portal/pull/371)
-  * update role name for app approval notifications [#372](https://github.com/eclipse-tractusx/portal/pull/372)
-  aligned dim and issuerComponent encryption key config [#368](https://github.com/eclipse-tractusx/portal/pull/368)
-
-## 2.1.0-RC1
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.1.0-RC1
-  * portal-backend: v2.1.0-RC1
-  * portal-frontend-registration: v2.0.1-RC1
+  * portal-frontend: v2.1.0
+  * portal-backend: v2.1.0
+  * portal-assets: v2.1.0
+  * portal-frontend-registration: v2.0.1
 * portal frontend: enabled bpdm pool and company api urls [#317](https://github.com/eclipse-tractusx/portal/pull/317)
 * portal-backend:
   * clearinghouse: added feature toggle for sd connectivity [#344](https://github.com/eclipse-tractusx/portal/pull/344)
   * portalmigrations: enabled seeding of test data with configmap and moved processidentity userid into job [#356](https://github.com/eclipse-tractusx/portal/pull/356)
+  * added configuration values for external service information [#385](https://github.com/eclipse-tractusx/portal/pull/385)
 
 ### Technical Support
 
@@ -60,9 +30,12 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
 
 * portal-backend:
   * added environment variable to use dim in application checklist bpdm of the processes worker job [361](https://github.com/eclipse-tractusx/portal/pull/361)
-  * removed obsolete centralidp database configuration [#355](https://github.com/eclipse-tractusx/portal/pull/355)
+  * removed obsolete centralidp database configuration [#355](https://github.com/eclipse-tractusx/portal/pull/355), removed unused secret [#383](https://github.com/eclipse-tractusx/portal/pull/383)
   * changed to directoryApiAddress of bpn did resolver in administration service configuration [#364](https://github.com/eclipse-tractusx/portal/pull/364)
   * increased memory for services service [#359](https://github.com/eclipse-tractusx/portal/pull/359)
+  * set correct path for consent osp link in mail notification [#371](https://github.com/eclipse-tractusx/portal/pull/371)
+  * update role name for app approval notifications [#372](https://github.com/eclipse-tractusx/portal/pull/372)
+  aligned dim and issuerComponent encryption key config [#368](https://github.com/eclipse-tractusx/portal/pull/368)
 
 ## 2.0.0
 

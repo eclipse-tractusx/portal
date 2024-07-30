@@ -2,6 +2,23 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.1.0-RC3
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.1.0-RC3
+  * portal-backend: v2.1.0-RC2
+  * portal-assets: v2.0.1-RC1
+* portal-backend:
+  * added configuration values for external service information [#385](https://github.com/eclipse-tractusx/portal/pull/385)
+
+### Bugfix
+
+* portal-backend:
+  * added information for the clearinghouseConnectDisabled flag [#387](https://github.com/eclipse-tractusx/portal/pull/387)
+  * removed unused secret [#383](https://github.com/eclipse-tractusx/portal/pull/383)
+
 ## 2.1.0-RC2
 
 ### Change

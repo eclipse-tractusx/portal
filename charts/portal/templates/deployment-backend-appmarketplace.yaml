@@ -38,6 +38,12 @@ spec:
         app: {{ include "portal.fullname" . }}-{{ .Values.backend.appmarketplace.name }}
         {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
+      {{- with .Values.backend.appmarketplace.image.imagePullSecrets }}
+      imagePullSecrets:
+        {{- range . }}
+        - name: {{ .name }}
+        {{- end }}
+      {{- end }}
       containers:
       - name: {{ include "portal.fullname" . }}-{{ .Values.backend.appmarketplace.name }}
         securityContext:

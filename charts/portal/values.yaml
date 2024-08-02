@@ -340,7 +340,7 @@ backend:
     name: "administration-service"
     image:
       name: "docker.io/tractusx/portal-administration-service"
-      administrationservicetag: 7825b1be9caf62790002ffc522ba1b1d520db431
+      administrationservicetag: 41525c3af0ac55d51baee8e14fd4c59bf33501cb
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

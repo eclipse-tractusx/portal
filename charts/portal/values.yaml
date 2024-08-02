@@ -128,6 +128,8 @@ frontend:
       name: "docker.io/tractusx/portal-frontend"
       portaltag: 37cd674aa1324f0fbd9c7662b5e43fde89e1a748
       pullPolicy: "IfNotPresent"
+      # -- Pull secrets for private docker registry
+      imagePullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -143,6 +145,8 @@ frontend:
       name: "docker.io/tractusx/portal-frontend-registration"
       registrationtag: 064a96674c239433e85d2599b17a95c3434e9bb9
       pullPolicy: "IfNotPresent"
+      # -- Pull secrets for private docker registry
+      imagePullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -157,6 +161,8 @@ frontend:
       name: "docker.io/tractusx/portal-assets"
       assetstag: 39ec46dcb883080c5d0ac94984630ec0409929c7
       pullPolicy: "IfNotPresent"
+      # -- Pull secrets for private docker registry
+      imagePullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -293,6 +299,8 @@ backend:
       name: "docker.io/tractusx/portal-registration-service"
       registrationservicetag: d3dd7919c03d815bad3b10e8ddb4c306e549e92a
       pullPolicy: "IfNotPresent"
+      # -- Pull secrets for private docker registry
+      imagePullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -342,6 +350,8 @@ backend:
       name: "docker.io/tractusx/portal-administration-service"
       administrationservicetag: 7825b1be9caf62790002ffc522ba1b1d520db431
       pullPolicy: "IfNotPresent"
+      # -- Pull secrets for private docker registry
+      imagePullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -460,6 +470,8 @@ backend:
       name: "docker.io/tractusx/portal-marketplace-app-service"
       appmarketplaceservicetag: d3dd7919c03d815bad3b10e8ddb4c306e549e92a
       pullPolicy: "IfNotPresent"
+      # -- Pull secrets for private docker registry
+      imagePullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -634,6 +646,8 @@ backend:
       name: "docker.io/tractusx/portal-notification-service"
       notificationservicetag: d3dd7919c03d815bad3b10e8ddb4c306e549e92a
       pullPolicy: "IfNotPresent"
+      # -- Pull secrets for private docker registry
+      imagePullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -661,6 +675,8 @@ backend:
       name: "docker.io/tractusx/portal-services-service"
       servicesservicetag: d3dd7919c03d815bad3b10e8ddb4c306e549e92a
       pullPolicy: "IfNotPresent"
+      # -- Pull secrets for private docker registry
+      imagePullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:

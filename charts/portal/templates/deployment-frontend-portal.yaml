@@ -39,10 +39,8 @@ spec:
         {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.frontend.portal.image.pullSecrets }}
-      pullSecrets:
-        {{- range . }}
-        - name: {{ .name }}
-        {{- end }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
       - name: {{ include "portal.fullname" . }}-{{ .Values.frontend.portal.name }}

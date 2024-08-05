@@ -38,8 +38,8 @@ spec:
         app: {{ include "portal.fullname" . }}-{{ .Values.backend.administration.name }}
         {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.backend.administration.image.imagePullSecrets }}
-      imagePullSecrets:
+      {{- with .Values.backend.administration.image.pullSecrets }}
+      pullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:

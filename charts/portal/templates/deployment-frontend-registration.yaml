@@ -38,8 +38,8 @@ spec:
         app: {{ include "portal.fullname" . }}-{{ .Values.frontend.registration.name }}
         {{- include "portal.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.frontend.registration.image.imagePullSecrets }}
-      imagePullSecrets:
+      {{- with .Values.frontend.registration.image.pullSecrets }}
+      pullSecrets:
         {{- range . }}
         - name: {{ .name }}
         {{- end }}

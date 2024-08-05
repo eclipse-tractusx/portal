@@ -40,9 +40,7 @@ spec:
     spec:
       {{- with .Values.backend.administration.image.imagePullSecrets }}
       imagePullSecrets:
-        {{- range . }}
-        - name: {{ .name }}
-        {{- end }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
       - name: {{ include "portal.fullname" . }}-{{ .Values.backend.administration.name }}

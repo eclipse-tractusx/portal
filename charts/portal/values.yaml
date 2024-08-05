@@ -129,7 +129,7 @@ frontend:
       portaltag: 37cd674aa1324f0fbd9c7662b5e43fde89e1a748
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
-      imagePullSecrets: []
+      pullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -146,7 +146,7 @@ frontend:
       registrationtag: 064a96674c239433e85d2599b17a95c3434e9bb9
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
-      imagePullSecrets: []
+      pullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -162,7 +162,7 @@ frontend:
       assetstag: 587cfb232860b5dc221aefc60758dd81c00f53bb
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
-      imagePullSecrets: []
+      pullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -300,7 +300,7 @@ backend:
       registrationservicetag: 294eea9b508022239c633dc84022116b1ba3694d
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
-      imagePullSecrets: []
+      pullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -351,7 +351,7 @@ backend:
       administrationservicetag: 294eea9b508022239c633dc84022116b1ba3694d
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
-      imagePullSecrets: []
+      pullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -471,7 +471,7 @@ backend:
       appmarketplaceservicetag: 294eea9b508022239c633dc84022116b1ba3694d
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
-      imagePullSecrets: []
+      pullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -647,7 +647,7 @@ backend:
       notificationservicetag: 294eea9b508022239c633dc84022116b1ba3694d
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
-      imagePullSecrets: []
+      pullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
@@ -676,7 +676,7 @@ backend:
       servicesservicetag: 294eea9b508022239c633dc84022116b1ba3694d
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
-      imagePullSecrets: []
+      pullSecrets: []
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:

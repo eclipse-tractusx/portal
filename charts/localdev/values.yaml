@@ -177,9 +177,6 @@ portal:
       issuerComponent:
         clientId: "sa-cl2-04"
         clientSecret: "c0gFPfWWUpeOr7MP6DIqdRPhUfaX4GRC"
-        encryptionConfigs:
-          index0:
-            encryptionKey: "39ffab76f99ece1e4ac72f973d5c703737324a75c6445e84fa317a7833476a15"
       bpnDidResolver:
         # -- ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
         apiKey: ""
@@ -199,6 +196,7 @@ portal:
         encryptionConfigs:
           index0:
             encryptionKey: "d2e27d71b018cb36029184852f1baa3e26891be94718f77de4c7cc6c882fe317"
+      clearinghouseConnectDisabled: false
     mailing:
       host: "smtp.tx.test"
       port: "587"

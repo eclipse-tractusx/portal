@@ -441,6 +441,8 @@ spec:
           value: "{{ .Values.portalAddress }}{{ .Values.backend.portalHelpPath }}"
         - name: "REGISTRATION__USEDIMWALLET"
           value: "{{ .Values.backend.useDimWallet }}"
+        - name: "REGISTRATION__CLEARINGHOUSECONNECTDISABLED"
+          value: "{{ .Values.backend.processesworker.clearinghouseConnectDisabled }}"
         - name: "SERVICEACCOUNT__CLIENTID"
           value: "{{ .Values.backend.administration.serviceAccount.clientId }}"
         - name: "SERVICEACCOUNT__ENCRYPTIONCONFIGINDEX"

@@ -141,6 +141,8 @@ spec:
               value: "{{ .Values.backend.placeholder }}"
             - name: "APPLICATIONCHECKLIST__BPDM__USEDIMWALLET"
               value: "{{ .Values.backend.useDimWallet }}"
+            - name: "APPLICATIONCHECKLIST__BPDM__STARTASREADY"
+              value: "{{ .Values.backend.bpdmStartAsReady }}"
             - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__BASEADDRESS"
               value: "{{ .Values.clearinghouseAddress }}"
             - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__CLIENTID"

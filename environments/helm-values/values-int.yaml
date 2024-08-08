@@ -127,6 +127,7 @@ backend:
       clientSecret: "<path:portal/data/int/iam/sharedidp-client-secrets#reg-shared-sa>"
 
   useDimWallet: true
+  bpdmStartAsReady: false
 
   mailing:
     host: "<path:portal/data/mailing#host>"

@@ -36,7 +36,7 @@ issuerComponentAddress: "https://ssi-credential-issuer.int.catena-x.net"
 bpnDidResolverAddress: "http://bdrs-bdrs-server:8081"
 dimWrapper:
   baseAddress: "https://dim.int.catena-x.net"
-decentralIdentityManagementAuthAddress: ""
+decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 bpnDidResolver:
   managementApiAddress: "http://bdrs-bdrs-server:8081"
   directoryApiAddress: "https://bpn-did-resolution-service.int.catena-x.net/api/directory"

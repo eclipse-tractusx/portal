@@ -242,6 +242,9 @@ backend:
   userManagementPath: "/usermanagement"
   # -- Enable for using Decentral Identity Management (DIM) instead of Managed Identity Wallet (MIW) as wallet
   useDimWallet: false
+  # -- if false, the process worker will trigger the set sharing state ready to of the bpdm.
+  # -- This value should be aligned with the value set in the bpdm chart creation -> fromSharingMember -> starts-as-ready
+  bpdmStartAsReady: false
   keycloak:
     # -- Secret containing the database-password and the client-secret for the connection to the centralidp (CX IAM) and the client-secret for the connection to the sharedidp (CX-IAM).
     secret: "portal-backend-keycloak"

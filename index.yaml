@@ -2,6 +2,44 @@ apiVersion: v1
 entries:
   localdev-portal-iam:
   - apiVersion: v2
+    created: "2024-08-09T08:21:24.626398204Z"
+    dependencies:
+    - condition: portal.enabled
+      name: portal
+      repository: file://../portal
+      version: 2.2.0-RC1
+    - condition: centralidp.enabled
+      name: centralidp
+      repository: https://eclipse-tractusx.github.io/charts/dev
+      version: 3.0.0
+    - condition: sharedidp.enabled
+      name: sharedidp
+      repository: https://eclipse-tractusx.github.io/charts/dev
+      version: 3.0.0
+    - condition: pgadmin4.enabled
+      name: pgadmin4
+      repository: https://helm.runix.net
+      version: 1.17.x
+    - alias: postgresportal
+      condition: postgresportal.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.12.x
+    description: Setup of CX Portal & IAM for local development
+    digest: 12eab1ff0c1e5d8fae283f364adbce349fc2c7e1e04c04c2527231dbba439268
+    home: https://github.com/eclipse-tractusx/portal-cd
+    name: localdev-portal-iam
+    sources:
+    - https://github.com/eclipse-tractusx/portal-frontend
+    - https://github.com/eclipse-tractusx/portal-frontend-registration
+    - https://github.com/eclipse-tractusx/portal-assets
+    - https://github.com/eclipse-tractusx/portal-backend
+    - https://github.com/eclipse-tractusx/portal-iam
+    type: application
+    urls:
+    - https://github.com/eclipse-tractusx/portal/releases/download/localdev-portal-iam-0.7.0/localdev-portal-iam-0.7.0.tgz
+    version: 0.7.0
+  - apiVersion: v2
     created: "2024-06-12T11:04:10.677945823Z"
     dependencies:
     - condition: portal.enabled
@@ -306,6 +344,27 @@ entries:
     - https://github.com/eclipse-tractusx/portal-cd/releases/download/localdev-portal-iam-0.0.1/localdev-portal-iam-0.0.1.tgz
     version: 0.0.1
   portal:
+  - apiVersion: v2
+    appVersion: 2.2.0-RC1
+    created: "2024-08-09T08:21:24.748940771Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    description: Helm chart for Catena-X Portal
+    digest: 6ad67924d24ce54dd3921b346154f4ab76809d8553256179af80727f1e669fbf
+    home: https://github.com/eclipse-tractusx/portal
+    name: portal
+    sources:
+    - https://github.com/eclipse-tractusx/portal-frontend
+    - https://github.com/eclipse-tractusx/portal-frontend-registration
+    - https://github.com/eclipse-tractusx/portal-assets
+    - https://github.com/eclipse-tractusx/portal-backend
+    type: application
+    urls:
+    - https://github.com/eclipse-tractusx/portal/releases/download/portal-2.2.0-RC1/portal-2.2.0-RC1.tgz
+    version: 2.2.0-RC1
   - apiVersion: v2
     appVersion: 2.1.0
     created: "2024-07-30T16:30:00.916512219Z"
@@ -1533,4 +1592,4 @@ entries:
     urls:
     - https://github.com/eclipse-tractusx/portal-cd/releases/download/portal-0.6.0/portal-0.6.0.tgz
     version: 0.6.0
-generated: "2024-07-30T16:30:00.916781673Z"
+generated: "2024-08-09T08:21:24.74942862Z"

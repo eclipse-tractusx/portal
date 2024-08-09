@@ -13,6 +13,7 @@ For detailed information about the default configuration values, please have a l
 - [Usage](#usage)
 - [Cluster setup](#cluster-setup)
 - [Prepare network setup](#prepare-network-setup)
+- [Prepare self-signed TLS setup](#prepare-self-signed-tls-setup)
 - [Install](#install)
   - [Use released chart](#use-released-chart)
   - [Use local repository](#use-local-repository)
@@ -20,11 +21,10 @@ For detailed information about the default configuration values, please have a l
 - [Database Access](#database-access)
 - [Keycloak Admin Console](#keycloak-admin-console)
 - [Uninstall](#uninstall)
-- [Prepare self-signed TLS setup (Optional)](#1-prepare-self-signed-tls-setup-optional)
 
 ## Usage
 
-The following steps describe how to setup the umbrella chart into the namespace 'umbrella' of your started [**Minikube**](https://minikube.sigs.k8s.io/docs/start) cluster.
+The following steps describe how to setup the umbrella chart into the namespace 'umbrella' of your started [**Minikube**](https://minikube.sigs.k8s.io/docs/start) or *Docker Desktop* integrated Kubernetes cluster.
 
 > **Note**
 >
@@ -57,24 +57,44 @@ minikube start --cpus=4 --memory 6gb
 
 ### Windows
 
+#### minikube
+
 For DNS resolution to work you need to either use `--driver=hyperv` option which requires administrator privileges:
 
 ```bash
 minikube start --cpus=4 --memory 6gb --driver=hyperv
 ```
 
-or use the native Kubernetes Cluster in *Docker Desktop* as well with a manual ingress setup:
+#### Docker Desktop integrated Kubernetes
 
-```bash
-# 1. Enable Kubernetes under Settings > Kubernetes > Enable Kubernetes
-# 2. Install an NGINX Ingress Controller
-helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
-# 3. Skip the minikube addons and assume 127.0.0.1 for Cluster IP
+*Docker Desktop* recommends the use of *wsl2* as backend:
+
+- Settings > 'General'
+  - enable 'Use the WSL 2 based engine'
+  - enable 'Add the *.docker.internal names to the host's /etc/hosts file'
+- Settings > 'Resources' > 'WSL integration'
+  - enable 'Enable integration with my default WSL distro'
+
+recommended wsl2-settings:
+
+c:\Users\\<username\>\\.wslconfig (for details see <https://learn.microsoft.com/en-us/windows/wsl/wsl-config>)
+
+```text
+[wsl2]
+memory=10GB  # Limits VM memory in WSL 2
+processors=4  # Limits the number of virtual processors
+swap=16GB  # Sets the swap size
+[experimental]
+autoMemoryReclaim = gradual
 ```
 
-> :warning: The rest of the tutorial assumes a minikube cluster, however.
+- Enable Kubernetes under Settings > Kubernetes > Enable Kubernetes
+
+- Skip the minikube addons
 
 ## Prepare network setup
+
+### minikube addons
 
 In order to enable the local access via **ingress**, use the according addon for Minikube:
 
@@ -87,14 +107,16 @@ Make sure that the **DNS** resolution for the hostnames is in place:
 ```bash
 minikube addons enable ingress-dns
 ```
+
 And execute installation step [3 Add the `minikube ip` as a DNS server](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns) for your OS:
 
-```
+```text
 domain tx.test
 nameserver 192.168.49.2
 search_order 1
 timeout 5
 ```
+
 Replace 192.168.49.2 with your minikube ip.
 
 To find out the IP address of your Minikube:
@@ -103,9 +125,9 @@ To find out the IP address of your Minikube:
 minikube ip
 ```
 
-If while [performing the first login](#perform-first-login) your still facing DNS issues, add the following to your /etc/hosts file:
+when facing DNS-issues while [performing the first login](#perform-first-login), add the following to your /etc/hosts file
 
-```
+```text
 192.168.49.2    centralidp.tx.test
 192.168.49.2    sharedidp.tx.test
 192.168.49.2    portal.tx.test
@@ -113,9 +135,17 @@ If while [performing the first login](#perform-first-login) your still facing DN
 192.168.49.2    pgadmin4.tx.test
 ```
 
-Replace 192.168.49.2 with your minikube ip.
+Replace 192.168.49.2 with your minikube ip
 
-**Additional network setup** (for Mac only)
+### Docker Desktop integrated Kubernetes ingress-controller
+
+- Install an NGINX Ingress Controller
+
+```bash
+helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
+```
+
+### Additional network setup for Mac
 
 Install and start [Docker Mac Net Connect](https://github.com/chipmk/docker-mac-net-connect#installation).
 
@@ -125,14 +155,80 @@ If you're having issues with getting 'Docker Mac Net Connect' to work, we recomm
 
 The tool is necessary due to [#7332](https://github.com/kubernetes/minikube/issues/7332).
 
-## Install
+### Additional network setup on Windows/wsl2 with NTLM-proxy
 
-### Use released chart
+configure wsl networking, assign additional fixed ip-addresses to both wsl2 and windows, the wsl2-ip-address will then be used as cluster-ip-address. Do **not** use 127.0.0.1 as Cluster IP, as this causes issues when services try to access other services via the ingress from within the cluster.
 
-Install the chart with the release name 'local':
+in this tutorial we use:
+
+- windows additional host ip 169.254.254.1
+- wsl2 ip 169.254.254.2
+
+#### px-proxy
+
+install px-proxy version v0.9.2 (or later) from <https://github.com/genotrance/px/releases> (minimum version is v0.9.0)
+
+px.ini
+
+```text
+[proxy]
+pac = http://proxypac.bmwgroup.net/proxy.pac
+noproxy = 127.0.0.1,169.254.254.1,169.254.254.2,wsl,wsl.host,*.tx.test,localhost
+```
+
+in powershell set proxy environment variables:
+
+```powershell
+[Environment]::SetEnvironmentVariable('http_proxy','http://localhost:3128','User')
+[Environment]::SetEnvironmentVariable('HTTP_PROXY','http://localhost:3128','User')
+[Environment]::SetEnvironmentVariable('https_proxy','http://localhost:3128','User')
+[Environment]::SetEnvironmentVariable('HTTPS_PROXY','http://localhost:3128','User')
+[Environment]::SetEnvironmentVariable('no_proxy','localhost,127.0.0.1,wsl,wsl.host,169.254.254.1,169.254.254.2,*.tx.test,.tx.test,tx.test','User')
+[Environment]::SetEnvironmentVariable('NO_PROXY','localhost,127.0.0.1,wsl,wsl.host,169.254.254.1,169.254.254.2,*.tx.test,.tx.test,tx.test','User')
+```
+
+In Firefox change the proxy to manual proxy configuration, <http://localhost:3128>
+
+Chrome and Edge use the system proxy settings. Change those to 'manual', <http://localhost:3128> (both for http and https)
+remark: on corporate managed windows the system proxy settings will eventually be overridden by the bmw system-management software and need to be re-configured whenever this happens.
+
+#### DNS-resolution in Windows
+
+c:\Windows\System32\drivers\etc\hosts
+
+```text
+169.254.254.2 wsl
+169.254.254.2 centralidp.tx.test
+169.254.254.2 sharedidp.tx.test
+169.254.254.2 portal.tx.test
+169.254.254.2 portal-backend.tx.test
+169.254.254.2 pgadmin4.tx.test
+```
+
+#### DNS-resolution in wsl2
+
+/etc/hosts
+
+```text
+169.254.254.1 wsl.host
+169.254.254.2 centralidp.tx.test
+169.254.254.2 sharedidp.tx.test
+169.254.254.2 portal.tx.test
+169.254.254.2 portal-backend.tx.test
+169.254.254.2 pgadmin4.tx.test
+```
+
+#### Proxy-setup in wsl2
+
+.profile
 
 ```bash
-helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
+https_proxy=http://169.254.254.1:3128/
+HTTPS_PROXY=http://169.254.254.1:3128/
+http_proxy=http://169.254.254.1:3128/
+HTTP_PROXY=http://169.254.254.1:3128/
+no_proxy="localhost,127.0.0.1,wsl,wsl.host,169.254.254.1,169.254.254.2,docker.internal,tx.test"
+NO_PROXY="localhost,127.0.0.1,wsl,wsl.host,169.254.254.1,169.254.254.2,docker.internal,tx.test"
 ```
 
 ```bash
@@ -384,6 +480,7 @@ Install cert-manager chart in the same namespace where the localdev chart will b
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 ```
+
 ```bash
 helm install \
   cert-manager jetstack/cert-manager \
@@ -435,7 +532,249 @@ spec:
     secretName: root-secret
 EOF
 ```
+
 See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsigned) for reference.
+
+## Install
+
+### Use released chart
+
+Install the chart with the release name 'local':
+
+```bash
+helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
+```
+
+```bash
+helm install local tractusx-dev/localdev-portal-iam --namespace umbrella --create-namespace
+```
+
+To set your own configuration and secret values, install the helm chart with your own values file:
+
+```bash
+helm install -f your-values.yaml local tractusx-dev/localdev-portal-iam --namespace umbrella --create-namespace
+```
+
+#### Use local repository
+
+Make sure to clone the [portal](https://github.com/eclipse-tractusx/portal) repository beforehand.
+
+Then change to the chart directory:
+
+```bash
+cd charts/localdev/
+```
+
+Download the chart dependencies:
+
+```bash
+helm dependency update
+```
+
+Install the chart with the release name 'local':
+
+```bash
+helm install local . --namespace umbrella --create-namespace
+```
+
+To set your own configuration and secret values, install the helm chart with your own values file:
+
+```bash
+helm install local -f your-values.yaml . --namespace umbrella --create-namespace
+```
+
+> :warning: **Note**
+>
+> It is to be expected that some pods - which run as post-install hooks, like for instance the **portal-migrations job - will run into errors until another component**, like for instance a database, is ready to take connections.
+> Those jobs will recreate pods until one run is successful.
+
+## Perform first login
+
+Then proceed with the login to the <http://portal.tx.test> to verify that everything is setup as expected.
+
+Credentials to log into the initial example realm (CX-Operator):
+
+```text
+cx-operator@tx.test
+```
+
+```text
+tractusx-umbr3lla!
+```
+
+```mermaid
+%%{
+  init: {
+    'flowchart': { 'diagramPadding': '10', 'wrappingWidth': '', 'nodeSpacing': '', 'rankSpacing':'', 'titleTopMargin':'10', 'curve':'basis'},
+    'theme': 'base',
+    'themeVariables': {
+      'primaryColor': '#b3cb2d',
+      'primaryBorderColor': '#ffa600',
+      'lineColor': '#ffa600',
+      'tertiaryColor': '#fff'
+    }
+  }
+}%%
+        graph TD
+          classDef stroke stroke-width:2px
+          classDef external fill:#4cb5f5,stroke:#4cb5f5,stroke-width:2px
+          classDef addext fill:#4cb5f5,stroke:#b7b8b6,stroke-width:2px
+          iam1(IAM: centralidp Keycloak):::stroke
+          iam2(IAM: sharedidp Keycloak):::stroke
+          portal(Portal):::stroke
+          ps(Postgres):::external
+          addpgadmin4(pgadmin 4):::addext
+          ps --- iam1 & iam2 & portal
+          ps -.- addpgadmin4
+          subgraph Login Flow
+            iam1 === portal
+            iam1 === iam2
+            end
+          linkStyle 0,1,2 stroke:lightblue
+          linkStyle 3 stroke:lightgrey
+```
+
+The relevant hosts are the following:
+
+- <http://centralidp.tx.test/auth/>
+- <http://sharedidp.tx.test/auth/>
+- <http://portal-backend.tx.test>
+- <http://portal.tx.test>
+
+In case that you have TLS enabled (see [Prepare self-signed TLS setup](#prepare-self-signed-tls-setup)), make sure to accept the risk of the self-signed certificates for all the hosts before performing the first login:
+
+- <https://centralidp.tx.test/auth/>
+- <https://sharedidp.tx.test/auth/>
+- <https://portal-backend.tx.test>
+- <https://portal.tx.test>
+
+## Database Access
+
+This chart also contains a pgadmin4 instance for easy access to the deployed Postgres databases which are only available from within the Kubernetes cluster.
+
+pgadmin4 is by default enabled with in the predefined subsets for data exchange and portal.
+
+Address: [pgadmin4.tx.test](http://pgadmin4.tx.test)
+
+Credentials to login into pgadmin4:
+
+```text
+pgadmin4@txtest.org
+```
+
+```text
+tractusxpgdamin4
+```
+
+**The database server connections need to be added manually to pgadmin4.**
+
+Default username for all connections:
+
+```text
+postgres
+```
+
+Default port for all connections:
+
+```text
+5432
+```
+
+In the following some of the available connections:
+
+- portal db
+
+Host:
+
+```text
+local-portal-backend-postgresql
+```
+
+Password:
+
+```text
+dbpasswordportal
+```
+
+- centralidp db
+
+Host:
+
+```text
+local-centralidp-postgresql
+```
+
+Password:
+
+```text
+dbpasswordcentralidp
+```
+
+- sharedidp db
+
+Host:
+
+```text
+local-sharedidp-postgresql
+```
+
+Password:
+
+```text
+dbpasswordsharedidp
+```
+
+- additional portal db
+
+Host:
+
+```text
+local-portal-postgresql
+```
+
+Password:
+
+```text
+dbpasswordadditional
+```
+
+## Keycloak Admin Console
+
+Access to admin consoles:
+
+- <http://centralidp.tx.test/auth/>
+- <http://sharedidp.tx.test/auth/>
+
+Default username for centralidp and sharedidp:
+
+```text
+admin
+```
+
+Password centralidp:
+
+```text
+adminconsolepwcentralidp
+```
+
+Password sharedidp:
+
+```text
+adminconsolepwsharedidp
+```
+
+## Uninstall
+
+To teardown your setup, run:
+
+```shell
+helm delete local --namespace umbrella
+```
+
+> :warning:
+>
+> If persistance for one or more components is enabled, the persistent volume claims (PVCs) and connected persistent volumes (PVs) need to be removed manually even if you deleted the release from the cluster.
+>
 
 ## Requirements
 

@@ -51,6 +51,7 @@ portal:
       requireHttpsUrlPattern: false
     ingress:
       enabled: true
+      className: "nginx"
       annotations:
         # uncomment the following line for tls
         # cert-manager.io/cluster-issuer: "my-ca-issuer"
@@ -232,6 +233,7 @@ portal:
     ingress:
       enabled: true
       name: "portal-backend"
+      className: "nginx"
       annotations:
         # uncomment the following line for tls
         # cert-manager.io/cluster-issuer: "my-ca-issuer"

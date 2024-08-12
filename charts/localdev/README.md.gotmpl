@@ -154,7 +154,14 @@ Then change to the chart directory:
 ```bash
 cd charts/localdev/
 ```
-Download the chart dependencies:
+
+Download the postgres dependency of the Portal helm chart:
+
+```bash
+helm dependency update ../portal
+```
+
+Download the chart dependencies of the LocalDev umbrella helm chart:
 
 ```bash
 helm dependency update

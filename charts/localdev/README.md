@@ -575,34 +575,31 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | portal.enabled | bool | `true` |  |
-| portal.portalAddress | string | `"https://portal.tx.test"` | Set your local frontend to integrate into local development. |
-| portal.portalBackendAddress | string | `"https://portal-backend.tx.test"` | Set your local backend service to integrate into local development. Start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/local-portal-backend-postgresql 5432:5432 -n umbrella' |
-| portal.centralidp.address | string | `"https://centralidp.tx.test"` |  |
-| portal.sharedidpAddress | string | `"https://sharedidp.tx.test"` |  |
-| portal.semanticsAddress | string | `"https://semantics.tx.test"` |  |
-| portal.bpdm.poolAddress | string | `"https://business-partners.tx.test"` |  |
-| portal.bpdm.portalGateAddress | string | `"https://business-partners.tx.test"` |  |
-| portal.custodianAddress | string | `"https://managed-identity-wallets.tx.test"` |  |
-| portal.sdfactoryAddress | string | `"https://sdfactory.tx.test"` |  |
-| portal.clearinghouseAddress | string | `"https://validation.tx.test"` |  |
-| portal.clearinghouseTokenAddress | string | `"https://keycloak.tx.test/realms/example/protocol/openid-connect/token"` |  |
-| portal.issuerComponentAddress | string | `"https://ssi-credential-issuer.tx.test"` |  |
-| portal.bpnDidResolver.managementApiAddress | string | `"https://bpn-did-resolution-service-bdrs-server:8081"` |  |
-| portal.bpnDidResolver.directoryApiAddress | string | `"https://bpn-did-resolution-service.tx.test/api/directory"` |  |
-| portal.dimWrapper.baseAddress | string | `"https://dim-wrapper.tx.test"` |  |
-| portal.decentralIdentityManagementAuthAddress | string | `"https://dim.tx.test"` |  |
+| portal.portalAddress | string | `"http://portal.tx.test"` | Set your local frontend to integrate into local development. |
+| portal.portalBackendAddress | string | `"http://portal-backend.tx.test"` | Set your local backend service to integrate into local development. Start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/local-portal-backend-postgresql 5432:5432 -n umbrella' |
+| portal.centralidp.address | string | `"http://centralidp.tx.test"` |  |
+| portal.sharedidpAddress | string | `"http://sharedidp.tx.test"` |  |
+| portal.semanticsAddress | string | `"http://semantics.tx.test"` |  |
+| portal.bpdm.poolAddress | string | `"http://business-partners.tx.test"` |  |
+| portal.bpdm.portalGateAddress | string | `"http://business-partners.tx.test"` |  |
+| portal.custodianAddress | string | `"http://managed-identity-wallets.tx.test"` |  |
+| portal.sdfactoryAddress | string | `"http://sdfactory.tx.test"` |  |
+| portal.clearinghouseAddress | string | `"http://validation.tx.test"` |  |
+| portal.clearinghouseTokenAddress | string | `"http://keycloak.tx.test/realms/example/protocol/openid-connect/token"` |  |
+| portal.issuerComponentAddress | string | `"http://ssi-credential-issuer.tx.test"` |  |
+| portal.bpnDidResolver.managementApiAddress | string | `"http://bpn-did-resolution-service-bdrs-server:8081"` |  |
+| portal.bpnDidResolver.directoryApiAddress | string | `"http://bpn-did-resolution-service.tx.test/api/directory"` |  |
+| portal.dimWrapper.baseAddress | string | `"http://dim-wrapper.tx.test"` |  |
+| portal.decentralIdentityManagementAuthAddress | string | `"http://dim.tx.test"` |  |
 | portal.replicaCount | int | `1` |  |
 | portal.readinessProbes.initialDelaySeconds | int | `200` |  |
-| portal.frontend.portal.requireHttpsUrlPattern | bool | `true` |  |
+| portal.frontend.portal.requireHttpsUrlPattern | bool | `false` |  |
 | portal.frontend.ingress.enabled | bool | `true` |  |
 | portal.frontend.ingress.className | string | `"nginx"` |  |
-| portal.frontend.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"my-ca-issuer"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
-| portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"https://*.tx.test"` |  |
-| portal.frontend.ingress.tls[0] | object | `{"hosts":["portal.tx.test"],"secretName":"portal.tx.test-tls"}` | Provide tls secret. |
-| portal.frontend.ingress.tls[0].hosts | list | `["portal.tx.test"]` | Provide host for tls secret. |
+| portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"http://*.tx.test"` |  |
 | portal.frontend.ingress.hosts[0].host | string | `"portal.tx.test"` |  |
 | portal.frontend.ingress.hosts[0].paths[0].path | string | `"/(.*)"` |  |
 | portal.frontend.ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
@@ -688,9 +685,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.provisioning.sharedRealm.smtpServer.password | string | `""` |  |
 | portal.backend.provisioning.sharedRealm.smtpServer.from | string | `"smtp@tx.test"` |  |
 | portal.backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@tx.test"` |  |
-| portal.backend.ingress | object | `{"annotations":{"cert-manager.io/cluster-issuer":"my-ca-issuer","nginx.ingress.kubernetes.io/cors-allow-origin":"http://localhost:3000, https://*.tx.test","nginx.ingress.kubernetes.io/enable-cors":"true","nginx.ingress.kubernetes.io/proxy-body-size":"8m","nginx.ingress.kubernetes.io/use-regex":"true"},"className":"nginx","enabled":true,"hosts":[{"host":"portal-backend.tx.test","paths":[{"backend":{"port":8080,"service":"registration-service"},"path":"/api/registration","pathType":"Prefix"},{"backend":{"port":8080,"service":"administration-service"},"path":"/api/administration","pathType":"Prefix"},{"backend":{"port":8080,"service":"notification-service"},"path":"/api/notification","pathType":"Prefix"},{"backend":{"port":8080,"service":"provisioning-service"},"path":"/api/provisioning","pathType":"Prefix"},{"backend":{"port":8080,"service":"marketplace-app-service"},"path":"/api/apps","pathType":"Prefix"},{"backend":{"port":8080,"service":"services-service"},"path":"/api/services","pathType":"Prefix"}]}],"name":"portal-backend","tls":[{"hosts":["portal-backend.tx.test"],"secretName":"portal-backend.tx.test-tls"}]}` | docs: http://portal-backend.tx.test/api/administration/swagger/index.html http://portal-backend.tx.test/api/registration/swagger/index.html http://portal-backend.tx.test/api/apps/swagger/index.html http://portal-backend.tx.test/api/services/swagger/index.html http://portal-backend.tx.test/api/notification/swagger/index.html |
-| portal.backend.ingress.tls[0] | object | `{"hosts":["portal-backend.tx.test"],"secretName":"portal-backend.tx.test-tls"}` | Provide tls secret. |
-| portal.backend.ingress.tls[0].hosts | list | `["portal-backend.tx.test"]` | Provide host for tls secret. |
+| portal.backend.ingress | object | `{"annotations":{"nginx.ingress.kubernetes.io/cors-allow-origin":"http://localhost:3000, http://*.tx.test","nginx.ingress.kubernetes.io/enable-cors":"true","nginx.ingress.kubernetes.io/proxy-body-size":"8m","nginx.ingress.kubernetes.io/use-regex":"true"},"className":"nginx","enabled":true,"hosts":[{"host":"portal-backend.tx.test","paths":[{"backend":{"port":8080,"service":"registration-service"},"path":"/api/registration","pathType":"Prefix"},{"backend":{"port":8080,"service":"administration-service"},"path":"/api/administration","pathType":"Prefix"},{"backend":{"port":8080,"service":"notification-service"},"path":"/api/notification","pathType":"Prefix"},{"backend":{"port":8080,"service":"provisioning-service"},"path":"/api/provisioning","pathType":"Prefix"},{"backend":{"port":8080,"service":"marketplace-app-service"},"path":"/api/apps","pathType":"Prefix"},{"backend":{"port":8080,"service":"services-service"},"path":"/api/services","pathType":"Prefix"}]}],"name":"portal-backend"}` | docs: http://portal-backend.tx.test/api/administration/swagger/index.html http://portal-backend.tx.test/api/registration/swagger/index.html http://portal-backend.tx.test/api/apps/swagger/index.html http://portal-backend.tx.test/api/services/swagger/index.html http://portal-backend.tx.test/api/notification/swagger/index.html |
 | portal.postgresql.nameOverride | string | `"portal-backend-postgresql"` |  |
 | portal.postgresql.architecture | string | `"standalone"` |  |
 | portal.postgresql.auth.password | string | `"dbpasswordportal"` |  |
@@ -718,54 +713,28 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | centralidp.keycloak.initContainers[1].args[1] | string | `"echo \"Copying themes...\"\ncp -R /import/themes/catenax-central/* /themes\n"` |  |
 | centralidp.keycloak.initContainers[1].volumeMounts[0].name | string | `"themes"` |  |
 | centralidp.keycloak.initContainers[1].volumeMounts[0].mountPath | string | `"/themes"` |  |
-| centralidp.keycloak.initContainers[2].name | string | `"init-certs"` |  |
-| centralidp.keycloak.initContainers[2].image | string | `"docker.io/bitnami/keycloak:23.0.7-debian-12-r1"` |  |
-| centralidp.keycloak.initContainers[2].imagePullPolicy | string | `"IfNotPresent"` |  |
-| centralidp.keycloak.initContainers[2].command[0] | string | `"/bin/bash"` |  |
-| centralidp.keycloak.initContainers[2].args[0] | string | `"-ec"` |  |
-| centralidp.keycloak.initContainers[2].args[1] | string | `"keytool -import -file \"/certs/tls.crt\" \\\n        -keystore \"/opt/bitnami/keycloak/certs/keycloak.truststore.jks\" \\\n        -storepass \"${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}\" \\\n        -noprompt"` |  |
-| centralidp.keycloak.initContainers[2].env[0].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_PASSWORD"` |  |
-| centralidp.keycloak.initContainers[2].env[0].value | string | `"changeit"` |  |
-| centralidp.keycloak.initContainers[2].volumeMounts[0].name | string | `"certificates"` |  |
-| centralidp.keycloak.initContainers[2].volumeMounts[0].mountPath | string | `"/certs"` |  |
-| centralidp.keycloak.initContainers[2].volumeMounts[1].name | string | `"shared-certs"` |  |
-| centralidp.keycloak.initContainers[2].volumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | centralidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_EXTRA_ARGS"` |  |
 | centralidp.keycloak.extraEnvVars[0].value | string | `"-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/realms/CX-Central-realm.json -Dkeycloak.migration.strategy=IGNORE_EXISTING"` |  |
-| centralidp.keycloak.extraEnvVars[1].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_FILE"` |  |
-| centralidp.keycloak.extraEnvVars[1].value | string | `"/opt/bitnami/keycloak/certs/keycloak.truststore.jks"` |  |
-| centralidp.keycloak.extraEnvVars[2].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_PASSWORD"` |  |
-| centralidp.keycloak.extraEnvVars[2].value | string | `"changeit"` |  |
 | centralidp.keycloak.extraVolumes[0].name | string | `"realms"` |  |
 | centralidp.keycloak.extraVolumes[0].emptyDir | object | `{}` |  |
 | centralidp.keycloak.extraVolumes[1].name | string | `"themes"` |  |
 | centralidp.keycloak.extraVolumes[1].emptyDir | object | `{}` |  |
-| centralidp.keycloak.extraVolumes[2].name | string | `"certificates"` |  |
-| centralidp.keycloak.extraVolumes[2].secret.secretName | string | `"root-secret"` |  |
-| centralidp.keycloak.extraVolumes[2].secret.defaultMode | int | `420` |  |
-| centralidp.keycloak.extraVolumes[3].name | string | `"shared-certs"` |  |
-| centralidp.keycloak.extraVolumes[3].emptyDir | object | `{}` |  |
 | centralidp.keycloak.extraVolumeMounts[0].name | string | `"realms"` |  |
 | centralidp.keycloak.extraVolumeMounts[0].mountPath | string | `"/realms"` |  |
 | centralidp.keycloak.extraVolumeMounts[1].name | string | `"themes"` |  |
 | centralidp.keycloak.extraVolumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/themes/catenax-central"` |  |
-| centralidp.keycloak.extraVolumeMounts[2].name | string | `"certificates"` |  |
-| centralidp.keycloak.extraVolumeMounts[2].mountPath | string | `"/certs"` |  |
-| centralidp.keycloak.extraVolumeMounts[3].name | string | `"shared-certs"` |  |
-| centralidp.keycloak.extraVolumeMounts[3].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | centralidp.keycloak.ingress.enabled | bool | `true` |  |
 | centralidp.keycloak.ingress.ingressClassName | string | `"nginx"` |  |
 | centralidp.keycloak.ingress.hostname | string | `"centralidp.tx.test"` |  |
-| centralidp.keycloak.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"my-ca-issuer"` |  |
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-credentials" | string | `"true"` |  |
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-methods" | string | `"PUT, GET, POST, OPTIONS"` |  |
-| centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"https://centralidp.tx.test"` |  |
+| centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"http://centralidp.tx.test"` |  |
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffer-size" | string | `"128k"` |  |
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffering" | string | `"on"` |  |
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffers-number" | string | `"20"` |  |
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
-| centralidp.keycloak.ingress.tls | bool | `true` |  |
+| centralidp.keycloak.ingress.tls | bool | `false` |  |
 | centralidp.secrets.postgresql.auth.existingSecret.postgrespassword | string | `"dbpasswordcentralidp"` |  |
 | centralidp.secrets.postgresql.auth.existingSecret.password | string | `"dbpasswordcentralidp"` |  |
 | centralidp.secrets.postgresql.auth.existingSecret.replicationPassword | string | `"dbpasswordcentralidp"` |  |
@@ -794,58 +763,32 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | sharedidp.keycloak.initContainers[1].volumeMounts[0].mountPath | string | `"/themes-catenax-shared"` |  |
 | sharedidp.keycloak.initContainers[1].volumeMounts[1].name | string | `"themes-catenax-shared-portal"` |  |
 | sharedidp.keycloak.initContainers[1].volumeMounts[1].mountPath | string | `"/themes-catenax-shared-portal"` |  |
-| sharedidp.keycloak.initContainers[2].name | string | `"init-certs"` |  |
-| sharedidp.keycloak.initContainers[2].image | string | `"docker.io/bitnami/keycloak:23.0.7-debian-12-r1"` |  |
-| sharedidp.keycloak.initContainers[2].imagePullPolicy | string | `"IfNotPresent"` |  |
-| sharedidp.keycloak.initContainers[2].command[0] | string | `"/bin/bash"` |  |
-| sharedidp.keycloak.initContainers[2].args[0] | string | `"-ec"` |  |
-| sharedidp.keycloak.initContainers[2].args[1] | string | `"keytool -import -file \"/certs/tls.crt\" \\\n        -keystore \"/opt/bitnami/keycloak/certs/keycloak.truststore.jks\" \\\n        -storepass \"${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}\" \\\n        -noprompt"` |  |
-| sharedidp.keycloak.initContainers[2].env[0].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_PASSWORD"` |  |
-| sharedidp.keycloak.initContainers[2].env[0].value | string | `"changeit"` |  |
-| sharedidp.keycloak.initContainers[2].volumeMounts[0].name | string | `"certificates"` |  |
-| sharedidp.keycloak.initContainers[2].volumeMounts[0].mountPath | string | `"/certs"` |  |
-| sharedidp.keycloak.initContainers[2].volumeMounts[1].name | string | `"shared-certs"` |  |
-| sharedidp.keycloak.initContainers[2].volumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | sharedidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_EXTRA_ARGS"` |  |
 | sharedidp.keycloak.extraEnvVars[0].value | string | `"-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/realms -Dkeycloak.migration.strategy=IGNORE_EXISTING"` |  |
-| sharedidp.keycloak.extraEnvVars[1].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_FILE"` |  |
-| sharedidp.keycloak.extraEnvVars[1].value | string | `"/opt/bitnami/keycloak/certs/keycloak.truststore.jks"` |  |
-| sharedidp.keycloak.extraEnvVars[2].name | string | `"KEYCLOAK_SPI_TRUSTSTORE_PASSWORD"` |  |
-| sharedidp.keycloak.extraEnvVars[2].value | string | `"changeit"` |  |
 | sharedidp.keycloak.extraVolumes[0].name | string | `"realms"` |  |
 | sharedidp.keycloak.extraVolumes[0].emptyDir | object | `{}` |  |
 | sharedidp.keycloak.extraVolumes[1].name | string | `"themes-catenax-shared"` |  |
 | sharedidp.keycloak.extraVolumes[1].emptyDir | object | `{}` |  |
 | sharedidp.keycloak.extraVolumes[2].name | string | `"themes-catenax-shared-portal"` |  |
 | sharedidp.keycloak.extraVolumes[2].emptyDir | object | `{}` |  |
-| sharedidp.keycloak.extraVolumes[3].name | string | `"certificates"` |  |
-| sharedidp.keycloak.extraVolumes[3].secret.secretName | string | `"root-secret"` |  |
-| sharedidp.keycloak.extraVolumes[3].secret.defaultMode | int | `420` |  |
-| sharedidp.keycloak.extraVolumes[4].name | string | `"shared-certs"` |  |
-| sharedidp.keycloak.extraVolumes[4].emptyDir | object | `{}` |  |
 | sharedidp.keycloak.extraVolumeMounts[0].name | string | `"realms"` |  |
 | sharedidp.keycloak.extraVolumeMounts[0].mountPath | string | `"/realms"` |  |
 | sharedidp.keycloak.extraVolumeMounts[1].name | string | `"themes-catenax-shared"` |  |
 | sharedidp.keycloak.extraVolumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/themes/catenax-shared"` |  |
 | sharedidp.keycloak.extraVolumeMounts[2].name | string | `"themes-catenax-shared-portal"` |  |
 | sharedidp.keycloak.extraVolumeMounts[2].mountPath | string | `"/opt/bitnami/keycloak/themes/catenax-shared-portal"` |  |
-| sharedidp.keycloak.extraVolumeMounts[3].name | string | `"certificates"` |  |
-| sharedidp.keycloak.extraVolumeMounts[3].mountPath | string | `"/certs"` |  |
-| sharedidp.keycloak.extraVolumeMounts[4].name | string | `"shared-certs"` |  |
-| sharedidp.keycloak.extraVolumeMounts[4].mountPath | string | `"/opt/bitnami/keycloak/certs"` |  |
 | sharedidp.keycloak.ingress.enabled | bool | `true` |  |
 | sharedidp.keycloak.ingress.ingressClassName | string | `"nginx"` |  |
 | sharedidp.keycloak.ingress.hostname | string | `"sharedidp.tx.test"` |  |
-| sharedidp.keycloak.ingress.annotations."cert-manager.io/cluster-issuer" | string | `"my-ca-issuer"` |  |
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-credentials" | string | `"true"` |  |
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-methods" | string | `"PUT, GET, POST, OPTIONS"` |  |
-| sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"https://sharedidp.tx.test"` |  |
+| sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/cors-allow-origin" | string | `"http://sharedidp.tx.test"` |  |
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffer-size" | string | `"128k"` |  |
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffering" | string | `"on"` |  |
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffers-number" | string | `"20"` |  |
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
-| sharedidp.keycloak.ingress.tls | bool | `true` |  |
+| sharedidp.keycloak.ingress.tls | bool | `false` |  |
 | sharedidp.secrets.postgresql.auth.existingSecret.postgrespassword | string | `"dbpasswordsharedidp"` |  |
 | sharedidp.secrets.postgresql.auth.existingSecret.password | string | `"dbpasswordsharedidp"` |  |
 | sharedidp.secrets.postgresql.auth.existingSecret.replicationPassword | string | `"dbpasswordsharedidp"` |  |

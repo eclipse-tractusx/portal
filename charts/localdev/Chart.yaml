@@ -33,7 +33,7 @@ dependencies:
   - condition: portal.enabled
     name: portal
     repository: file://../portal
-    version: 2.2.0-RC1
+    version: 2.2.0-RC2
   - condition: centralidp.enabled
     name: centralidp
     repository: https://eclipse-tractusx.github.io/charts/dev

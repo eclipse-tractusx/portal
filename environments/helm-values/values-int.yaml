@@ -127,7 +127,6 @@ backend:
       clientSecret: "<path:portal/data/int/iam/sharedidp-client-secrets#reg-shared-sa>"
 
   useDimWallet: true
-  bpdmStartAsReady: false
 
   mailing:
     host: "<path:portal/data/mailing#host>"
@@ -237,6 +236,7 @@ backend:
     bpdm:
       clientId: "<path:portal/data/portal-iam-clientIds#bpdm-client-id>"
       clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#portal-bpdm-sa>"
+      startSharingStateAsReady: false
     clearinghouse:
       clientId: "<path:portal/data/int/clearinghouse#client-id>"
       clientSecret: "<path:portal/data/int/clearinghouse#client-secret>"

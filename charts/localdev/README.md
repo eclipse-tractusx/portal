@@ -1,6 +1,6 @@
 # Setup of CX Portal & IAM for local development
 
-![Version: 0.6.0](https://img.shields.io/badge/Version-0.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-2.0.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-3.0.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-3.0.0/charts/sharedidp/README.md)).
 
@@ -12,7 +12,20 @@ For detailed information about the default configuration values, please have a l
 
 - [Usage](#usage)
 - [Cluster setup](#cluster-setup)
-- [Prepare network setup](#prepare-network-setup)
+  - [Linux and Mac](#cluster-setup-linux-and-mac)
+  - [Cluster Setup Windows](#cluster-setup-windows)
+    - [Minikube](#minikube)
+    - [Docker Desktop integrated Kubernetes](#docker-desktop-integrated-kubernetes)
+- [Network Setup](#network-setup)
+  - [Minikube Addons](#minikube-addons)
+  - [Docker Desktop integrated Kubernetes Ingress Controller](#docker-desktop-integrated-kubernetes-ingress-controller)
+  - [Linux and Mac](#network-setup-on-linux-and-mac)
+    - [Additional Network Setup for Mac](#additional-network-setup-for-mac)
+  - [Windows/wsl2 with NTLM-proxy](#network-setup-on-windowswsl2-with-ntlm-proxy)
+    - [px-proxy](#px-proxy)
+    - [DNS-resolution in Windows](#dns-resolution-in-windows)
+    - [DNS-resolution in wsl2](#dns-resolution-in-wsl2)
+    - [Proxy-setup in wsl2](#proxy-setup-in-wsl2)
 - [Install](#install)
   - [Use released chart](#use-released-chart)
   - [Use local repository](#use-local-repository)
@@ -20,11 +33,11 @@ For detailed information about the default configuration values, please have a l
 - [Database Access](#database-access)
 - [Keycloak Admin Console](#keycloak-admin-console)
 - [Uninstall](#uninstall)
-- [Prepare self-signed TLS setup (Optional)](#1-prepare-self-signed-tls-setup-optional)
+- [Prepare self-signed TLS setup (Optional)](#prepare-self-signed-tls-setup-optional)
 
 ## Usage
 
-The following steps describe how to setup the umbrella chart into the namespace 'umbrella' of your started [**Minikube**](https://minikube.sigs.k8s.io/docs/start) cluster.
+The following steps describe how to setup the umbrella chart into the namespace 'umbrella' of your started [**Minikube**](https://minikube.sigs.k8s.io/docs/start) or *Docker Desktop* integrated Kubernetes cluster.
 
 > **Note**
 >
@@ -49,13 +62,15 @@ The following steps describe how to setup the umbrella chart into the namespace 
 
 ## Cluster Setup
 
-### Linux & Mac
+### Cluster Setup Linux and Mac
 
 ```bash
 minikube start --cpus=4 --memory 6gb
 ```
 
-### Windows
+### Cluster Setup Windows
+
+#### Minikube
 
 For DNS resolution to work you need to either use `--driver=hyperv` option which requires administrator privileges:
 
@@ -63,18 +78,36 @@ For DNS resolution to work you need to either use `--driver=hyperv` option which
 minikube start --cpus=4 --memory 6gb --driver=hyperv
 ```
 
-or use the native Kubernetes Cluster in *Docker Desktop* as well with a manual ingress setup:
+#### Docker Desktop integrated Kubernetes
 
-```bash
-# 1. Enable Kubernetes under Settings > Kubernetes > Enable Kubernetes
-# 2. Install an NGINX Ingress Controller
-helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
-# 3. Skip the minikube addons and assume 127.0.0.1 for Cluster IP
+*Docker Desktop* recommends the use of *wsl2* as backend:
+
+- Settings > 'General'
+  - enable 'Use the WSL 2 based engine'
+  - enable 'Add the *.docker.internal names to the host's /etc/hosts file'
+- Settings > 'Resources' > 'WSL integration'
+  - enable 'Enable integration with my default WSL distro'
+
+recommended wsl2-settings:
+
+c:\Users\\<username\>\\.wslconfig (for details see <https://learn.microsoft.com/en-us/windows/wsl/wsl-config>)
+
+```text
+[wsl2]
+memory=10GB  # Limits VM memory in WSL 2
+processors=4  # Limits the number of virtual processors
+swap=16GB  # Sets the swap size
+[experimental]
+autoMemoryReclaim = gradual
 ```
 
-> :warning: The rest of the tutorial assumes a minikube cluster, however.
+- Enable Kubernetes under Settings > Kubernetes > Enable Kubernetes
 
-## Prepare network setup
+- Skip the minikube addons
+
+## Network Setup
+
+### Minikube Addons
 
 In order to enable the local access via **ingress**, use the according addon for Minikube:
 
@@ -87,14 +120,26 @@ Make sure that the **DNS** resolution for the hostnames is in place:
 ```bash
 minikube addons enable ingress-dns
 ```
+
+### Docker Desktop integrated Kubernetes Ingress Controller
+
+- Install an NGINX Ingress Controller
+
+```bash
+helm upgrade --install ingress-nginx ingress-nginx --repo https://kubernetes.github.io/ingress-nginx --namespace ingress-nginx --create-namespace
+```
+
+### Network Setup on Linux and Mac
+
 And execute installation step [3 Add the `minikube ip` as a DNS server](https://minikube.sigs.k8s.io/docs/handbook/addons/ingress-dns) for your OS:
 
-```
+```text
 domain tx.test
 nameserver 192.168.49.2
 search_order 1
 timeout 5
 ```
+
 Replace 192.168.49.2 with your minikube ip.
 
 To find out the IP address of your Minikube:
@@ -103,9 +148,9 @@ To find out the IP address of your Minikube:
 minikube ip
 ```
 
-If while [performing the first login](#perform-first-login) your still facing DNS issues, add the following to your /etc/hosts file:
+when facing DNS-issues while [performing the first login](#perform-first-login), add the following to your /etc/hosts file
 
-```
+```text
 192.168.49.2    centralidp.tx.test
 192.168.49.2    sharedidp.tx.test
 192.168.49.2    portal.tx.test
@@ -113,9 +158,9 @@ If while [performing the first login](#perform-first-login) your still facing DN
 192.168.49.2    pgadmin4.tx.test
 ```
 
-Replace 192.168.49.2 with your minikube ip.
+Replace 192.168.49.2 with your minikube ip
 
-**Additional network setup** (for Mac only)
+#### Additional Network Setup for Mac
 
 Install and start [Docker Mac Net Connect](https://github.com/chipmk/docker-mac-net-connect#installation).
 
@@ -124,6 +169,82 @@ We also recommend to execute the usage example after install to check proper set
 If you're having issues with getting 'Docker Mac Net Connect' to work, we recommend to check out this issue: [#21](https://github.com/chipmk/docker-mac-net-connect/issues/21).
 
 The tool is necessary due to [#7332](https://github.com/kubernetes/minikube/issues/7332).
+
+### Network Setup on Windows/wsl2 with NTLM-proxy
+
+Configure wsl networking, assign additional fixed IP addresses to both wsl2 and windows, the wsl2-ip-address will then be used as cluster-ip-address. Do **not** use 127.0.0.1 as Cluster IP, as this causes issues when services try to access other services via the ingress from within the cluster.
+
+In this tutorial we use:
+
+- windows additional host ip 169.254.254.1
+- wsl2 ip 169.254.254.2
+
+#### px-proxy
+
+Install px-proxy version v0.9.2 (or later) from <https://github.com/genotrance/px/releases> (minimum version is v0.9.0)
+
+px.ini
+
+```text
+[proxy]
+pac = http://proxypac.bmwgroup.net/proxy.pac
+noproxy = 127.0.0.1,169.254.254.1,169.254.254.2,wsl,wsl.host,*.tx.test,localhost
+```
+
+In powershell set proxy environment variables:
+
+```powershell
+[Environment]::SetEnvironmentVariable('http_proxy','http://localhost:3128','User')
+[Environment]::SetEnvironmentVariable('HTTP_PROXY','http://localhost:3128','User')
+[Environment]::SetEnvironmentVariable('https_proxy','http://localhost:3128','User')
+[Environment]::SetEnvironmentVariable('HTTPS_PROXY','http://localhost:3128','User')
+[Environment]::SetEnvironmentVariable('no_proxy','localhost,127.0.0.1,wsl,wsl.host,169.254.254.1,169.254.254.2,*.tx.test,.tx.test,tx.test','User')
+[Environment]::SetEnvironmentVariable('NO_PROXY','localhost,127.0.0.1,wsl,wsl.host,169.254.254.1,169.254.254.2,*.tx.test,.tx.test,tx.test','User')
+```
+
+In Firefox change the proxy to manual proxy configuration, <http://localhost:3128>
+
+Chrome and Edge use the system proxy settings. Change those to 'manual', <http://localhost:3128> (both for http and https)
+remark: on corporate managed windows the system proxy settings will eventually be overridden by the BMW system-management software and need to be re-configured whenever this happens.
+
+#### DNS-resolution in Windows
+
+c:\Windows\System32\drivers\etc\hosts
+
+```text
+169.254.254.2 wsl
+169.254.254.2 centralidp.tx.test
+169.254.254.2 sharedidp.tx.test
+169.254.254.2 portal.tx.test
+169.254.254.2 portal-backend.tx.test
+169.254.254.2 pgadmin4.tx.test
+```
+
+#### DNS-resolution in wsl2
+
+/etc/hosts
+
+```text
+169.254.254.1 wsl.host
+169.254.254.2 centralidp.tx.test
+169.254.254.2 sharedidp.tx.test
+169.254.254.2 portal.tx.test
+169.254.254.2 portal-backend.tx.test
+169.254.254.2 pgadmin4.tx.test
+```
+
+#### Proxy-setup in wsl2
+
+.profile
+
+```bash
+https_proxy=http://169.254.254.1:3128/
+HTTPS_PROXY=http://169.254.254.1:3128/
+http_proxy=http://169.254.254.1:3128/
+HTTP_PROXY=http://169.254.254.1:3128/
+no_proxy="localhost,127.0.0.1,wsl,wsl.host,169.254.254.1,169.254.254.2,docker.internal,tx.test"
+NO_PROXY="localhost,127.0.0.1,wsl,wsl.host,169.254.254.1,169.254.254.2,docker.internal,tx.test"
+```
 
 ## Install
 
@@ -145,7 +266,7 @@ To set your own configuration and secret values, install the helm chart with you
 helm install -f your-values.yaml local tractusx-dev/localdev-portal-iam --namespace umbrella --create-namespace
 ```
 
-#### Use local repository
+### Use local repository
 
 Make sure to clone the [portal](https://github.com/eclipse-tractusx/portal) repository beforehand.
 
@@ -154,7 +275,14 @@ Then change to the chart directory:
 ```bash
 cd charts/localdev/
 ```
-Download the chart dependencies:
+
+Download the postgres dependency of the Portal helm chart:
+
+```bash
+helm dependency update ../portal
+```
+
+Download the chart dependencies of the LocalDev umbrella helm chart:
 
 ```bash
 helm dependency update
@@ -247,11 +375,11 @@ Address: [pgadmin4.tx.test](http://pgadmin4.tx.test)
 
 Credentials to login into pgadmin4:
 
-```
+```text
 pgadmin4@txtest.org
 ```
 
-```
+```text
 tractusxpgdamin4
 ```
 
@@ -259,13 +387,13 @@ tractusxpgdamin4
 
 Default username for all connections:
 
-```
+```text
 postgres
 ```
 
 Default port for all connections:
 
-```
+```text
 5432
 ```
 
@@ -275,13 +403,13 @@ In the following some of the available connections:
 
 Host:
 
-```
+```text
 local-portal-backend-postgresql
 ```
 
 Password:
 
-```
+```text
 dbpasswordportal
 ```
 
@@ -289,13 +417,13 @@ dbpasswordportal
 
 Host:
 
-```
+```text
 local-centralidp-postgresql
 ```
 
 Password:
 
-```
+```text
 dbpasswordcentralidp
 ```
 
@@ -303,13 +431,13 @@ dbpasswordcentralidp
 
 Host:
 
-```
+```text
 local-sharedidp-postgresql
 ```
 
 Password:
 
-```
+```text
 dbpasswordsharedidp
 ```
 
@@ -317,13 +445,13 @@ dbpasswordsharedidp
 
 Host:
 
-```
+```text
 local-portal-postgresql
 ```
 
 Password:
 
-```
+```text
 dbpasswordadditional
 ```
 
@@ -331,24 +459,24 @@ dbpasswordadditional
 
 Access to admin consoles:
 
-- http://centralidp.tx.test/auth/
-- http://sharedidp.tx.test/auth/
+- <http://centralidp.tx.test/auth/>
+- <http://sharedidp.tx.test/auth/>
 
 Default username for centralidp and sharedidp:
 
-```
+```text
 admin
 ```
 
 Password centralidp:
 
-```
+```text
 adminconsolepwcentralidp
 ```
 
 Password sharedidp:
 
-```
+```text
 adminconsolepwsharedidp
 ```
 
@@ -377,6 +505,7 @@ Install cert-manager chart in the same namespace where the localdev chart will b
 helm repo add jetstack https://charts.jetstack.io
 helm repo update
 ```
+
 ```bash
 helm install \
   cert-manager jetstack/cert-manager \
@@ -428,15 +557,16 @@ spec:
     secretName: root-secret
 EOF
 ```
+
 See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsigned) for reference.
 
 ## Requirements
 
 | Repository | Name | Version |
 |------------|------|---------|
+| file://../portal | portal | 2.2.0-RC2 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
 | https://eclipse-tractusx.github.io/charts/dev | centralidp | 3.0.0 |
-| https://eclipse-tractusx.github.io/charts/dev | portal | 2.0.0 |
 | https://eclipse-tractusx.github.io/charts/dev | sharedidp | 3.0.0 |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
@@ -465,6 +595,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.readinessProbes.initialDelaySeconds | int | `200` |  |
 | portal.frontend.portal.requireHttpsUrlPattern | bool | `false` |  |
 | portal.frontend.ingress.enabled | bool | `true` |  |
+| portal.frontend.ingress.className | string | `"nginx"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target" | string | `"/$1"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | portal.frontend.ingress.annotations."nginx.ingress.kubernetes.io/enable-cors" | string | `"true"` |  |
@@ -531,7 +662,6 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.processesworker.dim.encryptionConfigs.index0.encryptionKey | string | `"6cbaf47ee30c778088e6faa44e2f0eed98beda86db06c7d2e37e32ab78e14b33"` |  |
 | portal.backend.processesworker.issuerComponent.clientId | string | `"sa-cl2-04"` |  |
 | portal.backend.processesworker.issuerComponent.clientSecret | string | `"c0gFPfWWUpeOr7MP6DIqdRPhUfaX4GRC"` |  |
-| portal.backend.processesworker.issuerComponent.encryptionConfigs.index0.encryptionKey | string | `"39ffab76f99ece1e4ac72f973d5c703737324a75c6445e84fa317a7833476a15"` |  |
 | portal.backend.processesworker.bpnDidResolver.apiKey | string | `""` | ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'. |
 | portal.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
 | portal.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
@@ -539,6 +669,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.encryptionKey | string | `"8027152fe7a869c88acc86981760acd70ff1d660c2bd129eece94edef933caf7"` |  |
 | portal.backend.processesworker.invitation.encryptionConfigs.index0.encryptionKey | string | `"d84fea29d6eac0fa51e36682b164e7d61693cd4202ed04306d2d9c5d46655e2c"` |  |
 | portal.backend.processesworker.mailing.encryptionConfigs.index0.encryptionKey | string | `"d2e27d71b018cb36029184852f1baa3e26891be94718f77de4c7cc6c882fe317"` |  |
+| portal.backend.processesworker.clearinghouseConnectDisabled | bool | `false` |  |
 | portal.backend.mailing.host | string | `"smtp.tx.test"` |  |
 | portal.backend.mailing.port | string | `"587"` |  |
 | portal.backend.mailing.user | string | `"smtp-user"` |  |
@@ -554,7 +685,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.provisioning.sharedRealm.smtpServer.password | string | `""` |  |
 | portal.backend.provisioning.sharedRealm.smtpServer.from | string | `"smtp@tx.test"` |  |
 | portal.backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@tx.test"` |  |
-| portal.backend.ingress | object | `{"annotations":{"nginx.ingress.kubernetes.io/cors-allow-origin":"http://localhost:3000, http://*.tx.test","nginx.ingress.kubernetes.io/enable-cors":"true","nginx.ingress.kubernetes.io/proxy-body-size":"8m","nginx.ingress.kubernetes.io/use-regex":"true"},"enabled":true,"hosts":[{"host":"portal-backend.tx.test","paths":[{"backend":{"port":8080,"service":"registration-service"},"path":"/api/registration","pathType":"Prefix"},{"backend":{"port":8080,"service":"administration-service"},"path":"/api/administration","pathType":"Prefix"},{"backend":{"port":8080,"service":"notification-service"},"path":"/api/notification","pathType":"Prefix"},{"backend":{"port":8080,"service":"provisioning-service"},"path":"/api/provisioning","pathType":"Prefix"},{"backend":{"port":8080,"service":"marketplace-app-service"},"path":"/api/apps","pathType":"Prefix"},{"backend":{"port":8080,"service":"services-service"},"path":"/api/services","pathType":"Prefix"}]}],"name":"portal-backend"}` | docs: http://portal-backend.tx.test/api/administration/swagger/index.html http://portal-backend.tx.test/api/registration/swagger/index.html http://portal-backend.tx.test/api/apps/swagger/index.html http://portal-backend.tx.test/api/services/swagger/index.html http://portal-backend.tx.test/api/notification/swagger/index.html |
+| portal.backend.ingress | object | `{"annotations":{"nginx.ingress.kubernetes.io/cors-allow-origin":"http://localhost:3000, http://*.tx.test","nginx.ingress.kubernetes.io/enable-cors":"true","nginx.ingress.kubernetes.io/proxy-body-size":"8m","nginx.ingress.kubernetes.io/use-regex":"true"},"className":"nginx","enabled":true,"hosts":[{"host":"portal-backend.tx.test","paths":[{"backend":{"port":8080,"service":"registration-service"},"path":"/api/registration","pathType":"Prefix"},{"backend":{"port":8080,"service":"administration-service"},"path":"/api/administration","pathType":"Prefix"},{"backend":{"port":8080,"service":"notification-service"},"path":"/api/notification","pathType":"Prefix"},{"backend":{"port":8080,"service":"provisioning-service"},"path":"/api/provisioning","pathType":"Prefix"},{"backend":{"port":8080,"service":"marketplace-app-service"},"path":"/api/apps","pathType":"Prefix"},{"backend":{"port":8080,"service":"services-service"},"path":"/api/services","pathType":"Prefix"}]}],"name":"portal-backend"}` | docs: http://portal-backend.tx.test/api/administration/swagger/index.html http://portal-backend.tx.test/api/registration/swagger/index.html http://portal-backend.tx.test/api/apps/swagger/index.html http://portal-backend.tx.test/api/services/swagger/index.html http://portal-backend.tx.test/api/notification/swagger/index.html |
 | portal.postgresql.nameOverride | string | `"portal-backend-postgresql"` |  |
 | portal.postgresql.architecture | string | `"standalone"` |  |
 | portal.postgresql.auth.password | string | `"dbpasswordportal"` |  |

@@ -266,7 +266,7 @@ To set your own configuration and secret values, install the helm chart with you
 helm install -f your-values.yaml local tractusx-dev/localdev-portal-iam --namespace umbrella --create-namespace
 ```
 
-#### Use local repository
+### Use local repository
 
 Make sure to clone the [portal](https://github.com/eclipse-tractusx/portal) repository beforehand.
 

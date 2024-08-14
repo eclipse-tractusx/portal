@@ -266,7 +266,7 @@ To set your own configuration and secret values, install the helm chart with you
 helm install -f your-values.yaml local tractusx-dev/localdev-portal-iam --namespace umbrella --create-namespace
 ```
 
-#### Use local repository
+### Use local repository
 
 Make sure to clone the [portal](https://github.com/eclipse-tractusx/portal) repository beforehand.
 
@@ -564,7 +564,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../portal | portal | 2.2.0-RC1 |
+| file://../portal | portal | 2.2.0-RC2 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
 | https://eclipse-tractusx.github.io/charts/dev | centralidp | 3.0.0 |
 | https://eclipse-tractusx.github.io/charts/dev | sharedidp | 3.0.0 |

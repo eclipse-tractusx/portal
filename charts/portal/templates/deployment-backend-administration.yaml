@@ -140,6 +140,8 @@ spec:
           value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.processesworker.clearinghouse.callbackPath }}" 
         - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__USEDIMWALLET"
           value: "{{ .Values.backend.useDimWallet }}"
+        - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__RETRIGGERENCLEARINGHOUSEINTERVALINDAYS"
+          value: "{{ .Values.backend.processesworker.clearinghouse.retriggerEndClearinghouseIntervalInDays }}"
         - name: "APPLICATIONCHECKLIST__CUSTODIAN__MEMBERSHIPERRORMESSAGE"
           value: "{{ .Values.backend.processesworker.custodian.membershipErrorMessage }}"
         - name: "APPLICATIONCHECKLIST__CUSTODIAN__BASEADDRESS"

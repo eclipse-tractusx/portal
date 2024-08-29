@@ -491,6 +491,8 @@ spec:
               value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.paddingMode }}"
             - name: "APPLICATIONCREATION_USEDIMWALLET"
               value: "{{ .Values.backend.useDimWallet }}"
+            - name: "SELFDESCRIPTIONCREATIONPROCESS__SELFDESCRIPTIONDOCUMENTURL"
+              value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.administration.connectors.selfDescriptionDocumentPath }}"
             ports:
             - name: http
               containerPort: {{ .Values.portContainer }}

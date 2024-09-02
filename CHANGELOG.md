@@ -2,6 +2,16 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.2.0-RC3
+
+### Change
+
+* changed to new container images
+  * portal-backend: v2.2.0-RC3
+  * portal-frontend: v2.2.0-RC2
+* portal-backend:
+  * added config value for self description documents in the processes worker [#419](https://github.com/eclipse-tractusx/portal/pull/419)
+
 ## 2.2.0-RC2
 
 ### Change

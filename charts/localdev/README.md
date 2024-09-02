@@ -10,30 +10,33 @@ This chart also sets up an additional [postgresql](https://artifacthub.io/packag
 
 For detailed information about the default configuration values, please have a look at the [Values table](#values) and/or [Values file](./values.yaml).
 
-- [Usage](#usage)
-- [Cluster setup](#cluster-setup)
-  - [Linux and Mac](#cluster-setup-linux-and-mac)
-  - [Cluster Setup Windows](#cluster-setup-windows)
-    - [Minikube](#minikube)
-    - [Docker Desktop integrated Kubernetes](#docker-desktop-integrated-kubernetes)
-- [Network Setup](#network-setup)
-  - [Minikube Addons](#minikube-addons)
-  - [Docker Desktop integrated Kubernetes Ingress Controller](#docker-desktop-integrated-kubernetes-ingress-controller)
-  - [Linux and Mac](#network-setup-on-linux-and-mac)
-    - [Additional Network Setup for Mac](#additional-network-setup-for-mac)
-  - [Windows/wsl2 with NTLM-proxy](#network-setup-on-windowswsl2-with-ntlm-proxy)
-    - [px-proxy](#px-proxy)
-    - [DNS-resolution in Windows](#dns-resolution-in-windows)
-    - [DNS-resolution in wsl2](#dns-resolution-in-wsl2)
-    - [Proxy-setup in wsl2](#proxy-setup-in-wsl2)
-- [Install](#install)
-  - [Use released chart](#use-released-chart)
-  - [Use local repository](#use-local-repository)
-- [Perform first login](#perform-first-login)
-- [Database Access](#database-access)
-- [Keycloak Admin Console](#keycloak-admin-console)
-- [Uninstall](#uninstall)
-- [Prepare self-signed TLS setup (Optional)](#prepare-self-signed-tls-setup-optional)
+- [Setup of CX Portal \& IAM for local development](#setup-of-cx-portal--iam-for-local-development)
+  - [Usage](#usage)
+  - [Cluster Setup](#cluster-setup)
+    - [Cluster Setup Linux and Mac](#cluster-setup-linux-and-mac)
+    - [Cluster Setup Windows](#cluster-setup-windows)
+      - [Minikube](#minikube)
+      - [Docker Desktop integrated Kubernetes](#docker-desktop-integrated-kubernetes)
+  - [Network Setup](#network-setup)
+    - [Minikube Addons](#minikube-addons)
+    - [Docker Desktop integrated Kubernetes Ingress Controller](#docker-desktop-integrated-kubernetes-ingress-controller)
+    - [Network Setup on Linux and Mac](#network-setup-on-linux-and-mac)
+      - [Additional Network Setup for Mac](#additional-network-setup-for-mac)
+    - [Network Setup on Windows/wsl2 with NTLM-proxy](#network-setup-on-windowswsl2-with-ntlm-proxy)
+      - [px-proxy](#px-proxy)
+      - [DNS-resolution in Windows](#dns-resolution-in-windows)
+      - [DNS-resolution in wsl2](#dns-resolution-in-wsl2)
+      - [Proxy-setup in wsl2](#proxy-setup-in-wsl2)
+  - [Install](#install)
+    - [Use released chart](#use-released-chart)
+    - [Use local repository](#use-local-repository)
+  - [Perform first login](#perform-first-login)
+  - [Database Access](#database-access)
+  - [Keycloak Admin Console](#keycloak-admin-console)
+  - [Uninstall](#uninstall)
+  - [Prepare self-signed TLS setup (Optional)](#prepare-self-signed-tls-setup-optional)
+  - [Requirements](#requirements)
+  - [Values](#values)
 
 ## Usage
 
@@ -564,7 +567,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../portal | portal | 2.2.0-RC2 |
+| file://../portal | portal | 2.2.0-RC3 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
 | https://eclipse-tractusx.github.io/charts/dev | centralidp | 3.0.0 |
 | https://eclipse-tractusx.github.io/charts/dev | sharedidp | 3.0.0 |

@@ -493,6 +493,8 @@ spec:
           value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.cipherMode }}"
         - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__PADDINGMODE"
           value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.paddingMode }}"
+        - name: "BPNACCESS__BASEADDRESS"
+          value: "{{ .Values.bpdm.poolAddress }}{{ .Values.bpdm.poolApiPath }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

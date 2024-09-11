@@ -2,40 +2,17 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 2.2.0-RC4
+## 2.2.0
 
 ### Change
 
 * changed to new container images
-  * portal-backend: v2.2.0-RC4
-  * portal-frontend: v2.2.0-RC3
-
-## 2.2.0-RC3
-
-### Change
-
-* changed to new container images
-  * portal-backend: v2.2.0-RC3
-  * portal-frontend: v2.2.0-RC2
-* portal-backend:
-  * added config value for self description documents in the processes worker [#419](https://github.com/eclipse-tractusx/portal/pull/419)
-
-## 2.2.0-RC2
-
-### Change
-
-* changed to new container images
-  * portal-backend: v2.2.0-RC2
-  * portal-frontend: v2.2.0-RC1
-
-## 2.2.0-RC1
-
-### Change
-
-* changed to new container images
-  * portal-backend: v2.2.0-RC1
+  * portal-frontend: v2.2.0
+  * portal-backend: v2.2.0
+  * portal-assets: v2.2.0
 * portal-backend:
   * added config value for clearinghouseConnectDisabled to the registration settings in the administration service [#400](https://github.com/eclipse-tractusx/portal/pull/400)
+  * added config value for self description documents in the processes worker [#419](https://github.com/eclipse-tractusx/portal/pull/419)
 
 ### Feature
 

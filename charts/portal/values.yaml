@@ -811,6 +811,10 @@ backend:
       clientId: "bpdm-client-id"
       # -- Client-secret for bpdm client-id. Secret-key 'bpdm-client-secret'.
       clientSecret: ""
+      # -- When set to true the call to set sharing state ready is skipped. This means that BPDM needs to set the state manually.
+      # When set to false, the process worker will trigger the set sharing state ready of BPDM, which means no manual interference on BPDM site is needed.
+      # This value should be aligned with the value set in the BPDM helm chart creation -> '.fromSharingMember.starts-as-ready'; if the values are not aligned the BPDM application checklist will fail.
+      startSharingStateAsReady: true
     custodian:
       membershipErrorMessage: "Credential of type MembershipCredential is already exists"
       scope: "openid"

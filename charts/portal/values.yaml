@@ -602,7 +602,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "docker.io/tractusx/portal-portal-migrations"
-      portalmigrationstag: v2.2.0-RC4
+      portalmigrationstag: c9f32b262ceb7a61e8039b84562a5a94322a28ce
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

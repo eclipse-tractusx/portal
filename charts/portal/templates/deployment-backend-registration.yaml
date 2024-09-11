@@ -92,7 +92,7 @@ spec:
         {{- end }}
         - name: "DATABASEACCESS__PORTAL__DATABASESCHEMA"
           value: "{{ .Values.backend.dbConnection.schema }}"
-        - name: "BPN_ADDRESS"
+        - name: "BPNACCESS__BASEADDRESS"
           value: "{{ .Values.bpdm.poolAddress }}{{ .Values.bpdm.poolApiPath }}"
         - name: "HEALTHCHECKS__0__PATH"
           value: "{{ .Values.backend.healthChecks.startup.path}}"

@@ -166,7 +166,7 @@ spec:
               value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.processesworker.clearinghouse.callbackPath }}"
             - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__USEDIMWALLET"
               value: "{{ .Values.backend.useDimWallet }}"
-            - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__RETRIGGERENCLEARINGHOUSEINTERVALINDAYS"
+            - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__RETRIGGERENDCLEARINGHOUSEINTERVALINDAYS"
               value: "{{ .Values.backend.processesworker.clearinghouse.retriggerEndClearinghouseIntervalInDays }}"
             - name: "APPLICATIONCHECKLIST__CUSTODIAN__BASEADDRESS"
               value: "{{ .Values.custodianAddress }}"

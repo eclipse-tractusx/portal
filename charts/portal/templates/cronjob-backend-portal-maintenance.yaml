@@ -92,7 +92,7 @@ spec:
                 value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.processesworker.clearinghouse.callbackPath }}"
               - name: "CLEARINGHOUSE__USEDIMWALLET"
                 value: "{{ .Values.backend.useDimWallet }}"
-              - name: "CLEARINGHOUSE__RETRIGGERENCLEARINGHOUSEINTERVALINDAYS"
+              - name: "CLEARINGHOUSE__RETRIGGERENDCLEARINGHOUSEINTERVALINDAYS"
                 value: "{{ .Values.backend.processesworker.clearinghouse.retriggerEndClearinghouseIntervalInDays }}"
               - name: "SERILOG__MINIMUMLEVEL__Default"
                 value: "{{ .Values.backend.portalmaintenance.logging.default }}"

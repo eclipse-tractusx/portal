@@ -626,7 +626,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "docker.io/tractusx/portal-maintenance-service"
-      portalmaintenancetag: b9e89196cf538c76ebe4dc191c6684a017a32140
+      portalmaintenancetag: fb42752786463509d22114dfd2d80b9b9ef37676
       pullPolicy: "IfNotPresent"
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:

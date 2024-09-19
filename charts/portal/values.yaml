@@ -297,7 +297,7 @@ backend:
     name: "registration-service"
     image:
       name: "docker.io/tractusx/portal-registration-service"
-      registrationservicetag: 8bb3bfd9dc9c45b170516f5a2387e7b443bb8730
+      registrationservicetag: 9a261d831852fabb5f7ca31e59f0aa9b3a52ba17
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

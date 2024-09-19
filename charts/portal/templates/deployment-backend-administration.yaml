@@ -464,6 +464,8 @@ spec:
           value: "{{ .Values.backend.administration.serviceAccount.encryptionConfigs.index0.cipherMode }}"
         - name: "SERVICEACCOUNT__ENCRYPTIONCONFIGS__0__PADDINGMODE"
           value: "{{ .Values.backend.administration.serviceAccount.encryptionConfigs.index0.paddingMode }}"
+        - name: "SERVICEACCOUNT__AUTHSERVICEURL"
+          value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
         - name: "SERVICEACCOUNT__DIMCREATIONROLES__0__CLIENTID"
           value: "{{ .Values.centralidp.clients.technicalRolesManagement }}"
         - name: "SERVICEACCOUNT__DIMCREATIONROLES__0__USERROLENAMES__0"

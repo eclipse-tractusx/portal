@@ -34,6 +34,10 @@ spec:
       name: {{ include "portal.fullname" . }}-{{ .Values.backend.portalmigrations.name }}
     spec:
       restartPolicy: Never
+      {{- with .Values.backend.portalmigrations.image.pullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - name: {{ include "portal.fullname" . }}-{{ .Values.backend.portalmigrations.name }}
         securityContext:

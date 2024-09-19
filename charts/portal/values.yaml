@@ -647,7 +647,7 @@ backend:
     name: "notification-service"
     image:
       name: "docker.io/tractusx/portal-notification-service"
-      notificationservicetag: 8bb3bfd9dc9c45b170516f5a2387e7b443bb8730
+      notificationservicetag: 9a261d831852fabb5f7ca31e59f0aa9b3a52ba17
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

@@ -1,13 +1,13 @@
 # Helm chart for Catena-X Portal
 
-![Version: 2.2.0](https://img.shields.io/badge/Version-2.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.2.0](https://img.shields.io/badge/AppVersion-2.2.0-informational?style=flat-square)
+![Version: 2.3.0-alpha.1](https://img.shields.io/badge/Version-2.3.0--alpha.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.3.0-alpha.1](https://img.shields.io/badge/AppVersion-2.3.0--alpha.1-informational?style=flat-square)
 
 This helm chart installs the Portal application which consists of
 
-* [portal-frontend (v2.2.0)](https://github.com/eclipse-tractusx/portal-frontend/tree/v2.2.0),
-* [portal-frontend-registration (v2.0.1)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v2.0.1),
+* [portal-frontend (v2.3.0-alpha.1)](https://github.com/eclipse-tractusx/portal-frontend/tree/v2.3.0-alpha.1),
+* [portal-frontend-registration (v2.1.0-alpha.1)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v2.1.0-alpha.1),
 * [portal-assets (v2.2.0)](https://github.com/eclipse-tractusx/portal-assets/tree/v2.2.0) and
-* [portal-backend (v2.2.0)](https://github.com/eclipse-tractusx/portal-backend/tree/v2.2.0).
+* [portal-backend (v2.3.0-alpha.1)](https://github.com/eclipse-tractusx/portal-backend/tree/v2.3.0-alpha.1).
 
 The Portal is designed to work with the [IAM](https://github.com/eclipse-tractusx/portal-iam).
 This version is compatible with the 3.0.1 version of the IAM instances:
@@ -45,7 +45,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 2.2.0
+    version: 2.3.0-alpha.1
 ```
 
 ## Requirements
@@ -87,14 +87,14 @@ dependencies:
 | frontend.ingress.hosts[0] | object | `{"host":"","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assets|documentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"docker.io/tractusx/portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v2.2.0"` |  |
+| frontend.portal.image.portaltag | string | `"v2.3.0-alpha.1"` |  |
 | frontend.portal.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.portal.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | frontend.portal.resources | object | `{"limits":{"cpu":"75m","memory":"125M"},"requests":{"cpu":"25m","memory":"125M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | frontend.portal.requireHttpsUrlPattern | bool | `true` |  |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"docker.io/tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"v2.0.1"` |  |
+| frontend.registration.image.registrationtag | string | `"v2.1.0-alpha.1"` |  |
 | frontend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.registration.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | frontend.registration.resources | object | `{"limits":{"cpu":"75m","memory":"100M"},"requests":{"cpu":"25m","memory":"100M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -148,7 +148,7 @@ dependencies:
 | backend.healthChecks.readyness.path | string | `"/ready"` |  |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"docker.io/tractusx/portal-registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v2.2.0"` |  |
+| backend.registration.image.registrationservicetag | string | `"v2.3.0-alpha.1"` |  |
 | backend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.registration.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.registration.resources | object | `{"limits":{"cpu":"225m","memory":"400M"},"requests":{"cpu":"75m","memory":"400M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -175,7 +175,7 @@ dependencies:
 | backend.registration.submitDocumentTypeIds.type0 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"docker.io/tractusx/portal-administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v2.2.0"` |  |
+| backend.administration.image.administrationservicetag | string | `"v2.3.0-alpha.1"` |  |
 | backend.administration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.administration.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.administration.resources | object | `{"limits":{"cpu":"225m","memory":"500M"},"requests":{"cpu":"75m","memory":"500M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -240,7 +240,7 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"docker.io/tractusx/portal-marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v2.2.0"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v2.3.0-alpha.1"` |  |
 | backend.appmarketplace.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.appmarketplace.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.appmarketplace.resources | object | `{"limits":{"cpu":"225m","memory":"400M"},"requests":{"cpu":"75m","memory":"400M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -323,8 +323,9 @@ dependencies:
 | backend.appmarketplace.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"docker.io/tractusx/portal-portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v2.2.0"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v2.3.0-alpha.1"` |  |
 | backend.portalmigrations.image.pullPolicy | string | `"IfNotPresent"` |  |
+| backend.portalmigrations.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.portalmigrations.resources | object | `{"limits":{"cpu":"75m","memory":"350M"},"requests":{"cpu":"25m","memory":"350M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.portalmigrations.seeding.testDataEnvironments | string | `""` |  |
 | backend.portalmigrations.seeding.testData | object | `{"configMap":"","filename":""}` | Option to seed test data provided in a configMap |
@@ -333,14 +334,16 @@ dependencies:
 | backend.portalmigrations.logging.default | string | `"Information"` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"docker.io/tractusx/portal-maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v2.2.0"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v2.3.0-alpha.1"` |  |
 | backend.portalmaintenance.image.pullPolicy | string | `"IfNotPresent"` |  |
+| backend.portalmaintenance.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.portalmaintenance.resources | object | `{"limits":{"cpu":"75m","memory":"200M"},"requests":{"cpu":"25m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.portalmaintenance.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
+| backend.portalmaintenance.batchDelete.days | int | `80` | The maximum days a document can stay in state DELETED before it is removed from the database |
 | backend.portalmaintenance.logging.default | string | `"Information"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"docker.io/tractusx/portal-notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v2.2.0"` |  |
+| backend.notification.image.notificationservicetag | string | `"v2.3.0-alpha.1"` |  |
 | backend.notification.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.notification.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.notification.resources | object | `{"limits":{"cpu":"225m","memory":"200M"},"requests":{"cpu":"75m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -350,7 +353,7 @@ dependencies:
 | backend.notification.logging.default | string | `"Information"` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"docker.io/tractusx/portal-services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v2.2.0"` |  |
+| backend.services.image.servicesservicetag | string | `"v2.3.0-alpha.1"` |  |
 | backend.services.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.services.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.services.resources | object | `{"limits":{"cpu":"225m","memory":"400M"},"requests":{"cpu":"75m","memory":"400M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -395,14 +398,16 @@ dependencies:
 | backend.services.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"docker.io/tractusx/portal-provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v2.2.0"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v2.3.0-alpha.1"` |  |
 | backend.provisioningmigrations.image.pullPolicy | string | `"IfNotPresent"` |  |
+| backend.provisioningmigrations.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.provisioningmigrations.resources | object | `{"limits":{"cpu":"75m","memory":"200M"},"requests":{"cpu":"25m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.provisioningmigrations.logging.default | string | `"Information"` |  |
 | backend.processesworker.name | string | `"processes-worker"` |  |
 | backend.processesworker.image.name | string | `"docker.io/tractusx/portal-processes-worker"` |  |
-| backend.processesworker.image.processesworkertag | string | `"v2.2.0"` |  |
+| backend.processesworker.image.processesworkertag | string | `"v2.3.0-alpha.1"` |  |
 | backend.processesworker.image.pullPolicy | string | `"IfNotPresent"` |  |
+| backend.processesworker.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.processesworker.resources | object | `{"limits":{"cpu":"225m","memory":"600M"},"requests":{"cpu":"75m","memory":"600M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.processesworker.logging.default | string | `"Information"` |  |
 | backend.processesworker.logging.processesLibrary | string | `"Information"` |  |
@@ -424,6 +429,7 @@ dependencies:
 | backend.processesworker.bpdm.grantType | string | `"client_credentials"` |  |
 | backend.processesworker.bpdm.clientId | string | `"bpdm-client-id"` | Provide bpdm client-id from CX IAM centralidp. |
 | backend.processesworker.bpdm.clientSecret | string | `""` | Client-secret for bpdm client-id. Secret-key 'bpdm-client-secret'. |
+| backend.processesworker.bpdm.startSharingStateAsReady | bool | `true` | When set to true the call to set sharing state ready is skipped. This means that BPDM needs to set the state manually. When set to false, the process worker will trigger the set sharing state ready of BPDM, which means no manual interference on BPDM site is needed. This value should be aligned with the value set in the BPDM helm chart creation -> '.fromSharingMember.starts-as-ready'; if the values are not aligned the BPDM application checklist will fail. |
 | backend.processesworker.custodian.membershipErrorMessage | string | `"Credential of type MembershipCredential is already exists"` |  |
 | backend.processesworker.custodian.scope | string | `"openid"` |  |
 | backend.processesworker.custodian.grantType | string | `"client_credentials"` |  |
@@ -440,6 +446,7 @@ dependencies:
 | backend.processesworker.clearinghouse.clientId | string | `"clearinghouse-client-id"` | Provide clearinghouse client-id from clearinghouse IAM. |
 | backend.processesworker.clearinghouse.clientSecret | string | `""` | Client-secret for clearinghouse client-id. Secret-key 'clearinghouse-client-secret'. |
 | backend.processesworker.clearinghouse.callbackPath | string | `"/api/administration/registration/clearinghouse"` |  |
+| backend.processesworker.clearinghouse.retriggerEndClearinghouseIntervalInDays | int | `30` | Defines the days a END_CLEARINGHOUSE process can stay in state TODO before the process is retriggered |
 | backend.processesworker.processes.lockExpirySeconds | string | `"300"` |  |
 | backend.processesworker.offerSubscriptionProcess.serviceAccountRoles.role0 | string | `"Digital Twin Management"` |  |
 | backend.processesworker.offerSubscriptionProcess.serviceManagerRoles.role0 | string | `"App Manager"` |  |

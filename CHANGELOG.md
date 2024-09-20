@@ -2,6 +2,20 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.3.0-alpha.1
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.3.0-alpha.1
+  * portal-backend: v2.3.0-alpha.1
+  * portal-frontend-registration: v2.1.0-alpha.1
+* portal-backend:
+  * added configuration for bpdmStartReady toggle [#403](https://github.com/eclipse-tractusx/portal/pull/403)
+  * added configuration for bpn access [#426](https://github.com/eclipse-tractusx/portal/pull/426)
+  * added configuration to for maintenance job to retrigger clearinghouse [#418](https://github.com/eclipse-tractusx/portal/pull/418)
+* added imagePullSecrets for jobs (previously only deployments had been enabled) [#431](https://github.com/eclipse-tractusx/portal/pull/431)
+
 ## 2.2.0
 
 ### Change

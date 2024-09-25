@@ -56,8 +56,6 @@ spec:
         env:
           - name: REQUIRE_HTTPS_URL_PATTERN
             value: "{{ .Values.frontend.portal.requireHttpsUrlPattern }}"
-          - name: CLEARINGHOUSE_CONNECT_DISABLED
-            value: "{{ .Values.backend.processesworker.clearinghouseConnectDisabled }}"
           - name: PORTAL_ASSETS_URL
             value: "{{ .Values.portalAddress }}{{ .Values.frontend.assets.path }}"
           - name: PORTAL_BACKEND_URL
@@ -80,14 +78,10 @@ spec:
             value: "{{ .Values.centralidp.realm }}"
           - name: CLIENT_ID
             value: "{{ .Values.centralidp.clients.portal }}"
-          - name: CLIENT_ID_REGISTRATION
-            value: "{{ .Values.centralidp.clients.registration }}"
           - name: CLIENT_ID_SEMANTIC
             value: "{{ .Values.centralidp.clients.semantic }}"
           - name: CLIENT_ID_MIW
             value: "{{ .Values.centralidp.clients.miw }}"
-          - name: CLIENT_ID_BPDM
-            value: "{{ .Values.centralidp.clients.bpdm }}"
           - name: CLIENT_ID_SSI_CREDENTIAL
             value: "{{ .Values.centralidp.clients.issuerComponent }}"
         ports:

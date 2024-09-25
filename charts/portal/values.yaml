@@ -33,7 +33,6 @@ centralidp:
     registration: "Cl1-CX-Registration"
     semantic: "Cl3-CX-Semantic"
     miw: "Cl5-CX-Custodian"
-    bpdm: "Cl7-CX-BPDM"
     technicalRolesManagement: "technical_roles_management"
     issuerComponent: "Cl24-CX-SSI-CredentialIssuer"
 

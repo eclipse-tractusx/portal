@@ -36,6 +36,7 @@ portal:
   sdfactoryAddress: "http://sdfactory.tx.test"
   clearinghouseAddress: "http://validation.tx.test"
   clearinghouseTokenAddress: "http://keycloak.tx.test/realms/example/protocol/openid-connect/token"
+  clearinghouseConnectDisabled: false
   issuerComponentAddress: "http://ssi-credential-issuer.tx.test"
   bpnDidResolver:
     managementApiAddress: "http://bpn-did-resolution-service-bdrs-server:8081"
@@ -197,7 +198,6 @@ portal:
         encryptionConfigs:
           index0:
             encryptionKey: "d2e27d71b018cb36029184852f1baa3e26891be94718f77de4c7cc6c882fe317"
-      clearinghouseConnectDisabled: false
     mailing:
       host: "smtp.tx.test"
       port: "587"

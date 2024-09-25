@@ -2,6 +2,18 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## Unreleased
+
+### Change
+
+* frontend environment variables
+  * added client id value for BPDM
+  * moved clearinghouseConnectDisabled from backend to global
+  * exported additional environment variables for frontend
+    * CLEARINGHOUSE_CONNECT_DISABLED
+    * CLIENT_ID_REGISTRATION
+    * CLIENT_ID_BPDM
+
 ## 2.3.0-alpha.1
 
 ### Change

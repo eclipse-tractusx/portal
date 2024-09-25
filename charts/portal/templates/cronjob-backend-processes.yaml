@@ -215,7 +215,7 @@ spec:
             - name: "APPLICATIONCHECKLIST__SDFACTORY__USERNAME"
               value: "{{ .Values.backend.placeholder }}"
             - name: "APPLICATIONCHECKLIST__SDFACTORY__CLEARINGHOUSECONNECTDISABLED"
-              value: "{{ .Values.backend.processesworker.clearinghouseConnectDisabled }}"
+              value: "{{ .Values.clearinghouseConnectDisabled }}"
             - name: "APPLICATIONCHECKLIST__DIM__USERNAME"
               value: "{{ .Values.backend.placeholder }}"
             - name: "APPLICATIONCHECKLIST__DIM__PASSWORD"

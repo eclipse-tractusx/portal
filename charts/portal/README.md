@@ -73,6 +73,7 @@ dependencies:
 | sdfactoryAddress | string | `"https://sdfactory.example.org"` | Provide sdfactory base address. |
 | clearinghouseAddress | string | `"https://validation.example.org"` | Provide clearinghouse base address. |
 | clearinghouseTokenAddress | string | `"https://keycloak.example.org/realms/example/protocol/openid-connect/token"` | Provide clearinghouse token address. |
+| clearinghouseConnectDisabled | bool | `false` | if set to true the self description document creation will be skipped for company registrations as well as connector registrations |
 | issuerComponentAddress | string | `"https://ssi-credential-issuer.example.org"` | Provide issuer component base address |
 | bpnDidResolver | object | `{"directoryApiAddress":"https://bpn-did-resolution-service.example.org/api/directory","managementApiAddress":"http://bpn-did-resolution-service-bdrs-server:8081"}` | Provide details about the BPN DID Resolver. |
 | bpnDidResolver.managementApiAddress | string | `"http://bpn-did-resolution-service-bdrs-server:8081"` | Provide management api base address |
@@ -500,7 +501,6 @@ dependencies:
 | backend.processesworker.mailing.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
 | backend.processesworker.mailing.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |
 | backend.processesworker.mailing.encryptionConfigs.index0.encryptionKey | string | `""` | EncryptionKey to encrypt the parameters of mailing processes. Secret-key 'mailing-encryption-key0'. Expected format is 256 bit (64 digits) hex. |
-| backend.processesworker.clearinghouseConnectDisabled | bool | `false` | if set to true the self description document creation will be skipped for company registrations as well as connector registrations |
 | backend.placeholder | string | `"empty"` |  |
 | postgresql.enabled | bool | `true` | PostgreSQL chart configuration Switch to enable or disable the PostgreSQL helm chart |
 | postgresql.image | object | `{"tag":"15-debian-11"}` | Setting image tag to major to get latest minor updates |

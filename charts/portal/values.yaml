@@ -33,6 +33,7 @@ centralidp:
     registration: "Cl1-CX-Registration"
     semantic: "Cl3-CX-Semantic"
     miw: "Cl5-CX-Custodian"
+    bpdm: "Cl7-CX-BPDM"
     technicalRolesManagement: "technical_roles_management"
     issuerComponent: "Cl24-CX-SSI-CredentialIssuer"
 
@@ -63,6 +64,8 @@ sdfactoryAddress: "https://sdfactory.example.org"
 clearinghouseAddress: "https://validation.example.org"
 # -- Provide clearinghouse token address.
 clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
+# -- if set to true the self description document creation will be skipped for company registrations as well as connector registrations
+clearinghouseConnectDisabled: false
 
 # -- Provide issuer component base address
 issuerComponentAddress: "https://ssi-credential-issuer.example.org"
@@ -953,8 +956,6 @@ backend:
           # -- EncryptionKey to encrypt the parameters of mailing processes. Secret-key 'mailing-encryption-key0'.
           # Expected format is 256 bit (64 digits) hex.
           encryptionKey: ""
-    # -- if set to true the self description document creation will be skipped for company registrations as well as connector registrations
-    clearinghouseConnectDisabled: false
   placeholder: "empty"
 
 postgresql:

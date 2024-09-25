@@ -589,6 +589,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.sdfactoryAddress | string | `"http://sdfactory.tx.test"` |  |
 | portal.clearinghouseAddress | string | `"http://validation.tx.test"` |  |
 | portal.clearinghouseTokenAddress | string | `"http://keycloak.tx.test/realms/example/protocol/openid-connect/token"` |  |
+| portal.clearinghouseConnectDisabled | bool | `false` |  |
 | portal.issuerComponentAddress | string | `"http://ssi-credential-issuer.tx.test"` |  |
 | portal.bpnDidResolver.managementApiAddress | string | `"http://bpn-did-resolution-service-bdrs-server:8081"` |  |
 | portal.bpnDidResolver.directoryApiAddress | string | `"http://bpn-did-resolution-service.tx.test/api/directory"` |  |
@@ -672,7 +673,6 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.encryptionKey | string | `"8027152fe7a869c88acc86981760acd70ff1d660c2bd129eece94edef933caf7"` |  |
 | portal.backend.processesworker.invitation.encryptionConfigs.index0.encryptionKey | string | `"d84fea29d6eac0fa51e36682b164e7d61693cd4202ed04306d2d9c5d46655e2c"` |  |
 | portal.backend.processesworker.mailing.encryptionConfigs.index0.encryptionKey | string | `"d2e27d71b018cb36029184852f1baa3e26891be94718f77de4c7cc6c882fe317"` |  |
-| portal.backend.processesworker.clearinghouseConnectDisabled | bool | `false` |  |
 | portal.backend.mailing.host | string | `"smtp.tx.test"` |  |
 | portal.backend.mailing.port | string | `"587"` |  |
 | portal.backend.mailing.user | string | `"smtp-user"` |  |

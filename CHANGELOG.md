@@ -2,17 +2,23 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## Unreleased
+## 2.3.0-alpha.2
 
 ### Change
 
-* frontend environment variables
-  * added client id value for BPDM
+* changed to new container images
+  * portal-frontend: v2.3.0-alpha.2
+  * portal-backend: v2.3.0-alpha.2
+* portal-frontend [#438](https://github.com/eclipse-tractusx/portal/pull/438)
+  * added client ID value for BPDM
   * moved clearinghouseConnectDisabled from backend to global
-  * exported additional environment variables for frontend
+  * enabled additional environment variables
     * CLEARINGHOUSE_CONNECT_DISABLED
     * CLIENT_ID_REGISTRATION
     * CLIENT_ID_BPDM
+* portal-backend:
+  * added DIM user roles to service account settings [#435](https://github.com/eclipse-tractusx/portal/pull/435)
+  * adjusted configuration for enabled startSharingStateAsReady from BPDM side [#445](https://github.com/eclipse-tractusx/portal/pull/445)
 
 ## 2.3.0-alpha.1
 

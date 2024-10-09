@@ -41,6 +41,8 @@ decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu
 bpnDidResolver:
   managementApiAddress: "http://bdrs-bdrs-server:8081"
   directoryApiAddress: "https://bpn-did-resolution-service.int.catena-x.net/api/directory"
+operator:
+  bpn: "BPNL00000003CRHK"
 
 frontend:
 

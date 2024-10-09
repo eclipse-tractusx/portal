@@ -88,6 +88,10 @@ dimWrapper:
 
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 
+operator:
+  # -- The bpn of the operator
+  bpn: "empty"
+
 frontend:
   ingress:
   # -- Portal frontend ingress parameters,
@@ -621,13 +625,17 @@ backend:
         cpu: 75m
         memory: 350M
     seeding:
-      testDataEnvironments: ""
+      # -- If set to true the data configured in the config map 'configmap-backend-seeding-initialdata.yaml' will be taken to insert the initial data
+      useInitial: false
       # -- Option to seed test data provided in a configMap
-      testData:
-        # -- ConfigMap containing json files for the tables to seed, e.g. companies.test.json, addresses.test.json, etc.
-        configMap: ""
-        # -- Filename identifying the test data files e.g. for companies.test.json the value would be "test"
-        filename: ""
+      seedTestData:
+        # -- If set to true the data configured in the config map 'configmap-backend-seeding-testdata.yaml' will be taken to insert the default test data
+        useDefault: false
+        useOwnConfigMap:
+          # -- ConfigMap containing json files for the tables to seed, e.g. companies.test.json, addresses.test.json, etc.
+          configMap: ""
+          # -- Filename identifying the test data files e.g. for companies.test.json the value would be "test"
+          filename: ""
     logging:
       default: "Information"
   portalmaintenance:

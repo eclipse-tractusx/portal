@@ -30,12 +30,12 @@ data:
         "id": "b4db3945-19a7-4a50-97d6-e66e8dfd04fb",
         "date_created": "2022-03-24 18:01:33.306000 +00:00",
         "date_last_changed": "2022-03-24 18:01:33.306000 +00:00",
-        "city": "Munich",
-        "region": null,
-        "streetadditional": null,
-        "streetname": "Street",
-        "streetnumber": "1",
-        "zipcode": "00001",
+        "city": "tbd",
+        "region": "",
+        "streetadditional": "",
+        "streetname": "tbd",
+        "streetnumber": "",
+        "zipcode": "",
         "country_alpha2code": "DE"
       }
     ]
@@ -45,8 +45,8 @@ data:
         "id": "2dc4249f-b5ca-4d42-bef1-7a7a950a4f87",
         "date_created": "2022-03-24 18:01:33.306000 +00:00",
         "business_partner_number": "{{ .Values.operator.bpn }}",
-        "name": "Catena-X",
-        "shortname": "Catena-X",
+        "name": "CX-Operator",
+        "shortname": "CX-Operator",
         "company_status_id": 2,
         "address_id": "b4db3945-19a7-4a50-97d6-e66e8dfd04fb",
         "self_description_document_id": "00000000-0000-0000-0000-000000000009"

@@ -24,7 +24,7 @@ metadata:
   name:  "{{ include "portal.fullname" . }}-default-testdata"
   namespace: {{ .Release.Namespace }}
 data:
-  addresses.test.json: |-
+  addresses.defaulttest.json: |-
     [
       {
         "id": "b4db3945-19a7-4a50-97d6-e66e8dfd04fe",
@@ -111,7 +111,7 @@ data:
         "country_alpha2code": "DE"
       }
     ]
-  companies.test.json: |-
+  companies.defaulttest.json: |-
     [
       {
         "id": "2dc4249f-b5ca-4d42-bef1-7a7a950a4f88",
@@ -194,7 +194,7 @@ data:
         "self_description_document_id": "f90962ee-a358-4381-8947-c56268ff32c7"
       }
     ]
-  connectors.test.json: |-
+  connectors.defaulttest.json: |-
     [
       {
         "id": "7e86a0b8-6903-496b-96d1-0ef508206833",
@@ -263,7 +263,7 @@ data:
         "self_description_document_id": null
       }
     ]
-  documents.test.json: |-
+  documents.defaulttest.json: |-
     [
       {
         "id": "f90962ee-a358-4381-8947-c56268ff32c7",

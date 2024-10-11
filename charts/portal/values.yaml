@@ -625,7 +625,8 @@ backend:
         cpu: 75m
         memory: 350M
     seeding:
-      # -- If set to true the data configured in the config map 'configmap-backend-seeding-initialdata.yaml' will be taken to insert the initial data
+      # -- Enables dynamic seeding of bpn (dim.bpn) and did document location address (dim.didDocumentLocationAddress) of the operator;
+      # If set to `true` the data configured in the config map 'configmap-seeding-initialdata.yaml' will be taken to insert the initial data;
       useInitial: false
       # -- Option to seed test data provided in a configMap
       seedTestData:

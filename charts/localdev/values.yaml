@@ -91,12 +91,12 @@ portal:
     keycloak:
       central:
         clientId: "sa-cl1-reg-2"
-        clientSecret: "aEoUADDw2aNPa0WAaKGAyKfC80n8sKxJ"
+        clientSecret: "changeme"
         jwtBearerOptions:
           requireHttpsMetadata: "false"
       shared:
         clientId: "sa-cl1-reg-1"
-        clientSecret: "YPA1t6BMQtPtaG3fpH8Sa8Ac6KYbPUM7"
+        clientSecret: "changeme"
     registration:
       logging:
         default: "Debug"
@@ -161,18 +161,18 @@ portal:
       #   clientSecret: ""
       custodian:
         clientId: "sa-cl5-custodian-2"
-        clientSecret: "UIqawwoohsvZ6AZOd1llLhnsUTKMWe4D"
+        clientSecret: "changeme"
       sdfactory:
         issuerBpn: "BPNL00000003CRHK"
         clientId: "sa-cl8-cx-1"
-        clientSecret: "clbQOPHcVKY9tUUd068vyf8CrsPZ8BgZ"
+        clientSecret: "changeme"
       offerprovider:
         clientId: "sa-cl2-03"
-        clientSecret: "wyNYzSnyu4iGvj17XgLSl0aQxAPjTjmI"
+        clientSecret: "changeme"
       dim:
         clientId: "dim-client-id"
         clientSecret: ""
-        universalResolverAddress: "https://dev.uniresolver.io/"
+        universalResolverAddress: "http://dev.uniresolver.io/"
         encryptionConfigs:
           index0:
             encryptionKey: "6cbaf47ee30c778088e6faa44e2f0eed98beda86db06c7d2e37e32ab78e14b33"
@@ -294,37 +294,14 @@ centralidp:
   keycloak:
     nameOverride: "centralidp"
     replicaCount: 1
+    auth:
+      adminPassword: "adminconsolepwcentralidp"
     postgresql:
       nameOverride: "centralidp-postgresql"
-      architecture: standalone
+      auth:
+        password: "dbpasswordcentralidp"
+        postgresPassword: "dbpasswordcentralidp"
     proxy: edge
-    initContainers:
-      - name: realm-import
-        image: docker.io/tractusx/umbrella-init-container:0.1.0-init
-        imagePullPolicy: IfNotPresent
-        command:
-          - sh
-        args:
-          - -c
-          - |
-            echo "Copying realms..."
-            cp -R /import/catenax-central/R2405/realms/* /realms
-        volumeMounts:
-        - name: realms
-          mountPath: "/realms"
-      - name: theme-import
-        image: docker.io/tractusx/portal-iam:v3.0.0
-        imagePullPolicy: IfNotPresent
-        command:
-          - sh
-        args:
-          - -c
-          - |
-            echo "Copying themes..."
-            cp -R /import/themes/catenax-central/* /themes
-        volumeMounts:
-        - name: themes
-          mountPath: "/themes"
       # uncomment the following line for tls
       # - name: init-certs
       #   image: docker.io/bitnami/keycloak:23.0.7-debian-12-r1
@@ -345,32 +322,19 @@ centralidp:
       #       mountPath: /certs
       #     - name: shared-certs
       #       mountPath: "/opt/bitnami/keycloak/certs"
-    extraEnvVars:
-      - name: KEYCLOAK_EXTRA_ARGS
-        value: "-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/realms/CX-Central-realm.json -Dkeycloak.migration.strategy=IGNORE_EXISTING"
-      # uncomment the following line for tls
+    # extraEnvVars:
       # - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
       #   value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
       # - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
       #   value: "changeit"
-    extraVolumes:
-      - name: realms
-        emptyDir: {}
-      - name: themes
-        emptyDir: {}
-      # uncomment the following line for tls
+    # extraVolumes:
       # - name: certificates
       #   secret:
       #     secretName: root-secret
       #     defaultMode: 420
       # - name: shared-certs
       #   emptyDir: {}
-    extraVolumeMounts:
-      - name: realms
-        mountPath: "/realms"
-      - name: themes
-        mountPath: "/opt/bitnami/keycloak/themes/catenax-central"
-      # uncomment the following line for tls
+    # extraVolumeMounts:
       # - name: certificates
       #   mountPath: /certs
       # - name: shared-certs
@@ -391,58 +355,88 @@ centralidp:
         nginx.ingress.kubernetes.io/proxy-buffers-number: "20"
         nginx.ingress.kubernetes.io/use-regex: "true"
       tls: false
-  secrets:
-    postgresql:
-      auth:
-        existingSecret:
-          postgrespassword: "dbpasswordcentralidp"
-          password: "dbpasswordcentralidp"
-          replicationPassword: "dbpasswordcentralidp"
-    auth:
-      existingSecret:
-        # -- Password for the admin username 'admin'. Secret-key 'admin-password'.
-        adminpassword: "adminconsolepwcentralidp"
+  realmSeeding:
+    clients:
+      registration:
+        redirects:
+          - http://portal.tx.test/*
+          - http://localhost:3000/*
+      portal:
+        rootUrl: http://portal.tx.test/home
+        redirects:
+          - http://portal.tx.test/*
+          - http://localhost:3000/*
+      semantics:
+        redirects:
+          - http://portal.tx.test/*
+      miw:
+        clientSecret: "changeme"
+        redirects:
+          - http://managed-identity-wallets.tx.test/*
+      bpdm:
+        clientSecret: "changeme"
+        redirects:
+          - http://partners-pool.tx.test/*
+      bpdmGate:
+        clientSecret: "changeme"
+        redirects:
+          - http://partners-gate.tx.test/*
+      bpdmOrchestrator:
+        clientSecret: "changeme"
+    serviceAccounts:
+      clientSecrets:
+        - clientId: "sa-cl1-reg-2"
+          clientSecret: "changeme"
+        - clientId: "sa-cl2-01"
+          clientSecret: "changeme"
+        - clientId: "sa-cl2-02"
+          clientSecret: "changeme"
+        - clientId: "sa-cl2-03"
+          clientSecret: "changeme"
+        - clientId: "sa-cl2-04"
+          clientSecret: "changeme"
+        - clientId: "sa-cl2-05"
+          clientSecret: "changeme"
+        - clientId: "sa-cl3-cx-1"
+          clientSecret: "changeme"
+        - clientId: "sa-cl5-custodian-2"
+          clientSecret: "changeme"
+        - clientId: "sa-cl7-cx-1"
+          clientSecret: "changeme"
+        - clientId: "sa-cl7-cx-5"
+          clientSecret: "changeme"
+        - clientId: "sa-cl7-cx-7"
+          clientSecret: "changeme"
+        - clientId: "sa-cl8-cx-1"
+          clientSecret: "changeme"
+        - clientId: "sa-cl21-01"
+          clientSecret: "changeme"
+        - clientId: "sa-cl22-01"
+          clientSecret: "changeme"
+        - clientId: "sa-cl24-01"
+          clientSecret: "changeme"
+        - clientId: "sa-cl25-cx-1"
+          clientSecret: "changeme"
+        - clientId: "sa-cl25-cx-2"
+          clientSecret: "changeme"
+        - clientId: "sa-cl25-cx-3"
+          clientSecret: "changeme"
+    bpn: "BPNL00000003CRHK"
+    sharedidp: "http://sharedidp.tx.test"
 
 sharedidp:
   enabled: true
   keycloak:
     nameOverride: "sharedidp"
     replicaCount: 1
+    auth:
+      adminPassword: "adminconsolepwsharedidp"
     postgresql:
       nameOverride: "sharedidp-postgresql"
-      architecture: standalone
+      auth:
+        password: "dbpasswordsharedidp"
+        postgresPassword: "dbpasswordsharedidp"
     proxy: edge
-    initContainers:
-      - name: realm-import
-        image: docker.io/tractusx/umbrella-init-container:0.1.0-init
-        imagePullPolicy: IfNotPresent
-        command:
-          - sh
-        args:
-          - -c
-          - |
-            echo "Copying realms..."
-            cp -R /import/catenax-shared/realms/* /realms
-        volumeMounts:
-        - name: realms
-          mountPath: "/realms"
-      - name: theme-import
-        image: docker.io/tractusx/portal-iam:v3.0.0
-        imagePullPolicy: IfNotPresent
-        command:
-          - sh
-        args:
-          - -c
-          - |
-            echo "Copying themes-catenax-shared..."
-            cp -R /import/themes/catenax-shared/* /themes-catenax-shared
-            echo "Copying themes-catenax-shared-portal..."
-            cp -R /import/themes/catenax-shared-portal/* /themes-catenax-shared-portal
-        volumeMounts:
-        - name: themes-catenax-shared
-          mountPath: "/themes-catenax-shared"
-        - name: themes-catenax-shared-portal
-          mountPath: "/themes-catenax-shared-portal"
       # uncomment the following line for tls
       # - name: init-certs
       #   image: docker.io/bitnami/keycloak:23.0.7-debian-12-r1
@@ -463,35 +457,19 @@ sharedidp:
       #       mountPath: /certs
       #     - name: shared-certs
       #       mountPath: "/opt/bitnami/keycloak/certs"
-    extraEnvVars:
-      - name: KEYCLOAK_EXTRA_ARGS
-        value: "-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/realms -Dkeycloak.migration.strategy=IGNORE_EXISTING"
-      # uncomment the following line for tls
+    # extraEnvVars:
       # - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
       #   value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
       # - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
       #   value: "changeit"
-    extraVolumes:
-      - name: realms
-        emptyDir: {}
-      - name: themes-catenax-shared
-        emptyDir: {}
-      - name: themes-catenax-shared-portal
-        emptyDir: {}
-      # uncomment the following line for tls
+    # extraVolumes:
       # - name: certificates
       #   secret:
       #     secretName: root-secret
       #     defaultMode: 420
       # - name: shared-certs
       #   emptyDir: {}
-    extraVolumeMounts:
-      - name: realms
-        mountPath: "/realms"
-      - name: themes-catenax-shared
-        mountPath: "/opt/bitnami/keycloak/themes/catenax-shared"
-      - name: themes-catenax-shared-portal
-        mountPath: "/opt/bitnami/keycloak/themes/catenax-shared-portal"
+    # extraVolumeMounts:
       # uncomment the following line for tls
       # - name: certificates
       #   mountPath: /certs
@@ -513,17 +491,26 @@ sharedidp:
         nginx.ingress.kubernetes.io/proxy-buffers-number: "20"
         nginx.ingress.kubernetes.io/use-regex: "true"
       tls: false
-  secrets:
-    postgresql:
-      auth:
-        existingSecret:
-          postgrespassword: "dbpasswordsharedidp"
-          password: "dbpasswordsharedidp"
-          replicationPassword: "dbpasswordsharedidp"
-    auth:
-      existingSecret:
-        # -- Password for the admin username 'admin'. Secret-key 'admin-password'.
-        adminpassword: "adminconsolepwsharedidp"
+  realmSeeding:
+    realms:
+      cxOperator:
+        centralidp: "http://centralidp.tx.test"
+        initialUser:
+          username: "cx-operator@tx.test"
+          password: "tractusx-umbr3lla!"
+        mailing:
+          host: "smtp.tx.test"
+          port: "587"
+          username: "smtp-user"
+          password: ""
+          from: "smtp@tx.test"
+          replyTo: "smtp@tx.test"
+      master:
+        serviceAccounts:
+          provisioning:
+            clientSecret: "changeme"
+          saCxOperator:
+            clientSecret: "changeme"
 
 postgresportal:
 # -- Additional PostgreSQL for backend development;

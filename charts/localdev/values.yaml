@@ -153,7 +153,7 @@ portal:
         offerProvider: "Debug"
       bpdm:
         clientId: "sa-cl7-cx-5"
-        clientSecret: "bWSck103qNJ0jZ1LVtG9mUAlcL7R5RLg"
+        clientSecret: "changeme"
       # -- no configuration for clearinghouse because it's an external component
       # clientId and clientSecret aren't in the centralidp Keycloak
       # clearinghouse:
@@ -172,13 +172,13 @@ portal:
       dim:
         clientId: "dim-client-id"
         clientSecret: ""
-        universalResolverAddress: "http://dev.uniresolver.io/"
+        universalResolverAddress: "https://dev.uniresolver.io/"
         encryptionConfigs:
           index0:
             encryptionKey: "6cbaf47ee30c778088e6faa44e2f0eed98beda86db06c7d2e37e32ab78e14b33"
       issuerComponent:
         clientId: "sa-cl2-04"
-        clientSecret: "c0gFPfWWUpeOr7MP6DIqdRPhUfaX4GRC"
+        clientSecret: "changeme"
       bpnDidResolver:
         # -- ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
         apiKey: ""

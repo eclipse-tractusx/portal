@@ -650,7 +650,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.processesworker.logging.sdfactoryLibrary | string | `"Debug"` |  |
 | portal.backend.processesworker.logging.offerProvider | string | `"Debug"` |  |
 | portal.backend.processesworker.bpdm.clientId | string | `"sa-cl7-cx-5"` |  |
-| portal.backend.processesworker.bpdm.clientSecret | string | `"bWSck103qNJ0jZ1LVtG9mUAlcL7R5RLg"` |  |
+| portal.backend.processesworker.bpdm.clientSecret | string | `"changeme"` |  |
 | portal.backend.processesworker.custodian | object | `{"clientId":"sa-cl5-custodian-2","clientSecret":"changeme"}` | no configuration for clearinghouse because it's an external component clientId and clientSecret aren't in the centralidp Keycloak clearinghouse:   clientId: "clearinghouse-client-id"   clientSecret: "" |
 | portal.backend.processesworker.sdfactory.issuerBpn | string | `"BPNL00000003CRHK"` |  |
 | portal.backend.processesworker.sdfactory.clientId | string | `"sa-cl8-cx-1"` |  |
@@ -659,10 +659,10 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.processesworker.offerprovider.clientSecret | string | `"changeme"` |  |
 | portal.backend.processesworker.dim.clientId | string | `"dim-client-id"` |  |
 | portal.backend.processesworker.dim.clientSecret | string | `""` |  |
-| portal.backend.processesworker.dim.universalResolverAddress | string | `"http://dev.uniresolver.io/"` |  |
+| portal.backend.processesworker.dim.universalResolverAddress | string | `"https://dev.uniresolver.io/"` |  |
 | portal.backend.processesworker.dim.encryptionConfigs.index0.encryptionKey | string | `"6cbaf47ee30c778088e6faa44e2f0eed98beda86db06c7d2e37e32ab78e14b33"` |  |
 | portal.backend.processesworker.issuerComponent.clientId | string | `"sa-cl2-04"` |  |
-| portal.backend.processesworker.issuerComponent.clientSecret | string | `"c0gFPfWWUpeOr7MP6DIqdRPhUfaX4GRC"` |  |
+| portal.backend.processesworker.issuerComponent.clientSecret | string | `"changeme"` |  |
 | portal.backend.processesworker.bpnDidResolver.apiKey | string | `""` | ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'. |
 | portal.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.cipherMode | string | `"CBC"` |  |
 | portal.backend.processesworker.onboardingServiceProvider.encryptionConfigs.index0.paddingMode | string | `"PKCS7"` |  |

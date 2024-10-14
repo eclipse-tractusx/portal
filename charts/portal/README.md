@@ -468,7 +468,7 @@ dependencies:
 | backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.paddingMode | string | `"PKCS7"` |  |
 | backend.processesworker.onboardingServiceProvider.encryptionConfigs.index1.encryptionKey | string | `""` | EncryptionKey for onboardingserviceprovider. Secret-key 'onboardingserviceprovider-encryption-key1'. Expected format is 256 bit (64 digits) hex. When upgrading from v2.0.0-RC1 please read document portal-upgrade-details.md |
 | backend.processesworker.networkRegistration.loginDocumentPath | string | `"/documentation/?path=docs%2F09.+Others%28s%29%2F01.+Login.md"` |  |
-| backend.processesworker.networkRegistration.externalRegistrationPath | string | `"/consent_osp"` |  |
+| backend.processesworker.networkRegistration.externalRegistrationPath | string | `"/consentOsp"` |  |
 | backend.processesworker.networkRegistration.closeApplicationPath | string | `"/decline"` | The logic to decline an application is not yet implemented in the backend - this will currently lead to a 404 page when clicking on the link in the mail |
 | backend.processesworker.dim.clientId | string | `"dim-client-id"` | Provide dim client-id from CX IAM centralidp. |
 | backend.processesworker.dim.clientSecret | string | `""` | Client-secret for dim client-id. Secret-key 'dim-client-secret'. |

@@ -566,8 +566,8 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 |------------|------|---------|
 | file://../portal | portal | 2.3.0-alpha.2 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
-| https://eclipse-tractusx.github.io/charts/dev | centralidp | 3.0.0 |
-| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 3.0.0 |
+| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.0.0-alpha.1 |
+| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.0.0-alpha.1 |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
 ## Values
@@ -617,10 +617,10 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.dotnetEnvironment | string | `"Development"` |  |
 | portal.backend.useDimWallet | bool | `true` |  |
 | portal.backend.keycloak.central.clientId | string | `"sa-cl1-reg-2"` |  |
-| portal.backend.keycloak.central.clientSecret | string | `"aEoUADDw2aNPa0WAaKGAyKfC80n8sKxJ"` |  |
+| portal.backend.keycloak.central.clientSecret | string | `"changeme"` |  |
 | portal.backend.keycloak.central.jwtBearerOptions.requireHttpsMetadata | string | `"false"` |  |
 | portal.backend.keycloak.shared.clientId | string | `"sa-cl1-reg-1"` |  |
-| portal.backend.keycloak.shared.clientSecret | string | `"YPA1t6BMQtPtaG3fpH8Sa8Ac6KYbPUM7"` |  |
+| portal.backend.keycloak.shared.clientSecret | string | `"changeme"` |  |
 | portal.backend.registration.logging.default | string | `"Debug"` |  |
 | portal.backend.registration.logging.bpdmLibrary | string | `"Debug"` |  |
 | portal.backend.registration.logging.registrationService | string | `"Debug"` |  |
@@ -651,15 +651,15 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.processesworker.logging.offerProvider | string | `"Debug"` |  |
 | portal.backend.processesworker.bpdm.clientId | string | `"sa-cl7-cx-5"` |  |
 | portal.backend.processesworker.bpdm.clientSecret | string | `"bWSck103qNJ0jZ1LVtG9mUAlcL7R5RLg"` |  |
-| portal.backend.processesworker.custodian | object | `{"clientId":"sa-cl5-custodian-2","clientSecret":"UIqawwoohsvZ6AZOd1llLhnsUTKMWe4D"}` | no configuration for clearinghouse because it's an external component clientId and clientSecret aren't in the centralidp Keycloak clearinghouse:   clientId: "clearinghouse-client-id"   clientSecret: "" |
+| portal.backend.processesworker.custodian | object | `{"clientId":"sa-cl5-custodian-2","clientSecret":"changeme"}` | no configuration for clearinghouse because it's an external component clientId and clientSecret aren't in the centralidp Keycloak clearinghouse:   clientId: "clearinghouse-client-id"   clientSecret: "" |
 | portal.backend.processesworker.sdfactory.issuerBpn | string | `"BPNL00000003CRHK"` |  |
 | portal.backend.processesworker.sdfactory.clientId | string | `"sa-cl8-cx-1"` |  |
-| portal.backend.processesworker.sdfactory.clientSecret | string | `"clbQOPHcVKY9tUUd068vyf8CrsPZ8BgZ"` |  |
+| portal.backend.processesworker.sdfactory.clientSecret | string | `"changeme"` |  |
 | portal.backend.processesworker.offerprovider.clientId | string | `"sa-cl2-03"` |  |
-| portal.backend.processesworker.offerprovider.clientSecret | string | `"wyNYzSnyu4iGvj17XgLSl0aQxAPjTjmI"` |  |
+| portal.backend.processesworker.offerprovider.clientSecret | string | `"changeme"` |  |
 | portal.backend.processesworker.dim.clientId | string | `"dim-client-id"` |  |
 | portal.backend.processesworker.dim.clientSecret | string | `""` |  |
-| portal.backend.processesworker.dim.universalResolverAddress | string | `"https://dev.uniresolver.io/"` |  |
+| portal.backend.processesworker.dim.universalResolverAddress | string | `"http://dev.uniresolver.io/"` |  |
 | portal.backend.processesworker.dim.encryptionConfigs.index0.encryptionKey | string | `"6cbaf47ee30c778088e6faa44e2f0eed98beda86db06c7d2e37e32ab78e14b33"` |  |
 | portal.backend.processesworker.issuerComponent.clientId | string | `"sa-cl2-04"` |  |
 | portal.backend.processesworker.issuerComponent.clientSecret | string | `"c0gFPfWWUpeOr7MP6DIqdRPhUfaX4GRC"` |  |
@@ -694,35 +694,11 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | centralidp.enabled | bool | `true` |  |
 | centralidp.keycloak.nameOverride | string | `"centralidp"` |  |
 | centralidp.keycloak.replicaCount | int | `1` |  |
+| centralidp.keycloak.auth.adminPassword | string | `"adminconsolepwcentralidp"` |  |
 | centralidp.keycloak.postgresql.nameOverride | string | `"centralidp-postgresql"` |  |
-| centralidp.keycloak.postgresql.architecture | string | `"standalone"` |  |
+| centralidp.keycloak.postgresql.auth.password | string | `"dbpasswordcentralidp"` |  |
+| centralidp.keycloak.postgresql.auth.postgresPassword | string | `"dbpasswordcentralidp"` |  |
 | centralidp.keycloak.proxy | string | `"edge"` |  |
-| centralidp.keycloak.initContainers[0].name | string | `"realm-import"` |  |
-| centralidp.keycloak.initContainers[0].image | string | `"docker.io/tractusx/umbrella-init-container:0.1.0-init"` |  |
-| centralidp.keycloak.initContainers[0].imagePullPolicy | string | `"IfNotPresent"` |  |
-| centralidp.keycloak.initContainers[0].command[0] | string | `"sh"` |  |
-| centralidp.keycloak.initContainers[0].args[0] | string | `"-c"` |  |
-| centralidp.keycloak.initContainers[0].args[1] | string | `"echo \"Copying realms...\"\ncp -R /import/catenax-central/R2405/realms/* /realms\n"` |  |
-| centralidp.keycloak.initContainers[0].volumeMounts[0].name | string | `"realms"` |  |
-| centralidp.keycloak.initContainers[0].volumeMounts[0].mountPath | string | `"/realms"` |  |
-| centralidp.keycloak.initContainers[1].name | string | `"theme-import"` |  |
-| centralidp.keycloak.initContainers[1].image | string | `"docker.io/tractusx/portal-iam:v3.0.0"` |  |
-| centralidp.keycloak.initContainers[1].imagePullPolicy | string | `"IfNotPresent"` |  |
-| centralidp.keycloak.initContainers[1].command[0] | string | `"sh"` |  |
-| centralidp.keycloak.initContainers[1].args[0] | string | `"-c"` |  |
-| centralidp.keycloak.initContainers[1].args[1] | string | `"echo \"Copying themes...\"\ncp -R /import/themes/catenax-central/* /themes\n"` |  |
-| centralidp.keycloak.initContainers[1].volumeMounts[0].name | string | `"themes"` |  |
-| centralidp.keycloak.initContainers[1].volumeMounts[0].mountPath | string | `"/themes"` |  |
-| centralidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_EXTRA_ARGS"` |  |
-| centralidp.keycloak.extraEnvVars[0].value | string | `"-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=singleFile -Dkeycloak.migration.file=/realms/CX-Central-realm.json -Dkeycloak.migration.strategy=IGNORE_EXISTING"` |  |
-| centralidp.keycloak.extraVolumes[0].name | string | `"realms"` |  |
-| centralidp.keycloak.extraVolumes[0].emptyDir | object | `{}` |  |
-| centralidp.keycloak.extraVolumes[1].name | string | `"themes"` |  |
-| centralidp.keycloak.extraVolumes[1].emptyDir | object | `{}` |  |
-| centralidp.keycloak.extraVolumeMounts[0].name | string | `"realms"` |  |
-| centralidp.keycloak.extraVolumeMounts[0].mountPath | string | `"/realms"` |  |
-| centralidp.keycloak.extraVolumeMounts[1].name | string | `"themes"` |  |
-| centralidp.keycloak.extraVolumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/themes/catenax-central"` |  |
 | centralidp.keycloak.ingress.enabled | bool | `true` |  |
 | centralidp.keycloak.ingress.ingressClassName | string | `"nginx"` |  |
 | centralidp.keycloak.ingress.hostname | string | `"centralidp.tx.test"` |  |
@@ -735,48 +711,65 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffers-number" | string | `"20"` |  |
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | centralidp.keycloak.ingress.tls | bool | `false` |  |
-| centralidp.secrets.postgresql.auth.existingSecret.postgrespassword | string | `"dbpasswordcentralidp"` |  |
-| centralidp.secrets.postgresql.auth.existingSecret.password | string | `"dbpasswordcentralidp"` |  |
-| centralidp.secrets.postgresql.auth.existingSecret.replicationPassword | string | `"dbpasswordcentralidp"` |  |
-| centralidp.secrets.auth.existingSecret.adminpassword | string | `"adminconsolepwcentralidp"` | Password for the admin username 'admin'. Secret-key 'admin-password'. |
+| centralidp.realmSeeding.clients.registration.redirects[0] | string | `"http://portal.tx.test/*"` |  |
+| centralidp.realmSeeding.clients.registration.redirects[1] | string | `"http://localhost:3000/*"` |  |
+| centralidp.realmSeeding.clients.portal.rootUrl | string | `"http://portal.tx.test/home"` |  |
+| centralidp.realmSeeding.clients.portal.redirects[0] | string | `"http://portal.tx.test/*"` |  |
+| centralidp.realmSeeding.clients.portal.redirects[1] | string | `"http://localhost:3000/*"` |  |
+| centralidp.realmSeeding.clients.semantics.redirects[0] | string | `"http://portal.tx.test/*"` |  |
+| centralidp.realmSeeding.clients.miw.clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.clients.miw.redirects[0] | string | `"http://managed-identity-wallets.tx.test/*"` |  |
+| centralidp.realmSeeding.clients.bpdm.clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.clients.bpdm.redirects[0] | string | `"http://partners-pool.tx.test/*"` |  |
+| centralidp.realmSeeding.clients.bpdmGate.clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.clients.bpdmGate.redirects[0] | string | `"http://partners-gate.tx.test/*"` |  |
+| centralidp.realmSeeding.clients.bpdmOrchestrator.clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[0].clientId | string | `"sa-cl1-reg-2"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[0].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[1].clientId | string | `"sa-cl2-01"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[1].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[2].clientId | string | `"sa-cl2-02"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[2].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[3].clientId | string | `"sa-cl2-03"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[3].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[4].clientId | string | `"sa-cl2-04"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[4].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[5].clientId | string | `"sa-cl2-05"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[5].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[6].clientId | string | `"sa-cl3-cx-1"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[6].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[7].clientId | string | `"sa-cl5-custodian-2"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[7].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[8].clientId | string | `"sa-cl7-cx-1"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[8].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[9].clientId | string | `"sa-cl7-cx-5"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[9].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[10].clientId | string | `"sa-cl7-cx-7"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[10].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[11].clientId | string | `"sa-cl8-cx-1"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[11].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[12].clientId | string | `"sa-cl21-01"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[12].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[13].clientId | string | `"sa-cl22-01"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[13].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[14].clientId | string | `"sa-cl24-01"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[14].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[15].clientId | string | `"sa-cl25-cx-1"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[15].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[16].clientId | string | `"sa-cl25-cx-2"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[16].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[17].clientId | string | `"sa-cl25-cx-3"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[17].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.bpn | string | `"BPNL00000003CRHK"` |  |
+| centralidp.realmSeeding.sharedidp | string | `"http://sharedidp.tx.test"` |  |
 | sharedidp.enabled | bool | `true` |  |
 | sharedidp.keycloak.nameOverride | string | `"sharedidp"` |  |
 | sharedidp.keycloak.replicaCount | int | `1` |  |
+| sharedidp.keycloak.auth.adminPassword | string | `"adminconsolepwsharedidp"` |  |
 | sharedidp.keycloak.postgresql.nameOverride | string | `"sharedidp-postgresql"` |  |
-| sharedidp.keycloak.postgresql.architecture | string | `"standalone"` |  |
+| sharedidp.keycloak.postgresql.auth.password | string | `"dbpasswordsharedidp"` |  |
+| sharedidp.keycloak.postgresql.auth.postgresPassword | string | `"dbpasswordsharedidp"` |  |
 | sharedidp.keycloak.proxy | string | `"edge"` |  |
-| sharedidp.keycloak.initContainers[0].name | string | `"realm-import"` |  |
-| sharedidp.keycloak.initContainers[0].image | string | `"docker.io/tractusx/umbrella-init-container:0.1.0-init"` |  |
-| sharedidp.keycloak.initContainers[0].imagePullPolicy | string | `"IfNotPresent"` |  |
-| sharedidp.keycloak.initContainers[0].command[0] | string | `"sh"` |  |
-| sharedidp.keycloak.initContainers[0].args[0] | string | `"-c"` |  |
-| sharedidp.keycloak.initContainers[0].args[1] | string | `"echo \"Copying realms...\"\ncp -R /import/catenax-shared/realms/* /realms\n"` |  |
-| sharedidp.keycloak.initContainers[0].volumeMounts[0].name | string | `"realms"` |  |
-| sharedidp.keycloak.initContainers[0].volumeMounts[0].mountPath | string | `"/realms"` |  |
-| sharedidp.keycloak.initContainers[1].name | string | `"theme-import"` |  |
-| sharedidp.keycloak.initContainers[1].image | string | `"docker.io/tractusx/portal-iam:v3.0.0"` |  |
-| sharedidp.keycloak.initContainers[1].imagePullPolicy | string | `"IfNotPresent"` |  |
-| sharedidp.keycloak.initContainers[1].command[0] | string | `"sh"` |  |
-| sharedidp.keycloak.initContainers[1].args[0] | string | `"-c"` |  |
-| sharedidp.keycloak.initContainers[1].args[1] | string | `"echo \"Copying themes-catenax-shared...\"\ncp -R /import/themes/catenax-shared/* /themes-catenax-shared\necho \"Copying themes-catenax-shared-portal...\"\ncp -R /import/themes/catenax-shared-portal/* /themes-catenax-shared-portal\n"` |  |
-| sharedidp.keycloak.initContainers[1].volumeMounts[0].name | string | `"themes-catenax-shared"` |  |
-| sharedidp.keycloak.initContainers[1].volumeMounts[0].mountPath | string | `"/themes-catenax-shared"` |  |
-| sharedidp.keycloak.initContainers[1].volumeMounts[1].name | string | `"themes-catenax-shared-portal"` |  |
-| sharedidp.keycloak.initContainers[1].volumeMounts[1].mountPath | string | `"/themes-catenax-shared-portal"` |  |
-| sharedidp.keycloak.extraEnvVars[0].name | string | `"KEYCLOAK_EXTRA_ARGS"` |  |
-| sharedidp.keycloak.extraEnvVars[0].value | string | `"-Dkeycloak.migration.action=import -Dkeycloak.migration.provider=dir -Dkeycloak.migration.dir=/realms -Dkeycloak.migration.strategy=IGNORE_EXISTING"` |  |
-| sharedidp.keycloak.extraVolumes[0].name | string | `"realms"` |  |
-| sharedidp.keycloak.extraVolumes[0].emptyDir | object | `{}` |  |
-| sharedidp.keycloak.extraVolumes[1].name | string | `"themes-catenax-shared"` |  |
-| sharedidp.keycloak.extraVolumes[1].emptyDir | object | `{}` |  |
-| sharedidp.keycloak.extraVolumes[2].name | string | `"themes-catenax-shared-portal"` |  |
-| sharedidp.keycloak.extraVolumes[2].emptyDir | object | `{}` |  |
-| sharedidp.keycloak.extraVolumeMounts[0].name | string | `"realms"` |  |
-| sharedidp.keycloak.extraVolumeMounts[0].mountPath | string | `"/realms"` |  |
-| sharedidp.keycloak.extraVolumeMounts[1].name | string | `"themes-catenax-shared"` |  |
-| sharedidp.keycloak.extraVolumeMounts[1].mountPath | string | `"/opt/bitnami/keycloak/themes/catenax-shared"` |  |
-| sharedidp.keycloak.extraVolumeMounts[2].name | string | `"themes-catenax-shared-portal"` |  |
-| sharedidp.keycloak.extraVolumeMounts[2].mountPath | string | `"/opt/bitnami/keycloak/themes/catenax-shared-portal"` |  |
 | sharedidp.keycloak.ingress.enabled | bool | `true` |  |
 | sharedidp.keycloak.ingress.ingressClassName | string | `"nginx"` |  |
 | sharedidp.keycloak.ingress.hostname | string | `"sharedidp.tx.test"` |  |
@@ -789,10 +782,17 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffers-number" | string | `"20"` |  |
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | sharedidp.keycloak.ingress.tls | bool | `false` |  |
-| sharedidp.secrets.postgresql.auth.existingSecret.postgrespassword | string | `"dbpasswordsharedidp"` |  |
-| sharedidp.secrets.postgresql.auth.existingSecret.password | string | `"dbpasswordsharedidp"` |  |
-| sharedidp.secrets.postgresql.auth.existingSecret.replicationPassword | string | `"dbpasswordsharedidp"` |  |
-| sharedidp.secrets.auth.existingSecret.adminpassword | string | `"adminconsolepwsharedidp"` | Password for the admin username 'admin'. Secret-key 'admin-password'. |
+| sharedidp.realmSeeding.realms.cxOperator.centralidp | string | `"http://centralidp.tx.test"` |  |
+| sharedidp.realmSeeding.realms.cxOperator.initialUser.username | string | `"cx-operator@tx.test"` |  |
+| sharedidp.realmSeeding.realms.cxOperator.initialUser.password | string | `"tractusx-umbr3lla!"` |  |
+| sharedidp.realmSeeding.realms.cxOperator.mailing.host | string | `"smtp.tx.test"` |  |
+| sharedidp.realmSeeding.realms.cxOperator.mailing.port | string | `"587"` |  |
+| sharedidp.realmSeeding.realms.cxOperator.mailing.username | string | `"smtp-user"` |  |
+| sharedidp.realmSeeding.realms.cxOperator.mailing.password | string | `""` |  |
+| sharedidp.realmSeeding.realms.cxOperator.mailing.from | string | `"smtp@tx.test"` |  |
+| sharedidp.realmSeeding.realms.cxOperator.mailing.replyTo | string | `"smtp@tx.test"` |  |
+| sharedidp.realmSeeding.realms.master.serviceAccounts.provisioning.clientSecret | string | `"changeme"` |  |
+| sharedidp.realmSeeding.realms.master.serviceAccounts.saCxOperator.clientSecret | string | `"changeme"` |  |
 | postgresportal.enabled | bool | `true` | Additional PostgreSQL for backend development; start port forwarding tunnel for database access, e.g.: 'kubectl port-forward service/local-portal-postgresql 5432:5432 -n umbrella' |
 | postgresportal.nameOverride | string | `"portal-postgresql"` |  |
 | postgresportal.auth.database | string | `"postgres"` |  |

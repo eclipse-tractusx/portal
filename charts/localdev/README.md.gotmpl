@@ -305,6 +305,16 @@ helm install local -f your-values.yaml . --namespace umbrella --create-namespace
 > It is to be expected that some pods - which run as post-install hooks, like for instance the **portal-migrations job - will run into errors until another component**, like for instance a database, is ready to take connections.
 > Those jobs will recreate pods until one run is successful.
 
+In case that you have TLS enabled (see [Prepare self-signed TLS setup (Optional)](#1-prepare-self-signed-tls-setup-optional)), you can use the additional values-tls.yaml file - which is prepared for TLS usage - at install:
+
+```bash
+helm install local -f values-tls.yaml . --namespace umbrella --create-namespace
+```
+
+```bash
+helm install local -f values-tls.yaml -f your-values.yaml . --namespace umbrella --create-namespace
+```
+
 ## Perform first login
 
 Then proceed with the login to the <http://portal.tx.test> to verify that everything is setup as expected.

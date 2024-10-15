@@ -305,6 +305,16 @@ helm install local -f your-values.yaml . --namespace umbrella --create-namespace
 > It is to be expected that some pods - which run as post-install hooks, like for instance the **portal-migrations job - will run into errors until another component**, like for instance a database, is ready to take connections.
 > Those jobs will recreate pods until one run is successful.
 
+In case that you have TLS enabled (see [Prepare self-signed TLS setup (Optional)](#1-prepare-self-signed-tls-setup-optional)), you can use the additional values-tls.yaml file - which is prepared for TLS usage - at install:
+
+```bash
+helm install local -f values-tls.yaml . --namespace umbrella --create-namespace
+```
+
+```bash
+helm install local -f values-tls.yaml -f your-values.yaml . --namespace umbrella --create-namespace
+```
+
 ## Perform first login
 
 Then proceed with the login to the <http://portal.tx.test> to verify that everything is setup as expected.
@@ -711,6 +721,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffers-number" | string | `"20"` |  |
 | centralidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | centralidp.keycloak.ingress.tls | bool | `false` |  |
+| centralidp.realmSeeding.sslRequired | string | `"none"` |  |
 | centralidp.realmSeeding.clients.registration.redirects[0] | string | `"http://portal.tx.test/*"` |  |
 | centralidp.realmSeeding.clients.registration.redirects[1] | string | `"http://localhost:3000/*"` |  |
 | centralidp.realmSeeding.clients.portal.rootUrl | string | `"http://portal.tx.test/home"` |  |
@@ -782,6 +793,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/proxy-buffers-number" | string | `"20"` |  |
 | sharedidp.keycloak.ingress.annotations."nginx.ingress.kubernetes.io/use-regex" | string | `"true"` |  |
 | sharedidp.keycloak.ingress.tls | bool | `false` |  |
+| sharedidp.realmSeeding.realms.cxOperator.sslRequired | string | `"none"` |  |
 | sharedidp.realmSeeding.realms.cxOperator.centralidp | string | `"http://centralidp.tx.test"` |  |
 | sharedidp.realmSeeding.realms.cxOperator.initialUser.username | string | `"cx-operator@tx.test"` |  |
 | sharedidp.realmSeeding.realms.cxOperator.initialUser.password | string | `"tractusx-umbr3lla!"` |  |

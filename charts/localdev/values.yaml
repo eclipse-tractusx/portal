@@ -235,19 +235,10 @@ portal:
       name: "portal-backend"
       className: "nginx"
       annotations:
-        # uncomment the following line for tls
-        # cert-manager.io/cluster-issuer: "my-ca-issuer"
         nginx.ingress.kubernetes.io/use-regex: "true"
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: "8m"
         nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, http://*.tx.test"
-      # uncomment the following lines for tls
-      # tls:
-      #   # -- Provide tls secret.
-      #   - secretName: "portal-backend.tx.test-tls"
-      #     # -- Provide host for tls secret.
-      #     hosts:
-      #       - "portal-backend.tx.test"
       hosts:
         - host: "portal-backend.tx.test"
           paths:
@@ -302,50 +293,11 @@ centralidp:
         password: "dbpasswordcentralidp"
         postgresPassword: "dbpasswordcentralidp"
     proxy: edge
-      # uncomment the following line for tls
-      # - name: init-certs
-      #   image: docker.io/bitnami/keycloak:23.0.7-debian-12-r1
-      #   imagePullPolicy: IfNotPresent
-      #   command: ["/bin/bash"]
-      #   args:
-      #     - -ec
-      #     - |-
-      #       keytool -import -file "/certs/tls.crt" \
-      #               -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
-      #               -storepass "${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}" \
-      #               -noprompt
-      #   env:
-      #     - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
-      #       value: "changeit"
-      #   volumeMounts:
-      #     - name: certificates
-      #       mountPath: /certs
-      #     - name: shared-certs
-      #       mountPath: "/opt/bitnami/keycloak/certs"
-    # extraEnvVars:
-      # - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
-      #   value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
-      # - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
-      #   value: "changeit"
-    # extraVolumes:
-      # - name: certificates
-      #   secret:
-      #     secretName: root-secret
-      #     defaultMode: 420
-      # - name: shared-certs
-      #   emptyDir: {}
-    # extraVolumeMounts:
-      # - name: certificates
-      #   mountPath: /certs
-      # - name: shared-certs
-      #   mountPath: "/opt/bitnami/keycloak/certs"
     ingress:
       enabled: true
       ingressClassName: "nginx"
       hostname: "centralidp.tx.test"
       annotations:
-        # uncomment the following line for tls
-        # cert-manager.io/cluster-issuer: "my-ca-issuer"
         nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
         nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
         nginx.ingress.kubernetes.io/cors-allow-origin: "http://centralidp.tx.test"
@@ -356,6 +308,7 @@ centralidp:
         nginx.ingress.kubernetes.io/use-regex: "true"
       tls: false
   realmSeeding:
+    sslRequired: "none"
     clients:
       registration:
         redirects:
@@ -437,51 +390,11 @@ sharedidp:
         password: "dbpasswordsharedidp"
         postgresPassword: "dbpasswordsharedidp"
     proxy: edge
-      # uncomment the following line for tls
-      # - name: init-certs
-      #   image: docker.io/bitnami/keycloak:23.0.7-debian-12-r1
-      #   imagePullPolicy: IfNotPresent
-      #   command: ["/bin/bash"]
-      #   args:
-      #     - -ec
-      #     - |-
-      #       keytool -import -file "/certs/tls.crt" \
-      #               -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
-      #               -storepass "${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}" \
-      #               -noprompt
-      #   env:
-      #     - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
-      #       value: "changeit"
-      #   volumeMounts:
-      #     - name: certificates
-      #       mountPath: /certs
-      #     - name: shared-certs
-      #       mountPath: "/opt/bitnami/keycloak/certs"
-    # extraEnvVars:
-      # - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
-      #   value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
-      # - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
-      #   value: "changeit"
-    # extraVolumes:
-      # - name: certificates
-      #   secret:
-      #     secretName: root-secret
-      #     defaultMode: 420
-      # - name: shared-certs
-      #   emptyDir: {}
-    # extraVolumeMounts:
-      # uncomment the following line for tls
-      # - name: certificates
-      #   mountPath: /certs
-      # - name: shared-certs
-      #   mountPath: "/opt/bitnami/keycloak/certs"
     ingress:
       enabled: true
       ingressClassName: "nginx"
       hostname: "sharedidp.tx.test"
       annotations:
-        # uncomment the following line for tls
-        # cert-manager.io/cluster-issuer: "my-ca-issuer"
         nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
         nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
         nginx.ingress.kubernetes.io/cors-allow-origin: "http://sharedidp.tx.test"
@@ -494,6 +407,7 @@ sharedidp:
   realmSeeding:
     realms:
       cxOperator:
+        sslRequired: "none"
         centralidp: "http://centralidp.tx.test"
         initialUser:
           username: "cx-operator@tx.test"

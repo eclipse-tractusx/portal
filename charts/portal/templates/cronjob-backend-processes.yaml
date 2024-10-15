@@ -232,7 +232,7 @@ spec:
             - name: "APPLICATIONCHECKLIST__DIM__SCOPE"
               value: "{{ .Values.backend.processesworker.dim.scope }}"
             - name: "APPLICATIONCHECKLIST__DIM__TOKENADDRESS"
-              value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
+              value: "{{ .Values.dimWrapper.tokenAddress }}"
             - name: "APPLICATIONCHECKLIST__DIM__BASEADDRESS"
               value: "{{ .Values.dimWrapper.baseAddress }}{{ .Values.dimWrapper.apiPath }}"
             - name: "APPLICATIONCHECKLIST__DIM__UNIVERSALRESOLVERADDRESS"

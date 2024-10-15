@@ -83,6 +83,9 @@ dimWrapper:
   baseAddress: "https://dim.example.org"
   # -- Provide the api path
   apiPath: "/api/dim"
+  # -- Provide dim token address.
+  tokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
+
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 
 frontend:

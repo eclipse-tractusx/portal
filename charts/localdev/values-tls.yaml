@@ -1,0 +1,314 @@
+###############################################################
+# Copyright (c) 2024 Contributors to the Eclipse Foundation
+#
+# See the NOTICE file(s) distributed with this work for additional
+# information regarding copyright ownership.
+#
+# This program and the accompanying materials are made available under the
+# terms of the Apache License, Version 2.0 which is available at
+# https://www.apache.org/licenses/LICENSE-2.0.
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+# SPDX-License-Identifier: Apache-2.0
+###############################################################
+
+portal:
+  # -- Set your local frontend to integrate into local development.
+  portalAddress: "https://portal.tx.test"
+  # -- Set your local backend service to integrate into local development.
+  # Start port forwarding tunnel for database access, e.g.:
+  # 'kubectl port-forward service/local-portal-backend-postgresql 5432:5432 -n umbrella'
+  portalBackendAddress: "https://portal-backend.tx.test"
+  centralidp:
+    address: "https://centralidp.tx.test"
+  sharedidpAddress: "https://sharedidp.tx.test"
+  semanticsAddress: "https://semantics.tx.test"
+  bpdm:
+    poolAddress: "https://business-partners.tx.test"
+    portalGateAddress: "https://business-partners.tx.test"
+  custodianAddress: "https://managed-identity-wallets.tx.test"
+  sdfactoryAddress: "https://sdfactory.tx.test"
+  clearinghouseAddress: "https://validation.tx.test"
+  clearinghouseTokenAddress: "https://keycloak.tx.test/realms/example/protocol/openid-connect/token"
+  issuerComponentAddress: "https://ssi-credential-issuer.tx.test"
+  bpnDidResolver:
+    managementApiAddress: "https://bpn-did-resolution-service-bdrs-server:8081"
+    directoryApiAddress: "https://bpn-did-resolution-service.tx.test/api/directory"
+  dimWrapper:
+    baseAddress: "https://dim-wrapper.tx.test"
+  decentralIdentityManagementAuthAddress: "https://dim.tx.test"
+  frontend:
+    ingress:
+      enabled: true
+      className: "nginx"
+      annotations:
+        cert-manager.io/cluster-issuer: "my-ca-issuer"
+        nginx.ingress.kubernetes.io/rewrite-target: "/$1"
+        nginx.ingress.kubernetes.io/use-regex: "true"
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.tx.test"
+      tls:
+        - secretName: "portal.tx.test-tls"
+          hosts:
+            - "portal.tx.test"
+      hosts:
+        - host: "portal.tx.test"
+          paths:
+            - path: "/(.*)"
+              pathType: "ImplementationSpecific"
+              backend:
+                service: "portal"
+                port: 8080
+            - path: "/registration/(.*)"
+              pathType: "ImplementationSpecific"
+              backend:
+                service: "registration"
+                port: 8080
+            - path: "/((assets|documentation)/.*)"
+              pathType: "ImplementationSpecific"
+              backend:
+                service: "assets"
+                port: 8080
+  backend:
+    # -- docs: http://portal-backend.tx.test/api/administration/swagger/index.html
+    # https://portal-backend.tx.test/api/registration/swagger/index.html
+    # https://portal-backend.tx.test/api/apps/swagger/index.html
+    # https://portal-backend.tx.test/api/services/swagger/index.html
+    # https://portal-backend.tx.test/api/notification/swagger/index.html
+    ingress:
+      enabled: true
+      name: "portal-backend"
+      className: "nginx"
+      annotations:
+        cert-manager.io/cluster-issuer: "my-ca-issuer"
+        nginx.ingress.kubernetes.io/use-regex: "true"
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/proxy-body-size: "8m"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "https://localhost:3000, https://*.tx.test"
+      tls:
+        - secretName: "portal-backend.tx.test-tls"
+          hosts:
+            - "portal-backend.tx.test"
+      hosts:
+        - host: "portal-backend.tx.test"
+          paths:
+            - path: "/api/registration"
+              pathType: "Prefix"
+              backend:
+                service: "registration-service"
+                port: 8080
+            - path: "/api/administration"
+              pathType: "Prefix"
+              backend:
+                service: "administration-service"
+                port: 8080
+            - path: "/api/notification"
+              pathType: "Prefix"
+              backend:
+                service: "notification-service"
+                port: 8080
+            - path: "/api/provisioning"
+              pathType: "Prefix"
+              backend:
+                service: "provisioning-service"
+                port: 8080
+            - path: "/api/apps"
+              pathType: "Prefix"
+              backend:
+                service: "marketplace-app-service"
+                port: 8080
+            - path: "/api/services"
+              pathType: "Prefix"
+              backend:
+                service: "services-service"
+                port: 8080
+
+centralidp:
+  keycloak:
+    initContainers:
+      - name: import
+        image: docker.io/tractusx/portal-iam:v4.0.0-alpha.1
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
+        args:
+          - -c
+          - |
+            echo "Copying themes..."
+            cp -R /import/themes/catenax-central/* /themes
+        volumeMounts:
+          - name: themes
+            mountPath: /themes
+      - name: init-certs
+        image: docker.io/bitnami/keycloak:23.0.7-debian-12-r1
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash"]
+        args:
+          - -ec
+          - |-
+            keytool -import -file "/certs/tls.crt" \
+                    -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
+                    -storepass "${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}" \
+                    -noprompt
+        env:
+          - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
+            value: "changeit"
+        volumeMounts:
+          - name: certificates
+            mountPath: /certs
+          - name: shared-certs
+            mountPath: "/opt/bitnami/keycloak/certs"
+    extraEnvVars:
+      - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
+        value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
+      - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
+        value: "changeit"
+    extraVolumes:
+      - name: themes
+        emptyDir: {}
+      - name: certificates
+        secret:
+          secretName: root-secret
+          defaultMode: 420
+      - name: shared-certs
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: themes
+        mountPath: /opt/bitnami/keycloak/themes/catenax-central
+      - name: certificates
+        mountPath: /certs
+      - name: shared-certs
+        mountPath: "/opt/bitnami/keycloak/certs"
+    ingress:
+      enabled: true
+      ingressClassName: "nginx"
+      hostname: "centralidp.tx.test"
+      annotations:
+        cert-manager.io/cluster-issuer: "my-ca-issuer"
+        nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+        nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "https://centralidp.tx.test"
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+        nginx.ingress.kubernetes.io/proxy-buffering: "on"
+        nginx.ingress.kubernetes.io/proxy-buffers-number: "20"
+        nginx.ingress.kubernetes.io/use-regex: "true"
+      tls: true
+  realmSeeding:
+    clients:
+      registration:
+        redirects:
+          - https://portal.tx.test/*
+          - https://localhost:3000/*
+      portal:
+        rootUrl: https://portal.tx.test/home
+        redirects:
+          - https://portal.tx.test/*
+          - https://localhost:3000/*
+      semantics:
+        redirects:
+          - https://portal.tx.test/*
+      miw:
+        clientSecret: "changeme"
+        redirects:
+          - https://managed-identity-wallets.tx.test/*
+      bpdm:
+        clientSecret: "changeme"
+        redirects:
+          - https://partners-pool.tx.test/*
+      bpdmGate:
+        clientSecret: "changeme"
+        redirects:
+          - https://partners-gate.tx.test/*
+      bpdmOrchestrator:
+        clientSecret: "changeme"
+    sharedidp: "https://sharedidp.tx.test"
+
+sharedidp:
+  keycloak:
+    initContainers:
+      - name: import
+        image: docker.io/tractusx/portal-iam:v4.0.0-alpha.1
+        imagePullPolicy: IfNotPresent
+        command:
+          - sh
+        args:
+          - -c
+          - |
+            echo "Copying themes-catenax-shared..."
+            cp -R /import/themes/catenax-shared/* /themes-catenax-shared
+            echo "Copying themes-catenax-shared-portal..."
+            cp -R /import/themes/catenax-shared-portal/* /themes-catenax-shared-portal
+        volumeMounts:
+          - name: themes-catenax-shared
+            mountPath: /themes-catenax-shared
+          - name: themes-catenax-shared-portal
+            mountPath: /themes-catenax-shared-portal
+      - name: init-certs
+        image: docker.io/bitnami/keycloak:23.0.7-debian-12-r1
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/bash"]
+        args:
+          - -ec
+          - |-
+            keytool -import -file "/certs/tls.crt" \
+                    -keystore "/opt/bitnami/keycloak/certs/keycloak.truststore.jks" \
+                    -storepass "${KEYCLOAK_SPI_TRUSTSTORE_PASSWORD}" \
+                    -noprompt
+        env:
+          - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
+            value: "changeit"
+        volumeMounts:
+          - name: certificates
+            mountPath: /certs
+          - name: shared-certs
+            mountPath: "/opt/bitnami/keycloak/certs"
+    extraEnvVars:
+      - name: KEYCLOAK_SPI_TRUSTSTORE_FILE
+        value: "/opt/bitnami/keycloak/certs/keycloak.truststore.jks"
+      - name: KEYCLOAK_SPI_TRUSTSTORE_PASSWORD
+        value: "changeit"
+    extraVolumes:
+      - name: themes-catenax-shared
+        emptyDir: {}
+      - name: themes-catenax-shared-portal
+        emptyDir: {}
+      - name: certificates
+        secret:
+          secretName: root-secret
+          defaultMode: 420
+      - name: shared-certs
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: themes-catenax-shared
+        mountPath: /opt/bitnami/keycloak/themes/catenax-shared
+      - name: themes-catenax-shared-portal
+        mountPath: /opt/bitnami/keycloak/themes/catenax-shared-portal
+      - name: certificates
+        mountPath: /certs
+      - name: shared-certs
+        mountPath: "/opt/bitnami/keycloak/certs"
+    ingress:
+      enabled: true
+      ingressClassName: "nginx"
+      hostname: "sharedidp.tx.test"
+      annotations:
+        cert-manager.io/cluster-issuer: "my-ca-issuer"
+        nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+        nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "https://sharedidp.tx.test"
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+        nginx.ingress.kubernetes.io/proxy-buffering: "on"
+        nginx.ingress.kubernetes.io/proxy-buffers-number: "20"
+        nginx.ingress.kubernetes.io/use-regex: "true"
+      tls: true
+  realmSeeding:
+    realms:
+      cxOperator:
+        centralidp: "https://centralidp.tx.test"

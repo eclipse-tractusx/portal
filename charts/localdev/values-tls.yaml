@@ -89,7 +89,7 @@ portal:
         nginx.ingress.kubernetes.io/use-regex: "true"
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: "8m"
-        nginx.ingress.kubernetes.io/cors-allow-origin: "https://localhost:3000, https://*.tx.test"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, https://*.tx.test"
       tls:
         - secretName: "portal-backend.tx.test-tls"
           hosts:
@@ -204,12 +204,12 @@ centralidp:
       registration:
         redirects:
           - https://portal.tx.test/*
-          - https://localhost:3000/*
+          - http://localhost:3000/*
       portal:
         rootUrl: https://portal.tx.test/home
         redirects:
           - https://portal.tx.test/*
-          - https://localhost:3000/*
+          - http://localhost:3000/*
       semantics:
         redirects:
           - https://portal.tx.test/*

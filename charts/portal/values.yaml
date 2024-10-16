@@ -872,8 +872,6 @@ backend:
       selfdescriptionPath: "/api/rel3/selfdescription"
       scope: "openid"
       grantType: "client_credentials"
-      # -- Provide BPN for sdfactory.
-      issuerBpn: "BPNDUMMY000DUMMY"
       # -- Provide sdfactory client-id from CX IAM centralidp.
       clientId: "sdfactory-client-id"
       # -- Client-secret for sdfactory client-id. Secret-key 'sdfactory-client-secret'.

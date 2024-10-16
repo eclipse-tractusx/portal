@@ -209,7 +209,7 @@ spec:
             - name: "APPLICATIONCHECKLIST__SDFACTORY__SCOPE"
               value: "{{ .Values.backend.processesworker.sdfactory.scope }}"
             - name: "APPLICATIONCHECKLIST__SDFACTORY__SDFACTORYISSUERBPN"
-              value: "{{ .Values.backend.processesworker.sdfactory.issuerBpn }}"
+              value: "{{ .Values.operator.bpn }}"
             - name: "APPLICATIONCHECKLIST__SDFACTORY__SDFACTORYURL"
               value: "{{ .Values.sdfactoryAddress }}{{ .Values.backend.processesworker.sdfactory.selfdescriptionPath }}"
             - name: "APPLICATIONCHECKLIST__SDFACTORY__USERNAME"

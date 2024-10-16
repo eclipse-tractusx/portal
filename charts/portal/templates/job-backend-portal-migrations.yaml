@@ -127,7 +127,7 @@ spec:
         {{- if (.Values.backend.portalmigrations.seeding.useInitial) }}
         - name: data-initial
           configMap:
-            name: "{{ include "portal.fullname" . }}-default-initialdata"
+            name: "{{ include "portal.fullname" . }}-initial-data"
             optional: true
         {{- end }}
         {{- if (.Values.backend.portalmigrations.seeding.seedTestData.useDefault) }}

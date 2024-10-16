@@ -634,7 +634,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "docker.io/tractusx/portal-maintenance-service"
-      portalmaintenancetag: 44eac5c1f66019f1c1f89731653272a168388492
+      portalmaintenancetag: c9a1f2f3bf3dd76d41cf0d82ac8de0bb6570a665
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

@@ -101,13 +101,13 @@ operator:
   # --The region of the operator address
   region: ""
   # -- Additional street information of the operator address
-  streetadditional: ""
+  streetAdditional: ""
   # -- The street name of the operator address
-  streetname: "tbd"
+  streetName: "tbd"
   # -- The street number of the operator address
-  streetnumber: ""
+  streetNumber: ""
   # -- The zipcode of the operator address
-  zipcode: ""
+  zipCode: ""
   # -- The alpha 2 code of the operator address
   country_alpha2code: "DE"
 

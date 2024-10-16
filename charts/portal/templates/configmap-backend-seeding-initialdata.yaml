@@ -32,10 +32,10 @@ data:
         "date_last_changed": "2022-03-24 18:01:33.306000 +00:00",
         "city": "{{ .Values.operator.city }}",
         "region": "{{ .Values.operator.region }}",
-        "streetadditional": "{{ .Values.operator.streetadditional }}",
-        "streetname": "{{ .Values.operator.streetname }}",
-        "streetnumber": "{{ .Values.operator.streetnumber }}",
-        "zipcode": "{{ .Values.operator.zipcode }}",
+        "streetadditional": "{{ .Values.operator.streetAdditional }}",
+        "streetname": "{{ .Values.operator.streetName }}",
+        "streetnumber": "{{ .Values.operator.streetNumber }}",
+        "zipcode": "{{ .Values.operator.zipCode }}",
         "country_alpha2code": "{{ .Values.operator.country_alpha2code }}"
       }
     ]

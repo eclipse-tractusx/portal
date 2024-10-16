@@ -638,10 +638,10 @@ backend:
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 25m
+        cpu: 75m
         memory: 350M
       limits:
-        cpu: 75m
+        cpu: 225m
         memory: 350M
     seeding:
       # -- Enables dynamic seeding of information related to the operator company: operator.bpn, operator.name, operator.city etc.;

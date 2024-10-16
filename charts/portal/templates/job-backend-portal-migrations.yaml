@@ -72,12 +72,8 @@ spec:
           {{- end }}
           - name: "SEEDING__DATAPATHS__0"
             value: "Seeder/Data/"
-          - name: "SEEDING__TESTDATAENVIRONMENTS__0"
-            value: ""
           - name: "SEEDING__DATAPATHS__1"
             value: "Seeder/Data/overwrite"
-          - name: "SEEDING__TESTDATAENVIRONMENTS__1"
-            value: ""
           {{- if (.Values.backend.portalmigrations.seeding.seedTestData.useDefault) }}
           - name: "SEEDING__DATAPATHS__2"
             value: "Seeder/Data/import/default-test-data"

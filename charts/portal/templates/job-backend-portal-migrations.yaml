@@ -70,33 +70,72 @@ spec:
           - name: "CONNECTIONSTRINGS__PORTALDB"
             value: "Server={{ .Values.externalDatabase.host }};Database={{ .Values.externalDatabase.database }};Port={{ .Values.externalDatabase.port }};User Id={{ .Values.externalDatabase.portalUser }};Password=$(PORTAL_PASSWORD);Ssl Mode={{ .Values.backend.dbConnection.sslMode }};"
           {{- end }}
-          - name: "SEEDING__TESTDATAENVIRONMENTS__0"
-            value: "{{ .Values.backend.portalmigrations.seeding.testDataEnvironments }}"
           - name: "SEEDING__DATAPATHS__0"
-            value: "Seeder/Data"
+            value: "Seeder/Data/"
+          - name: "SEEDING__DATAPATHS__1"
+            value: "Seeder/Data/overwrite"
+          {{- if (.Values.backend.portalmigrations.seeding.seedTestData.useDefault) }}
+          - name: "SEEDING__DATAPATHS__2"
+            value: "Seeder/Data/import/default-test-data"
+          - name: "SEEDING__TESTDATAENVIRONMENTS__2"
+            value: "defaulttest"
+          {{- end }}
+          {{- if and (.Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.configMap) (.Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.filename) }}
+          {{- if (.Values.backend.portalmigrations.seeding.seedTestData.useDefault) }}
+          - name: "SEEDING__DATAPATHS__3"
+            value: "Seeder/Data/import/custom-test-data"
+          - name: "SEEDING__TESTDATAENVIRONMENTS__3"
+            value: "{{ .Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.filename }}"
+          {{- else }}
+          - name: "SEEDING__DATAPATHS__2"
+            value: "Seeder/Data/import/custom-test-data"
+          - name: "SEEDING__TESTDATAENVIRONMENTS__2"
+            value: "{{ .Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.filename }}"
+          {{- end }}
+          {{- end }}
           - name: "SERILOG__MINIMUMLEVEL__Default"
             value: "{{ .Values.backend.portalmigrations.logging.default }}"
           - name: "PROCESSIDENTITY__PROCESSUSERID"
             value: "d21d2e8a-fe35-483c-b2b8-4100ed7f0953"
-          {{- if and (.Values.backend.portalmigrations.seeding.testData.configMap) (.Values.backend.portalmigrations.seeding.testData.filename) }}
-          - name: "SEEDING__DATAPATHS__1"
-            value: "Seeder/Data/import"
-          - name: "SEEDING__TESTDATAENVIRONMENTS__1"
-            value: "{{ .Values.backend.portalmigrations.seeding.testData.filename }}"
-          {{- end }}
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}
           protocol: TCP
         resources:
           {{- toYaml .Values.backend.portalmigrations.resources | nindent 10 }}
-      {{- if and (.Values.backend.portalmigrations.seeding.testData.configMap) (.Values.backend.portalmigrations.seeding.testData.filename) }}
+        {{- if or (.Values.backend.portalmigrations.seeding.useInitial) (.Values.backend.portalmigrations.seeding.seedTestData.useDefault) (and (.Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.configMap) (.Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.filename)) }}
         volumeMounts:
-          - name: test-data
-            mountPath: /migrations/Seeder/Data/import
+          {{- if (.Values.backend.portalmigrations.seeding.useInitial) }}
+          - name: data-initial
+            mountPath: /migrations/Seeder/Data/overwrite
+          {{- end }}
+          {{- if (.Values.backend.portalmigrations.seeding.seedTestData.useDefault) }}
+          - name: test-data-default
+            mountPath: /migrations/Seeder/Data/import/default-test-data
+          {{- end }}
+          {{- if and (.Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.configMap) (.Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.filename) }}
+          - name: test-data-custom
+            mountPath: /migrations/Seeder/Data/import/custom-test-data
+          {{- end }}
+        {{- end }}
+      {{- if or (.Values.backend.portalmigrations.seeding.useInitial) (.Values.backend.portalmigrations.seeding.seedTestData.useDefault) (and (.Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.configMap) (.Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.filename)) }}
       volumes:
-        - name: test-data
+        {{- if (.Values.backend.portalmigrations.seeding.useInitial) }}
+        - name: data-initial
           configMap:
-            name: "{{ .Values.backend.portalmigrations.seeding.testData.configMap }}"
+            name: "{{ include "portal.fullname" . }}-initial-data"
             optional: true
+        {{- end }}
+        {{- if (.Values.backend.portalmigrations.seeding.seedTestData.useDefault) }}
+        - name: test-data-default
+          configMap:
+            name: "{{ include "portal.fullname" . }}-default-testdata"
+            optional: true
+        {{- end }}
+        {{- if and (.Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.configMap) (.Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.filename) }}
+        - name: test-data-custom
+          configMap:
+            name: "{{ .Values.backend.portalmigrations.seeding.seedTestData.useOwnConfigMap.configMap }}"
+            optional: true
+        {{- end }}
       {{- end }}

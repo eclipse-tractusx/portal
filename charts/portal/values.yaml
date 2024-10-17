@@ -88,6 +88,29 @@ dimWrapper:
 
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 
+# -- Set information related to the operator company
+operator:
+  # -- The bpn of the operator
+  bpn: "empty"
+  # -- The name of the operator
+  name: "CX-Operator"
+  # -- The shortname of the operator
+  shortname: "CX-Operator"
+  # -- The city of the operator address
+  city: "15"
+  # --The region of the operator address
+  region: ""
+  # -- Additional street information of the operator address
+  streetAdditional: ""
+  # -- The street name of the operator address
+  streetName: "tbd"
+  # -- The street number of the operator address
+  streetNumber: ""
+  # -- The zipcode of the operator address
+  zipCode: ""
+  # -- The alpha 2 code of the operator address
+  country_alpha2code: "DE"
+
 frontend:
   ingress:
   # -- Portal frontend ingress parameters,
@@ -615,19 +638,24 @@ backend:
     # -- We recommend to review the default resource limits as this should a conscious choice.
     resources:
       requests:
-        cpu: 25m
-        memory: 350M
-      limits:
         cpu: 75m
         memory: 350M
+      limits:
+        cpu: 225m
+        memory: 350M
     seeding:
-      testDataEnvironments: ""
+      # -- Enables dynamic seeding of information related to the operator company: operator.bpn, operator.name, operator.city etc.;
+      # If set to `true` the data configured in the config map 'configmap-seeding-initialdata.yaml' will be taken to insert the initial data;
+      useInitial: true
       # -- Option to seed test data provided in a configMap
-      testData:
-        # -- ConfigMap containing json files for the tables to seed, e.g. companies.test.json, addresses.test.json, etc.
-        configMap: ""
-        # -- Filename identifying the test data files e.g. for companies.test.json the value would be "test"
-        filename: ""
+      seedTestData:
+        # -- If set to true the data configured in the config map 'configmap-backend-seeding-testdata.yaml' will be taken to insert the default test data
+        useDefault: false
+        useOwnConfigMap:
+          # -- ConfigMap containing json files for the tables to seed, e.g. companies.test.json, addresses.test.json, etc.
+          configMap: ""
+          # -- Filename identifying the test data files e.g. for companies.test.json the value would be "test"
+          filename: ""
     logging:
       default: "Information"
   portalmaintenance:
@@ -844,8 +872,6 @@ backend:
       selfdescriptionPath: "/api/rel3/selfdescription"
       scope: "openid"
       grantType: "client_credentials"
-      # -- Provide BPN for sdfactory.
-      issuerBpn: "BPNDUMMY000DUMMY"
       # -- Provide sdfactory client-id from CX IAM centralidp.
       clientId: "sdfactory-client-id"
       # -- Client-secret for sdfactory client-id. Secret-key 'sdfactory-client-secret'.

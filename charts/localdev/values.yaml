@@ -210,6 +210,9 @@ portal:
       resources:
         limits:
           cpu: 200m
+      seeding:
+        seedTestData:
+          useDefault: true
     provisioningmigrations:
       logging:
         default: "Debug"

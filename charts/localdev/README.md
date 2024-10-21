@@ -574,7 +574,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../portal | portal | 2.3.0-alpha.2 |
+| file://../portal | portal | 2.3.0-alpha.3 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
 | https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.0.0-alpha.1 |
 | https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.0.0-alpha.1 |
@@ -687,6 +687,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.mailing.password | string | `""` |  |
 | portal.backend.portalmigrations.logging.default | string | `"Debug"` |  |
 | portal.backend.portalmigrations.resources.limits.cpu | string | `"200m"` |  |
+| portal.backend.portalmigrations.seeding.seedTestData.useDefault | bool | `true` |  |
 | portal.backend.provisioningmigrations.logging.default | string | `"Debug"` |  |
 | portal.backend.provisioningmigrations.resources.limits.cpu | string | `"150m"` |  |
 | portal.backend.provisioning.sharedRealm.smtpServer.host | string | `"smtp.tx.test"` |  |

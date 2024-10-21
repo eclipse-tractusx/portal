@@ -2,6 +2,24 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.3.0-alpha.3
+
+## Feature
+
+* enabled seeding of operator information and test data [#450](https://github.com/eclipse-tractusx/portal/pull/450)
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.3.0-alpha.3
+  * portal-backend: v2.3.0-alpha.3
+* portal-backend: added dimUserRole configuration [#440](https://github.com/eclipse-tractusx/portal/pull/440)
+
+## Bugfixes
+
+* portal-backend: adjusted DIM configuration to enable other Identity Provider than centralidp [#455](https://github.com/eclipse-tractusx/portal/pull/455)
+* portal-frontend: updated Onboarding Service Provider (OSP) path to camelCase [#448](https://github.com/eclipse-tractusx/portal/pull/448)
+
 ## 2.3.0-alpha.2
 
 ### Change

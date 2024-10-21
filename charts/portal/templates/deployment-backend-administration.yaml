@@ -286,6 +286,8 @@ spec:
           value: "True"
         - name: "DOCUMENT__FRAMEDOCUMENTTYPEIDS__0"
           value: "{{ .Values.backend.administration.frameDocumentTypeIds.type0 }}"
+        - name: "BPN_ADDRESS"
+          value: "{{ .Values.bpdm.poolAddress }}{{ .Values.bpdm.poolApiPath }}"
         - name: "HEALTHCHECKS__0__PATH"
           value: "{{ .Values.backend.healthChecks.startup.path}}"
         {{- if .Values.backend.administration.healthChecks.startup.tags }}

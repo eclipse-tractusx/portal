@@ -172,7 +172,7 @@ frontend:
     name: "registration"
     image:
       name: "docker.io/tractusx/portal-frontend-registration"
-      registrationtag: f5078fe289f46f50b29f42cca9e76bf9b5897a8f
+      registrationtag: 0591311862b8853a5682025cdd471695ef95f3c5
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

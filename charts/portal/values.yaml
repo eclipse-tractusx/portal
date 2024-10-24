@@ -93,21 +93,21 @@ operator:
   # -- The bpn of the operator
   bpn: "empty"
   # -- The name of the operator
-  name: "CX-Operator"
+  name: "Catena-X"
   # -- The shortname of the operator
-  shortname: "CX-Operator"
+  shortname: "Catena-X"
   # -- The city of the operator address
-  city: "15"
+  city: "Munich"
   # --The region of the operator address
   region: ""
   # -- Additional street information of the operator address
   streetAdditional: ""
   # -- The street name of the operator address
-  streetName: "tbd"
+  streetName: "Street"
   # -- The street number of the operator address
-  streetNumber: ""
+  streetNumber: "1"
   # -- The zipcode of the operator address
-  zipCode: ""
+  zipCode: "0001"
   # -- The alpha 2 code of the operator address
   country_alpha2code: "DE"
 

@@ -385,10 +385,10 @@ backend:
     resources:
       requests:
         cpu: 75m
-        memory: 500M
+        memory: 600M
       limits:
         cpu: 225m
-        memory: 500M
+        memory: 600M
     basePath: "api/administration"
     logging:
       businessLogic: "Information"
@@ -505,10 +505,10 @@ backend:
     resources:
       requests:
         cpu: 75m
-        memory: 400M
+        memory: 500M
       limits:
         cpu: 225m
-        memory: 400M
+        memory: 500M
     basePath: "api/apps"
     logging:
       default: "Information"

@@ -796,7 +796,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "docker.io/tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: 9c677fe61c40eac79af46c047f358957414dd5ea
+      provisioningmigrationstag: a6936a5a2a927ddda1f86fc2a5ced29ad12f8b0e
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

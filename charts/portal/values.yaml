@@ -959,8 +959,6 @@ backend:
       grantType: "client_credentials"
       scope: "openid"
     bpnDidResolver:
-      # -- ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
-      apiKey: ""
       # -- Auth settings of the bpnDidResolver
       grantType: "client_credentials"
       clientId: ""

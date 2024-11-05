@@ -180,8 +180,6 @@ portal:
         clientId: "sa-cl2-04"
         clientSecret: "changeme"
       bpnDidResolver:
-        # -- ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
-        apiKey: ""
         # -- Auth settings of the bpnDidResolver
         grantType: "client_credentials"
         clientId: ""

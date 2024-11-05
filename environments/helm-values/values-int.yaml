@@ -272,6 +272,8 @@ backend:
       clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#portal-issuer-sa>"
     bpnDidResolver:
       apiKey: "<path:portal/data/bdrs-mgmt-api-key#content>"
+      clientId: "<path:portal/data/bdrs-mgmt-client-id#bdrsClientId>"
+      clientSecret: "<path:portal/data/bdrs-mgmt-client-secret#bdrsClientSecret>"
     invitation:
       encryptionConfigs:
         index0:

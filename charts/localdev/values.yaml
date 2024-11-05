@@ -182,6 +182,11 @@ portal:
       bpnDidResolver:
         # -- ApiKey for management endpoint of the bpnDidResolver. Secret-key 'bpndidresolver-api-key'.
         apiKey: ""
+        # -- Auth settings of the bpnDidResolver
+        grantType: "client_credentials"
+        clientId: ""
+        clientSecret: ""
+        scope: "openid"
       onboardingServiceProvider:
         encryptionConfigs:
           index0:

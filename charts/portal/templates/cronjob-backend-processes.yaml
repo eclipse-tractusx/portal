@@ -295,6 +295,23 @@ spec:
                 secretKeyRef:
                   name: "{{ .Values.backend.interfaces.secret }}"
                   key: "bpndidresolver-api-key"
+            - name: "BPNDIDRESOLVER__USERNAME"
+              value: "{{ .Values.backend.placeholder }}"
+            - name: "BPNDIDRESOLVER__PASSWORD"
+              value: "{{ .Values.backend.placeholder }}"
+            - name: "BPNDIDRESOLVER__GRANTTYPE"
+              value: "{{ .Values.backend.processesworker.bpnDidResolver.grantType }}"
+            - name: "BPNDIDRESOLVER__CLIENTID"
+              value: "{{ .Values.backend.processesworker.bpnDidResolver.clientId }}"
+            - name: "BPNDIDRESOLVER__CLIENTSECRET"
+              valueFrom:
+                secretKeyRef:
+                  name: "{{ .Values.backend.interfaces.secret }}"
+                  key: "bpndidresolver-client-secret"
+            - name: "BPNDIDRESOLVER__SCOPE"
+              value: "{{ .Values.backend.processesworker.bpnDidResolver.scope }}"
+            - name: "BPNDIDRESOLVER__TOKENADDRESS"
+              value: "{{ .Values.centralidp.address }}{{ .Values.backend.keycloak.central.tokenPath }}"
             - name: "KEYCLOAK__CENTRAL__AUTHREALM"
               value: "{{ .Values.centralidp.realm }}"
             - name: "KEYCLOAK__CENTRAL__CLIENTID"

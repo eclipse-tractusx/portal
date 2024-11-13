@@ -179,10 +179,21 @@ The tool is necessary due to [#7332](https://github.com/kubernetes/minikube/issu
 Follow these steps if you are behind a firewall and have only access to the internet from behind an authenticating corporate NTLM http proxy.
 
 ```bash
+# Linux
+$ sudo apt install cntlm
+# Mac
 $ brew install cntlm
 ```
 
-Locate and edit the config file to set your proxy and authentication credentials ( `vi ~/.brew/etc/cntlm.conf` )
+Locate and edit the config file to set your proxy and authentication credentials
+  
+```bash
+# Linux
+$ sudo vi /etc/cntlm.conf
+# Mac
+$ vi ~/.brew/etc/cntlm.conf
+```
+
 ```
 Username        your_userid
 Domain          your_domain
@@ -199,7 +210,11 @@ $ pkill -x 'cntlm'
 $ cntlm
 ```
 
-Locate and edit the settings file for your shell to set env vars ( `vi ~/.zshrc` )
+Locate and edit the settings file for your shell to set env vars
+```bash
+$ vi ~/.(ba|z)shrc
+```
+
 ```
 export http_proxy=http://localhost:3128
 export https_proxy=http://localhost:3128
@@ -209,7 +224,7 @@ export no_proxy=localhost,127.0.0.1,192.168.49.2,.tx.test,.other.domains
 
 Save and apply your settings and test internet access
 ```
-$ source ~/.zshrc
+$ source ~/.(ba|z)shrc
 $ curl https://github.com/ -Is | grep server
 server: GitHub.com
 ```

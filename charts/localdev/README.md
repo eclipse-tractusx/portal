@@ -574,10 +574,10 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../portal | portal | 2.3.0-alpha.3 |
+| file://../portal | portal | 2.3.0-RC4 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
-| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.0.0-alpha.1 |
-| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.0.0-alpha.1 |
+| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.0.0-rc.1 |
+| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.0.0-rc.1 |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
 ## Values
@@ -709,7 +709,6 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | centralidp.keycloak.postgresql.nameOverride | string | `"centralidp-postgresql"` |  |
 | centralidp.keycloak.postgresql.auth.password | string | `"dbpasswordcentralidp"` |  |
 | centralidp.keycloak.postgresql.auth.postgresPassword | string | `"dbpasswordcentralidp"` |  |
-| centralidp.keycloak.proxy | string | `"edge"` |  |
 | centralidp.keycloak.ingress.enabled | bool | `true` |  |
 | centralidp.keycloak.ingress.ingressClassName | string | `"nginx"` |  |
 | centralidp.keycloak.ingress.hostname | string | `"centralidp.tx.test"` |  |
@@ -781,7 +780,6 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | sharedidp.keycloak.postgresql.nameOverride | string | `"sharedidp-postgresql"` |  |
 | sharedidp.keycloak.postgresql.auth.password | string | `"dbpasswordsharedidp"` |  |
 | sharedidp.keycloak.postgresql.auth.postgresPassword | string | `"dbpasswordsharedidp"` |  |
-| sharedidp.keycloak.proxy | string | `"edge"` |  |
 | sharedidp.keycloak.ingress.enabled | bool | `true` |  |
 | sharedidp.keycloak.ingress.ingressClassName | string | `"nginx"` |  |
 | sharedidp.keycloak.ingress.hostname | string | `"sharedidp.tx.test"` |  |

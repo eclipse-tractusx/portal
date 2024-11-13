@@ -163,7 +163,6 @@ portal:
         clientId: "sa-cl5-custodian-2"
         clientSecret: "changeme"
       sdfactory:
-        issuerBpn: "BPNL00000003CRHK"
         clientId: "sa-cl8-cx-1"
         clientSecret: "changeme"
       offerprovider:

@@ -91,7 +91,7 @@ decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu
 # -- Set information related to the operator company
 operator:
   # -- The bpn of the operator
-  bpn: "empty"
+  bpn: "BPNL00000003CRHK"
   # -- The name of the operator
   name: "Catena-X"
   # -- The shortname of the operator

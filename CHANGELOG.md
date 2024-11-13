@@ -2,6 +2,16 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.3.0-RC4
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.3.0-RC4
+  * portal-backend: v2.3.0-RC2
+  + portal-assets: v2.3.0-RC1
+* portal-backend: changed operator default information [#469](https://github.com/eclipse-tractusx/portal/pull/469)
+
 ## 2.3.0-RC1
 
 ### Change

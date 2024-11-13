@@ -295,7 +295,6 @@ centralidp:
       auth:
         password: "dbpasswordcentralidp"
         postgresPassword: "dbpasswordcentralidp"
-    proxy: edge
     ingress:
       enabled: true
       ingressClassName: "nginx"
@@ -392,7 +391,6 @@ sharedidp:
       auth:
         password: "dbpasswordsharedidp"
         postgresPassword: "dbpasswordsharedidp"
-    proxy: edge
     ingress:
       enabled: true
       ingressClassName: "nginx"

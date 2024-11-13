@@ -205,7 +205,10 @@ Listen          3128
 ```
 
 (Re-)start cntlm
-```
+```bash
+# Linux (ubuntu)
+$ sudo service cntlm reload
+# Mac
 $ pkill -x 'cntlm'
 $ cntlm
 ```

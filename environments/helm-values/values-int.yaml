@@ -41,8 +41,6 @@ decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu
 bpnDidResolver:
   managementApiAddress: "http://bdrs-bdrs-server:8081"
   directoryApiAddress: "https://bpn-did-resolution-service.int.catena-x.net/api/directory"
-operator:
-  bpn: "BPNL00000003CRHK"
 
 frontend:
 
@@ -246,7 +244,6 @@ backend:
       clientId: "<path:portal/data/portal-iam-clientIds#custodian-client-id>"
       clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#custodian-sa>"
     sdfactory:
-      issuerBpn: "BPNL00000003CRHK"
       clientId: "<path:portal/data/portal-iam-clientIds#sdfactory-client-id>"
       clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#portal-sdfactory-sa>"
     offerprovider:

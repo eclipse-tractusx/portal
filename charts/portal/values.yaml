@@ -91,23 +91,23 @@ decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu
 # -- Set information related to the operator company
 operator:
   # -- The bpn of the operator
-  bpn: "empty"
+  bpn: "BPNL00000003CRHK"
   # -- The name of the operator
-  name: "CX-Operator"
+  name: "Catena-X"
   # -- The shortname of the operator
-  shortname: "CX-Operator"
+  shortname: "Catena-X"
   # -- The city of the operator address
-  city: "15"
+  city: "Munich"
   # --The region of the operator address
   region: ""
   # -- Additional street information of the operator address
   streetAdditional: ""
   # -- The street name of the operator address
-  streetName: "tbd"
+  streetName: "Street"
   # -- The street number of the operator address
-  streetNumber: ""
+  streetNumber: "1"
   # -- The zipcode of the operator address
-  zipCode: ""
+  zipCode: "0001"
   # -- The alpha 2 code of the operator address
   country_alpha2code: "DE"
 
@@ -188,7 +188,7 @@ frontend:
     name: "assets"
     image:
       name: "docker.io/tractusx/portal-assets"
-      assetstag: 1938b28ec6f3d6163285e8a118defeba564f66d6
+      assetstag: v2.3.0-RC1
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -385,10 +385,10 @@ backend:
     resources:
       requests:
         cpu: 75m
-        memory: 500M
+        memory: 600M
       limits:
         cpu: 225m
-        memory: 500M
+        memory: 600M
     basePath: "api/administration"
     logging:
       businessLogic: "Information"
@@ -505,10 +505,10 @@ backend:
     resources:
       requests:
         cpu: 75m
-        memory: 400M
+        memory: 500M
       limits:
         cpu: 225m
-        memory: 400M
+        memory: 500M
     basePath: "api/apps"
     logging:
       default: "Information"

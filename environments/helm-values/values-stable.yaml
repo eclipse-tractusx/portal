@@ -244,7 +244,6 @@ backend:
       clientId: "<path:portal/data/portal-iam-clientIds#custodian-client-id>"
       clientSecret: "<path:portal/data/stable/iam/centralidp-client-secrets#custodian-sa>"
     sdfactory:
-      issuerBpn: "BPNL00000003CRHK"
       clientId: "<path:portal/data/portal-iam-clientIds#sdfactory-client-id>"
       clientSecret: "<path:portal/data/stable/iam/centralidp-client-secrets#portal-sdfactory-sa>"
     offerprovider:

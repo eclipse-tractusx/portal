@@ -212,7 +212,7 @@ $ cntlm
 
 Locate and edit the settings file for your shell to set env vars
 ```bash
-$ vi ~/.(ba|z)shrc
+$ vi ~/.*shrc
 ```
 
 ```
@@ -224,7 +224,7 @@ export no_proxy=localhost,127.0.0.1,192.168.49.2,.tx.test,.other.domains
 
 Save and apply your settings and test internet access
 ```
-$ source ~/.(ba|z)shrc
+$ source ~/.*shrc
 $ curl https://github.com/ -Is | grep server
 server: GitHub.com
 ```

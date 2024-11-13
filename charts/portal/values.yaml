@@ -631,7 +631,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "docker.io/tractusx/portal-portal-migrations"
-      portalmigrationstag: be67c8ac203f16e7c60ec80a9e3eb3502f2206d5
+      portalmigrationstag: cf3aa20854a9848359052a493a010748e8d9e3de
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

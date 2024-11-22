@@ -148,7 +148,7 @@ spec:
             - name: "APPLICATIONCHECKLIST__BPDM__STARTSHARINGSTATEASREADY"
               value: "{{ .Values.backend.processesworker.bpdm.startSharingStateAsReady }}"
             - name: "APPLICATIONCHECKLIST__BPDM__BUSINESSPARTNERPOOLBASEADDRESS"
-              value: "{{ .Values.bpdm.poolAddress }}{{ .Values.bpdm.poolApiPath }}"
+              value: "{{ .Values.bpdm.poolAddress }}"
             - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__BASEADDRESS"
               value: "{{ .Values.clearinghouseAddress }}"
             - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__CLIENTID"

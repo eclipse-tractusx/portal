@@ -574,10 +574,10 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../portal | portal | 2.3.0-RC4 |
+| file://../portal | portal | 2.3.0 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
-| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.0.0-rc.1 |
-| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.0.0-rc.1 |
+| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.0.0 |
+| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.0.0 |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
 ## Values
@@ -662,7 +662,6 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.processesworker.bpdm.clientId | string | `"sa-cl7-cx-5"` |  |
 | portal.backend.processesworker.bpdm.clientSecret | string | `"changeme"` |  |
 | portal.backend.processesworker.custodian | object | `{"clientId":"sa-cl5-custodian-2","clientSecret":"changeme"}` | no configuration for clearinghouse because it's an external component clientId and clientSecret aren't in the centralidp Keycloak clearinghouse:   clientId: "clearinghouse-client-id"   clientSecret: "" |
-| portal.backend.processesworker.sdfactory.issuerBpn | string | `"BPNL00000003CRHK"` |  |
 | portal.backend.processesworker.sdfactory.clientId | string | `"sa-cl8-cx-1"` |  |
 | portal.backend.processesworker.sdfactory.clientSecret | string | `"changeme"` |  |
 | portal.backend.processesworker.offerprovider.clientId | string | `"sa-cl2-03"` |  |

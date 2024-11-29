@@ -2,50 +2,28 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 2.3.0-RC4
+## 2.3.0
 
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.3.0-RC4
-  * portal-backend: v2.3.0-RC2
-  + portal-assets: v2.3.0-RC1
-* portal-backend: changed operator default information [#469](https://github.com/eclipse-tractusx/portal/pull/469)
-
-## 2.3.0-RC1
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.3.0-RC1
-  * portal-backend: v2.3.0-RC1
-  + portal-frontend-registration: v2.1.0-RC1
-
-## 2.3.0-alpha.3
-
-## Feature
+### Feature
 
 * enabled seeding of operator information and test data [#450](https://github.com/eclipse-tractusx/portal/pull/450)
+* added imagePullSecrets for jobs (previously only deployments had been enabled) [#431](https://github.com/eclipse-tractusx/portal/pull/431)
 
 ### Change
 
 * changed to new container images
-  * portal-frontend: v2.3.0-alpha.3
-  * portal-backend: v2.3.0-alpha.3
-* portal-backend: added dimUserRole configuration [#440](https://github.com/eclipse-tractusx/portal/pull/440)
-
-## Bugfixes
-
-* portal-backend: adjusted DIM configuration to enable other Identity Provider than centralidp [#455](https://github.com/eclipse-tractusx/portal/pull/455)
-* portal-frontend: updated Onboarding Service Provider (OSP) path to camelCase [#448](https://github.com/eclipse-tractusx/portal/pull/448)
-
-## 2.3.0-alpha.2
-
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.3.0-alpha.2
-  * portal-backend: v2.3.0-alpha.2
+  * portal-frontend: v2.3.0
+  * portal-backend: v2.3.0
+  * portal-assets: v2.3.0
+  * portal-frontend-registration: v2.1.0
+* portal-backend:
+  * added configuration for bpdmStartReady toggle [#403](https://github.com/eclipse-tractusx/portal/pull/403)
+  * added configuration for bpn access [#426](https://github.com/eclipse-tractusx/portal/pull/426)
+  * added configuration to for maintenance job to retrigger clearinghouse [#418](https://github.com/eclipse-tractusx/portal/pull/418)
+  * added DIM user roles to service account settings [#435](https://github.com/eclipse-tractusx/portal/pull/435)
+  * adjusted configuration for enabled startSharingStateAsReady from BPDM side [#445](https://github.com/eclipse-tractusx/portal/pull/445)
+  * added dimUserRole configuration [#440](https://github.com/eclipse-tractusx/portal/pull/440)
+  * changed operator default information [#469](https://github.com/eclipse-tractusx/portal/pull/469)
 * portal-frontend [#438](https://github.com/eclipse-tractusx/portal/pull/438)
   * added client ID value for BPDM
   * moved clearinghouseConnectDisabled from backend to global
@@ -53,23 +31,11 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
     * CLEARINGHOUSE_CONNECT_DISABLED
     * CLIENT_ID_REGISTRATION
     * CLIENT_ID_BPDM
-* portal-backend:
-  * added DIM user roles to service account settings [#435](https://github.com/eclipse-tractusx/portal/pull/435)
-  * adjusted configuration for enabled startSharingStateAsReady from BPDM side [#445](https://github.com/eclipse-tractusx/portal/pull/445)
 
-## 2.3.0-alpha.1
+### Bugfixes
 
-### Change
-
-* changed to new container images
-  * portal-frontend: v2.3.0-alpha.1
-  * portal-backend: v2.3.0-alpha.1
-  * portal-frontend-registration: v2.1.0-alpha.1
-* portal-backend:
-  * added configuration for bpdmStartReady toggle [#403](https://github.com/eclipse-tractusx/portal/pull/403)
-  * added configuration for bpn access [#426](https://github.com/eclipse-tractusx/portal/pull/426)
-  * added configuration to for maintenance job to retrigger clearinghouse [#418](https://github.com/eclipse-tractusx/portal/pull/418)
-* added imagePullSecrets for jobs (previously only deployments had been enabled) [#431](https://github.com/eclipse-tractusx/portal/pull/431)
+* portal-backend: adjusted DIM configuration to enable other Identity Provider than centralidp [#455](https://github.com/eclipse-tractusx/portal/pull/455)
+* portal-frontend: updated Onboarding Service Provider (OSP) path to camelCase [#448](https://github.com/eclipse-tractusx/portal/pull/448)
 
 ## 2.2.0
 

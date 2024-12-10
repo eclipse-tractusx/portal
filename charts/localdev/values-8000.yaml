@@ -20,30 +20,30 @@
 portal:
   enabled: true
   # -- Set your local frontend to integrate into local development.
-  portalAddress: "http://portal.tx.test:8000"
+  portalAddress: "http://portal.tx.test:8080"
   # -- Set your local backend service to integrate into local development.
   # Start port forwarding tunnel for database access, e.g.:
   # 'kubectl port-forward service/local-portal-backend-postgresql 5432:5432 -n umbrella'
-  portalBackendAddress: "http://portal-backend.tx.test:8000"
+  portalBackendAddress: "http://portal-backend.tx.test:8080"
   centralidp:
-    address: "http://centralidp.tx.test:8000"
-  sharedidpAddress: "http://sharedidp.tx.test:8000"
-  semanticsAddress: "http://semantics.tx.test:8000"
+    address: "http://centralidp.tx.test:8080"
+  sharedidpAddress: "http://sharedidp.tx.test:8080"
+  semanticsAddress: "http://semantics.tx.test:8080"
   bpdm:
-    poolAddress: "http://business-partners.tx.test:8000"
-    portalGateAddress: "http://business-partners.tx.test:8000"
-  custodianAddress: "http://managed-identity-wallets.tx.test:8000"
-  sdfactoryAddress: "http://sdfactory.tx.test:8000"
-  clearinghouseAddress: "http://validation.tx.test:8000"
-  clearinghouseTokenAddress: "http://keycloak.tx.test:8000/realms/example/protocol/openid-connect/token"
+    poolAddress: "http://business-partners.tx.test:8080"
+    portalGateAddress: "http://business-partners.tx.test:8080"
+  custodianAddress: "http://managed-identity-wallets.tx.test:8080"
+  sdfactoryAddress: "http://sdfactory.tx.test:8080"
+  clearinghouseAddress: "http://validation.tx.test:8080"
+  clearinghouseTokenAddress: "http://keycloak.tx.test:8080/realms/example/protocol/openid-connect/token"
   clearinghouseConnectDisabled: false
-  issuerComponentAddress: "http://ssi-credential-issuer.tx.test:8000"
+  issuerComponentAddress: "http://ssi-credential-issuer.tx.test:8080"
   bpnDidResolver:
     managementApiAddress: "http://bpn-did-resolution-service-bdrs-server:8081"
-    directoryApiAddress: "http://bpn-did-resolution-service.tx.test:8000/api/directory"
+    directoryApiAddress: "http://bpn-did-resolution-service.tx.test:8080/api/directory"
   dimWrapper:
-    baseAddress: "http://dim-wrapper.tx.test:8000"
-  decentralIdentityManagementAuthAddress: "http://dim.tx.test:8000"
+    baseAddress: "http://dim-wrapper.tx.test:8080"
+  decentralIdentityManagementAuthAddress: "http://dim.tx.test:8080"
   replicaCount: 1
   readinessProbes:
     initialDelaySeconds: 200
@@ -59,7 +59,7 @@ portal:
         nginx.ingress.kubernetes.io/rewrite-target: "/$1"
         nginx.ingress.kubernetes.io/use-regex: "true"
         nginx.ingress.kubernetes.io/enable-cors: "true"
-        nginx.ingress.kubernetes.io/cors-allow-origin: "http://*.tx.test:8000"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "http://*.tx.test:8080"
       # uncomment the following lines for tls
       # tls:
       #   # -- Provide tls secret.
@@ -240,7 +240,7 @@ portal:
         nginx.ingress.kubernetes.io/use-regex: "true"
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/proxy-body-size: "8m"
-        nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, http://*.tx.test:8000"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, http://*.tx.test:8080"
       hosts:
         - host: "portal-backend.tx.test"
           paths:
@@ -286,6 +286,12 @@ centralidp:
   enabled: true
   keycloak:
     nameOverride: "centralidp"
+    service:
+      ports:
+        http: 8080
+    extraEnvVars:
+      - name: KEYCLOAK_HOSTNAME
+        value: http://centralidp.tx.test:8080/auth/
     replicaCount: 1
     auth:
       adminPassword: "adminconsolepwcentralidp"
@@ -301,7 +307,7 @@ centralidp:
       annotations:
         nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
         nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
-        nginx.ingress.kubernetes.io/cors-allow-origin: "http://centralidp.tx.test:8000"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "http://centralidp.tx.test:8080"
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
         nginx.ingress.kubernetes.io/proxy-buffering: "on"
@@ -309,32 +315,33 @@ centralidp:
         nginx.ingress.kubernetes.io/use-regex: "true"
       tls: false
   realmSeeding:
+    keycloakServicePort: 8080
     sslRequired: "none"
     clients:
       registration:
         redirects:
-          - http://portal.tx.test:8000/*
+          - http://portal.tx.test:8080/*
           - http://localhost:3000/*
       portal:
-        rootUrl: http://portal.tx.test:8000/home
+        rootUrl: http://portal.tx.test:8080/home
         redirects:
-          - http://portal.tx.test:8000/*
+          - http://portal.tx.test:8080/*
           - http://localhost:3000/*
       semantics:
         redirects:
-          - http://portal.tx.test:80000/*
+          - http://portal.tx.test:8080/*
       miw:
         clientSecret: "changeme"
         redirects:
-          - http://managed-identity-wallets.tx.test:8000/*
+          - http://managed-identity-wallets.tx.test:8080/*
       bpdm:
         clientSecret: "changeme"
         redirects:
-          - http://partners-pool.tx.test:8000/*
+          - http://partners-pool.tx.test:8080/*
       bpdmGate:
         clientSecret: "changeme"
         redirects:
-          - http://partners-gate.tx.test:8000/*
+          - http://partners-gate.tx.test:8080/*
       bpdmOrchestrator:
         clientSecret: "changeme"
     serviceAccounts:
@@ -376,12 +383,18 @@ centralidp:
         - clientId: "sa-cl25-cx-3"
           clientSecret: "changeme"
     bpn: "BPNL00000003CRHK"
-    sharedidp: "http://sharedidp.tx.test:8000"
+    sharedidp: "http://sharedidp.tx.test:8080"
 
 sharedidp:
   enabled: true
   keycloak:
     nameOverride: "sharedidp"
+    service:
+      ports:
+        http: 8080
+    extraEnvVars:
+      - name: KEYCLOAK_HOSTNAME
+        value: http://sharedidp.tx.test:8080/auth/
     replicaCount: 1
     auth:
       adminPassword: "adminconsolepwsharedidp"
@@ -397,7 +410,7 @@ sharedidp:
       annotations:
         nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
         nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
-        nginx.ingress.kubernetes.io/cors-allow-origin: "http://sharedidp.tx.test:8000"
+        nginx.ingress.kubernetes.io/cors-allow-origin: "http://sharedidp.tx.test:8080"
         nginx.ingress.kubernetes.io/enable-cors: "true"
         nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
         nginx.ingress.kubernetes.io/proxy-buffering: "on"
@@ -405,10 +418,11 @@ sharedidp:
         nginx.ingress.kubernetes.io/use-regex: "true"
       tls: false
   realmSeeding:
+    keycloakServicePort: 8080
     realms:
       cxOperator:
         sslRequired: "none"
-        centralidp: "http://centralidp.tx.test:8000"
+        centralidp: "http://centralidp.tx.test:8080"
         initialUser:
           username: "cx-operator@tx.test"
           password: "tractusx-umbr3lla!"

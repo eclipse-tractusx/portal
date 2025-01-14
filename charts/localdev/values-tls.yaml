@@ -132,7 +132,7 @@ centralidp:
   keycloak:
     initContainers:
       - name: import
-        image: docker.io/tractusx/portal-iam:v4.0.0-rc.1
+        image: docker.io/tractusx/portal-iam:v4.0.1
         imagePullPolicy: IfNotPresent
         command:
           - sh
@@ -233,7 +233,7 @@ sharedidp:
   keycloak:
     initContainers:
       - name: import
-        image: docker.io/tractusx/portal-iam:v4.0.0-rc.1
+        image: docker.io/tractusx/portal-iam:v4.0.1
         imagePullPolicy: IfNotPresent
         command:
           - sh

@@ -464,6 +464,10 @@ backend:
           encryptionKey: ""
       dimCreationRoles:
         role0: "Identity Wallet Management"
+      userRolesAccessibleByProviderOnly:
+        role0: "BPDM Pool Consumer"
+        role1: "BPDM Sharing Output Consumer"
+        role2: "BPDM Sharing Input Manager"
     swaggerEnabled: false
     frameDocumentTypeIds:
       type0: "CX_FRAME_CONTRACT"

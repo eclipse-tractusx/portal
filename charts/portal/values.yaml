@@ -466,7 +466,7 @@ backend:
         role0: "Identity Wallet Management"
       userRolesAccessibleByProviderOnly:
         role0: "BPDM Pool Consumer"
-        role1: "BPDM Pool Consumer"
+        role1: "BPDM Sharing Output Consumer"
         role2: "BPDM Sharing Input Manager"
     swaggerEnabled: false
     frameDocumentTypeIds:

@@ -464,6 +464,8 @@ backend:
           encryptionKey: ""
       dimCreationRoles:
         role0: "Identity Wallet Management"
+      # -- Configuration for the technical user.
+      # If a technical user profile contains a role which is configured here, it will be only visible for the provider
       userRolesAccessibleByProviderOnly:
         role0: "BPDM Pool Consumer"
         role1: "BPDM Sharing Output Consumer"

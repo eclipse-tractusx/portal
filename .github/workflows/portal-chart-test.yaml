@@ -91,7 +91,7 @@ jobs:
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
-          helm install portal charts/portal --namespace install --create-namespace --debug
+          helm install portal charts/portal --namespace install --set replicaCount=1 --set postgresql.architecture=standalone --wait --wait-for-jobs --create-namespace --debug
           helm uninstall portal --namespace install
         if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'
 
@@ -100,7 +100,7 @@ jobs:
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
-          helm install portal tractusx-dev/portal --version ${{ github.event.inputs.upgrade_from || '1.8.0' }} --namespace upgrade --create-namespace
+          helm install portal tractusx-dev/portal --version ${{ github.event.inputs.upgrade_from || '2.3.0' }} --set replicaCount=1 --set postgresql.architecture=standalone --wait --wait-for-jobs --namespace upgrade --create-namespace
           helm dependency update charts/portal
           helm upgrade portal charts/portal --namespace upgrade -f charts/values-test.yaml
         if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'

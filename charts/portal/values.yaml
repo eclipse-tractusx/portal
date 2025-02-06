@@ -501,7 +501,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "docker.io/tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: 28a7036dbfa785ff8b6ecd6256ba2223851d953f
+      appmarketplaceservicetag: 9134088a3d28343169e9f68a85802aa7d2c73d2a
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

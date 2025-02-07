@@ -2,6 +2,21 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.4.0-RC1
+
+### Change
+
+* portal charts
+  * improve resources for helm test [#504](https://github.com/eclipse-tractusx/portal/pull/504)
+* changed to new container images
+  * portal-frontend: v2.4.0-RC1
+  * portal-backend: v2.4.0-RC1
+  * portal-frontend-registration: v2.1.1-RC1
+* portal-backend
+  * set BPDM pool url for process worker [#472](https://github.com/eclipse-tractusx/portal/pull/472)
+  * added configuration for UserRolesAccessibleByProviderOnly [#496](https://github.com/eclipse-tractusx/portal/pull/496)
+  * add configuration for provider only roles [#501](https://github.com/eclipse-tractusx/portal/pull/501)
+
 ## 2.3.0
 
 ### Feature

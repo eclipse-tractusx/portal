@@ -345,6 +345,27 @@ entries:
     version: 0.0.1
   portal:
   - apiVersion: v2
+    appVersion: 2.4.0-RC1
+    created: "2025-02-07T15:27:32.040581553Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.x.x
+    description: Helm chart for Catena-X Portal
+    digest: dfb6e2ec3c179358a263749b3888532b77652d8fe58342566b98ea617b51d409
+    home: https://github.com/eclipse-tractusx/portal
+    name: portal
+    sources:
+    - https://github.com/eclipse-tractusx/portal-frontend
+    - https://github.com/eclipse-tractusx/portal-frontend-registration
+    - https://github.com/eclipse-tractusx/portal-assets
+    - https://github.com/eclipse-tractusx/portal-backend
+    type: application
+    urls:
+    - https://github.com/eclipse-tractusx/portal/releases/download/portal-2.4.0-RC1/portal-2.4.0-RC1.tgz
+    version: 2.4.0-RC1
+  - apiVersion: v2
     appVersion: 2.3.0
     created: "2024-11-29T16:13:11.219726453Z"
     dependencies:
@@ -1802,4 +1823,4 @@ entries:
     urls:
     - https://github.com/eclipse-tractusx/portal-cd/releases/download/portal-0.6.0/portal-0.6.0.tgz
     version: 0.6.0
-generated: "2024-11-29T16:13:11.219963748Z"
+generated: "2025-02-07T15:27:32.040948339Z"

@@ -15,6 +15,7 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
 * portal-backend
   * set BPDM pool url for process worker [#472](https://github.com/eclipse-tractusx/portal/pull/472)
   * added configuration for UserRolesAccessibleByProviderOnly [#496](https://github.com/eclipse-tractusx/portal/pull/496)
+  * add configuration for provider only roles [#501](https://github.com/eclipse-tractusx/portal/pull/501)
 
 ## 2.3.0
 

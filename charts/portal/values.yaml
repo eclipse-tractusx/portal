@@ -326,7 +326,7 @@ backend:
     name: "registration-service"
     image:
       name: "docker.io/tractusx/portal-registration-service"
-      registrationservicetag: b0f73ec8ef18b18bf9b2c4b4e8f2d29b28bfc16e
+      registrationservicetag: fb0c66015a178e899cad8de61567a6eedf684204
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -377,7 +377,7 @@ backend:
     name: "administration-service"
     image:
       name: "docker.io/tractusx/portal-administration-service"
-      administrationservicetag: b0f73ec8ef18b18bf9b2c4b4e8f2d29b28bfc16e
+      administrationservicetag: fb0c66015a178e899cad8de61567a6eedf684204
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -503,7 +503,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "docker.io/tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: b0f73ec8ef18b18bf9b2c4b4e8f2d29b28bfc16e
+      appmarketplaceservicetag: fb0c66015a178e899cad8de61567a6eedf684204
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -637,7 +637,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "docker.io/tractusx/portal-portal-migrations"
-      portalmigrationstag: b0f73ec8ef18b18bf9b2c4b4e8f2d29b28bfc16e
+      portalmigrationstag: fb0c66015a178e899cad8de61567a6eedf684204
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -668,7 +668,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "docker.io/tractusx/portal-maintenance-service"
-      portalmaintenancetag: b0f73ec8ef18b18bf9b2c4b4e8f2d29b28bfc16e
+      portalmaintenancetag: fb0c66015a178e899cad8de61567a6eedf684204
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -691,7 +691,7 @@ backend:
     name: "notification-service"
     image:
       name: "docker.io/tractusx/portal-notification-service"
-      notificationservicetag: b0f73ec8ef18b18bf9b2c4b4e8f2d29b28bfc16e
+      notificationservicetag: fb0c66015a178e899cad8de61567a6eedf684204
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -720,7 +720,7 @@ backend:
     name: "services-service"
     image:
       name: "docker.io/tractusx/portal-services-service"
-      servicesservicetag: b0f73ec8ef18b18bf9b2c4b4e8f2d29b28bfc16e
+      servicesservicetag: fb0c66015a178e899cad8de61567a6eedf684204
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -802,7 +802,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "docker.io/tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: b0f73ec8ef18b18bf9b2c4b4e8f2d29b28bfc16e
+      provisioningmigrationstag: fb0c66015a178e899cad8de61567a6eedf684204
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -820,7 +820,7 @@ backend:
     name: "processes-worker"
     image:
       name: "docker.io/tractusx/portal-processes-worker"
-      processesworkertag: b0f73ec8ef18b18bf9b2c4b4e8f2d29b28bfc16e
+      processesworkertag: fb0c66015a178e899cad8de61567a6eedf684204
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

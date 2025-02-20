@@ -728,10 +728,10 @@ backend:
     resources:
       requests:
         cpu: 75m
-        memory: 400M
+        memory: 500M
       limits:
         cpu: 225m
-        memory: 400M
+        memory: 500M
     basePath: "api/services"
     logging:
       default: "Information"

@@ -875,7 +875,7 @@ backend:
       # -- Client-secret for custodian client-id. Secret-key 'custodian-client-secret'.
       clientSecret: ""
     sdfactory:
-      selfdescriptionPath: "/api/rel3/selfdescription"
+      selfdescriptionPath: "/api/tagus/selfdescription"
       scope: "openid"
       grantType: "client_credentials"
       # -- Provide sdfactory client-id from CX IAM centralidp.

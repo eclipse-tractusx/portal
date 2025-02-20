@@ -304,7 +304,7 @@ spec:
         - name: "DIM__UNIVERSALRESOLVERADDRESS"
           value: "{{ .Values.backend.processesworker.dim.universalResolverAddress }}"
         - name: "DIM__DIDDOCUMENTBASELOCATION"
-          value: "{{ .Values.portalAddress }}{{ .Values.backend.processesworker.dim.didDocumentPath }}"
+          value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.processesworker.dim.didDocumentPath }}"
         - name: "DIM__MAXVALIDATIONTIMEINDAYS"
           value: "{{ .Values.backend.processesworker.dim.maxValidationTimeInDays }}"
         - name: "DIM__ENCRYPTIONCONFIGINDEX"

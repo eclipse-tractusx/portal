@@ -252,7 +252,7 @@ backend:
       clientSecret: "<path:portal/data/stable/iam/centralidp-client-secrets#offerprovider-sa>"
       encryptionConfigs:
         index0:
-          encryptionKey: "<path:portal/data/int/encryption-keys#offerprovider-encryption-key0>"
+          encryptionKey: "<path:portal/data/stable/encryption-keys#offerprovider-encryption-key0>"
     onboardingServiceProvider:
       encryptionConfigs:
         index0:

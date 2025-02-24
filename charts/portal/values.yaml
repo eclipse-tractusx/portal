@@ -155,7 +155,7 @@ frontend:
     name: "portal"
     image:
       name: "docker.io/tractusx/portal-frontend"
-      portaltag: 7ac227192faf5aefc425072e6444c91260968610
+      portaltag: d2004db47e70e29ead5bcecc2aac839e1fa04d05
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

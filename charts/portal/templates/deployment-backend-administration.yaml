@@ -184,6 +184,8 @@ spec:
           value: "{{ .Values.sdfactoryAddress }}{{ .Values.backend.processesworker.sdfactory.selfdescriptionPath }}"
         - name: "APPLICATIONCHECKLIST__SDFACTORY__CLEARINGHOUSECONNECTDISABLED"
           value: "{{ .Values.clearinghouseConnectDisabled }}"
+        - name: "APPLICATIONCHECKLIST__SDFACTORY__CONNECTORALLOWSDDOCUMENTSKIPERRORCODE"
+          value: "{{ .Values.clearinghouseConnectorAllowSdDocumentSkipErrorCode }}"
         - name: "APPLICATIONCHECKLIST__SDFACTORY__USERNAME"
           value: "{{ .Values.backend.placeholder }}"
         - name: "APPLICATIONCHECKLIST__DIM__USERNAME"

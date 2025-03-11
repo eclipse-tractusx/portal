@@ -101,7 +101,7 @@ operator:
   # -- The city of the operator address
   city: "Munich"
   # --The region of the operator address
-  region: ""
+  region: "BY"
   # -- Additional street information of the operator address
   streetAdditional: ""
   # -- The street name of the operator address

@@ -81,7 +81,7 @@ bpnDidResolver:
 
 # -- Provide the configuration of the dim wrapper address
 dimWrapper:
-# -- Provide the dim base address
+  # -- Provide the dim base address
   baseAddress: "https://dim.example.org"
   # -- Provide the api path
   apiPath: "/api/dim"
@@ -115,7 +115,7 @@ operator:
 
 frontend:
   ingress:
-  # -- Portal frontend ingress parameters,
+    # -- Portal frontend ingress parameters,
     # enable ingress record generation for portal frontend.
     enabled: false
     name: "frontend"
@@ -128,7 +128,8 @@ frontend:
     #   # -- Provide CORS allowed origin.
     #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
     # -- Ingress TLS configuration
-    tls: []
+    tls:
+      []
       # # -- Provide tls secret.
       # - secretName: ""
       #   # -- Provide host for tls secret.
@@ -157,7 +158,7 @@ frontend:
     name: "portal"
     image:
       name: "docker.io/tractusx/portal-frontend"
-      portaltag: v2.4.0
+      portaltag: dcc14cf80421c1ff7898393b77345905473e96d1
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -174,7 +175,7 @@ frontend:
     name: "registration"
     image:
       name: "docker.io/tractusx/portal-frontend-registration"
-      registrationtag: v2.2.0
+      registrationtag: 0410dc615762a1a8440de99262b19d59ee3febad
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -190,7 +191,7 @@ frontend:
     name: "assets"
     image:
       name: "docker.io/tractusx/portal-assets"
-      assetstag: v2.4.0
+      assetstag: 71f75327c5aca2cc1679ac7106843368dae7d692
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -207,7 +208,7 @@ frontend:
 
 backend:
   ingress:
-  # -- Portal-backend ingress parameters,
+    # -- Portal-backend ingress parameters,
     # enable ingress record generation for portal-backend.
     enabled: false
     name: "backend"
@@ -220,7 +221,8 @@ backend:
     #   # -- Provide CORS allowed origin.
     #   nginx.ingress.kubernetes.io/cors-allow-origin: "https://*.example.org"
     # -- Ingress TLS configuration
-    tls: []
+    tls:
+      []
       # # -- Provide tls secret.
       # - secretName: ""
       #   # -- Provide host for tls secret.
@@ -328,7 +330,7 @@ backend:
     name: "registration-service"
     image:
       name: "docker.io/tractusx/portal-registration-service"
-      registrationservicetag: v2.4.0
+      registrationservicetag: 6205aec8a989f8e24939e421dc045ec08d88b054
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -350,10 +352,10 @@ backend:
     healthChecks:
       startup:
         tags:
-        # - name: "HEALTHCHECKS__0__TAGS__0"
-        #   value: "keycloak"
-        - name: "HEALTHCHECKS__0__TAGS__1"
-          value: "portaldb"
+          # - name: "HEALTHCHECKS__0__TAGS__0"
+          #   value: "keycloak"
+          - name: "HEALTHCHECKS__0__TAGS__1"
+            value: "portaldb"
     portalRegistrationPath: "/registration/"
     keycloakClientId: "Cl1-CX-Registration"
     applicationStatusIds:
@@ -379,7 +381,7 @@ backend:
     name: "administration-service"
     image:
       name: "docker.io/tractusx/portal-administration-service"
-      administrationservicetag: v2.4.0
+      administrationservicetag: 6205aec8a989f8e24939e421dc045ec08d88b054
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -403,12 +405,12 @@ backend:
     healthChecks:
       startup:
         tags:
-        # - name: "HEALTHCHECKS__0__TAGS__0"
-        #   value: "keycloak"
-        - name: "HEALTHCHECKS__0__TAGS__1"
-          value: "portaldb"
-        - name: "HEALTHCHECKS__0__TAGS__2"
-          value: "provisioningdb"
+          # - name: "HEALTHCHECKS__0__TAGS__0"
+          #   value: "keycloak"
+          - name: "HEALTHCHECKS__0__TAGS__1"
+            value: "portaldb"
+          - name: "HEALTHCHECKS__0__TAGS__2"
+            value: "provisioningdb"
     companyData:
       useCaseParticipationMediaTypes:
         type0: "PDF"
@@ -505,7 +507,7 @@ backend:
     name: "marketplace-app-service"
     image:
       name: "docker.io/tractusx/portal-marketplace-app-service"
-      appmarketplaceservicetag: v2.4.0
+      appmarketplaceservicetag: 6205aec8a989f8e24939e421dc045ec08d88b054
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -526,10 +528,10 @@ backend:
     healthChecks:
       startup:
         tags:
-        # - name: "HEALTHCHECKS__0__TAGS__0"
-        #   value: "keycloak"
-        - name: "HEALTHCHECKS__0__TAGS__1"
-          value: "portaldb"
+          # - name: "HEALTHCHECKS__0__TAGS__0"
+          #   value: "keycloak"
+          - name: "HEALTHCHECKS__0__TAGS__1"
+            value: "portaldb"
     appOverviewPath: "/appoverview"
     subscriptionPath: "/appsubscription"
     detailPath: "/appdetail"
@@ -639,7 +641,7 @@ backend:
     name: "portal-migrations"
     image:
       name: "docker.io/tractusx/portal-portal-migrations"
-      portalmigrationstag: v2.4.0
+      portalmigrationstag: 6205aec8a989f8e24939e421dc045ec08d88b054
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -670,7 +672,7 @@ backend:
     name: "portal-maintenance"
     image:
       name: "docker.io/tractusx/portal-maintenance-service"
-      portalmaintenancetag: v2.4.0
+      portalmaintenancetag: 6205aec8a989f8e24939e421dc045ec08d88b054
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -693,7 +695,7 @@ backend:
     name: "notification-service"
     image:
       name: "docker.io/tractusx/portal-notification-service"
-      notificationservicetag: v2.4.0
+      notificationservicetag: 6205aec8a989f8e24939e421dc045ec08d88b054
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -711,10 +713,10 @@ backend:
     healthChecks:
       startup:
         tags:
-        # - name: "HEALTHCHECKS__0__TAGS__0"
-        #   value: "keycloak"
-        - name: "HEALTHCHECKS__0__TAGS__1"
-          value: "portaldb"
+          # - name: "HEALTHCHECKS__0__TAGS__0"
+          #   value: "keycloak"
+          - name: "HEALTHCHECKS__0__TAGS__1"
+            value: "portaldb"
     swaggerEnabled: false
     logging:
       default: "Information"
@@ -722,7 +724,7 @@ backend:
     name: "services-service"
     image:
       name: "docker.io/tractusx/portal-services-service"
-      servicesservicetag: v2.4.0
+      servicesservicetag: 6205aec8a989f8e24939e421dc045ec08d88b054
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -743,10 +745,10 @@ backend:
     healthChecks:
       startup:
         tags:
-        # - name: "HEALTHCHECKS__0__TAGS__0"
-        #   value: "keycloak"
-        - name: "HEALTHCHECKS__0__TAGS__1"
-          value: "portaldb"
+          # - name: "HEALTHCHECKS__0__TAGS__0"
+          #   value: "keycloak"
+          - name: "HEALTHCHECKS__0__TAGS__1"
+            value: "portaldb"
     serviceOverviewPath: "/serviceoverview"
     subscriptionPath: "/servicesubscription"
     detailPath: "/servicedetail"
@@ -804,7 +806,7 @@ backend:
     name: "provisioning-migrations"
     image:
       name: "docker.io/tractusx/portal-provisioning-migrations"
-      provisioningmigrationstag: v2.4.0
+      provisioningmigrationstag: 6205aec8a989f8e24939e421dc045ec08d88b054
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -822,7 +824,7 @@ backend:
     name: "processes-worker"
     image:
       name: "docker.io/tractusx/portal-processes-worker"
-      processesworkertag: v2.4.0
+      processesworkertag: 6205aec8a989f8e24939e421dc045ec08d88b054
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []
@@ -996,7 +998,7 @@ backend:
   placeholder: "empty"
 
 postgresql:
-# -- PostgreSQL chart configuration
+  # -- PostgreSQL chart configuration
   # Switch to enable or disable the PostgreSQL helm chart
   enabled: true
   # -- Setting image tag to major to get latest minor updates
@@ -1044,13 +1046,13 @@ postgresql:
             name: "{{ .Values.auth.existingSecret }}"
             key: "provisioning-password"
   readReplicas:
-  # -- Extended PostgreSQL read only replicas configuration (increase of max_connections recommended - default is 100)
+    # -- Extended PostgreSQL read only replicas configuration (increase of max_connections recommended - default is 100)
     extendedConfiguration: ""
 
 externalDatabase:
-# -- External PostgreSQL configuration
-# IMPORTANT: init scripts (01-init-db-user.sh and 02-init-db.sql) available
-# in templates/configmap-backend-postgres-init.yaml need to be executed beforehand.
+  # -- External PostgreSQL configuration
+  # IMPORTANT: init scripts (01-init-db-user.sh and 02-init-db.sql) available
+  # in templates/configmap-backend-postgres-init.yaml need to be executed beforehand.
   # Database host
   host: "portal-backend-postgresql-external-db"
   # -- Database name
@@ -1081,8 +1083,8 @@ nodeSelector: {}
 tolerations: []
 
 affinity:
-# -- Following Catena-X Helm Best Practices,
-# [reference](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
+  # -- Following Catena-X Helm Best Practices,
+  # [reference](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
   podAntiAffinity:
     preferredDuringSchedulingIgnoredDuringExecution:
       - weight: 100
@@ -1094,9 +1096,9 @@ affinity:
           topologyKey: kubernetes.io/hostname
 
 updateStrategy:
-# -- Update strategy type,
-# rolling update configuration parameters,
-# [reference](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies).
+  # -- Update strategy type,
+  # rolling update configuration parameters,
+  # [reference](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies).
   type: RollingUpdate
   rollingUpdate:
     maxSurge: 1

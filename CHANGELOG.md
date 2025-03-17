@@ -2,12 +2,32 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.4.0-RC2
+
+### Change
+
+* changed to new container images
+  * portal-frontend: v2.4.0-RC2
+  * portal-backend: v2.4.0-RC2
+  * portal-assets: v2.4.0-RC1
+  * portal-frontend-registration: v2.2.0-RC1
+* portal-backend
+  * updated sd-factory path for tagus [#514](https://github.com/eclipse-tractusx/portal/pull/514)
+  * increased memory for services service [#515](https://github.com/eclipse-tractusx/portal/pull/515)
+  * added connectorAllowSdDocumentSkipErrorCode to configuration [#523](https://github.com/eclipse-tractusx/portal/pull/523)
+  * change region value in testdata to notnull [#521](https://github.com/eclipse-tractusx/portal/pull/521)
+
+### Bugfixes
+
+* portal-backend
+  * changed did base location for app and services service [#515](https://github.com/eclipse-tractusx/portal/pull/515)
+  * removed sdfactoryIssuerBpn configuration [#516](https://github.com/eclipse-tractusx/portal/pull/516)
+  * fixed bpdm pool address for membership activation [#518](https://github.com/eclipse-tractusx/portal/pull/518)
+
 ## 2.4.0-RC1
 
 ### Change
 
-* portal charts
-  * improve resources for helm test [#504](https://github.com/eclipse-tractusx/portal/pull/504)
 * changed to new container images
   * portal-frontend: v2.4.0-RC1
   * portal-backend: v2.4.0-RC1
@@ -15,7 +35,8 @@ New features, fixed bugs, known defects and other noteworthy changes to each rel
 * portal-backend
   * set BPDM pool url for process worker [#472](https://github.com/eclipse-tractusx/portal/pull/472)
   * added configuration for UserRolesAccessibleByProviderOnly [#496](https://github.com/eclipse-tractusx/portal/pull/496)
-  * add configuration for provider only roles [#501](https://github.com/eclipse-tractusx/portal/pull/501)
+  * added configuration for provider only roles [#501](https://github.com/eclipse-tractusx/portal/pull/501)
+* improved resources for helm test [#504](https://github.com/eclipse-tractusx/portal/pull/504)
 
 ## 2.3.0
 

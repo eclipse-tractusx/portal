@@ -1,13 +1,13 @@
 # Helm chart for Catena-X Portal
 
-![Version: 2.4.0-RC1](https://img.shields.io/badge/Version-2.4.0--RC1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4.0-RC1](https://img.shields.io/badge/AppVersion-2.4.0--RC1-informational?style=flat-square)
+![Version: 2.4.0-RC2](https://img.shields.io/badge/Version-2.4.0--RC2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.4.0-RC2](https://img.shields.io/badge/AppVersion-2.4.0--RC2-informational?style=flat-square)
 
 This helm chart installs the Portal application which consists of
 
-* [portal-frontend (v2.4.0-RC1)](https://github.com/eclipse-tractusx/portal-frontend/tree/v2.4.0-RC1),
-* [portal-frontend-registration (v2.1.1-RC1)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v2.1.1-RC1),
+* [portal-frontend (v2.4.0-RC2)](https://github.com/eclipse-tractusx/portal-frontend/tree/v2.4.0-RC2),
+* [portal-frontend-registration (v2.2.0-RC1)](https://github.com/eclipse-tractusx/portal-frontend-registration/tree/v2.2.0-RC1),
 * [portal-assets (v2.4.0-RC1)](https://github.com/eclipse-tractusx/portal-assets/tree/v2.4.0-RC1) and
-* [portal-backend (v2.4.0-RC1)](https://github.com/eclipse-tractusx/portal-backend/tree/v2.4.0-RC1).
+* [portal-backend (v2.4.0-RC2)](https://github.com/eclipse-tractusx/portal-backend/tree/v2.4.0-RC2).
 
 The Portal is designed to work with the [IAM](https://github.com/eclipse-tractusx/portal-iam).
 This version is compatible with the 4.1.0-rc.1 version of the IAM instances:
@@ -20,7 +20,7 @@ For further information please refer to [Technical Documentation](https://github
 
 For information about the initial wallet insert for the Operator, please refer to [initial operator wallet setup](https://github.com/eclipse-tractusx/portal-assets/blob/v2.4.0-RC1/docs/admin/Operator%20Wallet%20Setup/Initial%20Setup.md).
 
-In case of usage of the Decentralized Identity Verification (DIV, formerly known as DIM) Wallet: this version is compatible with the 2.x.x version of the [SSI DIM Middle Layer](https://github.com/SAP/ssi-dim-middle-layer).
+In case of usage of the Decentralized Identity Verification (DIV, formerly known as DIM) Wallet: this version was tested with the 2.2.1 version of the [SSI DIM Middle Layer](https://github.com/SAP/ssi-dim-middle-layer).
 
 The referenced container images are for demonstration purposes only.
 
@@ -45,7 +45,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 2.4.0-RC1
+    version: 2.4.0-RC2
 ```
 
 ## Requirements
@@ -74,6 +74,7 @@ dependencies:
 | clearinghouseAddress | string | `"https://validation.example.org"` | Provide clearinghouse base address. |
 | clearinghouseTokenAddress | string | `"https://keycloak.example.org/realms/example/protocol/openid-connect/token"` | Provide clearinghouse token address. |
 | clearinghouseConnectDisabled | bool | `false` | if set to true the self description document creation will be skipped for company registrations as well as connector registrations |
+| clearinghouseConnectorAllowSdDocumentSkipErrorCode | string | `"E2010"` | if error code is set, the sd document creation will be skipped if clearing house is sending failure including this error code in the response |
 | issuerComponentAddress | string | `"https://ssi-credential-issuer.example.org"` | Provide issuer component base address |
 | bpnDidResolver | object | `{"directoryApiAddress":"https://bpn-did-resolution-service.example.org/api/directory","managementApiAddress":"http://bpn-did-resolution-service-bdrs-server:8081"}` | Provide details about the BPN DID Resolver. |
 | bpnDidResolver.managementApiAddress | string | `"http://bpn-did-resolution-service-bdrs-server:8081"` | Provide management api base address |
@@ -83,12 +84,12 @@ dependencies:
 | dimWrapper.apiPath | string | `"/api/dim"` | Provide the api path |
 | dimWrapper.tokenAddress | string | `"https://keycloak.example.org/realms/example/protocol/openid-connect/token"` | Provide dim token address. |
 | decentralIdentityManagementAuthAddress | string | `"https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"` |  |
-| operator | object | `{"bpn":"BPNL00000003CRHK","city":"Munich","country_alpha2code":"DE","name":"Catena-X","region":"","shortname":"Catena-X","streetAdditional":"","streetName":"Street","streetNumber":"1","zipCode":"0001"}` | Set information related to the operator company |
+| operator | object | `{"bpn":"BPNL00000003CRHK","city":"Munich","country_alpha2code":"DE","name":"Catena-X","region":"BY","shortname":"Catena-X","streetAdditional":"","streetName":"Street","streetNumber":"1","zipCode":"0001"}` | Set information related to the operator company |
 | operator.bpn | string | `"BPNL00000003CRHK"` | The bpn of the operator |
 | operator.name | string | `"Catena-X"` | The name of the operator |
 | operator.shortname | string | `"Catena-X"` | The shortname of the operator |
 | operator.city | string | `"Munich"` | The city of the operator address |
-| operator.region | string | `""` | The region of the operator address |
+| operator.region | string | `"BY"` | The region of the operator address |
 | operator.streetAdditional | string | `""` | Additional street information of the operator address |
 | operator.streetName | string | `"Street"` | The street name of the operator address |
 | operator.streetNumber | string | `"1"` | The street number of the operator address |
@@ -100,20 +101,20 @@ dependencies:
 | frontend.ingress.hosts[0] | object | `{"host":"","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assets|documentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"docker.io/tractusx/portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v2.4.0-RC1"` |  |
+| frontend.portal.image.portaltag | string | `"v2.4.0-RC2"` |  |
 | frontend.portal.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.portal.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | frontend.portal.resources | object | `{"limits":{"cpu":"75m","memory":"125M"},"requests":{"cpu":"25m","memory":"125M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | frontend.portal.requireHttpsUrlPattern | bool | `true` |  |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"docker.io/tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"v2.1.1-RC1"` |  |
+| frontend.registration.image.registrationtag | string | `"v2.2.0-RC2"` |  |
 | frontend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.registration.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | frontend.registration.resources | object | `{"limits":{"cpu":"75m","memory":"100M"},"requests":{"cpu":"25m","memory":"100M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | frontend.assets.name | string | `"assets"` |  |
 | frontend.assets.image.name | string | `"docker.io/tractusx/portal-assets"` |  |
-| frontend.assets.image.assetstag | string | `"91008cc6a663b1556194f15ecf0d6baf7ed94231"` |  |
+| frontend.assets.image.assetstag | string | `"v2.4.0-RC1"` |  |
 | frontend.assets.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.assets.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | frontend.assets.resources | object | `{"limits":{"cpu":"45m","memory":"100M"},"requests":{"cpu":"25m","memory":"100M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -161,7 +162,7 @@ dependencies:
 | backend.healthChecks.readyness.path | string | `"/ready"` |  |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"docker.io/tractusx/portal-registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v2.4.0-RC1"` |  |
+| backend.registration.image.registrationservicetag | string | `"v2.4.0-RC2"` |  |
 | backend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.registration.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.registration.resources | object | `{"limits":{"cpu":"225m","memory":"400M"},"requests":{"cpu":"75m","memory":"400M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -188,7 +189,7 @@ dependencies:
 | backend.registration.submitDocumentTypeIds.type0 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"docker.io/tractusx/portal-administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v2.4.0-RC1"` |  |
+| backend.administration.image.administrationservicetag | string | `"v2.4.0-RC2"` |  |
 | backend.administration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.administration.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.administration.resources | object | `{"limits":{"cpu":"225m","memory":"600M"},"requests":{"cpu":"75m","memory":"600M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -254,7 +255,7 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"docker.io/tractusx/portal-marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v2.4.0-RC1"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v2.4.0-RC2"` |  |
 | backend.appmarketplace.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.appmarketplace.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.appmarketplace.resources | object | `{"limits":{"cpu":"225m","memory":"500M"},"requests":{"cpu":"75m","memory":"500M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -337,7 +338,7 @@ dependencies:
 | backend.appmarketplace.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"docker.io/tractusx/portal-portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v2.4.0-RC1"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"v2.4.0-RC2"` |  |
 | backend.portalmigrations.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.portalmigrations.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.portalmigrations.resources | object | `{"limits":{"cpu":"225m","memory":"350M"},"requests":{"cpu":"75m","memory":"350M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -349,7 +350,7 @@ dependencies:
 | backend.portalmigrations.logging.default | string | `"Information"` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"docker.io/tractusx/portal-maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v2.4.0-RC1"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"v2.4.0-RC2"` |  |
 | backend.portalmaintenance.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.portalmaintenance.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.portalmaintenance.resources | object | `{"limits":{"cpu":"75m","memory":"200M"},"requests":{"cpu":"25m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -358,7 +359,7 @@ dependencies:
 | backend.portalmaintenance.logging.default | string | `"Information"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"docker.io/tractusx/portal-notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v2.4.0-RC1"` |  |
+| backend.notification.image.notificationservicetag | string | `"v2.4.0-RC2"` |  |
 | backend.notification.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.notification.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.notification.resources | object | `{"limits":{"cpu":"225m","memory":"200M"},"requests":{"cpu":"75m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -368,10 +369,10 @@ dependencies:
 | backend.notification.logging.default | string | `"Information"` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"docker.io/tractusx/portal-services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v2.4.0-RC1"` |  |
+| backend.services.image.servicesservicetag | string | `"v2.4.0-RC2"` |  |
 | backend.services.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.services.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
-| backend.services.resources | object | `{"limits":{"cpu":"225m","memory":"400M"},"requests":{"cpu":"75m","memory":"400M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
+| backend.services.resources | object | `{"limits":{"cpu":"225m","memory":"500M"},"requests":{"cpu":"75m","memory":"500M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.services.basePath | string | `"api/services"` |  |
 | backend.services.logging.default | string | `"Information"` |  |
 | backend.services.logging.offersLibrary | string | `"Information"` |  |
@@ -413,14 +414,14 @@ dependencies:
 | backend.services.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"docker.io/tractusx/portal-provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v2.4.0-RC1"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v2.4.0-RC2"` |  |
 | backend.provisioningmigrations.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.provisioningmigrations.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.provisioningmigrations.resources | object | `{"limits":{"cpu":"75m","memory":"200M"},"requests":{"cpu":"25m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.provisioningmigrations.logging.default | string | `"Information"` |  |
 | backend.processesworker.name | string | `"processes-worker"` |  |
 | backend.processesworker.image.name | string | `"docker.io/tractusx/portal-processes-worker"` |  |
-| backend.processesworker.image.processesworkertag | string | `"v2.4.0-RC1"` |  |
+| backend.processesworker.image.processesworkertag | string | `"v2.4.0-RC2"` |  |
 | backend.processesworker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.processesworker.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.processesworker.resources | object | `{"limits":{"cpu":"225m","memory":"600M"},"requests":{"cpu":"75m","memory":"600M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -450,7 +451,7 @@ dependencies:
 | backend.processesworker.custodian.grantType | string | `"client_credentials"` |  |
 | backend.processesworker.custodian.clientId | string | `"custodian-client-id"` | Provide custodian client-id from CX IAM centralidp. |
 | backend.processesworker.custodian.clientSecret | string | `""` | Client-secret for custodian client-id. Secret-key 'custodian-client-secret'. |
-| backend.processesworker.sdfactory.selfdescriptionPath | string | `"/api/rel3/selfdescription"` |  |
+| backend.processesworker.sdfactory.selfdescriptionPath | string | `"/api/tagus/selfdescription"` |  |
 | backend.processesworker.sdfactory.scope | string | `"openid"` |  |
 | backend.processesworker.sdfactory.grantType | string | `"client_credentials"` |  |
 | backend.processesworker.sdfactory.clientId | string | `"sdfactory-client-id"` | Provide sdfactory client-id from CX IAM centralidp. |

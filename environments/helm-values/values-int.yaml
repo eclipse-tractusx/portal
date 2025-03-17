@@ -30,8 +30,8 @@ bpdm:
   portalGateApiPath: "/companies/test-company/v6"
 custodianAddress: "https://managed-identity-wallets-new.int.catena-x.net"
 sdfactoryAddress: "https://sdfactory.int.catena-x.net"
-clearinghouseAddress: "https://validation.test.dih-cloud.com"
-clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
+clearinghouseAddress: "https://digitalidcore.test.dih-cloud.com"
+clearinghouseTokenAddress: "https://iam.test.dih-cloud.com/realms/development/protocol/openid-connect/token"
 issuerComponentAddress: "https://ssi-credential-issuer.int.catena-x.net"
 bpnDidResolverAddress: "http://bdrs-bdrs-server:8081"
 dimWrapper:

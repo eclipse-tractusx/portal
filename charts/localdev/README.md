@@ -10,34 +10,30 @@ This chart also sets up an additional [postgresql](https://artifacthub.io/packag
 
 For detailed information about the default configuration values, please have a look at the [Values table](#values) and/or [Values file](./values.yaml).
 
-- [Setup of CX Portal \& IAM for local development](#setup-of-cx-portal--iam-for-local-development)
-  - [Usage](#usage)
-  - [Cluster Setup](#cluster-setup)
-    - [Cluster Setup Linux and Mac](#cluster-setup-linux-and-mac)
-    - [Cluster Setup Windows](#cluster-setup-windows)
-      - [Minikube](#minikube)
-      - [Docker Desktop integrated Kubernetes](#docker-desktop-integrated-kubernetes)
-  - [Network Setup](#network-setup)
-    - [Minikube Addons](#minikube-addons)
-    - [Docker Desktop integrated Kubernetes Ingress Controller](#docker-desktop-integrated-kubernetes-ingress-controller)
-    - [Network Setup on Linux and Mac](#network-setup-on-linux-and-mac)
-      - [Additional Network Setup for Mac](#additional-network-setup-for-mac)
-      - [Setup cntlm proxy](#setup-cntlm-proxy)
-    - [Network Setup on Windows/wsl2 with NTLM-proxy](#network-setup-on-windowswsl2-with-ntlm-proxy)
-      - [px-proxy](#px-proxy)
-      - [DNS-resolution in Windows](#dns-resolution-in-windows)
-      - [DNS-resolution in wsl2](#dns-resolution-in-wsl2)
-      - [Proxy-setup in wsl2](#proxy-setup-in-wsl2)
-  - [Install](#install)
-    - [Use released chart](#use-released-chart)
-    - [Use local repository](#use-local-repository)
-  - [Perform first login](#perform-first-login)
-  - [Database Access](#database-access)
-  - [Keycloak Admin Console](#keycloak-admin-console)
-  - [Uninstall](#uninstall)
-  - [Prepare self-signed TLS setup (Optional)](#prepare-self-signed-tls-setup-optional)
-  - [Requirements](#requirements)
-  - [Values](#values)
+- [Usage](#usage)
+- [Cluster setup](#cluster-setup)
+  - [Linux and Mac](#cluster-setup-linux-and-mac)
+  - [Cluster Setup Windows](#cluster-setup-windows)
+    - [Minikube](#minikube)
+    - [Docker Desktop integrated Kubernetes](#docker-desktop-integrated-kubernetes)
+- [Network Setup](#network-setup)
+  - [Minikube Addons](#minikube-addons)
+  - [Docker Desktop integrated Kubernetes Ingress Controller](#docker-desktop-integrated-kubernetes-ingress-controller)
+  - [Linux and Mac](#network-setup-on-linux-and-mac)
+    - [Additional Network Setup for Mac](#additional-network-setup-for-mac)
+  - [Windows/wsl2 with NTLM-proxy](#network-setup-on-windowswsl2-with-ntlm-proxy)
+    - [px-proxy](#px-proxy)
+    - [DNS-resolution in Windows](#dns-resolution-in-windows)
+    - [DNS-resolution in wsl2](#dns-resolution-in-wsl2)
+    - [Proxy-setup in wsl2](#proxy-setup-in-wsl2)
+- [Install](#install)
+  - [Use released chart](#use-released-chart)
+  - [Use local repository](#use-local-repository)
+- [Perform first login](#perform-first-login)
+- [Database Access](#database-access)
+- [Keycloak Admin Console](#keycloak-admin-console)
+- [Uninstall](#uninstall)
+- [Prepare self-signed TLS setup (Optional)](#prepare-self-signed-tls-setup-optional)
 
 ## Usage
 
@@ -173,64 +169,6 @@ We also recommend to execute the usage example after install to check proper set
 If you're having issues with getting 'Docker Mac Net Connect' to work, we recommend to check out this issue: [#21](https://github.com/chipmk/docker-mac-net-connect/issues/21).
 
 The tool is necessary due to [#7332](https://github.com/kubernetes/minikube/issues/7332).
-
-#### Setup cntlm proxy
-
-Follow these steps if you are behind a firewall and have only access to the internet from behind an authenticating corporate NTLM http proxy.
-
-```bash
-# Linux
-$ sudo apt install cntlm
-# Mac
-$ brew install cntlm
-```
-
-Locate and edit the config file to set your proxy and authentication credentials
-  
-```bash
-# Linux
-$ sudo vi /etc/cntlm.conf
-# Mac
-$ vi ~/.brew/etc/cntlm.conf
-```
-
-```
-Username        your_userid
-Domain          your_domain
-Password        your_ntlm_proxy_password
-Proxy           your.corporate.proxy.host:8080
-# include domain .tx.test and minikube ip address
-NoProxy         localhost, 127.0.0.1, 192.168.49.2, *.tx.test, *.other.domains
-Listen          3128
-```
-
-(Re-)start cntlm
-```bash
-# Linux (ubuntu)
-$ sudo service cntlm reload
-# Mac
-$ pkill -x 'cntlm'
-$ cntlm
-```
-
-Locate and edit the settings file for your shell to set env vars
-```bash
-$ vi ~/.*shrc
-```
-
-```
-export http_proxy=http://localhost:3128
-export https_proxy=http://localhost:3128
-# include domain .tx.test and minikube ip address
-export no_proxy=localhost,127.0.0.1,192.168.49.2,.tx.test,.other.domains
-```
-
-Save and apply your settings and test internet access
-```
-$ source ~/.*shrc
-$ curl https://github.com/ -Is | grep server
-server: GitHub.com
-```
 
 ### Network Setup on Windows/wsl2 with NTLM-proxy
 
@@ -636,10 +574,10 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../portal | portal | 2.3.0 |
+| file://../portal | portal | 2.4.0 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
-| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.0.0 |
-| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.0.0 |
+| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.1.0 |
+| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.1.0 |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
 ## Values

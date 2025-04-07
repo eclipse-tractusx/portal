@@ -60,10 +60,6 @@ custodianAddress: "https://managed-identity-wallets.example.org"
 # -- Provide sdfactory base address.
 sdfactoryAddress: "https://sdfactory.example.org"
 
-# -- Provide clearinghouse base address.
-clearinghouseAddress: "https://validation.example.org"
-# -- Provide clearinghouse token address.
-clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
 # -- if set to true the self description document creation will be skipped for company registrations as well as connector registrations
 clearinghouseConnectDisabled: false
 # -- if error code is set, the sd document creation will be skipped if clearing house is sending failure including this error code in the response
@@ -87,6 +83,26 @@ dimWrapper:
   apiPath: "/api/dim"
   # -- Provide dim token address.
   tokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
+
+# -- Provide the configuration of the default clearing house
+defaultClearinghouse:
+  # -- Provide the default clearinghouse base address
+  baseAddress: "https://default.example.org"
+  # -- Provide the api path
+  apiPath: "/api/v2/validation"
+  # -- Provide default clearinghouse token address.
+  tokenAddress: "https://default.example.org/realms/example/protocol/openid-connect/token"
+
+# -- Provide the configuration of the regional clearing house
+regionalClearinghouse:
+  # -- Provide the configuration of the china clearing house
+  china:
+    # -- Provide the china clearinghouse base address
+    baseAddress: "https://china.example.org"
+    # -- Provide the api path
+    apiPath: "/api/v2/validation"
+    # -- Provide china clearinghouse token address.
+    tokenAddress: "https://china.example.org/realms/example/protocol/openid-connect/token"
 
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 
@@ -887,12 +903,23 @@ backend:
       # -- Client-secret for sdfactory client-id. Secret-key 'sdfactory-client-secret'.
       clientSecret: ""
     clearinghouse:
-      scope: "openid"
-      grantType: "client_credentials"
-      # -- Provide clearinghouse client-id from clearinghouse IAM.
-      clientId: "clearinghouse-client-id"
-      # -- Client-secret for clearinghouse client-id. Secret-key 'clearinghouse-client-secret'.
-      clientSecret: ""
+      defaultClearinghouse:
+        scope: "openid"
+        grantType: "client_credentials"
+        # -- Provide default clearinghouse client-id from clearinghouse IAM.
+        clientId: "default-clearinghouse-client-id"
+        # -- Client-secret for default clearinghouse client-id. Secret-key 'default-clearinghouse-client-secret'.
+        clientSecret: ""
+        countryAlpha2Code: "default"
+      regionalClearinghouse:
+        china:
+          scope: "openid"
+          grantType: "client_credentials"
+          # -- Provide china clearinghouse client-id from clearinghouse IAM.
+          clientId: "china-clearinghouse-client-id"
+          # -- Client-secret for china clearinghouse client-id. Secret-key 'china-clearinghouse-client-secret'.
+          clientSecret: ""
+          countryAlpha2Code: "CN"
       callbackPath: "/api/administration/registration/clearinghouse"
       # -- Defines the days a END_CLEARINGHOUSE process can stay in state TODO before the process is retriggered
       retriggerEndClearinghouseIntervalInDays: 30

@@ -36,11 +36,11 @@ dimWrapper:
   baseAddress: "https://dim.int.catena-x.net"
   tokenAddress: "https://centralidp.int.catena-x.net/auth/realms/CX-Central/protocol/openid-connect/token"
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
-defaultClearinghouse:
-  baseAddress: "https://digitalidcore.test.dih-cloud.com"
-  apiPath: "/api/v2/validation"
-  tokenAddress: "https://iam.test.dih-cloud.com/realms/development/protocol/openid-connect/token"
-regionalClearinghouse:
+clearinghouseAddresses:
+  default:
+    baseAddress: "https://digitalidcore.test.dih-cloud.com"
+    apiPath: "/api/v2/validation"
+    tokenAddress: "https://iam.test.dih-cloud.com/realms/development/protocol/openid-connect/token"
   china:
     baseAddress: "https://ch.bitfactory.cn"
     apiPath: "/notary/api/v2/validation"
@@ -246,13 +246,12 @@ backend:
       clientId: "<path:portal/data/portal-iam-clientIds#bpdm-client-id>"
       clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#portal-bpdm-sa>"
     clearinghouse:
-      defaultClearinghouse:
+      default:
         clientId: "<path:portal/data/int/clearinghouse#default-client-id>"
         clientSecret: "<path:portal/data/int/clearinghouse#default-client-secret>"
-      regionalClearinghouse:
-        china:
-          clientId: "<path:portal/data/int/clearinghouse#china-client-id>"
-          clientSecret: "<path:portal/data/int/clearinghouse#china-client-secret>"
+      china:
+        clientId: "<path:portal/data/int/clearinghouse#china-client-id>"
+        clientSecret: "<path:portal/data/int/clearinghouse#china-client-secret>"
     custodian:
       clientId: "<path:portal/data/portal-iam-clientIds#custodian-client-id>"
       clientSecret: "<path:portal/data/int/iam/centralidp-client-secrets#custodian-sa>"

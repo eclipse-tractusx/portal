@@ -35,11 +35,11 @@ bpnDidResolverAddress: "http://bdrs-bdrs-server:8081"
 dimWrapper:
   baseAddress: "https://dim.stable.catena-x.net"
   tokenAddress: "https://centralidp.stable.catena-x.net/auth/realms/CX-Central/protocol/openid-connect/token"
-defaultClearinghouse:
-  baseAddress: "https://validation.test.dih-cloud.com"
-  apiPath: "/api/v1/validation"
-  tokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
-regionalClearinghouse:
+clearinghouseAddresses:
+  default:
+    baseAddress: "https://validation.test.dih-cloud.com"
+    apiPath: "/api/v1/validation"
+    tokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
   china:
     baseAddress: "https://ch.bitfactory.cn"
     apiPath: "/notary/api/v2/validation"
@@ -246,13 +246,12 @@ backend:
       clientSecret: "<path:portal/data/stable/iam/centralidp-client-secrets#portal-bpdm-sa>"
       startSharingStateAsReady: false
     clearinghouse:
-      defaultClearinghouse:
+      default:
         clientId: "<path:portal/data/stable/clearinghouse#default-client-id>"
         clientSecret: "<path:portal/data/stable/clearinghouse#default-client-secret>"
-      regionalClearinghouse:
-        china:
-          clientId: "<path:portal/data/stable/clearinghouse#china-client-id>"
-          clientSecret: "<path:portal/data/stable/clearinghouse#china-client-secret>"
+      china:
+        clientId: "<path:portal/data/stable/clearinghouse#china-client-id>"
+        clientSecret: "<path:portal/data/stable/clearinghouse#china-client-secret>"
     custodian:
       clientId: "<path:portal/data/portal-iam-clientIds#custodian-client-id>"
       clientSecret: "<path:portal/data/stable/iam/centralidp-client-secrets#custodian-sa>"

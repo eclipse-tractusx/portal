@@ -41,9 +41,9 @@ clearinghouseAddresses:
     apiPath: "/api/v1/validation"
     tokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
   china:
-    baseAddress: "https://ch.bitfactory.cn"
-    apiPath: "/notary/api/v2/validation"
-    tokenAddress: "https://ch.bitfactory.cn/notary/auth/get/accessToken"
+    baseAddress: "https://validation.test.dih-cloud.com"
+    apiPath: "/api/v1/validation"
+    tokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 bpnDidResolver:
   managementApiAddress: "http://bdrs-bdrs-server:8081"

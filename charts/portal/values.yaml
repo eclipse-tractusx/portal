@@ -65,6 +65,40 @@ clearinghouseConnectDisabled: false
 # -- if error code is set, the sd document creation will be skipped if clearing house is sending failure including this error code in the response
 clearinghouseConnectorAllowSdDocumentSkipErrorCode: "E2010"
 
+clearinghouse:
+  # -- Provide the configuration of the default clearing house
+  default:
+    countryAlpha2Code: "default"
+    scope: "openid"
+    grantType: "client_credentials"
+    # -- Provide clearinghouse base address.
+    baseAddress: "https://default.example.org"
+    # -- Provide clearinghouse api path.
+    apiPath: "/api/v2/validation"
+    # -- Provide clearinghouse client-id from clearinghouse IAM.
+    clientId: "clearinghouse-default-client-id"
+    # -- Provide clearinghouse client-secret from clearinghouse IAM.
+    clientSecret: ""
+    # -- Provide default clearinghouse token address.
+    tokenAddress: "https://default.example.org/realms/example/protocol/openid-connect/token"
+
+  # -- Provide the configuration for regional clearing houses
+  regional:
+    ## Optional list of clearinghouse configurations for different countries
+    # - countryAlpha2Code: "CN"
+    #   scope: "openid"
+    #   grantType: "client_credentials"
+    #   # -- Provide clearinghouse base address.
+    #   baseAddress: "https://cn.example.org"
+    #   # -- Provide clearinghouse api path.
+    #   apiPath: "/api/v2/validation"
+    #   # -- Provide clearinghouse client-id from clearinghouse IAM.
+    #   clientId: "clearinghouse-client-id-cn"
+    #   # -- Provide clearinghouse client-secret from clearinghouse IAM.
+    #   clientSecret: ""
+    #   # -- Provide default clearinghouse token address.
+    #   tokenAddress: "https://cn.example.org/realms/example/protocol/openid-connect/token"
+
 # -- Provide issuer component base address
 issuerComponentAddress: "https://ssi-credential-issuer.example.org"
 
@@ -83,26 +117,6 @@ dimWrapper:
   apiPath: "/api/dim"
   # -- Provide dim token address.
   tokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
-
-# -- Provide the configuration of the default and regional clearing house
-clearinghouseAddresses:
-  # -- Provide the configuration of the default clearing house
-  default:
-    # -- Provide the default clearinghouse base address
-    baseAddress: "https://default.example.org"
-    # -- Provide the api path
-    apiPath: "/api/v2/validation"
-    # -- Provide default clearinghouse token address.
-    tokenAddress: "https://default.example.org/realms/example/protocol/openid-connect/token"
-
-  # -- Provide the configuration of the china clearing house
-  china:
-    # -- Provide the china clearinghouse base address
-    baseAddress: "https://china.example.org"
-    # -- Provide the api path
-    apiPath: "/api/v2/validation"
-    # -- Provide china clearinghouse token address.
-    tokenAddress: "https://china.example.org/realms/example/protocol/openid-connect/token"
 
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 
@@ -903,22 +917,6 @@ backend:
       # -- Client-secret for sdfactory client-id. Secret-key 'sdfactory-client-secret'.
       clientSecret: ""
     clearinghouse:
-      default:
-        scope: "openid"
-        grantType: "client_credentials"
-        # -- Provide default clearinghouse client-id from clearinghouse IAM.
-        clientId: "clearinghouse-client-id-default"
-        # -- Client-secret for default clearinghouse client-id. Secret-key 'clearinghouse-client-secret-default'.
-        clientSecret: ""
-        countryAlpha2Code: "default"
-      china:
-        scope: "openid"
-        grantType: "client_credentials"
-        # -- Provide china clearinghouse client-id from clearinghouse IAM.
-        clientId: "clearinghouse-client-id-china"
-        # -- Client-secret for china clearinghouse client-id. Secret-key 'clearinghouse-client-secret-china'.
-        clientSecret: ""
-        countryAlpha2Code: "CN"
       callbackPath: "/api/administration/registration/clearinghouse"
       # -- Defines the days a END_CLEARINGHOUSE process can stay in state TODO before the process is retriggered
       retriggerEndClearinghouseIntervalInDays: 30

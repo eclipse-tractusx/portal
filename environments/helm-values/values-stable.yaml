@@ -35,15 +35,22 @@ bpnDidResolverAddress: "http://bdrs-bdrs-server:8081"
 dimWrapper:
   baseAddress: "https://dim.stable.catena-x.net"
   tokenAddress: "https://centralidp.stable.catena-x.net/auth/realms/CX-Central/protocol/openid-connect/token"
-clearinghouseAddresses:
+clearinghouse:
   default:
     baseAddress: "https://validation.test.dih-cloud.com"
     apiPath: "/api/v1/validation"
     tokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
-  china:
-    baseAddress: "https://validation.test.dih-cloud.com"
-    apiPath: "/api/v1/validation"
-    tokenAddress: "https://iam.test.dih-cloud.com/realms/carla/protocol/openid-connect/token"
+    clientId: "<path:portal/data/int/clearinghouse#default-client-id>"
+    clientSecret: "<path:portal/data/int/clearinghouse#default-client-secret>"
+  regional:
+    - countryAlpha2Code: "CN"
+      baseAddress: "https://digitalidcore.test.dih-cloud.com"
+      apiPath: "/api/v2/validation"
+      clientId: "<path:portal/data/int/clearinghouse#default-client-id>"
+      clientSecret: "<path:portal/data/int/clearinghouse#china-client-secret>"
+      tokenAddress: "https://iam.test.dih-cloud.com/realms/development/protocol/openid-connect/token"
+      scope: "openid"
+      grantType: "client_credentials"
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 bpnDidResolver:
   managementApiAddress: "http://bdrs-bdrs-server:8081"
@@ -245,13 +252,6 @@ backend:
       clientId: "<path:portal/data/portal-iam-clientIds#bpdm-client-id>"
       clientSecret: "<path:portal/data/stable/iam/centralidp-client-secrets#portal-bpdm-sa>"
       startSharingStateAsReady: false
-    clearinghouse:
-      default:
-        clientId: "<path:portal/data/stable/clearinghouse#default-client-id>"
-        clientSecret: "<path:portal/data/stable/clearinghouse#default-client-secret>"
-      china:
-        clientId: "<path:portal/data/stable/clearinghouse#china-client-id>"
-        clientSecret: "<path:portal/data/stable/clearinghouse#china-client-secret>"
     custodian:
       clientId: "<path:portal/data/portal-iam-clientIds#custodian-client-id>"
       clientSecret: "<path:portal/data/stable/iam/centralidp-client-secrets#custodian-sa>"

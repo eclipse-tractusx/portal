@@ -35,7 +35,7 @@ spec:
           restartPolicy: OnFailure
           {{- with .Values.backend.portalmaintenance.image.pullSecrets }}
           imagePullSecrets:
-            {{- toYaml . | nindent 8 }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           containers:
           - name: {{ include "portal.fullname" . }}-{{ .Values.backend.portalmaintenance.name }}

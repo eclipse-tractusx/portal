@@ -76,14 +76,14 @@ clearinghouse:
     # -- Provide clearinghouse api path.
     apiPath: "/api/v2/validation"
     # -- Provide clearinghouse client-id from clearinghouse IAM.
-    clientId: "clearinghouse-default-client-id"
+    clientId: "clearinghouse-client-id-default"
     # -- Provide clearinghouse client-secret from clearinghouse IAM.
     clientSecret: ""
     # -- Provide default clearinghouse token address.
     tokenAddress: "https://default.example.org/realms/example/protocol/openid-connect/token"
 
   # -- Provide the configuration for regional clearing houses
-  regional:
+  regional: []
     ## Optional list of clearinghouse configurations for different countries
     # - countryAlpha2Code: "CN"
     #   scope: "openid"

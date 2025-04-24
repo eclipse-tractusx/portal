@@ -180,6 +180,8 @@ spec:
               value: "{{ .Values.backend.placeholder }}"
             - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__DEFAULTCLEARINGHOUSECREDENTIALS__COUNTRYALPHA2CODE"
               value: "{{ .Values.clearinghouse.default.countryAlpha2Code }}"
+            - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__DEFAULTCLEARINGHOUSECREDENTIALS__CLEARINGHOUSECONNECTDISABLED"
+              value: "{{ .Values.clearinghouse.default.clearinghouseConnectDisabled }}"
             {{- range $index, $clearingHouseByCountryCode := .Values.clearinghouse.regional }}
             - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__REGIONALCLEARINGHOUSECREDENTIALS__{{ $index }}__BASEADDRESS"
               value: "{{ $clearingHouseByCountryCode.baseAddress }}"
@@ -204,6 +206,8 @@ spec:
               value: "{{ $.Values.backend.placeholder }}"
             - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__REGIONALCLEARINGHOUSECREDENTIALS__{{ $index }}__COUNTRYALPHA2CODE"
               value: "{{ $clearingHouseByCountryCode.countryAlpha2Code }}"
+            - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__REGIONALCLEARINGHOUSECREDENTIALS__{{ $index }}__CLEARINGHOUSECONNECTDISABLED"
+              value: "{{ $clearingHouseByCountryCode.clearinghouseConnectDisabled }}"
             {{- end }}
             - name: "APPLICATIONCHECKLIST__CLEARINGHOUSE__CALLBACKURL"
               value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.processesworker.clearinghouse.callbackPath }}"
@@ -249,8 +253,6 @@ spec:
               value: "{{ .Values.sdfactoryAddress }}{{ .Values.backend.processesworker.sdfactory.selfdescriptionPath }}"
             - name: "APPLICATIONCHECKLIST__SDFACTORY__USERNAME"
               value: "{{ .Values.backend.placeholder }}"
-            - name: "APPLICATIONCHECKLIST__SDFACTORY__CLEARINGHOUSECONNECTDISABLED"
-              value: "{{ .Values.clearinghouseConnectDisabled }}"
             - name: "APPLICATIONCHECKLIST__SDFACTORY__CONNECTORALLOWSDDOCUMENTSKIPERRORCODE"
               value: "{{ .Values.clearinghouseConnectorAllowSdDocumentSkipErrorCode }}"
             - name: "APPLICATIONCHECKLIST__DIM__USERNAME"

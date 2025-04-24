@@ -42,6 +42,7 @@ clearinghouse:
     tokenAddress: "https://iam.test.dih-cloud.com/realms/development/protocol/openid-connect/token"
     clientId: "<path:portal/data/int/clearinghouse/default#client-id>"
     clientSecret: "<path:portal/data/int/clearinghouse/default#client-secret>"
+    clearinghouseConnectDisabled: false
   regional:
     - countryAlpha2Code: "FR"
       baseAddress: "https://digitalidcore.test.dih-cloud.com"
@@ -51,6 +52,7 @@ clearinghouse:
       tokenAddress: "https://iam.test.dih-cloud.com/realms/development/protocol/openid-connect/token"
       scope: "openid"
       grantType: "client_credentials"
+      clearinghouseConnectDisabled: true
 decentralIdentityManagementAuthAddress: "https://dis-integration-service-prod.eu10.dim.cloud.sap/api/v2.0.0/iatp/catena-x-portal"
 bpnDidResolver:
   managementApiAddress: "http://bdrs-bdrs-server:8081"

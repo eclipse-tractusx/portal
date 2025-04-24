@@ -60,8 +60,6 @@ custodianAddress: "https://managed-identity-wallets.example.org"
 # -- Provide sdfactory base address.
 sdfactoryAddress: "https://sdfactory.example.org"
 
-# -- if set to true the self description document creation will be skipped for company registrations as well as connector registrations
-clearinghouseConnectDisabled: false
 # -- if error code is set, the sd document creation will be skipped if clearing house is sending failure including this error code in the response
 clearinghouseConnectorAllowSdDocumentSkipErrorCode: "E2010"
 
@@ -81,6 +79,8 @@ clearinghouse:
     clientSecret: ""
     # -- Provide default clearinghouse token address.
     tokenAddress: "https://default.example.org/realms/example/protocol/openid-connect/token"
+    # -- if set to true the self description document creation will be skipped for company registrations as well as connector registrations
+    clearinghouseConnectDisabled: false
 
   # -- Provide the configuration for regional clearing houses
   regional: []
@@ -98,6 +98,8 @@ clearinghouse:
     #   clientSecret: ""
     #   # -- Provide default clearinghouse token address.
     #   tokenAddress: "https://cn.example.org/realms/example/protocol/openid-connect/token"
+    #   # -- if set to true the self description document creation will be skipped for company registrations as well as connector registrations
+    #   clearinghouseConnectDisabled: false
 
 # -- Provide issuer component base address
 issuerComponentAddress: "https://ssi-credential-issuer.example.org"

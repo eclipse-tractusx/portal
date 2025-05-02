@@ -718,9 +718,13 @@ backend:
         memory: 200M
     processIdentity:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
-    batchDelete:
+    batchProcessing:
       # -- The maximum days a document can stay in state DELETED before it is removed from the database
-      days: 80
+      deleteDocuments:
+        days: 80
+      # -- Defines the days a AWAIT_CLEARING_HOUSE_RESPONSE process can stay in state TODO before the process is retriggered
+      retriggerClearinghouse:
+        days: 30
     logging:
       default: "Information"
   notification:
@@ -920,8 +924,6 @@ backend:
       clientSecret: ""
     clearinghouse:
       callbackPath: "/api/administration/registration/clearinghouse"
-      # -- Defines the days a END_CLEARINGHOUSE process can stay in state TODO before the process is retriggered
-      retriggerEndClearinghouseIntervalInDays: 30
     processes:
       lockExpirySeconds: "300"
     offerSubscriptionProcess:

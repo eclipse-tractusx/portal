@@ -360,7 +360,8 @@ dependencies:
 | backend.portalmaintenance.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.portalmaintenance.resources | object | `{"limits":{"cpu":"75m","memory":"200M"},"requests":{"cpu":"25m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.portalmaintenance.processIdentity.processUserId | string | `"d21d2e8a-fe35-483c-b2b8-4100ed7f0953"` |  |
-| backend.portalmaintenance.batchDelete.days | int | `80` | The maximum days a document can stay in state DELETED before it is removed from the database |
+| backend.portalmaintenance.batchProcessing.deleteDocuments.days | int | `80` | The maximum days a document can stay in state DELETED before it is removed from the database |
+| backend.portalmaintenance.batchProcessing.retriggerClearinghouse.days | int | `30` | Defines the days a AWAIT_CLEARING_HOUSE_RESPONSE process can stay in state TODO before the process is retriggered |
 | backend.portalmaintenance.logging.default | string | `"Information"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"docker.io/tractusx/portal-notification-service"` |  |
@@ -462,7 +463,6 @@ dependencies:
 | backend.processesworker.sdfactory.clientId | string | `"sdfactory-client-id"` | Provide sdfactory client-id from CX IAM centralidp. |
 | backend.processesworker.sdfactory.clientSecret | string | `""` | Client-secret for sdfactory client-id. Secret-key 'sdfactory-client-secret'. |
 | backend.processesworker.clearinghouse.callbackPath | string | `"/api/administration/registration/clearinghouse"` |  |
-| backend.processesworker.clearinghouse.retriggerEndClearinghouseIntervalInDays | int | `30` | Defines the days a END_CLEARINGHOUSE process can stay in state TODO before the process is retriggered |
 | backend.processesworker.processes.lockExpirySeconds | string | `"300"` |  |
 | backend.processesworker.offerSubscriptionProcess.serviceAccountRoles.role0 | string | `"Digital Twin Management"` |  |
 | backend.processesworker.offerSubscriptionProcess.serviceManagerRoles.role0 | string | `"App Manager"` |  |

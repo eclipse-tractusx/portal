@@ -60,14 +60,46 @@ custodianAddress: "https://managed-identity-wallets.example.org"
 # -- Provide sdfactory base address.
 sdfactoryAddress: "https://sdfactory.example.org"
 
-# -- Provide clearinghouse base address.
-clearinghouseAddress: "https://validation.example.org"
-# -- Provide clearinghouse token address.
-clearinghouseTokenAddress: "https://keycloak.example.org/realms/example/protocol/openid-connect/token"
-# -- if set to true the self description document creation will be skipped for company registrations as well as connector registrations
-clearinghouseConnectDisabled: false
 # -- if error code is set, the sd document creation will be skipped if clearing house is sending failure including this error code in the response
 clearinghouseConnectorAllowSdDocumentSkipErrorCode: "E2010"
+
+clearinghouse:
+  # -- Provide the configuration of the default clearing house
+  default:
+    countryAlpha2Code: "default"
+    scope: "openid"
+    grantType: "client_credentials"
+    # -- Provide clearinghouse base address.
+    baseAddress: "https://default.example.org"
+    # -- Provide clearinghouse api path.
+    apiPath: "/api/v2/validation"
+    # -- Provide clearinghouse client-id from clearinghouse IAM.
+    clientId: "clearinghouse-client-id-default"
+    # -- Provide clearinghouse client-secret from clearinghouse IAM.
+    clientSecret: ""
+    # -- Provide default clearinghouse token address.
+    tokenAddress: "https://default.example.org/realms/example/protocol/openid-connect/token"
+    # -- if set to true the self description document creation will be skipped for company registrations as well as connector registrations
+    clearinghouseConnectDisabled: false
+
+  # -- Provide the configuration for regional clearing houses
+  regional: []
+    ## Optional list of clearinghouse configurations for different countries
+    # - countryAlpha2Code: "CN"
+    #   scope: "openid"
+    #   grantType: "client_credentials"
+    #   # -- Provide clearinghouse base address.
+    #   baseAddress: "https://cn.example.org"
+    #   # -- Provide clearinghouse api path.
+    #   apiPath: "/api/v2/validation"
+    #   # -- Provide clearinghouse client-id from clearinghouse IAM.
+    #   clientId: "clearinghouse-client-id-cn"
+    #   # -- Provide clearinghouse client-secret from clearinghouse IAM.
+    #   clientSecret: ""
+    #   # -- Provide default clearinghouse token address.
+    #   tokenAddress: "https://cn.example.org/realms/example/protocol/openid-connect/token"
+    #   # -- if set to true the self description document creation will be skipped for company registrations as well as connector registrations
+    #   clearinghouseConnectDisabled: false
 
 # -- Provide issuer component base address
 issuerComponentAddress: "https://ssi-credential-issuer.example.org"
@@ -686,9 +718,13 @@ backend:
         memory: 200M
     processIdentity:
       processUserId: d21d2e8a-fe35-483c-b2b8-4100ed7f0953
-    batchDelete:
+    batchProcessing:
       # -- The maximum days a document can stay in state DELETED before it is removed from the database
-      days: 80
+      deleteDocuments:
+        days: 80
+      # -- Defines the days a AWAIT_CLEARING_HOUSE_RESPONSE process can stay in state TODO before the process is retriggered
+      retriggerClearinghouse:
+        days: 30
     logging:
       default: "Information"
   notification:
@@ -887,15 +923,7 @@ backend:
       # -- Client-secret for sdfactory client-id. Secret-key 'sdfactory-client-secret'.
       clientSecret: ""
     clearinghouse:
-      scope: "openid"
-      grantType: "client_credentials"
-      # -- Provide clearinghouse client-id from clearinghouse IAM.
-      clientId: "clearinghouse-client-id"
-      # -- Client-secret for clearinghouse client-id. Secret-key 'clearinghouse-client-secret'.
-      clientSecret: ""
       callbackPath: "/api/administration/registration/clearinghouse"
-      # -- Defines the days a END_CLEARINGHOUSE process can stay in state TODO before the process is retriggered
-      retriggerEndClearinghouseIntervalInDays: 30
     processes:
       lockExpirySeconds: "300"
     offerSubscriptionProcess:

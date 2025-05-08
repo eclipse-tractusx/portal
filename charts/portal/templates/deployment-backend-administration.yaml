@@ -544,6 +544,19 @@ spec:
           value: "{{ .Values.backend.processesworker.mailing.encryptionConfigs.index0.paddingMode }}"
         - name: "BPNACCESS__BASEADDRESS"
           value: "{{ .Values.bpdm.poolAddress }}{{ .Values.bpdm.poolApiPath }}"
+        - name: "OFFERPROVIDER__ENCRYPTIONCONFIGINDEX"
+          value: "{{ .Values.backend.processesworker.offerprovider.encryptionConfigIndex }}"
+        - name: "OFFERPROVIDER__ENCRYPTIONCONFIGS__0__INDEX"
+          value: "{{ .Values.backend.processesworker.offerprovider.encryptionConfigs.index0.index}}"
+        - name: "OFFERPROVIDER__ENCRYPTIONCONFIGS__0__CIPHERMODE"
+          value: "{{ .Values.backend.processesworker.offerprovider.encryptionConfigs.index0.cipherMode}}"
+        - name: "OFFERPROVIDER__ENCRYPTIONCONFIGS__0__PADDINGMODE"
+          value: "{{ .Values.backend.processesworker.offerprovider.encryptionConfigs.index0.paddingMode}}"
+        - name: "OFFERPROVIDER__ENCRYPTIONCONFIGS__0__ENCRYPTIONKEY"
+          valueFrom:
+            secretKeyRef:
+              name: "{{ .Values.backend.interfaces.secret }}"
+              key: "offerprovider-encryption-key0"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}

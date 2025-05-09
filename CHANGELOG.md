@@ -2,6 +2,22 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
+## 2.5.0-RC1
+
+### Change
+
+* changed to new container images
+  * portal-frontend: 2.5.0-RC1
+  * portal-backend: 2.5.0-RC1
+  * portal-frontend-registration: v2.2.1-RC1
+* portal-backend
+  * added configuration for region specific clearinghouses and SD toggle [#539](https://github.com/eclipse-tractusx/portal/pull/539)
+
+### Bugfixes
+
+* portal-backend
+  * fixed image pull secret indentation for cronjobs [#533](https://github.com/eclipse-tractusx/portal/pull/533)
+
 ## 2.4.0
 
 ### Change

@@ -760,7 +760,7 @@ backend:
     name: "services-service"
     image:
       name: "docker.io/tractusx/portal-services-service"
-      servicesservicetag: v2.5.0-RC1
+      servicesservicetag: 467e7f325352b526f802b1204f51073b5e080cb9
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

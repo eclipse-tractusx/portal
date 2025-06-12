@@ -2,25 +2,16 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 2.5.0-RC2
+## 2.5.0
 
 * changed to new container images
-  * portal-frontend: 2.5.0-RC2
-  * portal-backend: 2.5.0-RC2
+  * portal-frontend: 2.5.0
+  * portal-backend: 2.5.0
   * portal-assets: 2.5.0
-* portal-backend
-  * increase memory for administration service [#544](https://github.com/eclipse-tractusx/portal/pull/544)
-
-## 2.5.0-RC1
-
-### Change
-
-* changed to new container images
-  * portal-frontend: 2.5.0-RC1
-  * portal-backend: 2.5.0-RC1
-  * portal-frontend-registration: v2.2.1-RC1
+  * portal-frontend-registration: v2.2.1
 * portal-backend
   * added configuration for region specific clearinghouses and SD toggle [#539](https://github.com/eclipse-tractusx/portal/pull/539)
+  * increased memory for administration service [#544](https://github.com/eclipse-tractusx/portal/pull/544)
 
 ### Bugfixes
 

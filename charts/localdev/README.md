@@ -574,7 +574,7 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../portal | portal | 2.4.0 |
+| file://../portal | portal | 2.5.0-RC2 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
 | https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.1.0 |
 | https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.1.0 |

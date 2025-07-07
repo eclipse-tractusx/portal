@@ -223,7 +223,7 @@ frontend:
     name: "assets"
     image:
       name: "docker.io/tractusx/portal-assets"
-      assetstag: 276986c1f99c8eafc6e5fc40067237c72a5c7162
+      assetstag: fcdf7ce36f7cb8b547fcd1364404beff09a82112
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

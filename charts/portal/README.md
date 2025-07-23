@@ -81,6 +81,7 @@ dependencies:
 | clearinghouse.default.clearinghouseConnectDisabled | bool | `false` | if set to true the self description document creation will be skipped for company registrations as well as connector registrations |
 | clearinghouse.regional | list | `[]` | Provide the configuration for regional clearing houses |
 | issuerComponentAddress | string | `"https://ssi-credential-issuer.example.org"` | Provide issuer component base address |
+| issuerdid | string | `"did:web:example.org:test123"` | Provide issuer DID |
 | bpnDidResolver | object | `{"directoryApiAddress":"https://bpn-did-resolution-service.example.org/api/directory","managementApiAddress":"http://bpn-did-resolution-service-bdrs-server:8081"}` | Provide details about the BPN DID Resolver. |
 | bpnDidResolver.managementApiAddress | string | `"http://bpn-did-resolution-service-bdrs-server:8081"` | Provide management api base address |
 | bpnDidResolver.directoryApiAddress | string | `"https://bpn-did-resolution-service.example.org/api/directory"` | Provide directory api address |
@@ -106,20 +107,20 @@ dependencies:
 | frontend.ingress.hosts[0] | object | `{"host":"","paths":[{"backend":{"port":8080,"service":"portal"},"path":"/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"registration"},"path":"/registration/(.*)","pathType":"Prefix"},{"backend":{"port":8080,"service":"assets"},"path":"/((assets|documentation)/.*)","pathType":"Prefix"}]}` | Provide default path for the ingress record. |
 | frontend.portal.name | string | `"portal"` |  |
 | frontend.portal.image.name | string | `"docker.io/tractusx/portal-frontend"` |  |
-| frontend.portal.image.portaltag | string | `"v2.5.0"` |  |
+| frontend.portal.image.portaltag | string | `"7efb0e4709c85ec5ad9c53aab68993252978faa2"` |  |
 | frontend.portal.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.portal.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | frontend.portal.resources | object | `{"limits":{"cpu":"75m","memory":"125M"},"requests":{"cpu":"25m","memory":"125M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | frontend.portal.requireHttpsUrlPattern | bool | `true` |  |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"docker.io/tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"v2.2.1"` |  |
+| frontend.registration.image.registrationtag | string | `"493d787845e11a5f21e60867dbe4be42d69db697"` |  |
 | frontend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.registration.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | frontend.registration.resources | object | `{"limits":{"cpu":"75m","memory":"100M"},"requests":{"cpu":"25m","memory":"100M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | frontend.assets.name | string | `"assets"` |  |
 | frontend.assets.image.name | string | `"docker.io/tractusx/portal-assets"` |  |
-| frontend.assets.image.assetstag | string | `"v2.5.0"` |  |
+| frontend.assets.image.assetstag | string | `"fcdf7ce36f7cb8b547fcd1364404beff09a82112"` |  |
 | frontend.assets.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.assets.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | frontend.assets.resources | object | `{"limits":{"cpu":"45m","memory":"100M"},"requests":{"cpu":"25m","memory":"100M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -167,7 +168,7 @@ dependencies:
 | backend.healthChecks.readyness.path | string | `"/ready"` |  |
 | backend.registration.name | string | `"registration-service"` |  |
 | backend.registration.image.name | string | `"docker.io/tractusx/portal-registration-service"` |  |
-| backend.registration.image.registrationservicetag | string | `"v2.5.0"` |  |
+| backend.registration.image.registrationservicetag | string | `"fc99b120238969f46f12e6b2b24ccf1d18fbe83d"` |  |
 | backend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.registration.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.registration.resources | object | `{"limits":{"cpu":"225m","memory":"400M"},"requests":{"cpu":"75m","memory":"400M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -177,6 +178,7 @@ dependencies:
 | backend.registration.logging.default | string | `"Information"` |  |
 | backend.registration.healthChecks | object | `{"startup":{"tags":[{"name":"HEALTHCHECKS__0__TAGS__1","value":"portaldb"}]}}` | Keycloak Healthcheck to be enabled for startupProbe; once the centralidp Keycloak instance is available, enable healthcheck by uncommenting. |
 | backend.registration.portalRegistrationPath | string | `"/registration/"` |  |
+| backend.registration.universalResolverAddress | string | `"https://resolver.example.org/did"` |  |
 | backend.registration.keycloakClientId | string | `"Cl1-CX-Registration"` |  |
 | backend.registration.applicationStatusIds.status0 | string | `"SUBMITTED"` |  |
 | backend.registration.applicationStatusIds.status1 | string | `"DECLINED"` |  |
@@ -192,9 +194,10 @@ dependencies:
 | backend.registration.swaggerEnabled | bool | `false` |  |
 | backend.registration.registrationDocumentTypeIds.type0 | string | `"CX_FRAME_CONTRACT"` |  |
 | backend.registration.submitDocumentTypeIds.type0 | string | `"COMMERCIAL_REGISTER_EXTRACT"` |  |
+| backend.registration.bringYourOwnWallet.nonApplicableUserRoles.role0 | string | `"607818be-4978-41f4-bf63-fa8d2de51158"` |  |
 | backend.administration.name | string | `"administration-service"` |  |
 | backend.administration.image.name | string | `"docker.io/tractusx/portal-administration-service"` |  |
-| backend.administration.image.administrationservicetag | string | `"v2.5.0"` |  |
+| backend.administration.image.administrationservicetag | string | `"fc99b120238969f46f12e6b2b24ccf1d18fbe83d"` |  |
 | backend.administration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.administration.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.administration.resources | object | `{"limits":{"cpu":"225m","memory":"650M"},"requests":{"cpu":"75m","memory":"650M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -208,7 +211,6 @@ dependencies:
 | backend.administration.companyData.useCaseParticipationMediaTypes.type0 | string | `"PDF"` |  |
 | backend.administration.companyData.ssiCertificateMediaTypes.type0 | string | `"PDF"` |  |
 | backend.administration.companyData.companyCertificateMediaTypes.type0 | string | `"PDF"` |  |
-| backend.administration.issuerdid | string | `"did:web:example.org:test123"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type0 | string | `"application/x-pem-file"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type1 | string | `"application/x-x509-ca-cert"` |  |
 | backend.administration.connectors.validCertificationContentTypes.type2 | string | `"application/pkix-cert"` |  |
@@ -260,7 +262,7 @@ dependencies:
 | backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@example.org"` | Provide replyTo. |
 | backend.appmarketplace.name | string | `"marketplace-app-service"` |  |
 | backend.appmarketplace.image.name | string | `"docker.io/tractusx/portal-marketplace-app-service"` |  |
-| backend.appmarketplace.image.appmarketplaceservicetag | string | `"v2.5.0"` |  |
+| backend.appmarketplace.image.appmarketplaceservicetag | string | `"fc99b120238969f46f12e6b2b24ccf1d18fbe83d"` |  |
 | backend.appmarketplace.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.appmarketplace.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.appmarketplace.resources | object | `{"limits":{"cpu":"225m","memory":"500M"},"requests":{"cpu":"75m","memory":"500M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -343,7 +345,7 @@ dependencies:
 | backend.appmarketplace.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.portalmigrations.name | string | `"portal-migrations"` |  |
 | backend.portalmigrations.image.name | string | `"docker.io/tractusx/portal-portal-migrations"` |  |
-| backend.portalmigrations.image.portalmigrationstag | string | `"v2.5.0"` |  |
+| backend.portalmigrations.image.portalmigrationstag | string | `"a2504fdaeedada019882b4611908d7c946479140"` |  |
 | backend.portalmigrations.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.portalmigrations.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.portalmigrations.resources | object | `{"limits":{"cpu":"225m","memory":"350M"},"requests":{"cpu":"75m","memory":"350M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -355,7 +357,7 @@ dependencies:
 | backend.portalmigrations.logging.default | string | `"Information"` |  |
 | backend.portalmaintenance.name | string | `"portal-maintenance"` |  |
 | backend.portalmaintenance.image.name | string | `"docker.io/tractusx/portal-maintenance-service"` |  |
-| backend.portalmaintenance.image.portalmaintenancetag | string | `"v2.5.0"` |  |
+| backend.portalmaintenance.image.portalmaintenancetag | string | `"a2504fdaeedada019882b4611908d7c946479140"` |  |
 | backend.portalmaintenance.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.portalmaintenance.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.portalmaintenance.resources | object | `{"limits":{"cpu":"75m","memory":"200M"},"requests":{"cpu":"25m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -365,7 +367,7 @@ dependencies:
 | backend.portalmaintenance.logging.default | string | `"Information"` |  |
 | backend.notification.name | string | `"notification-service"` |  |
 | backend.notification.image.name | string | `"docker.io/tractusx/portal-notification-service"` |  |
-| backend.notification.image.notificationservicetag | string | `"v2.5.0"` |  |
+| backend.notification.image.notificationservicetag | string | `"fc99b120238969f46f12e6b2b24ccf1d18fbe83d"` |  |
 | backend.notification.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.notification.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.notification.resources | object | `{"limits":{"cpu":"225m","memory":"200M"},"requests":{"cpu":"75m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -375,7 +377,7 @@ dependencies:
 | backend.notification.logging.default | string | `"Information"` |  |
 | backend.services.name | string | `"services-service"` |  |
 | backend.services.image.name | string | `"docker.io/tractusx/portal-services-service"` |  |
-| backend.services.image.servicesservicetag | string | `"v2.5.0"` |  |
+| backend.services.image.servicesservicetag | string | `"fc99b120238969f46f12e6b2b24ccf1d18fbe83d"` |  |
 | backend.services.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.services.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.services.resources | object | `{"limits":{"cpu":"225m","memory":"500M"},"requests":{"cpu":"75m","memory":"500M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
@@ -420,14 +422,14 @@ dependencies:
 | backend.services.companyAdminRoles.role0 | string | `"Company Admin"` |  |
 | backend.provisioningmigrations.name | string | `"provisioning-migrations"` |  |
 | backend.provisioningmigrations.image.name | string | `"docker.io/tractusx/portal-provisioning-migrations"` |  |
-| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"v2.5.0"` |  |
+| backend.provisioningmigrations.image.provisioningmigrationstag | string | `"a2504fdaeedada019882b4611908d7c946479140"` |  |
 | backend.provisioningmigrations.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.provisioningmigrations.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.provisioningmigrations.resources | object | `{"limits":{"cpu":"75m","memory":"200M"},"requests":{"cpu":"25m","memory":"200M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.provisioningmigrations.logging.default | string | `"Information"` |  |
 | backend.processesworker.name | string | `"processes-worker"` |  |
 | backend.processesworker.image.name | string | `"docker.io/tractusx/portal-processes-worker"` |  |
-| backend.processesworker.image.processesworkertag | string | `"v2.5.0"` |  |
+| backend.processesworker.image.processesworkertag | string | `"a2504fdaeedada019882b4611908d7c946479140"` |  |
 | backend.processesworker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.processesworker.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | backend.processesworker.resources | object | `{"limits":{"cpu":"225m","memory":"600M"},"requests":{"cpu":"75m","memory":"600M"}}` | We recommend to review the default resource limits as this should a conscious choice. |

@@ -392,6 +392,7 @@ backend:
           - name: "HEALTHCHECKS__0__TAGS__1"
             value: "portaldb"
     portalRegistrationPath: "/registration/"
+    universalResolverAddress: "https://resolver.example.org/did"
     keycloakClientId: "Cl1-CX-Registration"
     applicationStatusIds:
       status0: "SUBMITTED"
@@ -412,6 +413,9 @@ backend:
       type0: "CX_FRAME_CONTRACT"
     submitDocumentTypeIds:
       type0: "COMMERCIAL_REGISTER_EXTRACT"
+    bringYourOwnWallet:
+      nonApplicableUserRoles:
+        role0: "607818be-4978-41f4-bf63-fa8d2de51158"
   administration:
     name: "administration-service"
     image:

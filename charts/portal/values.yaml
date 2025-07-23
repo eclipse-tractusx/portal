@@ -392,7 +392,6 @@ backend:
           - name: "HEALTHCHECKS__0__TAGS__1"
             value: "portaldb"
     portalRegistrationPath: "/registration/"
-    universalResolverAddress: "https://resolver.example.org/did"
     keycloakClientId: "Cl1-CX-Registration"
     applicationStatusIds:
       status0: "SUBMITTED"

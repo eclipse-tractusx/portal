@@ -104,6 +104,9 @@ clearinghouse:
 # -- Provide issuer component base address
 issuerComponentAddress: "https://ssi-credential-issuer.example.org"
 
+# -- Provide issuer DID
+issuerdid: "did:web:example.org:test123"
+
 # -- Provide details about the BPN DID Resolver.
 bpnDidResolver:
   # -- Provide management api base address
@@ -409,6 +412,9 @@ backend:
       type0: "CX_FRAME_CONTRACT"
     submitDocumentTypeIds:
       type0: "COMMERCIAL_REGISTER_EXTRACT"
+    bringYourOwnWallet:
+      nonApplicableUserRoles:
+        role0: "607818be-4978-41f4-bf63-fa8d2de51158"
   administration:
     name: "administration-service"
     image:
@@ -450,7 +456,6 @@ backend:
         type0: "PDF"
       companyCertificateMediaTypes:
         type0: "PDF"
-    issuerdid: "did:web:example.org:test123"
     connectors:
       validCertificationContentTypes:
         type0: "application/x-pem-file"

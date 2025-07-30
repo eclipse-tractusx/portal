@@ -103,10 +103,6 @@ clearinghouse:
 
 # -- Provide issuer component base address
 issuerComponentAddress: "https://ssi-credential-issuer.example.org"
-
-# -- Provide issuer DID
-issuerdid: "did:web:example.org:test123"
-
 # -- Provide details about the BPN DID Resolver.
 bpnDidResolver:
   # -- Provide management api base address

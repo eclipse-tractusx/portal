@@ -205,8 +205,6 @@ spec:
           value: "{{ .Values.backend.registration.submitDocumentTypeIds.type0 }}"
         - name: "UNIVERSALDIDRESOLVER__UNIVERSALRESOLVERADDRESS"
           value: "{{ .Values.backend.processesworker.dim.universalResolverAddress }}"
-        - name: "BRINGYOUROWNWALLET__NONAAPPLICABLEUSERROLES__0"
-          value: "{{ .Values.backend.registration.bringYourOwnWallet.nonApplicableUserRoles.role0 }}"
         - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGINDEX"
           value: "{{ .Values.backend.processesworker.mailing.encryptionConfigIndex }}"
         - name: "MAILINGPROCESSCREATION__ENCRYPTIONCONFIGS__0__INDEX"

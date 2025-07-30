@@ -409,9 +409,6 @@ backend:
       type0: "CX_FRAME_CONTRACT"
     submitDocumentTypeIds:
       type0: "COMMERCIAL_REGISTER_EXTRACT"
-    bringYourOwnWallet:
-      nonApplicableUserRoles:
-        role0: "607818be-4978-41f4-bf63-fa8d2de51158"
   administration:
     name: "administration-service"
     image:
@@ -454,6 +451,9 @@ backend:
       companyCertificateMediaTypes:
         type0: "PDF"
     issuerdid: "did:web:example.org:test123"
+    bringYourOwnWallet:
+      nonApplicableUserRoles:
+        role0: "607818be-4978-41f4-bf63-fa8d2de51158"
     connectors:
       validCertificationContentTypes:
         type0: "application/x-pem-file"

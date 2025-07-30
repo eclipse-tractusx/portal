@@ -296,7 +296,7 @@ spec:
         - name: "COMPANYDATA__DECENTRALIDENTITYMANAGEMENTAUTHURL"
           value: "{{ .Values.decentralIdentityManagementAuthAddress }}"
         - name: "COMPANYDATA__ISSUERDID"
-          value: "{{ .Values.issuerdid }}"
+          value: "{{ .Values.backend.administration.issuerdid }}"
         - name: "COMPANYDATA__BPNDIDRESOLVERURL"
           value: "{{ .Values.bpnDidResolver.directoryApiAddress }}"
         - name: "CONNECTORS__VALIDCERTIFICATIONCONTENTTYPES__0"

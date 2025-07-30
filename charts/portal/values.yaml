@@ -456,6 +456,7 @@ backend:
         type0: "PDF"
       companyCertificateMediaTypes:
         type0: "PDF"
+    issuerdid: "did:web:example.org:test123"
     connectors:
       validCertificationContentTypes:
         type0: "application/x-pem-file"

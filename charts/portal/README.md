@@ -113,7 +113,7 @@ dependencies:
 | frontend.portal.requireHttpsUrlPattern | bool | `true` |  |
 | frontend.registration.name | string | `"registration"` |  |
 | frontend.registration.image.name | string | `"docker.io/tractusx/portal-frontend-registration"` |  |
-| frontend.registration.image.registrationtag | string | `"v2.2.0-RC1"` |  |
+| frontend.registration.image.registrationtag | string | `"v2.2.2-RC1"` |  |
 | frontend.registration.image.pullPolicy | string | `"IfNotPresent"` |  |
 | frontend.registration.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
 | frontend.registration.resources | object | `{"limits":{"cpu":"75m","memory":"100M"},"requests":{"cpu":"25m","memory":"100M"}}` | We recommend to review the default resource limits as this should a conscious choice. |

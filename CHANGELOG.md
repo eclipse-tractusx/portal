@@ -2,13 +2,17 @@
 
 New features, fixed bugs, known defects and other noteworthy changes to each release of the Catena-X Portal helm chart.
 
-## 2.6.0-RC1
+## 2.6.0-RC2
+
+### Change
 
 * changed to new container images
   * portal-frontend: 2.6.0
   * portal-backend: 2.6.0
   * portal-assets: 2.6.0
   * portal-frontend-registration: v2.2.2
+* postgresql dependency
+  * change reference for postgresql bitnami image to bitnamilegacy/postgresql registry [#563](https://github.com/eclipse-tractusx/portal/pull/563)
 
 ## 2.5.0
 

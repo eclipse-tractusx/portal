@@ -37,8 +37,8 @@ on:
         type: string
       upgrade_from:
         description: 'portal chart version to upgrade from'
-        # portal version from 24.12 release
-        default: '2.3.0'
+        # portal version from 25.6 release
+        default: '2.5.0'
         required: false
         type: string
 
@@ -100,7 +100,9 @@ jobs:
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
           helm repo add tractusx-dev https://eclipse-tractusx.github.io/charts/dev
-          helm install portal tractusx-dev/portal --version ${{ github.event.inputs.upgrade_from || '2.3.0' }} --set replicaCount=1 --set postgresql.architecture=standalone --wait --wait-for-jobs --namespace upgrade --create-namespace
+          helm install portal tractusx-dev/portal --version ${{ github.event.inputs.upgrade_from || '2.5.0' }} \
+            --set replicaCount=1 --set postgresql.architecture=standalone --set postgresql.image.repository=bitnamilegacy/postgresql \
+            --wait --wait-for-jobs --namespace upgrade --create-namespace
           helm dependency update charts/portal
           helm upgrade portal charts/portal --set replicaCount=1 --set postgresql.architecture=standalone --wait --wait-for-jobs --namespace upgrade
         if: github.event_name != 'pull_request' || steps.list-changed.outputs.changed == 'true'

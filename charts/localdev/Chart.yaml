@@ -20,7 +20,7 @@
 apiVersion: v2
 name: localdev-portal-iam
 type: application
-version: 0.7.0
+version: 0.8.0-RC1
 description: Setup of CX Portal & IAM for local development
 home: https://github.com/eclipse-tractusx/portal-cd
 sources:
@@ -33,15 +33,15 @@ dependencies:
   - condition: portal.enabled
     name: portal
     repository: file://../portal
-    version: 2.6.0-RC1
+    version: 2.6.0-RC2
   - condition: centralidp.enabled
     name: centralidp
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 4.1.0
+    version: 4.2.1-rc.1
   - condition: sharedidp.enabled
     name: sharedidp
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 4.1.0
+    version: 4.2.1-rc.1
   - condition: pgadmin4.enabled
     name: pgadmin4
     repository: https://helm.runix.net

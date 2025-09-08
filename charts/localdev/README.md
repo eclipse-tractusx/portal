@@ -576,8 +576,8 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 |------------|------|---------|
 | file://../portal | portal | 2.6.0-RC2 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
-| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.2.0 |
-| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.2.0 |
+| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.2.1-rc.1 |
+| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.2.1-rc.1 |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
 ## Values

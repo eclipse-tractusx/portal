@@ -868,10 +868,10 @@ backend:
     resources:
       requests:
         cpu: 75m
-        memory: 600M
+        memory: 700M
       limits:
         cpu: 225m
-        memory: 600M
+        memory: 700M
     logging:
       default: "Information"
       processesLibrary: "Information"

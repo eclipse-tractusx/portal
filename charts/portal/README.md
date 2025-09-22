@@ -1,6 +1,6 @@
 # Helm chart for Catena-X Portal
 
-![Version: 2.6.0-RC2](https://img.shields.io/badge/Version-2.6.0--RC2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.6.0-RC2](https://img.shields.io/badge/AppVersion-2.6.0--RC2-informational?style=flat-square)
+![Version: 2.6.0](https://img.shields.io/badge/Version-2.6.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.6.0](https://img.shields.io/badge/AppVersion-2.6.0-informational?style=flat-square)
 
 This helm chart installs the Portal application which consists of
 
@@ -45,7 +45,7 @@ To use the helm chart as a dependency:
 dependencies:
   - name: portal
     repository: https://eclipse-tractusx.github.io/charts/dev
-    version: 2.6.0-RC2
+    version: 2.6.0
 ```
 
 ## Requirements
@@ -430,7 +430,7 @@ dependencies:
 | backend.processesworker.image.processesworkertag | string | `"5f97a5543850b3cb2bb1b0bf654e74e8f41ea90c"` |  |
 | backend.processesworker.image.pullPolicy | string | `"IfNotPresent"` |  |
 | backend.processesworker.image.pullSecrets | list | `[]` | Pull secrets for private docker registry |
-| backend.processesworker.resources | object | `{"limits":{"cpu":"225m","memory":"600M"},"requests":{"cpu":"75m","memory":"600M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
+| backend.processesworker.resources | object | `{"limits":{"cpu":"225m","memory":"700M"},"requests":{"cpu":"75m","memory":"700M"}}` | We recommend to review the default resource limits as this should a conscious choice. |
 | backend.processesworker.logging.default | string | `"Information"` |  |
 | backend.processesworker.logging.processesLibrary | string | `"Information"` |  |
 | backend.processesworker.logging.bpdmLibrary | string | `"Information"` |  |

@@ -1,6 +1,6 @@
 # Setup of CX Portal & IAM for local development
 
-![Version: 0.8.0-RC1](https://img.shields.io/badge/Version-0.8.0--RC1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-2.0.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-3.0.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-3.0.0/charts/sharedidp/README.md)).
 
@@ -574,10 +574,10 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../portal | portal | 2.6.0-RC2 |
+| file://../portal | portal | 2.6.0 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
-| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.2.1-rc.1 |
-| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.2.1-rc.1 |
+| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.2.1 |
+| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.2.1 |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
 ## Values

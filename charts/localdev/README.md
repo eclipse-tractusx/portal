@@ -1,6 +1,6 @@
 # Setup of CX Portal & IAM for local development
 
-![Version: 0.7.0](https://img.shields.io/badge/Version-0.7.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.8.0](https://img.shields.io/badge/Version-0.8.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 This umbrella chart installs the helm charts of the [CX Portal](https://github.com/eclipse-tractusx/portal-cd/blob/portal-2.0.0/charts/portal/README.md) and of the [CX IAM](https://github.com/eclipse-tractusx/portal-iam) Keycloak instances ([centralidp](https://github.com/eclipse-tractusx/portal-iam/blob/centralidp-3.0.0/charts/centralidp/README.md) and [sharedidp](https://github.com/eclipse-tractusx/portal-iam/blob/sharedidp-3.0.0/charts/sharedidp/README.md)).
 
@@ -574,10 +574,10 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../portal | portal | 2.5.0 |
+| file://../portal | portal | 2.6.0 |
 | https://charts.bitnami.com/bitnami | postgresportal(postgresql) | 12.12.x |
-| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.1.0 |
-| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.1.0 |
+| https://eclipse-tractusx.github.io/charts/dev | centralidp | 4.2.1 |
+| https://eclipse-tractusx.github.io/charts/dev | sharedidp | 4.2.1 |
 | https://helm.runix.net | pgadmin4 | 1.17.x |
 
 ## Values
@@ -697,6 +697,9 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | portal.backend.provisioning.sharedRealm.smtpServer.replyTo | string | `"smtp@tx.test"` |  |
 | portal.backend.ingress | object | `{"annotations":{"nginx.ingress.kubernetes.io/cors-allow-origin":"http://localhost:3000, http://*.tx.test","nginx.ingress.kubernetes.io/enable-cors":"true","nginx.ingress.kubernetes.io/proxy-body-size":"8m","nginx.ingress.kubernetes.io/use-regex":"true"},"className":"nginx","enabled":true,"hosts":[{"host":"portal-backend.tx.test","paths":[{"backend":{"port":8080,"service":"registration-service"},"path":"/api/registration","pathType":"Prefix"},{"backend":{"port":8080,"service":"administration-service"},"path":"/api/administration","pathType":"Prefix"},{"backend":{"port":8080,"service":"notification-service"},"path":"/api/notification","pathType":"Prefix"},{"backend":{"port":8080,"service":"provisioning-service"},"path":"/api/provisioning","pathType":"Prefix"},{"backend":{"port":8080,"service":"marketplace-app-service"},"path":"/api/apps","pathType":"Prefix"},{"backend":{"port":8080,"service":"services-service"},"path":"/api/services","pathType":"Prefix"}]}],"name":"portal-backend"}` | docs: http://portal-backend.tx.test/api/administration/swagger/index.html http://portal-backend.tx.test/api/registration/swagger/index.html http://portal-backend.tx.test/api/apps/swagger/index.html http://portal-backend.tx.test/api/services/swagger/index.html http://portal-backend.tx.test/api/notification/swagger/index.html |
 | portal.postgresql.nameOverride | string | `"portal-backend-postgresql"` |  |
+| portal.postgresql.image.registry | string | `"docker.io"` |  |
+| portal.postgresql.image.repository | string | `"bitnamilegacy/postgresql"` |  |
+| portal.postgresql.image.tag | string | `"15-debian-11"` |  |
 | portal.postgresql.architecture | string | `"standalone"` |  |
 | portal.postgresql.auth.password | string | `"dbpasswordportal"` |  |
 | portal.postgresql.auth.portalPassword | string | `"dbpasswordportal"` |  |
@@ -746,30 +749,32 @@ See [cert-manager self-signed](https://cert-manager.io/docs/configuration/selfsi
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[4].clientSecret | string | `"changeme"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[5].clientId | string | `"sa-cl2-05"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[5].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[6].clientId | string | `"sa-cl3-cx-1"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[6].clientId | string | `"sa-cl2-06"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[6].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[7].clientId | string | `"sa-cl5-custodian-2"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[7].clientId | string | `"sa-cl3-cx-1"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[7].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[8].clientId | string | `"sa-cl7-cx-1"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[8].clientId | string | `"sa-cl5-custodian-2"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[8].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[9].clientId | string | `"sa-cl7-cx-5"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[9].clientId | string | `"sa-cl7-cx-1"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[9].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[10].clientId | string | `"sa-cl7-cx-7"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[10].clientId | string | `"sa-cl7-cx-5"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[10].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[11].clientId | string | `"sa-cl8-cx-1"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[11].clientId | string | `"sa-cl7-cx-7"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[11].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[12].clientId | string | `"sa-cl21-01"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[12].clientId | string | `"sa-cl8-cx-1"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[12].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[13].clientId | string | `"sa-cl22-01"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[13].clientId | string | `"sa-cl21-01"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[13].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[14].clientId | string | `"sa-cl24-01"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[14].clientId | string | `"sa-cl22-01"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[14].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[15].clientId | string | `"sa-cl25-cx-1"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[15].clientId | string | `"sa-cl24-01"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[15].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[16].clientId | string | `"sa-cl25-cx-2"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[16].clientId | string | `"sa-cl25-cx-1"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[16].clientSecret | string | `"changeme"` |  |
-| centralidp.realmSeeding.serviceAccounts.clientSecrets[17].clientId | string | `"sa-cl25-cx-3"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[17].clientId | string | `"sa-cl25-cx-2"` |  |
 | centralidp.realmSeeding.serviceAccounts.clientSecrets[17].clientSecret | string | `"changeme"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[18].clientId | string | `"sa-cl25-cx-3"` |  |
+| centralidp.realmSeeding.serviceAccounts.clientSecrets[18].clientSecret | string | `"changeme"` |  |
 | centralidp.realmSeeding.bpn | string | `"BPNL00000003CRHK"` |  |
 | centralidp.realmSeeding.sharedidp | string | `"http://sharedidp.tx.test"` |  |
 | sharedidp.enabled | bool | `true` |  |

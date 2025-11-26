@@ -860,7 +860,7 @@ backend:
     name: "processes-worker"
     image:
       name: "docker.io/tractusx/portal-processes-worker"
-      processesworkertag: e020345667592cec1a77ea378a555216cfe1af0b
+      processesworkertag: c23994ba44b202517a8cd5ff6584c6539665adfb
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

@@ -413,7 +413,7 @@ backend:
     name: "administration-service"
     image:
       name: "docker.io/tractusx/portal-administration-service"
-      administrationservicetag: b02de099fa28f76502222e08c88333a60bccaddd
+      administrationservicetag: bd0cf19f6819d967667d6f944a6dfa8c19952442
       pullPolicy: "IfNotPresent"
       # -- Pull secrets for private docker registry
       pullSecrets: []

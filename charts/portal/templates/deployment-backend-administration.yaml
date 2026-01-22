@@ -238,7 +238,7 @@ spec:
           value: "{{ .Values.backend.processesworker.dim.universalResolverAddress }}"
         - name: "APPLICATIONCHECKLIST__DIM__DIDDOCUMENTBASELOCATION"
           value: "{{ .Values.portalBackendAddress }}{{ .Values.backend.processesworker.dim.didDocumentPath }}"
-        - name: "BRINGYOUROWNWALLET__NONAAPPLICABLEUSERROLES__0"
+        - name: "BRINGYOUROWNWALLET__NONAPPLICABLEUSERROLES__0"
           value: "{{ .Values.backend.administration.bringYourOwnWallet.nonApplicableUserRoles.role0 }}"
         - name: "APPLICATIONCHECKLIST__DIM__MAXVALIDATIONTIMEINDAYS"
           value: "{{ .Values.backend.processesworker.dim.maxValidationTimeInDays }}"

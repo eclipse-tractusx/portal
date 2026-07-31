@@ -64,6 +64,8 @@ spec:
             value: "{{ .Values.centralidp.realm }}"
           - name: CLIENT_ID_REGISTRATION
             value: "{{ .Values.centralidp.clients.registration }}"
+          - name: ISSUER_ID
+            value: "{{ .Values.backend.administration.issuerdid }}"
         ports:
         - name: http
           containerPort: {{ .Values.portContainer }}
